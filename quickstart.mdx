@@ -1,86 +1,140 @@
 ---
 title: 'Quickstart'
-description: 'Start building awesome documentation in under 5 minutes'
+description: 'Learn how to start with Corgea'
 ---
 
-## Setup your development
+<Info>
+  **Prerequisite** You should have an existing scanning tool like Semgrep or Snyk. 
+</Info>
 
-Learn how to update your docs locally and and deploy them to the public.
+Step 1. Register with Corgea:
 
-### Edit and preview
+<Tip>
+ Get started by [registering](https://corgea.com/register) today for free.
+</Tip>
+
+Step 2. Send vulnerability report to Corgea
+
+After registering, you'll be welcomed with our Quickstart modal. 
+
+
+<Frame>
+  <img src="/images/get-command.png" style={{ borderRadius: '0.5rem' }} />
+</Frame>
+
+
+<Frame>
+  <img src="/images/checks-passed.png" style={{ borderRadius: '0.5rem' }} />
+</Frame>
+
+
+Pick Snyk or Semgrep to get the command you need to run in the repository you want to fix. 
+
+The command you copy will have all the needed functions and your API key.
+
+
+<CodeGroup>
+```bash Semgrep
+export CORGEA_TOKEN=<API_KEY>; curl -sSL https://cli.corgea.app | bash -s semgrep ci --json
+```
+
+```bash Snyk
+export CORGEA_TOKEN=<API_KEY>; curl -sSL https://cli.corgea.app | bash -s snyk code test --json
+```
+</CodeGroup>
+
+
+You can alternatively click on "Load Demo" or use following projects are designed to test security tools. Try cloning and fixing them with Corgea. .
+
 
 <AccordionGroup>
-  <Accordion icon="github" title="Clone your docs locally">
-    During the onboarding process, we created a repository on your Github with
-    your docs content. You can find this repository on our
-    [dashboard](https://dashboard.mintlify.com). To clone the repository
-    locally, follow these
-    [instructions](https://docs.github.com/en/repositories/creating-and-managing-repositories/cloning-a-repository)
-    in your terminal.
-  </Accordion>
-  <Accordion icon="rectangle-terminal" title="Preview changes">
-    Previewing helps you make sure your changes look as intended. We built a
-    command line interface to render these changes locally. 1. Install the
-    [Mintlify CLI](https://www.npmjs.com/package/mintlify) to preview the
-    documentation changes locally with this command: ``` npm i -g mintlify ```
-    2. Run the following command at the root of your documentation (where
-    `mint.json` is): ``` mintlify dev ```
+  <Accordion title="Example vulnerable projects">
+  juice-shop, a vulnerable Node.js + Express app:
+  ```bash Bash
+  git clone https://github.com/bkimminich/juice-shop
+  cd juice-shop
+  ```
+
+  Vulnerable-Flask-App, vulnerable Python + Flask:
+  ```bash Bash
+  git clone https://github.com/we45/Vulnerable-Flask-App
+  cd Vulnerable-Flask-App
+  ```
+
   </Accordion>
 </AccordionGroup>
 
-### Deploy your changes
 
-<AccordionGroup>
+Step 3. Issue fixes
 
-<Accordion icon="message-bot" title="Install our Github app">
-  Our Github app automatically deploys your changes to your docs site, so you
-  don't need to manage deployments yourself. You can find the link to install on
-  your [dashboard](https://dashboard.mintlify.com). Once the bot has been
-  successfully installed, there should be a check mark next to the commit hash
-  of the repo.
+
+The documentation website is now available at `http://localhost:3000`.
+
+
+
+## Limitations
+
+We're constantly working to add languages and scanners. 
+
+<Accordion icon="message" title="Langauge Support">
+- Python (Available)
+- Javascript (Available)
+- Typescript (Available)
+- Java (Coming Soon)
+- Go (Coming Soon)
+- .NET (Coming Soon)
+- PHP (Coming Soon)
 </Accordion>
-<Accordion icon="rocket" title="Push your changes">
+<Accordion icon="radar" title="Scanner Support">
   [Commit and push your changes to
   Git](https://docs.github.com/en/get-started/using-git/pushing-commits-to-a-remote-repository#about-git-push)
   for your changes to update in your docs site. If you push and don't see that
   the Github app successfully deployed your changes, you can also manually
   update your docs through our [dashboard](https://dashboard.mintlify.com).
 </Accordion>
+<Accordion icon="box" title="Repository Support">
+- GitHub (Available)
+- GitLab (Coming Soon)
+- BitBucket (Coming Soon)
+</Accordion>
 
+
+## Mintlify Versions
+
+Each CLI is linked to a specific version of Mintlify. Please update the CLI if your local website looks different than production.
+
+<CodeGroup>
+
+```bash npm
+npm i -g mintlify@latest
+```
+
+```bash yarn
+yarn global upgrade mintlify
+```
+
+</CodeGroup>
+
+## Troubleshooting
+
+Here's how to solve some common problems when working with the CLI.
+
+<AccordionGroup>
+  <Accordion title="Mintlify is not loading">
+    Update to Node v18. Run `mintlify install` and try again.
+  </Accordion>
+  <Accordion title="No such file or directory on Windows">
+Go to the `C:/Users/Username/.mintlify/` directory and remove the `mint`
+folder. Then Open the Git Bash in this location and run `git clone
+https://github.com/mintlify/mint.git`.
+
+Repeat step 3.
+
+  </Accordion>
+  <Accordion title="Getting an unknown error">
+    Try navigating to the root of your device and delete the ~/.mintlify folder.
+    Then run `mintlify dev` again.
+  </Accordion>
 </AccordionGroup>
 
-## Update your docs
-
-Add content directly in your files with MDX syntax and React components. You can use any of our components, or even build your own.
-
-<CardGroup>
-
-<Card title="Style Your Docs" icon="paintbrush" href="/settings/global">
-  Add flair to your docs with personalized branding.
-</Card>
-
-<Card
-  title="Add API Endpoints"
-  icon="square-code"
-  href="/api-playground/configuration"
->
-  Implement your OpenAPI spec and enable API user interaction.
-</Card>
-
-<Card
-  title="Integrate Analytics"
-  icon="chart-mixed"
-  href="/analytics/supported-integrations"
->
-  Draw insights from user interactions with your documentation.
-</Card>
-
-<Card
-  title="Host on a Custom Domain"
-  icon="browser"
-  href="/settings/custom-domain/subdomain"
->
-  Keep your docs on your own website's subdomain.
-</Card>
-
-</CardGroup>
+Curious about what changed in a CLI version? [Check out the CLI changelog.](/changelog/command-line)
