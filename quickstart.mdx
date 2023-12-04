@@ -3,6 +3,8 @@ title: 'Quickstart'
 description: 'Learn how to start with Corgea'
 ---
 
+## Get Started
+
 <Info>
   **Prerequisite** You should have an existing scanning tool like Semgrep or Snyk. 
 </Info>
@@ -10,7 +12,7 @@ description: 'Learn how to start with Corgea'
 Step 1. Register with Corgea:
 
 <Tip>
- Get started by [registering](https://corgea.com/register) today for free.
+ Get started by [registering](https://corgea.com/registeration) today for free.
 </Tip>
 
 Step 2. Send vulnerability report to Corgea
@@ -20,11 +22,6 @@ After registering, you'll be welcomed with our Quickstart modal.
 
 <Frame>
   <img src="/images/get-command.png" style={{ borderRadius: '0.5rem' }} />
-</Frame>
-
-
-<Frame>
-  <img src="/images/checks-passed.png" style={{ borderRadius: '0.5rem' }} />
 </Frame>
 
 
@@ -74,6 +71,8 @@ The documentation website is now available at `http://localhost:3000`.
 
 ## Limitations
 
+At Corgea, we're rentless in our pursuit of high quality code fixes. We conciously limit Corgea to ensure that we are able to deliver on fixes across languages, scanners and code repositories. 
+
 We're constantly working to add languages and scanners. 
 
 <Accordion icon="message" title="Langauge Support">
@@ -86,34 +85,24 @@ We're constantly working to add languages and scanners.
 - PHP (Coming Soon)
 </Accordion>
 <Accordion icon="radar" title="Scanner Support">
-  [Commit and push your changes to
-  Git](https://docs.github.com/en/get-started/using-git/pushing-commits-to-a-remote-repository#about-git-push)
-  for your changes to update in your docs site. If you push and don't see that
-  the Github app successfully deployed your changes, you can also manually
-  update your docs through our [dashboard](https://dashboard.mintlify.com).
+You can see all of the active integrations here: [Integrations](https://app.corgea.com/integrations)
+
+- Snyk (Available)
+- Semgrep (Available)
+- Checkmarx (Available)
+- Sonarqube (Coming Soon)
+- Veracode (Coming Soon)
 </Accordion>
 <Accordion icon="box" title="Repository Support">
 - GitHub (Available)
 - GitLab (Coming Soon)
 - BitBucket (Coming Soon)
 </Accordion>
+<Accordion icon="Bug" title="Issue Support">
+- CWE: Common Weakness Exposures (Available)
+- CVE: Common Vulnerability Exposures (Coming Soon)
+</Accordion>
 
-
-## Mintlify Versions
-
-Each CLI is linked to a specific version of Mintlify. Please update the CLI if your local website looks different than production.
-
-<CodeGroup>
-
-```bash npm
-npm i -g mintlify@latest
-```
-
-```bash yarn
-yarn global upgrade mintlify
-```
-
-</CodeGroup>
 
 ## Troubleshooting
 
