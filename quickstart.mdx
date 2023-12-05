@@ -9,63 +9,62 @@ description: 'Learn how to start with Corgea'
   **Prerequisite** You should have an existing scanning tool like Semgrep or Snyk. 
 </Info>
 
-Step 1. Register with Corgea:
 
-<Tip>
- Get started by [registering](https://corgea.com/registeration) today for free.
-</Tip>
+<Steps>
+  <Step title="Register with Corgea:">
+    <Tip>
+    Start in less than 10 seconds by [registering](https://corgea.com/registeration) today for free. No credit card required. 
+    </Tip>
+  </Step>
+  <Step title="Send vulnerability report to Corgea">
+    After registering, you'll be welcomed with our Quickstart modal. 
 
-Step 2. Send vulnerability report to Corgea
-
-After registering, you'll be welcomed with our Quickstart modal. 
-
-
-<Frame>
-  <img src="/images/get-command.png" style={{ borderRadius: '0.5rem' }} />
-</Frame>
-
-
-Pick Snyk or Semgrep to get the command you need to run in the repository you want to fix. 
-
-The command you copy will have all the needed functions and your API key.
+    <Frame>
+      <img src="/images/get-command.png" style={{ borderRadius: '0.5rem' }} />
+    </Frame>
 
 
-<CodeGroup>
-```bash Semgrep
-export CORGEA_TOKEN=<API_KEY>; curl -sSL https://cli.corgea.app | bash -s semgrep ci --json
-```
+    Pick Snyk or Semgrep to get the command you need to run in the repository you want to fix. 
 
-```bash Snyk
-export CORGEA_TOKEN=<API_KEY>; curl -sSL https://cli.corgea.app | bash -s snyk code test --json
-```
-</CodeGroup>
+    The command you copy will have all the needed functions and your API key.
 
 
-You can alternatively click on "Load Demo" or use following projects are designed to test security tools. Try cloning and fixing them with Corgea. .
+    <CodeGroup>
+    ```bash Semgrep
+    export CORGEA_TOKEN=<API_KEY>; curl -sSL https://cli.corgea.app | bash -s semgrep ci --json
+    ```
+
+    ```bash Snyk
+    export CORGEA_TOKEN=<API_KEY>; curl -sSL https://cli.corgea.app | bash -s snyk code test --json
+    ```
+    </CodeGroup>
 
 
-<AccordionGroup>
-  <Accordion title="Example vulnerable projects">
-  juice-shop, a vulnerable Node.js + Express app:
-  ```bash Bash
-  git clone https://github.com/bkimminich/juice-shop
-  cd juice-shop
-  ```
-
-  Vulnerable-Flask-App, vulnerable Python + Flask:
-  ```bash Bash
-  git clone https://github.com/we45/Vulnerable-Flask-App
-  cd Vulnerable-Flask-App
-  ```
-
-  </Accordion>
-</AccordionGroup>
+    You can alternatively click on "Load Demo" or use following projects are designed to test security tools. Try cloning and fixing them with Corgea. .
 
 
-Step 3. Issue fixes
+    <AccordionGroup>
+      <Accordion title="Example vulnerable projects">
+      juice-shop, a vulnerable Node.js + Express app:
+      ```bash Bash
+      git clone https://github.com/bkimminich/juice-shop
+      cd juice-shop
+      ```
 
+      Vulnerable-Flask-App, vulnerable Python + Flask:
+      ```bash Bash
+      git clone https://github.com/we45/Vulnerable-Flask-App
+      cd Vulnerable-Flask-App
+      ```
 
-The documentation website is now available at `http://localhost:3000`.
+      </Accordion>
+    </AccordionGroup>
+
+  </Step>
+  <Step title="Issue Fixes">
+    These are instructions or content that only pertain to the third step.
+  </Step>
+</Steps>
 
 
 

@@ -35,12 +35,12 @@
     {
       "name": "Documentation",
       "icon": "book-open-cover",
-      "url": "https://corgea.com/docs"
+      "url": "https://docs.corgea.app/docs"
     },
     {
-      "name": "Community",
-      "icon": "slack",
-      "url": "https://mintlify.com/community"
+      "name": "Roadmap",
+      "icon": "road",
+      "url": "https://docs.corgea.app/roadmap"
     },
     {
       "name": "Blog",
@@ -55,7 +55,7 @@
     },
     {
       "group": "Docs",
-      "pages": ["scanning", "fixes", "github", "supported", "roadmap"]
+      "pages": ["scanning", "fixes", "github", "limitations", "user_management"]
     },
     {
       "group": "Releases",

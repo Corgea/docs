@@ -1,0 +1,60 @@
+---
+title: 'Scanning'
+description: 'Start building awesome documentation in under 5 minutes'
+---
+
+## Scanning your repository
+
+<Info>
+  **Prerequisite** You registered in Corgea
+
+  **Prerequisite** You should have an existing scanning tool like Semgrep or Snyk. 
+</Info>
+
+
+<Steps>
+  <Step title="Go to repository">
+    Go to the repository you want to scan:
+  <CodeGroup>
+  ```bash Bash
+  cd <<Respository Name>>
+  ```
+  </CodeGroup>
+  </Step>
+  <Step title="Get Command">
+    Go to the [integrations](https://corgea.app/integrations) page in Corgea to obtain the correct command for your scanner.
+
+    The command you copy will have all the needed functions and your API key.
+
+    <CodeGroup>
+    ```bash Semgrep
+    export CORGEA_TOKEN=<API_KEY>; curl -sSL https://cli.corgea.app | bash -s semgrep ci --json
+    ```
+
+    ```bash Snyk
+    export CORGEA_TOKEN=<API_KEY>; curl -sSL https://cli.corgea.app | bash -s snyk code test --json
+    ```
+    </CodeGroup>
+  </Step>
+  <Step title="Run Command">
+    Once a scan is completed a scan report will be generated in the repository folder and a copy will be sent to Corgea for processing.
+
+    <Frame>
+      <img src="/images/completed-scan.png" style={{ borderRadius: '0.5rem' }} />
+    </Frame>
+  </Step>
+  <Step title="Issue Fixes">
+  Depending on the size of the results in the scan, it may take sometime for results to show up. For a couple of hundred findings, it should take 10 mins. 
+
+  Go to [fixes](fixes) to learn more.
+  </Step>
+</Steps>
+
+## Troubleshooting
+
+<AccordionGroup>
+  <Accordion title="Command Not Found">
+  </Accordion>
+</AccordionGroup>
+
+
