@@ -9,10 +9,10 @@
   "colors": {
     "primary": "#3b71ca",
     "light": "#3b71ca",
-    "dark": "#3b71ca",
+    "dark": "#69a9de",
     "anchors": {
-      "from": "#0D9373",
-      "to": "#07C983"
+      "from": "#3b71ca",
+      "to": "#69a9de"
     }
   },
   "topbarLinks": [
@@ -23,20 +23,9 @@
   ],
   "topbarCtaButton": {
     "name": "Go to Corgea",
-    "url": "https://corgea.com/app"
+    "url": "https://corgea.app"
   },
-  "tabs": [
-    {
-      "name": "API Reference",
-      "url": "api-reference"
-    }
-  ],
   "anchors": [
-    {
-      "name": "Documentation",
-      "icon": "book-open-cover",
-      "url": "https://docs.corgea.app/docs"
-    },
     {
       "name": "Roadmap",
       "icon": "road",
@@ -51,15 +40,15 @@
   "navigation": [
     {
       "group": "Get Started",
-      "pages": ["introduction", "quickstart", "old_quickstart", "how_it_works"]
+      "pages": ["introduction", "quickstart", "how_it_works"]
     },
     {
       "group": "Docs",
-      "pages": ["scanning", "fixes", "github", "limitations", "user_management"]
+      "pages": ["scanning", "fixes", "github", "user_management"]
     },
     {
       "group": "Releases",
-      "pages": ["release_notes", "roadmap"]
+      "pages": ["roadmap"]
     },
     {
       "group": "Trust Corgea",

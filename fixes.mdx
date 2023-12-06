@@ -1,6 +1,71 @@
 ---
 title: 'Fixes'
-description: 'Start building awesome documentation in under 5 minutes'
+description: 'Start fixing vulnerable code.'
 ---
 
-## Fixes
+
+## Scanning your repository
+
+<Info>
+  **Prerequisite** You [registered](https://corgea.app/registration/) in Corgea
+
+  **Prerequisite** You have completed a [scan](scanning)
+
+  **Prerequisite** You have installed the Corgea [Github](github) app
+</Info>
+
+  Depending on the size of the results in the scan, it may take sometime for results to show up. For a couple of hundred findings, it should take 10 mins. 
+
+  Go to [scanning](scanning) to learn more.
+
+
+<Steps>
+  <Step title="Select an Issue">
+    - Go to the [issues](https://corgea.app/issues) page.
+    - Click on an issue that you'd like to resolve.
+  </Step>
+  <Step title="Review the fix">
+    We recommend to review if the fix is appropriate for the issue because these are AI generated. We are contiously working on making sure fixes are good. 
+    <Tip>
+    Tips on how to review a fix:
+    - Look at the issue and the AI-generated fix explanation.
+    - Look at the code diff generated.
+    - Are there any syntax issues? 
+    - Is the fix appropriate for the issue generally? 
+    - Is the change importing a new library, and are we ok with that? 
+    - Does the fix affect any downstream issues? 
+    </Tip>
+  </Step>
+  <Step title="Optionally: Vote on the fix">
+  <Tip>Leave a review on a fix!</Tip>
+    If the fix is good or bad, please leave a vote, and ideally a comment. We review your feedback and use it to make Corgea better, so we greatly appreciate them. 
+    <Frame>
+      <img src="/images/fix-feedback.png" style={{ borderRadius: '0.5rem' }} />
+    </Frame>
+
+  </Step>
+  <Step title="Generate Pull-request">
+    If the fix seems appropriate, click on the "Generate Pull-request" button. 
+    
+    Corgea will automatically issue a pull-request with a description of the issue, and a description of the fix. It will tag the last committer to the file as a reviewer
+  </Step>
+</Steps>
+
+## Troubleshooting
+
+<AccordionGroup>
+  <Accordion title="No Fix Generated">
+    It might several minutes to hours for fix to be generated based on the backlog of other fixes that you sent. 
+  </Accordion>
+  <Accordion title="I don't like the fix generated">
+    Please leave a vote using the thumbs up and down icons, and ideally a comment. We review your feedback and use it to make Corgea better, so we greatly appreciate them. 
+    <Frame>
+      <img src="/images/fix-feedback.png" style={{ borderRadius: '0.5rem' }} />
+    </Frame>
+  </Accordion>
+</AccordionGroup>
+
+
+
+
+

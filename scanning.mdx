@@ -1,14 +1,12 @@
 ---
 title: 'Scanning'
-description: 'Start building awesome documentation in under 5 minutes'
+description: 'Start generating fixes for your repository'
 ---
 
 ## Scanning your repository
 
 <Info>
   **Prerequisite** You registered in Corgea
-
-  **Prerequisite** You should have an existing scanning tool like Semgrep or Snyk. 
 </Info>
 
 
@@ -54,7 +52,24 @@ description: 'Start building awesome documentation in under 5 minutes'
 
 <AccordionGroup>
   <Accordion title="Command Not Found">
+  This error happens because you either don't have Snyk or Semgrep installed. 
+  ```
+  zsh: command not found: snyk
+  ```
+  You should install the appropriate scanner that you're using. 
+  - [Semgrep Installation](https://semgrep.dev/docs/getting-started/)
+  - [Snyk Installation](https://docs.snyk.io/snyk-cli/install-or-update-the-snyk-cli)
+
   </Accordion>
+  <Accordion title="Not Logged In">
+    You might receive an error that you're not logged into your SAST/SCA tool. 
+
+    Some tools require you to login to use the tool. For example, you can login to Semgrep with the following command:
+    ```
+      semgrep login
+    ```
+  </Accordion>
+
 </AccordionGroup>
 
 
