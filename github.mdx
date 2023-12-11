@@ -1,12 +1,20 @@
 ---
-title: 'Github'
+title: 'GitHub'
 description: 'Start generating fixes for your repository'
 ---
 
-## Github
-
+{/* ## Github */}
+<p>
+Currently Corgea only supports GitHub repositories via the Corgea GitHub App.
+This page will help you setup the GitHub App so Corgea can issue pull requests
+that fix issues.
+</p>
 <Steps>
-  <Step title="Click on button">
+  <Step title="Start by viewing an issue">
+    <Frame>
+      <img src="/images/install-gh-on-issue.png" style={{ borderRadius: '0.5rem' }} />
+    </Frame>
+    On the issues page, find the button with the text "Install Corgea"
     <Frame>
       <img src="/images/install-github.png" style={{ borderRadius: '0.5rem' }} />
     </Frame>
@@ -15,9 +23,49 @@ description: 'Start generating fixes for your repository'
     <Frame>
       <img src="/images/github-form.png" style={{ borderRadius: '0.5rem' }} />
     </Frame>
+    Fill out your GitHub username (not email) and the name of the organization you
+    are installing. The organization name should be the one used in GitHub urls
+    for your repositories (e.g. <code>https://github.com/Corgea/</code>)
   </Step>
- <Step title="Continue setup in Github">
-
+  <Step title="Continue setup in Github">
+    Select only one organization to install for and make sure that the organization
+    you selected matches what your typed in previously. GitHub will ask you to accept
+    permissions and select which repositories are accessible. Only repositories
+    that are made accessible to Corgea will be capable of recieving pull requests
+    from Corgea.
+  </Step>
+  <Step title="Back to Corgea">
+    Select only one organization to install at a time and make sure that the organization
+    you selected matches what you typed in previously. Once we recieve the confirmation
+    from Github you will be able to issue a pull request
+    <Frame>
+      <img src="/images/github-form.png" style={{ borderRadius: '0.5rem' }} />
+    </Frame>
+    Fill in the base branch you want to merge this pull request into. It needs to
+    already exist.
+    <Frame>
+      <img src="/images/create-gh-pull-request.png" style={{ borderRadius: '0.5rem' }} />
+    </Frame>
+    When you click "Create Pull-Request" a new tab will open with pull request created.
+    You may need to disable your pop-up blocker.
   </Step>
 
 </Steps>
+
+## Troubleshooting
+
+### GitHub app not installed
+You may not have full permissions in GitHub to install a GitHub App by yourself.
+In this instance the admin or owner of the GitHub Organization will recieve a
+request from you in their notifcations. During this waiting period will display
+that the install is pending. When the Organization owner/admin accepts the
+request Corgea will recieve a webhook and update your account.
+
+### Re-issue the Pull Request
+You may have chosen the wrong base branch to merge into. In order to change this,
+close the existing pull request and delete the branch created in GitHub. Currently,
+you will have to message Corgea support to reset the Issue/Fix for you. In the future,
+you will be able to delete and reset from the Corgea interface.
+
+### Track Pull Request Status in Corgea
+This is on the roadmap for development.
