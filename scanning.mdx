@@ -26,6 +26,20 @@ description: 'Start generating fixes for your repository'
 
     In brief, this command will run your scanner, and send the vulnerabilities report to Corgea for analysis. If you'd like to see the contents of the command, you can do so [here](https://github.com/Corgea/cli/blob/main/cli.sh). 
 
+    <Card>
+      <iframe
+        width="650"
+        height="400"
+        src="https://www.loom.com/embed/0d3ed94d1f01401a86906fc9713ee709?sid=fceaf5e8-d892-4999-93ee-d86c97603577"
+        title="YouTube video player"
+        frameborder="0"
+        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+        allowFullScreen
+      ></iframe>
+
+    </Card>
+
+
     <CodeGroup>
     ```bash Semgrep
     export CORGEA_TOKEN=<API_KEY>; curl -sSL https://cli.corgea.app | bash -s semgrep ci --json
@@ -62,6 +76,12 @@ description: 'Start generating fixes for your repository'
   - [Semgrep Installation](https://semgrep.dev/docs/getting-started/)
   - [Snyk Installation](https://docs.snyk.io/snyk-cli/install-or-update-the-snyk-cli)
 
+  </Accordion>
+  <Accordion title="Invalid command provided. Supported SAST tools are snyk and semgrep currently">
+    Please make sure you've copied the full command as found in Corgea, and do not modify it. 
+  </Accordion>
+  <Accordion title="CORGEA_TOKEN is not set">
+    This happens when you try to execute the Corgea CLI command, but the CORGEA_TOKEN is missing from the command. Please get the full command from [here](https://www.corgea.app/integrations/). 
   </Accordion>
   <Accordion title="Not Logged In">
     You might receive an error that you're not logged into your SAST/SCA tool. 
