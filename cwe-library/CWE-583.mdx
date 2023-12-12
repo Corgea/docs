@@ -1,0 +1,16 @@
+---
+title: "CWE-583: finalize() Method Declared Public"
+---
+
+## Description
+The product violates secure coding principles for mobile code by declaring a finalize() method public.
+
+## Extended Description
+A product should never call finalize explicitly, except to call super.finalize() inside an implementation of finalize(). In mobile code situations, the otherwise error prone practice of manual garbage collection can become a security threat if an attacker can maliciously invoke a finalize() method because it is declared with public access.
+
+## Likelihood of Exploit
+None
+
+## Background Detail
+None
+        

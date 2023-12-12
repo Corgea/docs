@@ -1,0 +1,18 @@
+---
+title: "CWE-1280: Access Control Check Implemented After Asset is Accessed"
+---
+
+## Description
+A product's hardware-based access control check occurs after the asset has been accessed.
+
+## Extended Description
+
+The product implements a hardware-based access control check. The asset should be accessible only after the check is successful. If, however, this operation is not atomic and the asset is accessed before the check is complete, the security of the system may be compromised.
+
+
+## Likelihood of Exploit
+None
+
+## Background Detail
+None
+        

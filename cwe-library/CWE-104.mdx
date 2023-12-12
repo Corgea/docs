@@ -1,0 +1,16 @@
+---
+title: "CWE-104: Struts: Form Bean Does Not Extend Validation Class"
+---
+
+## Description
+If a form bean does not extend an ActionForm subclass of the Validator framework, it can expose the application to other weaknesses related to insufficient input validation.
+
+## Extended Description
+None
+
+## Likelihood of Exploit
+None
+
+## Background Detail
+In order to use the Struts Validator, a form must extend one of the following: ValidatorForm, ValidatorActionForm, DynaValidatorActionForm, and DynaValidatorForm. One of these classes must be extended because the Struts Validator ties in to the application by implementing the validate() method in these classes. Forms derived from the ActionForm and DynaActionForm classes cannot use the Struts Validator.
+        

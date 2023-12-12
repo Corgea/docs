@@ -1,0 +1,16 @@
+---
+title: "CWE-500: Public Static Field Not Marked Final"
+---
+
+## Description
+An object contains a public static field that is not marked final, which might allow it to be modified in unexpected ways.
+
+## Extended Description
+Public static variables can be read without an accessor and changed without a mutator by any classes in the application.
+
+## Likelihood of Exploit
+None
+
+## Background Detail
+When a field is declared public but not final, the field can be read and written to by arbitrary Java code.
+        

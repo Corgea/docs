@@ -1,0 +1,16 @@
+---
+title: "CWE-1265: Unintended Reentrant Invocation of Non-reentrant Code Via Nested Calls"
+---
+
+## Description
+During execution of non-reentrant code, the product performs a call that unintentionally produces a nested invocation of the non-reentrant code.
+
+## Extended Description
+In a complex product, a single function call may lead to many different possible code paths, some of which may involve deeply nested calls. It may be difficult to foresee all possible code paths that could emanate from a given function call. In some systems, an external actor can manipulate inputs to the system and thereby achieve a wide range of possible control flows. This is frequently a concern in products that execute scripts from untrusted sources. Examples of such products are web browsers and PDF readers. A weakness is present when one of the possible code paths resulting from a function call alters program state that the original caller assumes to be unchanged during the call.
+
+## Likelihood of Exploit
+None
+
+## Background Detail
+None
+        

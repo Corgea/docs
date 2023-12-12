@@ -1,0 +1,16 @@
+---
+title: "CWE-1275: Sensitive Cookie with Improper SameSite Attribute"
+---
+
+## Description
+The SameSite attribute for sensitive cookies is not set, or an insecure value is used.
+
+## Extended Description
+The SameSite attribute controls how cookies are sent for cross-domain requests. This attribute may have three values: 'Lax', 'Strict', or 'None'. If the 'None' value is used, a website may create a cross-domain POST HTTP request to another website, and the browser automatically adds cookies to this request. This may lead to Cross-Site-Request-Forgery (CSRF) attacks if there are no additional protections in place (such as Anti-CSRF tokens).
+
+## Likelihood of Exploit
+None
+
+## Background Detail
+None
+        

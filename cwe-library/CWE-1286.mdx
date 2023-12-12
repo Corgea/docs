@@ -1,0 +1,18 @@
+---
+title: "CWE-1286: Improper Validation of Syntactic Correctness of Input"
+---
+
+## Description
+The product receives input that is expected to be well-formed - i.e., to comply with a certain syntax - but it does not validate or incorrectly validates that the input complies with the syntax.
+
+## Extended Description
+
+Often, complex inputs are expected to follow a particular syntax, which is either assumed by the input itself, or declared within metadata such as headers. The syntax could be for data exchange formats, markup languages, or even programming languages.  When untrusted input is not properly validated for the expected syntax, attackers could cause parsing failures, trigger unexpected errors, or expose latent vulnerabilities that might not be directly exploitable if the input had conformed to the syntax.
+
+
+## Likelihood of Exploit
+None
+
+## Background Detail
+None
+        

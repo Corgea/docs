@@ -1,0 +1,24 @@
+---
+title: "CWE-1339: Insufficient Precision or Accuracy of a Real Number"
+---
+
+## Description
+The product processes a real number with an implementation in which the number's representation does not preserve required accuracy and precision in its fractional part, causing an incorrect result.
+
+## Extended Description
+When a security decision or calculation requires highly precise, accurate numbers such as financial calculations or prices, then small variations in the number could be exploited by an attacker.
+            There are multiple ways to store the fractional part of a real number in a computer. In all of these cases, there is a limit to the accuracy of recording a fraction. If the fraction can be represented in a fixed number of digits (binary or decimal), there might not be enough digits assigned to represent the number. In other cases the number cannot be represented in a fixed number of digits due to repeating in decimal or binary notation (e.g. 0.333333...) or due to a transcendental number such as Π or √2. Rounding of numbers can lead to situations where the computer results do not adequately match the result of sufficiently accurate math. 
+
+
+## Likelihood of Exploit
+None
+
+## Background Detail
+There are three major ways to store real numbers in computers. Each method is described along with the limitations of how they store their numbers.
+            
+Fixed: Some implementations use a fixed number of binary bits to represent both the integer and the fraction.  In the demonstrative example about Muller's Recurrence, the fraction 108.0 - ((815.0 - 1500.0 / z) / y) cannot be represented in 8 binary digits. The numeric accuracy within languages such as PL/1, COBOL and Ada is expressed in decimal digits rather than binary digits. In SQL and most databases, the length of the integer and the fraction are specified by the programmer in decimal. In the language C, fixed reals are implemented according to ISO/IEC TR18037
+Floating: The number is stored in a version of scientific notation with a fixed length for the base and the significand. This allows flexibility for more accuracy when the integer portion is smaller. When dealing with large integers, the fractional accuracy is less. Languages such as PL/1, COBOL and Ada set the accuracy by decimal digit representation rather than using binary digits. Python also implements decimal floating-point numbers using the IEEE 754-2008 encoding method.
+Ratio: The number is stored as the ratio of two integers. These integers also have their limits. These integers can be stored in a fixed number of bits or in a vector of digits. While the vector of digits method provides for very large integers, they cannot truly represent a repeating or transcendental number as those numbers do not ever have a fixed length.
+
+
+        

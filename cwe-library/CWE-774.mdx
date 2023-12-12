@@ -1,0 +1,16 @@
+---
+title: "CWE-774: Allocation of File Descriptors or Handles Without Limits or Throttling"
+---
+
+## Description
+The product allocates file descriptors or handles on behalf of an actor without imposing any restrictions on how many descriptors can be allocated, in violation of the intended security policy for that actor.
+
+## Extended Description
+This can cause the product to consume all available file descriptors or handles, which can prevent other processes from performing critical file processing operations.
+
+## Likelihood of Exploit
+None
+
+## Background Detail
+None
+        

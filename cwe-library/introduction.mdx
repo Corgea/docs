@@ -1,33 +1,23 @@
 ---
-title: 'Introduction'
-description: 'Example section for showcasing API endpoints'
+title: Introduction
+description: "Welcome to Corgea's CWE Library"
 ---
 
-<Note>
-  If you're not looking to build API reference documentation, you can delete
-  this section by removing the api-reference folder.
-</Note>
+Welcome to the CWE Library Guide for Corgea. This reference is designed to be an authoritative source for understanding and navigating the myriad of common software weaknesses cataloged under the Common Weakness Enumeration (CWE) system.
 
-## Welcome
+## About CWEs
+CWEs represent a broad range of software vulnerabilities, coding mistakes, and security flaws that are widely recognized within the cybersecurity community. These weaknesses, if left unaddressed, can lead to serious security breaches, data loss, and system compromises. In an era where digital security is paramount, having a comprehensive understanding of these weaknesses is crucial for developers, security professionals, and organizations aiming to fortify their software against cyber threats.
 
-There are two ways to build API documentation: [OpenAPI](https://mintlify.com/docs/api-playground/openapi/setup) and [MDX components](https://mintlify.com/docs/api-playground/mdx/configuration). For the starter kit, we are using the following OpenAPI specification.
+CWE is sponsored by the U.S. Department of Homeland Security (DHS) Cybersecurity and Infrastructure Security Agency (CISA) and managed by the Homeland Security Systems Engineering and Development Institute (HSSEDI) which is operated by The MITRE Corporation (MITRE)
 
-<Card
-  title="Plant Store Endpoints"
-  icon="leaf"
-  href="https://github.com/mintlify/starter/blob/main/api-reference/openapi.json"
->
-  View the OpenAPI specification file
-</Card>
+## What does Corgea do with CWEs? 
+The Corgea platform leverages advanced AI algorithms with the CWEs we recieve from SAST scanners to implement effective fixes. Our AI-driven approach ensures a more efficient, accurate, and faster resolution of security issues compared to traditional manual methods.
 
-## Authentication
+## Library Structure
+- CWE Listing: An exhaustive list of CWEs, each uniquely identified by a number. This list serves as a quick reference to identify specific weaknesses.
+- Detailed Descriptions: For each CWE, you will find a detailed description outlining its nature, potential impact, and common scenarios in which it occurs. This information is crucial for understanding the underlying issues and how they might affect your software.
+- Best Practices and Prevention: Beyond fixing existing vulnerabilities, we provide insights into best practices and prevention strategies. This proactive approach is key to building resilient and secure software systems.
 
-All API endpoints are authenticated using Bearer tokens and picked up from the specification file.
+This reference guide is more than just a catalog of software weaknesses; it's a comprehensive resource for understanding, addressing, and preventing software vulnerabilities using the power of AI. Corgea is committed to advancing the field of cybersecurity, and this document is an essential tool in that ongoing effort.
 
-```json
-"security": [
-  {
-    "bearerAuth": []
-  }
-]
-```
+We hope this reference guide empowers you to build safer, more secure software, harnessing the full potential of AI to tackle the complex challenges of cybersecurity.

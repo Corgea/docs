@@ -1,0 +1,18 @@
+---
+title: "CWE-339: Small Seed Space in PRNG"
+---
+
+## Description
+A Pseudo-Random Number Generator (PRNG) uses a relatively small seed space, which makes it more susceptible to brute force attacks.
+
+## Extended Description
+
+		   PRNGs are entirely deterministic once seeded, so it should be extremely difficult to guess the seed. If an attacker can collect the outputs of a PRNG and then brute force the seed by trying every possibility to see which seed matches the observed output, then the attacker will know the output of any subsequent calls to the PRNG. A small seed space implies that the attacker will have far fewer possible values to try to exhaust all possibilities. 
+		 
+
+## Likelihood of Exploit
+None
+
+## Background Detail
+None
+        

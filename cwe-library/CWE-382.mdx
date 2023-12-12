@@ -1,0 +1,16 @@
+---
+title: "CWE-382: J2EE Bad Practices: Use of System.exit()"
+---
+
+## Description
+A J2EE application uses System.exit(), which also shuts down its container.
+
+## Extended Description
+It is never a good idea for a web application to attempt to shut down the application container. Access to a function that can shut down the application is an avenue for Denial of Service (DoS) attacks.
+
+## Likelihood of Exploit
+None
+
+## Background Detail
+None
+        

@@ -1,0 +1,29 @@
+---
+title: "CWE-1333: Inefficient Regular Expression Complexity"
+---
+
+## Description
+The product uses a regular expression with an inefficient, possibly exponential worst-case computational complexity that consumes excessive CPU cycles.
+
+## Extended Description
+Some regular expression engines have a feature called "backtracking". If the token cannot match, the engine "backtracks" to a position that may result in a different token that can match.
+                Backtracking becomes a weakness if all of these conditions are met:
+
+The number of possible backtracking attempts are exponential relative to the length of the input.
+The input can fail to match the regular expression.
+The input can be long enough.
+
+
+		  Attackers can create crafted inputs that
+		  intentionally cause the regular expression to use
+		  excessive backtracking in a way that causes the CPU
+		  consumption to spike.
+		
+
+
+## Likelihood of Exploit
+None
+
+## Background Detail
+None
+        

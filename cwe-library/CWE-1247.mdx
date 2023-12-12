@@ -1,0 +1,18 @@
+---
+title: "CWE-1247: Improper Protection Against Voltage and Clock Glitches"
+---
+
+## Description
+The device does not contain or contains incorrectly implemented circuitry or sensors to detect and mitigate voltage and clock glitches and protect sensitive information or software contained on the device.
+
+## Extended Description
+
+A device might support features such as secure boot which are supplemented with hardware and firmware support. This involves establishing a chain of trust, starting with an immutable root of trust by checking the signature of the next stage (culminating with the OS and runtime software) against a golden value before transferring control. The intermediate stages typically set up the system in a secure state by configuring several access control settings. Similarly, security logic for exercising a debug or testing interface may be implemented in hardware, firmware, or both. A device needs to guard against fault attacks such as voltage glitches and clock glitches that an attacker may employ in an attempt to compromise the system.
+
+
+## Likelihood of Exploit
+None
+
+## Background Detail
+None
+        

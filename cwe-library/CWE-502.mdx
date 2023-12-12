@@ -1,0 +1,20 @@
+---
+title: "CWE-502: Deserialization of Untrusted Data"
+---
+
+## Description
+The product deserializes untrusted data without sufficiently verifying that the resulting data will be valid.
+
+## Extended Description
+
+It is often convenient to serialize objects for communication or to save them for later use. However, deserialized data or code can often be modified without using the provided accessor functions if it does not use cryptography to protect itself. Furthermore, any cryptography would still be client-side security -- which is a dangerous security assumption.
+Data that is untrusted can not be trusted to be well-formed.
+When developers place no restrictions on "gadget chains," or series of instances and method invocations that can self-execute during the deserialization process (i.e., before the object is returned to the caller), it is sometimes possible for attackers to leverage them to perform unauthorized actions, like generating a shell.
+
+
+## Likelihood of Exploit
+None
+
+## Background Detail
+Serialization and deserialization refer to the process of taking program-internal object-related data, packaging it in a way that allows the data to be externally stored or transferred ("serialization"), then extracting the serialized data to reconstruct the original object ("deserialization").
+        

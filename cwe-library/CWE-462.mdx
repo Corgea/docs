@@ -1,0 +1,16 @@
+---
+title: "CWE-462: Duplicate Key in Associative List (Alist)"
+---
+
+## Description
+Duplicate keys in associative lists can lead to non-unique keys being mistaken for an error.
+
+## Extended Description
+A duplicate key entry -- if the alist is designed properly -- could be used as a constant time replace function. However, duplicate key entries could be inserted by mistake. Because of this ambiguity, duplicate key entries in an association list are not recommended and should not be allowed.
+
+## Likelihood of Exploit
+None
+
+## Background Detail
+None
+        

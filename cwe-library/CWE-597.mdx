@@ -1,0 +1,16 @@
+---
+title: "CWE-597: Use of Wrong Operator in String Comparison"
+---
+
+## Description
+The product uses the wrong operator when comparing a string, such as using "==" when the .equals() method should be used instead.
+
+## Extended Description
+In Java, using == or != to compare two strings for equality actually compares two objects for equality rather than their string values for equality. Chances are good that the two references will never be equal. While this weakness often only affects program correctness, if the equality is used for a security decision, the unintended comparison result could be leveraged to affect program security.
+
+## Likelihood of Exploit
+None
+
+## Background Detail
+None
+        

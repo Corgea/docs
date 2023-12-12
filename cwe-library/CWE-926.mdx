@@ -1,0 +1,30 @@
+---
+title: "CWE-926: Improper Export of Android Application Components"
+---
+
+## Description
+The Android application exports a component for use by other applications, but does not properly restrict which applications can launch the component or access the data it contains.
+
+## Extended Description
+
+The attacks and consequences of improperly exporting a component may depend on the exported component:
+
+If access to an exported Activity is not restricted, any application will be able to launch the activity. This may allow a malicious application to gain access to sensitive information, modify the internal state of the application, or trick a user into interacting with the victim application while believing they are still interacting with the malicious application.
+If access to an exported Service is not restricted, any application may start and bind to the Service. Depending on the exposed functionality, this may allow a malicious application to perform unauthorized actions, gain access to sensitive information, or corrupt the internal state of the application.
+If access to a Content Provider is not restricted to only the expected applications, then malicious applications might be able to access the sensitive data. Note that in Android before 4.2, the Content Provider is automatically exported unless it has been explicitly declared as NOT exported.
+
+
+
+## Likelihood of Exploit
+None
+
+## Background Detail
+
+There are three types of components that can be exported in an Android application.
+
+An Activity is an application component that provides a UI for users to interact with. A typical application will have multiple Activity screens that perform different functions, such as a main Activity screen and a separate settings Activity screen.
+A Service is an application component that is started by another component to execute an operation in the background, even after the invoking component is terminated. Services do not have a UI component visible to the user.
+The Content Provider mechanism can be used to share data with other applications or internally within the same application.
+
+
+        

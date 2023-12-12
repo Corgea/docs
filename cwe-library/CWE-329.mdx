@@ -1,0 +1,42 @@
+---
+title: "CWE-329: Generation of Predictable IV with CBC Mode"
+---
+
+## Description
+The product generates and uses a predictable initialization Vector (IV) with Cipher Block Chaining (CBC) Mode, which causes algorithms to be susceptible to dictionary attacks when they are encrypted under the same key.
+
+## Extended Description
+
+CBC mode eliminates a weakness of Electronic Code
+	   Book (ECB) mode by allowing identical plaintext blocks to
+	   be encrypted to different ciphertext blocks. This is
+	   possible by the XOR-ing of an IV with the initial plaintext
+	   block so that every plaintext block in the chain is XOR'd
+	   with a different value before encryption. If IVs are
+	   reused, then identical plaintexts would be encrypted to
+	   identical ciphertexts. However, even if IVs are not
+	   identical but are predictable, then they still break the
+	   security of CBC mode against Chosen Plaintext Attacks
+	   (CPA).
+
+
+## Likelihood of Exploit
+None
+
+## Background Detail
+
+CBC mode is a commonly used mode of operation for a
+	      block cipher. It works by XOR-ing an IV with the initial
+	      block of a plaintext prior to encryption and then
+	      XOR-ing each successive block of plaintext with the
+	      previous block of ciphertext before encryption.
+
+		C_0 = IV
+		C_i = E_k{M_i XOR C_{i-1}}
+	      
+
+		When used properly, CBC mode provides security against
+		chosen plaintext attacks. Having an unpredictable IV
+		is a crucial underpinning of this. See [REF-1171].
+
+        

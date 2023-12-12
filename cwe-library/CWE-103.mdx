@@ -1,0 +1,16 @@
+---
+title: "CWE-103: Struts: Incomplete validate() Method Definition"
+---
+
+## Description
+The product has a validator form that either does not define a validate() method, or defines a validate() method but does not call super.validate().
+
+## Extended Description
+If the code does not call super.validate(), the Validation Framework cannot check the contents of the form against a validation form. In other words, the validation framework will be disabled for the given form.
+
+## Likelihood of Exploit
+None
+
+## Background Detail
+The Struts Validator uses a form's validate() method to check the contents of the form properties against the constraints specified in the associated validation form. That means the following classes have a validate() method that is part of the validation framework: ValidatorForm, ValidatorActionForm, DynaValidatorForm, and DynaValidatorActionForm. If the code creates a class that extends one of these classes, and if that class implements custom validation logic by overriding the validate() method, the code must call super.validate() in the validate() implementation.
+        

@@ -1,0 +1,19 @@
+---
+title: "CWE-6: J2EE Misconfiguration: Insufficient Session-ID Length"
+---
+
+## Description
+The J2EE application is configured to use an insufficient session ID length.
+
+## Extended Description
+If an attacker can guess or steal a session ID, then they may be able to take over the user's session (called session hijacking). The number of possible session IDs increases with increased session ID length, making it more difficult to guess or steal a session ID.
+
+## Likelihood of Exploit
+None
+
+## Background Detail
+
+Session ID's can be used to identify communicating parties in a web environment.
+The expected number of seconds required to guess a valid session identifier is given by the equation: (2^B+1)/(2*A*S) Where: - B is the number of bits of entropy in the session identifier. - A is the number of guesses an attacker can try each second. - S is the number of valid session identifiers that are valid and available to be guessed at any given time. The number of bits of entropy in the session identifier is always less than the total number of bits in the session identifier. For example, if session identifiers were provided in ascending order, there would be close to zero bits of entropy in the session identifier no matter the identifier's length. Assuming that the session identifiers are being generated using a good source of random numbers, we will estimate the number of bits of entropy in a session identifier to be half the total number of bits in the session identifier. For realistic identifier lengths this is possible, though perhaps optimistic.
+
+        
