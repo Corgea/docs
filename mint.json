@@ -40,7 +40,7 @@
   "navigation": [
     {
       "group": "Get Started",
-      "pages": ["introduction", "quickstart", "how_it_works"]
+      "pages": ["introduction", "quickstart", "how_it_works", "setup_scanner"]
     },
     {
       "group": "Docs",
