@@ -59,5 +59,10 @@
     "twitter": "https://twitter.com/mintlify",
     "github": "https://github.com/mintlify",
     "linkedin": "https://www.linkedin.com/company/mintsearch"
+  },
+  "analytics": {
+    "ga4": {
+        "measurementId": "G-GGF9NXG1LJ"
+    }
   }
 }
