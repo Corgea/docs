@@ -15,6 +15,7 @@
       "to": "#69a9de"
     }
   },
+
   "topbarLinks": [
     {
       "name": "Support",
@@ -30,6 +31,11 @@
       "name": "Roadmap",
       "icon": "road",
       "url": "https://docs.corgea.app/roadmap"
+    },
+    {
+      "name": "Learning Center",
+      "icon": "book",
+      "url": "learn"
     },
     {
       "name": "Blog",
@@ -53,6 +59,12 @@
     {
       "group": "Trust Corgea",
       "pages": ["security", "legal"]                
+    },
+    {
+      "group": "Learning Center",
+      "pages": ["learn/introduction", 
+                "learn/denial_of_service"
+              ]                
     }
   ],
   "footerSocials": {
