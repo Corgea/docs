@@ -33,11 +33,6 @@
       "url": "https://docs.corgea.app/roadmap"
     },
     {
-      "name": "Learning Center",
-      "icon": "book",
-      "url": "learn"
-    },
-    {
       "name": "Blog",
       "icon": "newspaper",
       "url": "https://corgea.com/blog"
@@ -59,12 +54,6 @@
     {
       "group": "Trust Corgea",
       "pages": ["security", "legal"]                
-    },
-    {
-      "group": "Learning Center",
-      "pages": ["learn/introduction", 
-                "learn/denial_of_service"
-              ]                
     }
   ],
   "footerSocials": {
