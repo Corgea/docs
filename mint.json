@@ -49,7 +49,7 @@
     },
     {
       "group": "Releases",
-      "pages": ["roadmap"]
+      "pages": ["changelog", "roadmap"]
     },
     {
       "group": "Trust Corgea",
