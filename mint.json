@@ -41,7 +41,7 @@
   "navigation": [
     {
       "group": "Get Started",
-      "pages": ["introduction", "quickstart", "how_it_works", "setup_scanner"]
+      "pages": ["introduction", "quickstart", "how_it_works", "setup_scanner", "install_cli"]
     },
     {
       "group": "Docs",

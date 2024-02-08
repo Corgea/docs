@@ -19,38 +19,18 @@ description: 'Start generating fixes for your repository'
   ```
   </CodeGroup>
   </Step>
-  <Step title="Get Command">
-    Go to the [integrations](https://corgea.app/integrations) page in Corgea to obtain the correct command for your scanner.
-
-    The command you copy will have all the needed functions and your API key. 
-
-    In brief, this command will run your scanner, and send the vulnerabilities report to Corgea for analysis. If you'd like to see the contents of the command, you can do so [here](https://github.com/Corgea/cli/blob/main/cli.sh). 
-
-    <Card>
-      <iframe
-        width="650"
-        height="400"
-        src="https://www.loom.com/embed/0d3ed94d1f01401a86906fc9713ee709?sid=fceaf5e8-d892-4999-93ee-d86c97603577"
-        title="YouTube video player"
-        frameborder="0"
-        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-        allowFullScreen
-      ></iframe>
-
-    </Card>
-
-
+  <Step title="Run the scan">
     <CodeGroup>
     ```bash Semgrep
-    export CORGEA_TOKEN=<API_KEY>; curl -sSL https://cli.corgea.app | bash -s semgrep ci --json
+    corgea scan semgrep
     ```
 
     ```bash Snyk
-    export CORGEA_TOKEN=<API_KEY>; curl -sSL https://cli.corgea.app | bash -s snyk code test --json
+    corgea scan snyk
     ```
     </CodeGroup>
   </Step>
-  <Step title="Run Command">
+  <Step title="See Results">
     Once a scan is completed a scan report will be generated in the repository folder and a copy will be sent to Corgea for processing.
 
     <Frame>
@@ -68,20 +48,15 @@ description: 'Start generating fixes for your repository'
 
 <AccordionGroup>
   <Accordion title="Command Not Found">
-  This error happens because you either don't have Snyk or Semgrep installed. 
+  This error happens because you haven't installed the Corega CLI or its not available in your PATH.
   ```
-  zsh: command not found: snyk
+  bash: corgea: command not found
   ```
-  You should install the appropriate scanner that you're using. 
-  - [Semgrep Installation](https://semgrep.dev/docs/getting-started/)
-  - [Snyk Installation](https://docs.snyk.io/snyk-cli/install-or-update-the-snyk-cli)
+  Follow the instructions in the [install CLI section](http://localhost:3001/install_cli) to install the CLI.
+  </Accordion>
 
-  </Accordion>
-  <Accordion title="Invalid command provided. Supported SAST tools are snyk and semgrep currently">
-    Please make sure you've copied the full command as found in Corgea, and do not modify it. 
-  </Accordion>
-  <Accordion title="CORGEA_TOKEN is not set">
-    This happens when you try to execute the Corgea CLI command, but the CORGEA_TOKEN is missing from the command. Please get the full command from [here](https://www.corgea.app/integrations/). 
+  <Accordion title="Invalid token provided.">
+    Double check you have logged into the CLI with the correct token from [https://www.corgea.app/integrations/](https://www.corgea.app/integrations/)
   </Accordion>
   <Accordion title="Not Logged In">
     You might receive an error that you're not logged into your SAST/SCA tool. 
