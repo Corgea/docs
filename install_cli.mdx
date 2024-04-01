@@ -22,8 +22,11 @@ sudo mv corgea /usr/local/bin
 ```
 </CodeGroup>
 
+
 ## Login with the CLI
 
+<AccordionGroup>
+    <Accordion title="Corgea.app instance" defaultOpen="true">
 You can copy your Corgea token from the app.
 
 [https://www.corgea.app/integrations/](https://www.corgea.app/integrations/)
@@ -31,3 +34,17 @@ You can copy your Corgea token from the app.
     ```bash
     corgea login <YOUR CORGEA TOKEN>
     ```
+    </Accordion>
+    <Accordion title="Dedicated Instance">
+    <CodeGroup>
+    ```bash MacOS & Linux
+    CORGEA_URL="https://your-instance.corgea.app" corgea login <YOUR CORGEA TOKEN>
+    ```
+
+    ```powershell Windows
+    $env:CORGEA_URL="https://your-instance.corgea.app"
+    corgea login <YOUR CORGEA TOKEN>
+    ```
+    </CodeGroup>
+    </Accordion>
+ </AccordionGroup>
