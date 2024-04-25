@@ -45,7 +45,7 @@
     },
     {
       "group": "Docs",
-      "pages": ["scanning", "fixes", "github", "user_management"]
+      "pages": ["scanning", "fixes", "github", "azure_devops", "user_management"]
     },
     {
       "group": "Releases",
