@@ -20,23 +20,33 @@ CEO of Corgea
 ## Security FAQ
 
 <AccordionGroup>
-  <Accordion icon="robot" title="Does Corgea utilize our proprietary data to enhance its AI models?">
-    Your trust is paramount. Corgea is designed to respect your data’s confidentiality. We ensure that your data is not used to train our models, maintaining the integrity of your proprietary information.
-  </Accordion>
   <Accordion icon="code" title="What happens to our code within Corgea’s system?">
-    Protecting your intellectual property is our top priority. Corgea operates by storing only the code differences (diffs) necessary to facilitate fixes, handling them with industry-leading encryption standards during both storage and transmission.  
+    Protecting your intellectual property is our top priority. Corgea operates by storing only the code differences (diffs) necessary to facilitate fixes, handling them with industry-leading encryption standards during both storage and transmission. You own your data, and can always request deleting your data at anytime.
+  </Accordion>
+  <Accordion icon="robot" title="What model does Corgea use to fix my code?">
+    Corgea uses OpenAI selectively to fix insecure code combined with static code analysis techniques. 
+  </Accordion>
+  <Accordion icon="hammer" title="Does Corgea or OpenAI utilize our proprietary data to enhance its AI models?">
+    Your trust is paramount. Corgea is designed to respect your data’s confidentiality. We ensure that your data is not used to train or refine our models. OpenAI keeps copies of the content sent to them for a 30 days to monitoring abuse, as seen in their [API Data Usage Policies](https://openai.com/enterprise-privacy).
+  </Accordion>
+  <Accordion icon="users" title="Which 3rd parties do you share data with?">
+    To provide adequate service, Corgea limits the number of 3rd parties that receive data and shares with the following 3rd parties only:
+    - Amazon Web Services: used to host corgea instances, and databases. 
+    - OpenAI: used in aiding Corgea in fixing insecure code, and in part of the fix QA process. 
+    - Sentry: for application performance monitoring and error tracking. 
+    - Google Analytics: to track and report on website traffic and events. 
   </Accordion>
   <Accordion icon="merge" title="Does Corgea auto-merge the proposed fixes into our codebase?">
     Corgea empowers your team with full control. While we automate the creation of Pull-Requests (PRs), the choice to merge rests with your engineers, ensuring that every change aligns with your project’s objectives. For those who prefer manual integration, diffs are available for direct application within your preferred IDE.
   </Accordion>
   <Accordion icon="biohazard" title="What measures does Corgea take to prevent prompt poisoning?">
-    Corgea is fortified with rigorous output checks to prevent AI-generated anomalies. Coupled with mandatory human reviews during the PR process, we provide a balanced defense against prompt poisoning.
+    Corgea does not allow user inputs into our fixing prompts, and we leverage AI-security checks before any fix is issued. Coupled with mandatory human reviews during the PR process, we provide a balanced defense against prompt poisoning.
   </Accordion>
   <Accordion icon="lock" title="How does Corgea ensure system security?">
     We are advocates for security, adhering to and often surpassing SOC 2 compliance benchmarks. Our systems are currently undergoing SOC 2 auditing to further validate our steadfast commitment to security.
   </Accordion>
   <Accordion icon="house" title="Is Corgea deployed as a Single-tenant or Multi-tenant application?">
-    To ensure data isolation and security, Corgea adopts a single-tenant deployment model. Each customer gets a dedicated environment with separate compute and storage resources. These environments are siloed, ensuring no cross-communication or data leakage between customers.
+    Corgea.app is a multi-tentant environment. We do offer enterprise customers single-tenant environment. Each customer gets a dedicated environment with separate compute and storage resources. These environments are siloed, ensuring no cross-communication or data leakage between customers.
   </Accordion>
 </AccordionGroup>
 
@@ -65,6 +75,9 @@ Corgea implements a limit on the number of requests a user can make within a cer
 
 #### Authentication Brute-Force Prevention
 This control is essential in safeguarding against attackers who attempt to gain unauthorized access by guessing passwords. After a certain number of failed login attempts, the account may be locked for a period of time, or the response time is deliberately slowed down.
+
+#### Malicious Requests
+Corgea uses a Web Application Firewall (WAF) that detects and mitigates malicious requests across all traffic. If any traffic is detected as suspicious, the WAF will intiatiate a Javascript challenge that the user must pass to access Corgea.
 
 #### Session Expiration
 Session expiration is a key aspect of session security in Corgea:
@@ -186,12 +199,12 @@ Corgea's approach to network segmentation and isolation is designed to enhance s
 Corgea enforces strict access controls to ensure that staff access to data is limited and monitored:
 
 - Restricted Data Access: Access to sensitive data is tightly controlled and is only permitted in specific circumstances, such as addressing production issues. This minimizes the risk of unauthorized data access or leaks.
-- Infrastructure Access Control: Access to Corgea’s infrastructure is managed through a corporate Virtual Private Network (VPN) - Tailscale. Tailscale provides a secure and encrypted connection, ensuring that access to internal resources is restricted to authorized personnel only.
+- Infrastructure Access Control: Access to Corgea’s infrastructure is managed through a corporate Virtual Private Network (VPN). Our VPN provides a secure and encrypted connection, ensuring that access to internal resources is restricted to authorized personnel only.
 - Role-Based Access Control (RBAC): Implementation of RBAC to ensure that employees only have access to the information and resources necessary for their job functions.
 
 #### Access Logs
 Corgea maintains comprehensive access logs to track and audit access to its servers:
 
-- Tailscale Logging: All server access is logged within Tailscale. This includes information about who accessed the server, when the access occurred, and what actions were performed.
+- WAF Logging: All server access is logged within our WAF. This includes information about who accessed the server, when the access occurred, and what actions were performed.
 - Audit and Review: Regular audits of access logs are conducted to identify any unusual or unauthorized access patterns. This helps in quickly identifying and responding to potential security incidents.
 - Transparency and Accountability: Keeping detailed access logs ensures transparency in access management and holds staff accountable for their actions within the infrastructure.
