@@ -5,8 +5,14 @@ description: 'Start generating fixes for your repository'
 
 ## Scanning your repository
 
+To upload vulnerability data and code to Corgea using the Corgea CLI, you first need to generate a report from your existing Static Application Security Testing (SAST) scanner, such as Snyk or Semgrep. Once you have the report, you can use the corgea upload command followed by the path to the report file. The CLI will then upload the vulnerability data and the affected code snippets to Corgea for analysis and fixing. Here's a brief example:
+
+
+
 <Info>
   **Prerequisite** You registered in Corgea
+
+  **SAST Scanner** You have a SAST scanner like Snyk, Semgrep, etc.
 </Info>
 
 
@@ -27,6 +33,14 @@ description: 'Start generating fixes for your repository'
 
     ```bash Snyk
     corgea scan snyk
+    ```
+
+    ```bash Checkmarx
+    # Create a scan with a JSON output for example:
+    cx scan create --project-name juice-shop -s . --branch master --scan-types sast --report-format json --output-name report
+
+    #Upload the vulnerability report to Corgea
+    corgea upload report.json
     ```
 
     ```bash CodeQL
