@@ -38,7 +38,7 @@ sudo mv corgea /usr/local/bin
 </CodeGroup>
 
 
-## Login with the CLI
+## Login With The CLI
 
 <AccordionGroup>
     <Accordion title="Corgea.app instance" defaultOpen="true">
@@ -63,3 +63,17 @@ You can copy your Corgea token from the app.
     </CodeGroup>
     </Accordion>
  </AccordionGroup>
+
+ ## Point To A Single-Tenant Instance
+ 
+ Customers using a single-tenant instance need to have the CLI point to their instance. 
+
+<CodeGroup>
+```bash MacOS/Unix
+export CORGEA_URL="https://<<Your Instance>>.corgea.app"
+```
+
+```bash Windows
+$env:CORGEA_URL="https://<<Your Instance>>.corgea.app"
+```
+</CodeGroup>
