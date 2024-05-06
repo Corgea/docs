@@ -45,7 +45,11 @@
     },
     {
       "group": "Docs",
-      "pages": ["scanning", "fixes", "github", "azure_devops", "user_management"]
+      "pages": ["scanning", "fixes", "user_management"]
+    },
+    {
+      "group": "Integrations",
+      "pages": ["vsc_extension", "github", "azure_devops"]
     },
     {
       "group": "Releases",
