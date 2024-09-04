@@ -51,7 +51,7 @@
     },
     {
       "group": "Docs",
-      "pages": ["scanning", "fixes", "user_management"]
+      "pages": ["scanning", "fixes", "false_positive", "user_management"]
     },
     {
       "group": "Integrations",

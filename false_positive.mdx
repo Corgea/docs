@@ -1,0 +1,28 @@
+---
+title: 'False Positive Detection'
+description: 'Corgea Auto-detects False Positives'
+---
+Corgea uses AI to analyze potential vulnerabilities and determine if they are likely to be false positives.
+The false positive analysis considers various factors, such as the context of the code, the nature of the vulnerability, and any relevant coding patterns or best practices. The model then provides a result indicating whether the vulnerability is likely to be "valid" or a "false positive", along with a reasoning explaining its assessment.
+Here's an example of how the false positive result is presented:
+    <Frame>
+      <img src="/images/false_positive.png" style={{ borderRadius: '0.5rem' }} />
+    </Frame>
+
+In this case, the model has determined that the vulnerability is a false positive, and the reasoning provides an explanation for this assessment.
+
+By providing this false positive analysis alongside the vulnerability explanation and proposed fix, Corgea aims to help developers quickly identify and prioritize genuine vulnerabilities while avoiding unnecessary effort on false positives.
+
+## Popular examples of False Positives Corgea can detect
+
+- CWE-79 (Cross-Site Scripting): Checks if user input is properly sanitized or encoded before being reflected in the webpage using established libraries or frameworks.
+- CWE-89 (SQL Injection): Checks if database queries use fully sanitized parameterized statements or prepared statements in a best-practice manner, without including any user-provided or external input that could be manipulated.
+- CWE-209 (Information Exposure): Checks if the sensitive information disclosed is generic or occurs in a development environment.
+- CWE-248 (Uncaught Exception): Checks if the unexpected condition or status is handled through alternative means like logging or monitoring in non-critical parts of the application.
+- CWE-259 (Hard-Coded Password): Checks if the hard-coded password is intended for a non-production environment or used for automated testing.
+- CWE-260 (Password in Configuration File): Checks if the storage of the plaintext password is protected through alternative security measures like encrypted storage or access controls.
+- CWE-321 (Hard-Coded Cryptographic Key): Checks if the hard-coded cryptographic key is used for testing purposes only.
+- CWE-352 (Cross-Site Request Forgery): Checks if anti-CSRF tokens are implemented and validated on the server-side, or if the code is an API where CSRF protection is not applicable.
+- CWE-353 (Missing Support for Integrity Check): Checks if the integrity check is implemented through alternative means like digital signatures or hash validations.
+- CWE-798 (Hard-Coded Credentials): Checks if the hard-coded credentials are used for testing purposes only.
+- CWE-94 (Code Injection): Checks if the code injection point is limited to a controlled environment or if input validation and output encoding are applied.

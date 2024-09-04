@@ -1,21 +1,97 @@
 ---
-title: 'Scanning'
+title: 'Uploading Scans'
 description: 'Start generating fixes for your repository'
 ---
 
-## Scanning your repository
-
-To upload vulnerability data and code to Corgea using the Corgea CLI, you first need to generate a report from your existing Static Application Security Testing (SAST) scanner, such as Snyk or Semgrep. Once you have the report, you can use the corgea upload command followed by the path to the report file. The CLI will then upload the vulnerability data and the affected code snippets to Corgea for analysis and fixing. Here's a brief example:
-
-
-
+User's have a choice between two options. The first being the Corgea Dropsite and the second being the Corgea CLI. 
 <Info>
   **Prerequisite** You registered in Corgea
 
-  **SAST Scanner** You have a SAST scanner like Snyk, Semgrep, etc.
+  **SAST Scanner** You have a SAST scanner like Snyk, Checkmarx, CodeQL or Semgrep.
 </Info>
 
+## Corgea Dropsite
+The Corgea Dropsite is a web interface that allows you to easily add your project to Corgea for analysis. It provides several options to upload your code and reports from various security scanners.
 
+### Adding a Project
+<Card>
+  <iframe
+    width="650"
+    height="400"
+    src="https://www.loom.com/embed/0d6f1e16aaa04b94ad9e0ed26ac85447"
+    title="YouTube video player"
+    frameborder="0"
+    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+    allowFullScreen
+  ></iframe>
+
+</Card>
+
+
+To add a project to Corgea, follow these steps:
+Navigate to the Dropsite page by clicking on the "Add Project" button in the Corgea Projects page or the Scans page.
+    <Frame>
+      <img src="/images/add_project.png" style={{ borderRadius: '0.5rem' }} />
+    </Frame>
+
+On the Dropsite page, you will see several options to add your project:
+
+    <Frame>
+      <img src="/images/dropsite_add_project.png" style={{ borderRadius: '0.5rem' }} />
+    </Frame>
+
+#### Connect Your Repository (Recommended)
+This option allows you to connect your code repository directly to Corgea. Currently, GitHub and Azure DevOps are supported.
+Click on the GitHub or Azure DevOps button to authorize Corgea to access your repositories.
+Select the repository you want to add to Corgea.
+
+#### Add a Public Repository
+If your repository is publicly accessible, you can provide the URL to add it to Corgea.
+Click on the "Add a public repository" accordion.
+2. Enter the URL of your public repository in the input field.
+Click the "Add" button.
+
+#### Web Upload
+This option allows you to upload a ZIP file containing your project's code.
+Click on the "Web upload" accordion.
+Click the "Upload" button and select the ZIP file containing your project's code.
+
+
+After adding your project, you can proceed to the next step to upload a report from a supported security scanner.
+
+#### Uploading a Report
+
+    <Frame>
+      <img src="/images/upload_report.png" style={{ borderRadius: '0.5rem' }} />
+    </Frame>
+
+<Steps>
+  <Step title="Upload the report">
+    Select the report file (typically a JSON file) from your local machine, and drop it into the upload box.
+  </Step>
+  <Step title="Processing">
+    Once the report is uploaded successfully, Corgea will process your project and report.
+  </Step>
+  <Step title="View results">
+    You will be redirected to the Corgea dashboard, where you can view the analysis results for your project.
+  </Step>
+</Steps>
+
+By following these steps, you can easily add your project and upload security reports to Corgea for analysis and remediation.
+
+### Corgea CLI
+The Corgea CLI (Command-Line Interface) provides advanced features for integrating Corgea with your CI/CD pipeline, performing custom scans, and uploading large projects (>1GB).
+Click on the "Corgea CLI" accordion to learn more about installing and using the CLI.
+
+You can install the Corgea CLI using pip:
+    ```bash
+    pip install corgea-cli
+    ```
+
+[More info on here](install_cli)
+
+
+#### Upload with the CLI
 <Steps>
   <Step title="Go to repository">
     Go to the repository you want to scan:
