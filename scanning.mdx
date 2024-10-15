@@ -3,11 +3,12 @@ title: 'Uploading Scans'
 description: 'Start generating fixes for your repository'
 ---
 
-User's have a choice between two options. The first being the Corgea Dropsite and the second being the Corgea CLI. 
+Users have a choice between two options: the Corgea Dropsite and the Corgea CLI. 
+
 <Info>
   **Prerequisite** You registered in Corgea
 
-  **SAST Scanner** You have a SAST scanner like Snyk, Checkmarx, CodeQL or Semgrep.
+  **SAST Scanner** You have a SAST scanner like Checkmarx, CodeQL, Semgrep, Fortify, or Snyk. Corgea currently supports these scanners, with Veracode and Sonarqube support on the roadmap.
 </Info>
 
 ## Corgea Dropsite
@@ -120,6 +121,10 @@ You can install the Corgea CLI using pip:
     ```bash CodeQL
     corgea upload <scan report in sarif json>
     ```
+
+    ```bash Fortify
+    corgea upload <scan report in FPR>
+    ```
     </CodeGroup>
   </Step>
   <Step title="See Results">
@@ -180,5 +185,4 @@ You can install the Corgea CLI using pip:
   </Accordion>
 
 </AccordionGroup>
-
 
