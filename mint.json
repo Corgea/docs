@@ -15,7 +15,6 @@
       "to": "#69a9de"
     }
   },
-
   "topbarLinks": [
     {
       "name": "Support",
@@ -36,7 +35,7 @@
       "name": "Blog",
       "icon": "newspaper",
       "url": "https://corgea.com/blog"
-    }, 
+    },
     {
       "name": "API Reference",
       "openapi": "/api-reference/openapi.json",
@@ -46,12 +45,12 @@
   ],
   "navigation": [
     {
-      "group": "Get Started",
-      "pages": ["introduction", "how_it_works", "setup_scanner", "install_cli"]
+      "group": "Getting Started",
+      "pages": ["introduction", "quickstart", "how_it_works", "setup_scanner", "install_cli"]
     },
     {
-      "group": "Docs",
-      "pages": ["scanning", "fixes", "false_positive", "user_management"]
+      "group": "Core Features",
+      "pages": ["vulnerability_support", "language_support", "blast", "scanning", "fixes", "false_positive", "user_management"]
     },
     {
       "group": "Integrations",
@@ -62,12 +61,12 @@
       "pages": ["api-reference/introduction"]
     },
     {
-      "group": "Releases",
+      "group": "Releases & Roadmap",
       "pages": ["changelog", "roadmap"]
     },
     {
-      "group": "Trust Corgea",
-      "pages": ["security", "legal"]                
+      "group": "Trust & Compliance",
+      "pages": ["security", "legal"]
     }
   ],
   "footerSocials": {
@@ -77,7 +76,7 @@
   },
   "analytics": {
     "ga4": {
-        "measurementId": "G-GGF9NXG1LJ"
+      "measurementId": "G-GGF9NXG1LJ"
     }
   }
 }
