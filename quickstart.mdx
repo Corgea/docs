@@ -2,80 +2,50 @@
 title: 'Quickstart'
 description: 'Learn how to start with Corgea.'
 ---
+# Quickstart Guide
 
-## Get Started
+## 1. Add Your Project
 
+The first step is to add your project to Corgea. You can do this using the Corgea Dropsite, a web interface that allows you to easily upload your code and security reports.
 
-<Info>
-  **Prerequisite** You should have an existing scanning tool like Semgrep or Snyk. If you don't have an existing tool, [get started](setup_scanner) in less than 5 minutes here.  
-</Info>
-<Note>Corgea currently supports Python, Javascript, Typescript, Java, Ruby and Go. See our [roadmap](roadmap).</Note>
+1. Navigate to the Dropsite page by clicking the "Add Project" button in the Corgea dashboard.
+2. On the Dropsite page, you can choose from several options to add your project:
+   - **Connect Your Repository (Recommended)**: Connect your GitHub or Azure DevOps repository directly to Corgea.
+   - **Add a Public Repository**: If your repository is publicly accessible, provide the URL.
+   - **Web Upload**: Upload a ZIP file containing your project's code.
 
-<Steps>
-  <Step title="Register with Corgea:">
-    <Tip>
-    Start in less than 10 seconds by [registering](https://corgea.com/registeration) today for free. No credit card required. 
-    </Tip>
-  </Step>
-  <Step title="Send vulnerability report to Corgea">
-    After registering, you'll be welcomed with our Quickstart modal. 
+<Frame>
+  <img src="/images/dropsite_add_project.png" style={{ borderRadius: '0.5rem' }} />
+</Frame>
 
-    <Frame>
-      <img src="/images/get-command.png" style={{ borderRadius: '0.5rem' }} />
-    </Frame>
+## 2. Upload a Security Report
 
+After adding your project, you can proceed to upload a report from a supported security scanner.
 
-    Pick Snyk or Semgrep to get the command you need to run in the repository you want to fix. 
+<Frame>
+  <img src="/images/upload_report.png" style={{ borderRadius: '0.5rem' }} />
+</Frame>
 
-    The command you copy will have all the needed functions and your API key.
+1. Select the report file (typically a JSON file) from your local machine and drop it into the upload box.
+2. Once the report is uploaded successfully, Corgea will process your project and report.
+3. You will be redirected to the Corgea dashboard, where you can view the analysis results for your project.
 
+## 3. Review Findings and Fixes
 
-    <CodeGroup>
-    ```bash Semgrep
-    export CORGEA_TOKEN=<API_KEY>; curl -sSL https://cli.corgea.app | bash -s semgrep ci --json
-    ```
+Corgea uses AI to analyze potential vulnerabilities and determine if they are likely to be false positives. The false positive analysis considers various factors, such as the context of the code, the nature of the vulnerability, and relevant coding patterns or best practices.
 
-    ```bash Snyk
-    export CORGEA_TOKEN=<API_KEY>; curl -sSL https://cli.corgea.app | bash -s snyk code test --json
-    ```
-    </CodeGroup>
+<Frame>
+  <img src="/images/false_positive.png" style={{ borderRadius: '0.5rem' }} />
+</Frame>
 
+For valid vulnerabilities, Corgea provides a proposed fix, along with an explanation of the issue and the reasoning behind the fix.
 
-    You can alternatively click on "Load Demo" or use following projects are designed to test security tools. Try cloning and fixing them with Corgea. .
+## 4. Apply Fixes
 
+You can apply the proposed fixes in several ways:
 
-    <AccordionGroup>
-      <Accordion title="Example vulnerable projects">
-      juice-shop, a vulnerable Node.js + Express app:
-      ```bash Bash
-      git clone https://github.com/bkimminich/juice-shop
-      cd juice-shop
-      ```
+- **Pull Request Integration**: Corgea can automatically create a pull request with the proposed fixes for your repository.
+- **IDE Integration**: Use the Corgea VS Code extension to apply fixes directly within your integrated development environment (IDE).
+- **Manual Application**: Download the proposed fixes as a Git diff or a full file and apply them manually to your codebase.
 
-      Vulnerable-Flask-App, vulnerable Python + Flask:
-      ```bash Bash
-      git clone https://github.com/we45/Vulnerable-Flask-App
-      cd Vulnerable-Flask-App
-      ```
-
-      </Accordion>
-    </AccordionGroup>
-
-  </Step>
-  <Step title="Issue Fixes">
-    These are instructions or content that only pertain to the third step.
-  </Step>
-</Steps>
-
-
-
-## Limitations
-
-At Corgea, we're rentless in our pursuit of high quality code fixes. We conciously limit Corgea to ensure that we are able to deliver on fixes across languages, scanners and code repositories. 
-
-Please review Corgea's [limitations](limitations). 
-
-
-## Troubleshooting
-
-If you run into any issues getting started, please review the troubleshooting section [here](scanning). 
+By following this workflow, you can seamlessly integrate Corgea into your development process, benefiting from AI-powered vulnerability detection, false positive reduction, and automated fix generation.
