@@ -21,10 +21,10 @@ In this article, we delve into Corgea and how it works with Ahmad.
 
 
 ## Overview of Corgea
-Corgea is a cutting-edge tool designed to consume vulnerabilities reported by existing Static Code Analysis (SCA) and Software Composition Analysis (SAS) tools, such as Snyk and Semgrep. The core functionality of Corgea is to use AI to automatically generate fixes and explanations for these vulnerabilities, making the remediation process both efficient and understandable for engineers.
+Corgea is a cutting-edge tool designed to consume vulnerabilities reported by existing Software Composition Analysis (SAST) tools, such as Snyk and Semgrep. The core functionality of Corgea is to use AI to automatically generate fixes and explanations for these vulnerabilities, making the remediation process both efficient and understandable for engineers.
 
 ## Key Features:
-- Integration with SCA and SAS Tools: Corgea seamlessly integrates with popular vulnerability reporting tools to provide a comprehensive security solution.
+- Integration with SAST Tools: Corgea seamlessly integrates with popular vulnerability reporting tools to provide a comprehensive security solution.
 - AI-Driven Fixes and Explanations: Utilizes advanced AI algorithms to not only fix vulnerabilities but also provide explanations for engineers.
 - GitHub Application: Offers a GitHub application for issuing pull requests, accelerating the vulnerability fixing process.
 - Robust Quality and Security Controls: Ensures high-quality outputs and maintains security standards.
@@ -32,10 +32,11 @@ Corgea is a cutting-edge tool designed to consume vulnerabilities reported by ex
 ## How Corgea Works
 Corgea's process involves several key steps:
 
-1. Vulnerability Consumption: Corgea automatically consumes vulnerability reports from integrated SCA and SAS tools.
-2. AI-Powered Remediation: The AI engine analyzes these vulnerabilities and generates appropriate fixes.
-3. Contextual Understanding: Corgea is equipped with extensive context for CWEs and has certifications for languages like Python, JavaScript, and TypeScript.
-4. Issuing Fixes via GitHub: The tool uses its GitHub application to issue pull requests with these fixes, streamlining the remediation process.
+1. Scanning: Corgea scans your code repositories using our BLAST scanner. 
+2. Vulnerability Consumption: Corgea can also consume vulnerability reports from integrated SAST tools.
+3. AI-Powered Remediation: The AI engine analyzes these vulnerabilities and generates appropriate fixes.
+4. Contextual Understanding: Corgea is equipped with extensive context for CWEs and has certifications for languages like Python, JavaScript, and TypeScript.
+5. Issuing Fixes via GitHub: The tool uses its GitHub application to issue pull requests with these fixes, streamlining the remediation process.
 
 ### Case Study: Django Application Vulnerability
 A practical example of Corgea’s capability is its handling of a specific vulnerability in a Django application. The issue, identified as CWE400 (uncontrolled resource consumption), was detected in a settings file. Corgea's AI accurately understood the context, being aware that Django was using a REST framework. It then generated a fix that:
