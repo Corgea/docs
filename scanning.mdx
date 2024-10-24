@@ -12,7 +12,7 @@ Users have a choice between two options: the Corgea Dropsite and the Corgea CLI.
 </Info>
 
 ## Corgea Dropsite
-The Corgea Dropsite is a web interface that allows you to easily add your project to Corgea for analysis. It provides several options to upload your code and reports from various security scanners.
+The Corgea Dropsite is a web interface that allows you to easily add your project to Corgea for analysis. It provides several options to upload your code and reports from various security scanners. The Dropsite has a file size limit of 200MB. For larger projects, please use the Corgea CLI.
 
 ### Adding a Project
 <Card>
@@ -55,6 +55,13 @@ This option allows you to upload a ZIP file containing your project's code.
 Click on the "Web upload" accordion.
 Click the "Upload" button and select the ZIP file containing your project's code.
 
+<Tip>
+  To reduce file size and improve processing speed, exclude third-party libraries and build artifacts (e.g., node_modules, vendor, dist) when uploading your project. This can be done by downloading a zip from your repository directly.
+</Tip>
+
+<Warning>
+  Remember that the web upload has a 200MB file size limit. For larger projects, use the Corgea CLI.
+</Warning>
 
 After adding your project, you can proceed to the next step to upload a report from a supported security scanner.
 
@@ -79,7 +86,7 @@ After adding your project, you can proceed to the next step to upload a report f
 By following these steps, you can easily add your project and upload security reports to Corgea for analysis and remediation.
 
 ### Corgea CLI
-The Corgea CLI (Command-Line Interface) provides advanced features for integrating Corgea with your CI/CD pipeline, performing custom scans, and uploading large projects (>1GB).
+The Corgea CLI (Command-Line Interface) provides advanced features for integrating Corgea with your CI/CD pipeline, performing custom scans, and uploading large projects (>200MB).
 Click on the "Corgea CLI" accordion to learn more about installing and using the CLI.
 
 You can install the Corgea CLI using pip:
@@ -185,4 +192,3 @@ You can install the Corgea CLI using pip:
   </Accordion>
 
 </AccordionGroup>
-
