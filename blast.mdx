@@ -3,11 +3,9 @@ title: 'Business Logic Application Security Testing (Private Beta)'
 description: 'Comprehensive vulnerability coverage in Corgea'
 ---
 
-# BLAST: Business Logic Application Security Testing (Private Beta)
-
 ## Overview
 
-BLAST (Business Logic Application Security Testing) is Corgea's next-generation code scanning solution, designed to detect and fix security vulnerabilities in application code, with a particular emphasis on business logic flaws. Unlike traditional Static Application Security Testing (SAST) tools, BLAST uses advanced AI-driven techniques to enhance detection accuracy, reduce false positives, and provide actionable insights for developers and security teams.
+BLAST (Business Logic Application Security Testing) is Corgea's next-generation code scanning solution, designed to detect and fix security vulnerabilities in application code, with a particular emphasis on business logic, authentication and code flaws. Unlike traditional Static Application Security Testing (SAST) tools, BLAST uses advanced AI-driven techniques to enhance detection accuracy, reduce false positives, and provide actionable insights for developers and security teams.
 
 By leveraging the power of Large Language Models (LLMs) combined with static analysis, BLAST delivers a deeper contextual understanding of code, allowing it to detect vulnerabilities that standard SAST tools might miss. This document provides a technical overview of how BLAST works, what it can detect, and how it integrates into development workflows.
 
@@ -25,7 +23,6 @@ By leveraging the power of Large Language Models (LLMs) combined with static ana
 
 BLAST excels at detecting business logic vulnerabilities, which are often missed by traditional SAST tools. In addition to business logic vulnerabilities, BLAST can also detect common security flaws found in regular SAST scanning. Below are some of the specific vulnerabilities detected by BLAST:
 
-### Business Logic and Code Logic Vulnerabilities:
 - **Business Logic Vulnerabilities (CWE-840)**: Flaws that allow users to manipulate or bypass critical processes, such as purchase limits or transaction validation.
 - **Code Logic Vulnerabilities (CWE-633)**: Errors in the logic of the code, such as incorrect conditions or loops, leading to unexpected behavior.
 - **Insecure Authentication (CWE-287)**: Issues such as missing multi-factor authentication or insecure token management.

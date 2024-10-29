@@ -46,7 +46,7 @@
   "navigation": [
     {
       "group": "Getting Started",
-      "pages": ["introduction", "quickstart", "how_it_works", "setup_scanner", "install_cli"]
+      "pages": ["introduction", "quickstart", "how_it_works", "install_cli"]
     },
     {
       "group": "Core Features",
