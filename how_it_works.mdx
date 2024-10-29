@@ -21,13 +21,7 @@ In this article, we delve into Corgea and how it works with Ahmad.
 
 
 ## Overview of Corgea
-Corgea is a cutting-edge tool designed to consume vulnerabilities reported by existing Software Composition Analysis (SAST) tools, such as Snyk and Semgrep. The core functionality of Corgea is to use AI to automatically generate fixes and explanations for these vulnerabilities, making the remediation process both efficient and understandable for engineers.
-
-## Key Features:
-- Integration with SAST Tools: Corgea seamlessly integrates with popular vulnerability reporting tools to provide a comprehensive security solution.
-- AI-Driven Fixes and Explanations: Utilizes advanced AI algorithms to not only fix vulnerabilities but also provide explanations for engineers.
-- GitHub Application: Offers a GitHub application for issuing pull requests, accelerating the vulnerability fixing process.
-- Robust Quality and Security Controls: Ensures high-quality outputs and maintains security standards.
+Corgea is an AI security platform that finds, triages and fixes insecure code. 
 
 ## How Corgea Works
 Corgea's process involves several key steps:
@@ -38,16 +32,3 @@ Corgea's process involves several key steps:
 4. Contextual Understanding: Corgea is equipped with extensive context for CWEs and has certifications for languages like Python, JavaScript, and TypeScript.
 5. Issuing Fixes via GitHub: The tool uses its GitHub application to issue pull requests with these fixes, streamlining the remediation process.
 
-### Case Study: Django Application Vulnerability
-A practical example of Corgea’s capability is its handling of a specific vulnerability in a Django application. The issue, identified as CWE400 (uncontrolled resource consumption), was detected in a settings file. Corgea's AI accurately understood the context, being aware that Django was using a REST framework. It then generated a fix that:
-
-    <Frame>
-      <img src="/images/django-example.png" style={{ borderRadius: '0.5rem' }} />
-    </Frame>
-
-- Limited resources available to both anonymous and logged-in users.
-- Throttled incoming requests.
-- Provided an AI-generated explanation tailored to this specific fix.
-
-## Conclusion
-Corgea represents a significant advancement in the field of cybersecurity. By leveraging AI to automate the process of fixing and explaining vulnerabilities, it not only enhances the security of applications but also allows engineers to focus on more critical tasks. With its intelligent integration, quality controls, and ability to handle complex vulnerabilities, Corgea is set to transform the way organizations approach cybersecurity.
