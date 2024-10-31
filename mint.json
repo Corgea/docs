@@ -32,6 +32,11 @@
       "url": "https://docs.corgea.app/roadmap"
     },
     {
+      "name": "Service Status",
+      "icon": "check",
+      "url": "https://status.corgea.app/"
+    },
+    {
       "name": "Blog",
       "icon": "newspaper",
       "url": "https://corgea.com/blog"
