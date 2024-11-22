@@ -59,7 +59,7 @@
     },
     {
       "group": "Integrations",
-      "pages": ["vsc_extension", "vs2022_extension", "github", "azure_devops", "jira"]
+      "pages": ["vsc_extension", "vs2022_extension", "github", "azure_devops", "jira", "slack", "zapier", "webhooks"]
     },
     {
       "group": "API Reference",
