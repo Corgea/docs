@@ -59,7 +59,7 @@
     },
     {
       "group": "Integrations",
-      "pages": ["vsc_extension", "vs2022_extension", "github", "azure_devops"]
+      "pages": ["vsc_extension", "vs2022_extension", "github", "azure_devops", "JIRA"]
     },
     {
       "group": "API Reference",
