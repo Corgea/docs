@@ -18,6 +18,7 @@ By leveraging the power of Large Language Models (LLMs) combined with static ana
 - **Low False Positive Rate**: Reduces the noise associated with traditional code scanning by focusing on real issues.
 - **Actionable Insights**: Provides clear explanations for detected vulnerabilities, improving developer understanding and efficiency in fixing issues.
 - **Seamless Workflow Integration**: Designed to integrate into existing CI/CD pipelines and pull request workflows.
+- **Comprehensive Secret Scanning**: Detects hardcoded secrets, credentials, and sensitive information across your entire codebase.
 
 ## Vulnerability Classes Detected
 
@@ -37,12 +38,35 @@ BLAST excels at detecting business logic vulnerabilities, which are often missed
 - **Improper Error Handling (CWE-209)**: Leaking information through error messages or causing unintended behavior due to poor error management.
 - **Improper Logging (CWE-532)**: Logging sensitive data or failing to log important security events.
 - **Improper Exception Handling (CWE-248)**: Failing to handle exceptions securely, leading to potential crashes, data loss, or security risks.
+- **Hardcoded Secrets (CWE-798)**: Detection of embedded credentials, API keys, and other sensitive information in source code.
 
 While BLAST is particularly adept at detecting business and code logic flaws, it can also scan for and detect a wide array of traditional SAST vulnerabilities not limited to those listed here.
 
+## Secret Scanning Capabilities
+
+BLAST includes comprehensive secret scanning functionality to identify exposed sensitive information across your codebase. The scanner detects various types of secrets, including:
+
+- API keys and tokens (AWS, Google Cloud, Azure, etc.)
+- Authentication credentials (usernames, passwords)
+- Database connection strings
+- Private keys and certificates
+- OAuth tokens
+- Personal access tokens (GitHub, GitLab, etc.)
+- Encryption keys
+- Environment variables containing sensitive data
+- Internal service endpoints and URLs
+- Payment processing credentials
+
+The secret scanner uses pattern matching, entropy analysis, and AI-powered contextual understanding to minimize false positives while ensuring comprehensive coverage. When secrets are detected, BLAST provides detailed information about:
+
+- The type of secret detected
+- Its location in the codebase
+- The potential security impact
+- Recommendations for secure storage alternatives (e.g., using environment variables or secret management services)
+
 ## Technology Behind BLAST
 
-BLAST is powered by Corgea’s proprietary CodeIQ technology, which combines AI with Abstract Syntax Trees (ASTs) to provide a comprehensive analysis of the entire codebase. This approach offers several advantages:
+BLAST is powered by Corgea's proprietary CodeIQ technology, which combines AI with Abstract Syntax Trees (ASTs) to provide a comprehensive analysis of the entire codebase. This approach offers several advantages:
 
 - **Project-Level Analysis**: BLAST parses the entire project to build a complete picture of how code components interact. This ensures that vulnerabilities arising from complex code relationships are not missed.
 - **Contextual Intelligence**: The AI engine understands the broader context of the code, including how different components—such as middleware, configurations, and templates—contribute to potential vulnerabilities.
@@ -56,7 +80,7 @@ Traditional static analysis techniques like source-sink analysis and call-graphs
 - **Call-Graphs**: Miss critical runtime behaviors like reflection or dynamic dependency injection, making it harder to detect certain vulnerabilities.
 - **Vector Search and RAG**: These newer methods suffer from overgeneralization, retrieving irrelevant data such as migration files or tests that do not contribute to the security context.
 
-In contrast, BLAST’s AI-driven approach ensures comprehensive coverage without introducing irrelevant noise into the analysis.
+In contrast, BLAST's AI-driven approach ensures comprehensive coverage without introducing irrelevant noise into the analysis.
 
 ## Integration and Workflow
 
