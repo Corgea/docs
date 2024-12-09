@@ -3,11 +3,9 @@ title: 'GitLab'
 description: 'Setting up a GitLab Integration in Corgea'
 ---
 
-Here's the updated documentation with information about adding repositories from GitLab using the Dropsite:
-
 # Setting up the GitLab Integration with Corgea
 
-Corgea's GitLab integration allows you to seamlessly connect your GitLab repositories with Corgea's powerful vulnerability scanning and remediation capabilities. With this integration, you can automatically scan your code for security vulnerabilities during merge requests, and Corgea will provide detailed comments with identified issues and suggested fixes. Additionally, you can add repositories from GitLab to Corgea using the Dropsite feature.
+Corgea's GitLab integration allows you to seamlessly connect your GitLab repositories with Corgea's powerful vulnerability scanning and remediation capabilities. With this integration, you can automatically scan your code for security vulnerabilities during merge requests, and Corgea will provide detailed comments with identified issues and suggested fixes. You can also add repositories from GitLab to Corgea using the Dropsite feature and create Merge Requests directly from Corgea for identified issues.
 
 ## Prerequisites
 
@@ -96,6 +94,30 @@ To enable Corgea to scan your repositories and comment on merge requests, you'll
 
 Corgea will retrieve the code from the selected repository and branch, and perform a comprehensive security scan.
 
+## Creating Merge Requests from Corgea Issues
+
+When Corgea identifies a security issue and generates a fix, you can create a Merge Request directly from the Issue Details page:
+
+1. Navigate to the Issue Details page for the vulnerability you want to fix
+2. Look for the "Issue MR" option in the dropdown menu
+    <Frame>
+      <img src="/images/issue_mr.png" style={{ borderRadius: '0.5rem' }} />
+    </Frame>
+3. Click "Issue MR" to have Corgea automatically:
+   - Create a new branch based on your configured base branch
+   - Commit the fix with a descriptive message
+   - Create a Merge Request with the changes
+   - Add a detailed comment explaining the vulnerability and fix (if enabled)
+
+    <Frame>
+      <img src="/images/view_mr.png" style={{ borderRadius: '0.5rem' }} />
+    </Frame>
+
+The MR link will be displayed on the Issue Details page for easy access. You can then follow your normal GitLab workflow to review and merge the changes.
+    <Frame>
+      <img src="/images/generate_mr.png" style={{ borderRadius: '0.5rem' }} />
+    </Frame>
+
 ## How the Integration Works
 
 Once the GitLab integration is set up, Corgea will automatically scan your code for vulnerabilities whenever a new merge request is created or updated. Here's how the integration works:
@@ -115,5 +137,6 @@ By integrating Corgea with your GitLab repository, you can enjoy the following b
 - **Seamless Integration**: The GitLab integration seamlessly integrates with your existing development workflow, minimizing disruptions and ensuring a smooth security review process.
 - **Improved Code Quality**: By addressing security vulnerabilities early in the development cycle, you can improve the overall quality and security of your codebase.
 - **Flexible Scanning Options**: In addition to automatic merge request scanning, you can use the Dropsite feature to scan repositories from GitLab on-demand.
+- **One-Click Fix Implementation**: Create Merge Requests directly from Corgea's Issue Details page to implement fixes with minimal effort.
 
 By leveraging Corgea's GitLab integration and the Dropsite feature, you can enhance the security of your applications while streamlining your development processes, ultimately delivering more secure and reliable software to your users.
