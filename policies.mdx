@@ -102,6 +102,48 @@ Use Cases:
 
 ### Fix Policy Example
 
+Here's an example of a Fix policy that uses a custom middleware to protect against XSS vulnerabilities:
+
+
+**Policy Type**: Fix
+
+Business Context: We use a custom security middleware called "SecureMiddleware" that provides XSS protection, among other security features. All web applications must use this middleware for request handling. The middleware automatically sanitizes user input and encodes output to prevent XSS attacks.
+
+Description: Generate fixes that integrate with our SecureMiddleware for XSS protection. Use the built-in sanitization and encoding functions provided by the middleware. Follow our secure coding guidelines for handling user input and rendering output.
+
+Use Cases:
+- Implementing XSS protection using SecureMiddleware
+Example: 
+```javascript
+// Import the SecureMiddleware
+import SecureMiddleware from '../middleware/SecureMiddleware';
+
+// Use the middleware for request handling
+router.get('/profile', SecureMiddleware.sanitizeInput(), (req, res) => {
+  const username = req.query.username; // Username is now sanitized
+  
+  // Render the profile page with encoded output
+  res.render('profile', { 
+    username: SecureMiddleware.encodeOutput(username)
+  });
+});
+```
+In this example, the `SecureMiddleware.sanitizeInput()` function is used to sanitize the `username` parameter from the query string, preventing XSS attacks through user input. The `SecureMiddleware.encodeOutput()` function is then used to encode the `username` value before rendering it in the template, preventing XSS attacks through output rendering.
+
+- Integrating with our centralized security middleware
+Example or description: [Add an content]
+
+- Following secure coding practices for user input handling
+Example or description: [Add an content]
+
+- Implementing context-specific XSS protection measures
+Example or description: [Add an content]
+
+
+
+By providing this context, Corgea can generate fixes that properly integrate with your custom security middleware and follow your secure coding guidelines for XSS protection.
+
+
 **Policy Type**: Fix
 ```
 Business Context: We use a custom security framework that provides encryption, authentication, and audit logging. All services must use our security middleware. We have specific requirements for key rotation and cipher selection.
