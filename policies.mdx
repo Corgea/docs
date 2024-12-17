@@ -1,0 +1,92 @@
+---
+title: 'Policies'
+description: 'Enriching Corgea with Business Context through Policies'
+---
+
+Corgea comes pre-configured with a comprehensive set of policies designed to provide immediate value and maximize your security analysis experience. These built-in policies cover common security patterns, frameworks, and infrastructure setups. You can further customize and extend these policies to enrich the platform with additional business, network, and environmental context to improve the accuracy of vulnerability detection, false positive identification, and fix generation. By providing this context through policies, you can help Corgea better understand your specific security requirements and infrastructure.
+
+## Policy Structure
+
+A well-structured policy should include the following components:
+
+1. **Policy Type**: Specify the type of policy you're creating, such as BLAST (detecting vulnerabilities), False Positive (identifying false positives), or Fix (suggesting code fixes).
+
+2. **Business Context**: Provide detailed information about your:
+   - Business domain and requirements
+   - Network architecture and security controls
+   - Environment-specific configurations
+   - Data classification and handling requirements
+   - Compliance requirements (e.g., PCI, HIPAA, GDPR)
+
+3. **Description**: Clear instructions incorporating your context, including:
+   - Specific vulnerability patterns in your environment
+   - Code examples relevant to your architecture
+   - How issues should be handled given your infrastructure
+
+4. **Vulnerability Types (CWEs)**: Choose which types of security vulnerabilities this policy should handle, based on your risk profile.
+
+5. **Scope**: Select which projects to apply this policy to, allowing for environment-specific policies.
+
+## Prompting Best Practices
+
+When writing policies, follow these best practices to provide effective context:
+
+1. **Be Specific About Your Environment**: Detail your infrastructure, security controls, and compensating controls.
+
+2. **Include Business Logic**: Explain business-specific validation rules, data flows, and security requirements.
+
+3. **Describe Security Architecture**: Document your security layers, trust boundaries, and protection mechanisms.
+
+4. **Define Data Context**: Specify how different types of data should be handled in your environment.
+
+5. **Document Exceptions**: Note any legitimate business cases for apparent security issues.
+
+## Examples
+
+### BLAST Policy Example
+
+**Policy Type**: BLAST
+
+**Business Context**: Our application processes healthcare data behind a secure API gateway that handles encryption. Internal services communicate over a private network with mutual TLS. All database access is through our custom ORM that implements row-level encryption.
+
+**Description**: Review code considering our infrastructure. Flag potential PHI exposure but account for our API gateway encryption. Consider our network segregation when evaluating internal service communication. Verify proper use of our custom ORM for database access.
+
+**Use Cases**:
+- Detecting direct database access bypassing our ORM
+- Identifying services accidentally exposed outside the API gateway
+- Finding improper internal service authentication
+- Detecting logging of pre-encryption PHI
+- Identifying misuse of our security infrastructure
+
+### False Positive Policy Example
+
+**Policy Type**: False Positive
+
+**Business Context**: Our test environments use sanitized data and mock services. All external services are replaced with stubs. The test network is isolated and all traffic is monitored. We use a custom test framework that simulates security controls.
+
+**Description**: Consider our test infrastructure when evaluating security issues. Data that appears sensitive is actually sanitized. External service calls are mocked. Network isolation provides additional security layers.
+
+**Use Cases**:
+- Validating test data handling
+- Confirming proper use of service mocks
+- Verifying test environment isolation
+- Checking sanitized data usage
+- Validating test security controls
+
+### Fix Policy Example
+
+**Policy Type**: Fix
+
+**Business Context**: We use a custom security framework that provides encryption, authentication, and audit logging. All services must use our security middleware. We have specific requirements for key rotation and cipher selection.
+
+**Description**: Generate fixes that integrate with our security framework. Use our standard middleware components. Follow our encryption standards and key management practices. Ensure proper audit logging through our centralized system.
+
+**Use Cases**:
+- Implementing framework-compliant security controls
+- Integrating with our authentication services
+- Setting up proper audit logging
+- Configuring encryption using our standards
+- Establishing service-to-service authentication
+- Implementing environment-specific security measures
+
+By providing rich context about your business environment, security controls, and infrastructure, you help Corgea deliver more accurate and relevant security analysis tailored to your specific needs.

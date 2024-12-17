@@ -55,7 +55,7 @@
     },
     {
       "group": "Core Features",
-      "pages": ["vulnerability_support", "language_support", "blast", "scanning", "fixes", "false_positive", "user_management"]
+      "pages": ["vulnerability_support", "language_support", "blast", "scanning", "fixes", "false_positive", "policies", "user_management"]
     },
     {
       "group": "Integrations",
