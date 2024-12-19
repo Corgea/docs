@@ -74,7 +74,7 @@ After adding your project, you can proceed to the next step to upload a report f
 <Steps>
   <Step title="Upload the report">
     Select the report file (typically a JSON file) from your local machine, and drop it into the upload box.
-    <Info>Corgea supports Checkmarx (JSON), CodeQL (SARIF), Snyk (SARIF), Semgrep (JSON) and Fortify (FPR) scans.</Info>
+    <Info>Corgea supports Checkmarx (JSON), CodeQL (JSON), Snyk (SARIF), Semgrep (JSON) and Fortify (FPR) scans.</Info>
   </Step>
   <Step title="Processing">
     Once the report is uploaded successfully, Corgea will process your project and report.
@@ -127,7 +127,7 @@ You can install the Corgea CLI using pip:
     ```
 
     ```bash CodeQL
-    corgea upload <scan report in sarif json>
+    corgea upload <scan report in json>
     ```
 
     ```bash Fortify
