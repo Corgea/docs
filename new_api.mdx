@@ -37,7 +37,7 @@ or
 ```
 Example Usage:
 ```bash
-curl https://api.example.com/verify/your_token_here
+curl https://corgea.app/api/v1/verify/your_token_here
 ```
 
 ### Scan Upload API 
@@ -71,7 +71,7 @@ or
 ```
 Example Usage:
 ```bash
-curl -X POST https://api.example.com/scan-upload?run_id=123&engine=corgea&project=myproject \
+curl -X POST https://corgea.app/api/v1/scan-upload?run_id=123&engine=corgea&project=myproject \
   -H "CORGEA-TOKEN: Bearer your_api_key" \
   --data-binary "@scan_report.txt"
 ```
@@ -273,7 +273,7 @@ Response Body:
 
 Example Usage:
 ```bash
-curl https://api.example.com/scans?project=myproject&page=1&page_size=10 \
+curl https://corgea.app/api/v1/scans?project=myproject&page=1&page_size=10 \
   -H "CORGEA-TOKEN: Bearer your_api_key"
 ```
 
@@ -315,7 +315,7 @@ or
 ```
 Example Usage:
 ```bash
-curl https://api.example.com/scan/scan_id_here \
+curl https://corgea.app/api/v1/scan/scan_id_here \
   -H "CORGEA-TOKEN: Bearer your_api_key"
 ```
 
@@ -394,7 +394,7 @@ or
 ```
 Example Usage:
 ```bash
-curl https://api.example.com/scan/scan_id_here/issues?page=1&page_size=10 \
+curl https://corgea.app/api/v1/scan/scan_id_here/issues?page=1&page_size=10 \
   -H "CORGEA-TOKEN: Bearer your_api_key"
 ```
 
@@ -472,6 +472,6 @@ or
 ```
 Example Usage:
 ```bash
-curl https://api.example.com/issue/issue_id_here?show_full_code=true \
+curl https://corgea.app/api/v1/issue/issue_id_here?show_full_code=true \
   -H "CORGEA-TOKEN: Bearer your_api_key"
 ```
