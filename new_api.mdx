@@ -1,0 +1,477 @@
+# Corgea API Reference
+
+This document provides detailed information about the Corgea API endpoints. The API allows you to programmatically interact with Corgea's scanning and vulnerability management features.
+
+## Authentication
+
+Most endpoints require authentication using a Corgea token that should be included in the `CORGEA-TOKEN` header. You can obtain a token from your Corgea account settings.
+
+## Endpoints
+
+### Verify Token API
+
+Description: Verifies the provided token and returns the status.
+Endpoint: `/verify/<str:token>`
+HTTP Method: GET
+Request Headers: None
+Request Parameters:
+Path Parameters:
+- `token` (string): The token to be verified.
+Query Parameters: None
+Request Body: None
+Response:
+Status Codes:
+- 200: Token is valid.
+- 400: Invalid token.
+Response Body:
+```json
+{
+  "status": "ok"
+}
+```
+or
+```json
+{
+  "status": "error"
+}
+```
+Example Usage:
+```bash
+curl https://api.example.com/verify/your_token_here
+```
+
+### Scan Upload API 
+
+Description: Uploads a scan report for a given run ID.
+Endpoint: `/scan-upload`
+HTTP Method: POST
+Request Headers:
+- `CORGEA-TOKEN`: API key for authentication.
+Request Parameters:
+Query Parameters:
+- `run_id` (string): The ID of the run associated with the scan report.
+- `engine` (string): The engine used for the scan.
+- `project` (string): The name of the project.
+Request Body: The scan report file.
+Response:
+Status Codes:
+- 200: Scan report uploaded successfully.
+- 400: Invalid request or content.
+Response Body:
+```json
+{
+  "status": "ok"
+}
+```
+or
+```json
+{
+  "status": "invalid content"
+}
+```
+Example Usage:
+```bash
+curl -X POST https://api.example.com/scan-upload?run_id=123&engine=corgea&project=myproject \
+  -H "CORGEA-TOKEN: Bearer your_api_key" \
+  --data-binary "@scan_report.txt"
+```
+
+### Start Scan API
+
+Description: Initiates a new scan or continues an existing scan with a transfer ID. The Start Scan API supports chunked file uploads for large codebases by allowing you to split the upload into multiple requests.
+
+For new scans, you must first initiate the scan with a POST request. Currently, only "blast" scan type is supported, which requires uploading a single source code file. Your company account must have blast scanning enabled to use this feature.
+
+For large files that need to be split into chunks, you can continue the upload using PATCH requests with a transfer ID. Each chunk should be sent as a 'chunk_data' file parameter.
+
+Endpoint:
+- `/start-scan` (for new scans)
+- `/start-scan/<str:transfer_id>/` (for continuing existing scans)
+
+HTTP Method: 
+- POST (for new scans)
+- PATCH (for continuing existing scans)
+- HEAD (to check upload status)
+
+Request Headers:
+- `CORGEA-TOKEN`: API key for authentication.
+
+Request Parameters:
+Path Parameters:
+- `transfer_id` (string, optional): The transfer ID for continuing an existing scan upload.
+
+Query Parameters: None
+
+Request Body:
+For new scans (POST):
+- `scan_type` (string): Currently only "blast" is supported.
+- `repo_url` (string): The URL of the repository.
+- `branch` (string): The branch to be scanned.
+- `sha` (string): The commit SHA to be scanned.
+- `files` (file): Single source code file to be scanned. Multiple files are not supported.
+
+For continuing existing scans (PATCH):
+- `chunk_data` (file): The next chunk of data for the scan.
+
+Response:
+Status Codes:
+- 200: Scan initiated or continued successfully.
+- 400: Invalid request or content. Common errors include:
+  - Blast scanning not enabled for your account
+  - No files uploaded
+  - Multiple files uploaded (only single file supported)
+  - Invalid scan type (only "blast" supported)
+  - Missing chunk_data file
+  - Other scan initialization failures
+
+Here are some example responses for the `/start-scan` and `/start-scan/<str:transfer_id>/` endpoints. These responses cover the different scenarios handled by the endpoint, including successful scan initiation, file upload errors, invalid request methods, and upload status checks. The responses are formatted as JSON objects with appropriate status codes and error messages.
+
+#### POST /start-scan (New Scan)
+
+**Success Response (200 OK)**:
+```json
+{
+  "transfer_id": "c9b0a8c7-f9b4-4c10-9d58-cd4c7e1c9c52",
+  "status": "success",
+  "message": "Scan initiated successfully."
+}
+```
+
+**Error Responses (400 Bad Request)**:
+
+```json
+{
+  "status": "error",
+  "message": "Blast Scan is not enabled for your account."
+}
+```
+
+```json
+{
+  "message": "No files uploaded for blast. Please upload the required files.",
+  "status": "error"
+}
+```
+
+```json
+{
+  "message": "Multiple files uploaded for blast. Please upload only one file.",
+  "status": "error"
+}
+```
+
+```json
+{
+  "message": "Only Blast scan is currently enabled by the API.",
+  "status": "error"
+}
+```
+
+#### PATCH /start-scan/transfer_id/ (Continue Existing Scan)
+
+**Success Response (200 OK)**:
+```json
+{
+  "transfer_id": "c9b0a8c7-f9b4-4c10-9d58-cd4c7e1c9c52",
+  "status": "success",
+  "message": "Chunk uploaded successfully."
+}
+```
+
+**Error Response (400 Bad Request)**:
+```json
+{
+  "message": "Invalid request: 'chunk_data' file not found.",
+  "status": "error"
+}
+```
+
+```json
+{
+  "message": "Failed to start Corgea",
+  "status": "error",
+  "internal_detail": "Error message from ScanException"
+}
+```
+
+#### HEAD /start-scan/transfer_id/ (Check Upload Status)
+
+**Success Response (200 OK)**:
+```json
+{
+  "transfer_id": "c9b0a8c7-f9b4-4c10-9d58-cd4c7e1c9c52",
+  "status": "success",
+  "message": "Upload in progress.",
+  "progress": 0.5
+}
+```
+
+```json
+{
+  "transfer_id": "c9b0a8c7-f9b4-4c10-9d58-cd4c7e1c9c52",
+  "status": "success",
+  "message": "Upload completed.",
+  "progress": 1.0
+}
+```
+
+**Error Response (400 Bad Request)**:
+```json
+{
+  "status": "error",
+  "message": "Invalid transfer ID."
+}
+```
+
+
+### Get Scans API
+
+Description: Retrieves a list of scans for the authenticated user's company.
+Endpoint: `/scans`
+HTTP Method: GET
+Request Headers:
+- `CORGEA-TOKEN`: API key for authentication.
+Request Parameters:
+Query Parameters:
+- `project` (string, optional): Filter scans by project name.
+- `page` (integer, optional): The page number for pagination (default: 1).
+- `page_size` (integer, optional): The number of results per page (default: 20, max: 50).
+Request Body: None
+Response:
+Status Codes:
+- 200: Scans retrieved successfully.
+Response Body:
+```json
+{
+  "status": "ok",
+  "page": 1,
+  "total_pages": 2,
+  "scans": [
+    {
+      "id": "uuid",
+      "engine": "corgea",
+      "project": "myproject",
+      "created_at": "2023-05-24T12:34:56.789Z",
+      "repo": "https://github.com/example/repo",
+      "branch": "main",
+      "status": "completed",
+      "pull_request_id": null
+    },
+    {
+      "id": "uuid",
+      "engine": "corgea",
+      "project": "anotherproject",
+      "created_at": "2023-05-23T09:08:07.654Z",
+      "repo": "https://github.com/example/another-repo",
+      "branch": "develop",
+      "status": "in_progress",
+      "pull_request_id": 123
+    }
+  ]
+}
+```
+
+Example Usage:
+```bash
+curl https://api.example.com/scans?project=myproject&page=1&page_size=10 \
+  -H "CORGEA-TOKEN: Bearer your_api_key"
+```
+
+### Get Scan API
+
+Description: Retrieves details of a specific scan.
+Endpoint: `/scan/<str:scan_id>`
+HTTP Method: GET
+Request Headers:
+- `CORGEA-TOKEN`: API key for authentication.
+Request Parameters:
+Path Parameters:
+- `scan_id` (string): The ID of the scan.
+Query Parameters: None
+Request Body: None
+Response:
+Status Codes:
+- 200: Scan details retrieved successfully.
+- 404: Scan not found.
+Response Body:
+```json
+{
+  "status": "ok",
+  "id": "uuid",
+  "project": "myproject",
+  "repo": "https://github.com/example/repo",
+  "branch": "main",
+  "status": "completed",
+  "engine": "corgea",
+  "created_at": "2023-05-24T12:34:56.789Z"
+}
+```
+or
+```json
+{
+  "status": "error",
+  "message": "Scan doesn't exist"
+}
+```
+Example Usage:
+```bash
+curl https://api.example.com/scan/scan_id_here \
+  -H "CORGEA-TOKEN: Bearer your_api_key"
+```
+
+### Get Issues for Scan API
+
+Description: Retrieves a list of issues for a specific scan.
+Endpoint: `/scan/<str:scan_id>/issues`
+HTTP Method: GET
+Request Headers:
+- `CORGEA-TOKEN`: API key for authentication.
+Request Parameters:
+Path Parameters:
+- `scan_id` (string): The ID of the scan.
+Query Parameters:
+- `page` (integer, optional): The page number for pagination (default: 1).
+- `page_size` (integer, optional): The number of results per page (default: 20, max: 50).
+Request Body: None
+Response:
+Status Codes:
+- 200: Issues retrieved successfully.
+- 404: Scan not found.
+Response Body:
+```json
+{
+  "status": "ok",
+  "issues": [
+    {
+      "id": "uuid",
+      "classification": {
+        "id": "CWE-123",
+        "name": "Vulnerability Name",
+        "description": "Vulnerability description"
+      },
+      "urgency": "high",
+      "created_at": "2023-05-24T12:34:56.789Z",
+      "status": "accepted_risk",
+      "sla_status": "due",
+      "location": {
+        "file": {
+          "name": "file.py",
+          "language": "python",
+          "path": "path/to/file.py"
+        },
+        "project": {
+          "name": "myproject",
+          "branch": "main",
+          "git_sha": "abcd1234"
+        },
+        "line_number": 42
+      },
+      "auto_triage": {
+        "false_positive_detection": {
+          "status": "valid"
+        }
+      },
+      "auto_fix_suggestion": {
+        "status": "fix_available",
+        "patch": {
+          "diff": "--- a/path/to/file.py\n+++ b/path/to/file.py\n@@ -1,3 +1,4 @@\n ...",
+          "explanation": "This patch fixes the vulnerability by..."
+        }
+      }
+    }
+  ],
+  "page": 1,
+  "total_pages": 1,
+  "total_issues": 1
+}
+```
+or
+```json
+{
+  "status": "error",
+  "message": "Scan not found"
+}
+```
+Example Usage:
+```bash
+curl https://api.example.com/scan/scan_id_here/issues?page=1&page_size=10 \
+  -H "CORGEA-TOKEN: Bearer your_api_key"
+```
+
+### Get Issue API
+
+Description: Retrieves details of a specific issue.
+Endpoint: `/issue/<str:issue_id>`
+HTTP Method: GET
+Request Headers:
+- `CORGEA-TOKEN`: API key for authentication.
+Request Parameters:
+Path Parameters:
+- `issue_id` (string): The ID of the issue.
+Query Parameters:
+- `show_full_code` (boolean, optional): Whether to include the full code in the response (default: false).
+Request Body: None
+Response:
+Status Codes:
+- 200: Issue details retrieved successfully.
+- 404: Issue not found.
+Response Body:
+```json
+{
+  "status": "ok",
+  "issue": {
+    "id": "uuid",
+    "scan_id": "uuid",
+    "status": "open",
+    "urgency": "high",
+    "created_at": "2023-05-24T12:34:56.789Z",
+    "classification": {
+      "id": "CWE-123",
+      "name": "Vulnerability Name",
+      "description": "Vulnerability description"
+    },
+    "location": {
+      "file": {
+        "name": "file.py",
+        "language": "python",
+        "path": "path/to/file.py"
+      },
+      "project": {
+        "name": "myproject",
+        "branch": "main",
+        "git_sha": "abcd1234"
+      },
+      "line_number": 42
+    },
+    "details": {
+      "explanation": "This vulnerability occurs because...\n- Reason 1\n- Reason 2"
+    },
+    "auto_triage": {
+      "false_positive_detection": {
+        "status": "valid",
+        "reasoning": "The issue is a valid vulnerability because..."
+      }
+    },
+    "auto_fix_suggestion": {
+      "id": "uuid",
+      "status": "fix_available",
+      "patch": {
+        "diff": "--- a/path/to/file.py\n+++ b/path/to/file.py\n@@ -1,3 +1,4 @@\n ...",
+        "explanation": "This patch fixes the vulnerability by..."
+      }
+    }
+  }
+}
+```
+or
+```json
+{
+  "status": "error",
+  "message": "Issue not found"
+}
+```
+Example Usage:
+```bash
+curl https://api.example.com/issue/issue_id_here?show_full_code=true \
+  -H "CORGEA-TOKEN: Bearer your_api_key"
+```
