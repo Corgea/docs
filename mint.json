@@ -51,15 +51,49 @@
   "navigation": [
     {
       "group": "Getting Started",
-      "pages": ["introduction", "quickstart", "how_it_works", "install_cli"]
+      "pages": [
+        "introduction",
+        "quickstart",
+        {
+          "group": "Setup & Configuration", 
+          "pages": ["how_it_works", "install_cli"]
+        }
+      ]
     },
     {
       "group": "Core Features",
-      "pages": ["vulnerability_support", "language_support", "blast", "scanning", "fixes", "false_positive", "policies", "user_management"]
+      "pages": [
+        {
+          "group": "Security Analysis",
+          "pages": ["vulnerability_support", "language_support", "blast", "scanning"]
+        },
+        {
+          "group": "Issue Management",
+          "pages": ["fixes", "false_positive", "issue_assignment"]
+        },
+        {
+          "group": "Policy Management",
+          "pages": ["policies", "sla_management"]
+        },
+        "user_management"
+      ]
     },
     {
       "group": "Integrations",
-      "pages": ["vsc_extension", "vs2022_extension", "github", "gitlab", "azure_devops", "jira", "slack", "zapier", "webhooks"]
+      "pages": [
+        {
+          "group": "IDEs",
+          "pages": ["vsc_extension", "vs2022_extension"]
+        },
+        {
+          "group": "Source Control",
+          "pages": ["github", "gitlab", "azure_devops"]
+        },
+        {
+          "group": "Automation Management",
+          "pages": ["jira", "slack", "zapier", "webhooks"]
+        }
+      ]
     },
     {
       "group": "API Reference",
