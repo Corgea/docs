@@ -34,21 +34,31 @@ The SLA Management feature is accessible through the "Policies" section of the a
   </Step>
   <Step title="Access SLA Management">
     Click on the "SLA Management" tab or link
+    <Frame>
+      <img src="/images/sla_management_nav.png" style={{ borderRadius: '0.5rem' }} />
+    </Frame>
+
   </Step>
   <Step title="Create New SLA">
-    If no SLAs are defined, click the "Create Issue SLA" button to set up your first SLA
+    Click the "Create Issue SLA" button to set up a new SLA
+    <Frame>
+      <img src="/images/sla_create.png" style={{ borderRadius: '0.5rem' }} />
+    </Frame>
   </Step>
   <Step title="Configure Urgency Levels">
-    In the SLA creation modal, select the desired urgency levels (e.g., Critical, High, Medium, Low)
+    In the SLA creation modal, select the desired urgency levels (e.g., Critical, High, Medium, Low) by checking the corresponding checkboxes
   </Step>
   <Step title="Set Timeframes">
-    Set the remediation and escalation timeframes (in days) for each urgency level
+    Set the remediation and escalation timeframes (in days) for the selected urgency levels
   </Step>
   <Step title="Configure Notifications">
-    Choose the notification method (email, Slack, or both) and provide the necessary details
+    Choose the notification method(s) by checking the "Email" and/or "Slack Integration" options. If selecting Slack, choose the desired integration from the dropdown.
+    <Tip>
+      Make sure you have configured your Slack integrations in the Integrations section before enabling Slack notifications. See the [Slack Integration Guide](slack) for setup instructions.
+    </Tip>
   </Step>
   <Step title="Save Configuration">
-    Click "Save" or "Create" to finalize the SLA configuration
+    Click "Save SLA" to finalize the SLA configuration
   </Step>
 </Steps>
 
@@ -56,15 +66,16 @@ The SLA Management feature is accessible through the "Policies" section of the a
 
 ### Viewing and Managing SLAs
 <Info>
-- On the "SLA Management" page, you can view a list of all defined SLAs
+- On the "SLA Management" page, you can view a list of all defined SLAs for your company
 - Use the provided actions (edit, delete) to manage existing SLAs
 </Info>
 
 ### Issue Tracking and Notifications
 <Info>
 - When a new security issue is created, it will be automatically associated with the appropriate SLA based on its urgency level
-- As the issue approaches its remediation and escalation deadlines, notifications will be sent to the configured recipients
-- The issue's status will be updated to reflect its SLA compliance
+- As the issue approaches its remediation and escalation deadlines, notifications will be sent to the configured recipients (assigned user or project owners)
+- The issue's status will be updated to reflect its SLA compliance (overdue or escalated)
+- SLA notifications are sent once a day, checking for any issues that have passed their remediation or escalation deadlines
 </Info>
 
 ### Reporting and Analytics
@@ -74,18 +85,23 @@ The SLA Management feature is accessible through the "Policies" section of the a
 - Identify trends and patterns to improve processes
 </Info>
 
+<Frame>
+  <img src="/images/aging_report.png" style={{ borderRadius: '0.5rem' }} />
+</Frame>
+
+
 ## Examples
 
 ### Setting up an SLA for Critical Issues
 <Steps>
   <Step title="Create SLA">
-    Create a new SLA and select the "Critical" urgency level
+    Create a new SLA and check the "Critical" urgency level
   </Step>
   <Step title="Set Timeframes">
     Set the remediation timeframe to 2 days and the escalation timeframe to 3 days
   </Step>
   <Step title="Configure Notifications">
-    Configure email notifications to be sent to the security team and project managers
+    Check the "Email" option and select a Slack integration (if available)
   </Step>
 </Steps>
 
@@ -95,10 +111,10 @@ The SLA Management feature is accessible through the "Policies" section of the a
     On the "Issue Aging" reporting page, filter the issues by the desired project
   </Step>
   <Step title="Review Issues">
-    Review the list of issues, their urgency levels, and their SLA status
+    Review the list of issues, their urgency levels, and their SLA status (overdue or escalated)
   </Step>
   <Step title="Prioritize">
-    Identify any overdue issues and prioritize their resolution based on the defined SLAs
+    Identify any overdue or escalated issues and prioritize their resolution based on the defined SLAs
   </Step>
 </Steps>
 
