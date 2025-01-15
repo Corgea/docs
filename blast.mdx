@@ -22,25 +22,24 @@ By leveraging the power of Large Language Models (LLMs) combined with static ana
 
 ## Vulnerability Classes Detected
 
-BLAST excels at detecting business logic vulnerabilities, which are often missed by traditional SAST tools. In addition to business logic vulnerabilities, BLAST can also detect common security flaws found in regular SAST scanning. Below are some of the specific vulnerabilities detected by BLAST:
+BLAST excels at detecting business logic vulnerabilities, which are often missed by traditional SAST tools. Below are some of the specific vulnerabilities detected by BLAST:
 
-- **Business Logic Vulnerabilities (CWE-840)**: Flaws that allow users to manipulate or bypass critical processes, such as purchase limits or transaction validation.
-- **Code Logic Vulnerabilities (CWE-633)**: Errors in the logic of the code, such as incorrect conditions or loops, leading to unexpected behavior.
-- **Insecure Authentication (CWE-287)**: Issues such as missing multi-factor authentication or insecure token management.
-- **Insecure Authorization (CWE-285)**: Weak access controls that allow unauthorized actions or resource access.
-- **Context Dependent Vulnerabilities (CWE-696)**: Vulnerabilities that occur only under certain conditions, like time-based or state-dependent errors.
-- **Improper Session Management (CWE-384)**: Mismanagement of session identifiers, such as predictable session IDs or insecure storage.
-- **Timing Attacks (CWE-208)**: Vulnerabilities based on the time it takes to execute certain operations, which can leak sensitive information.
-- **Race Conditions (CWE-362)**: Flaws that result from uncontrolled timing or ordering of operations.
-- **Unhygienic Data Handling (CWE-20)**: Poor input validation or escaping of special characters, leading to vulnerabilities like SQL injection.
 - **Insecure Data Storage (CWE-311)**: Storing sensitive data insecurely, such as in plaintext or using weak encryption.
 - **Sensitive Data Exposure (CWE-200)**: Accidental exposure of sensitive information through logs, error messages, or improper storage.
 - **Improper Error Handling (CWE-209)**: Leaking information through error messages or causing unintended behavior due to poor error management.
 - **Improper Logging (CWE-532)**: Logging sensitive data or failing to log important security events.
 - **Improper Exception Handling (CWE-248)**: Failing to handle exceptions securely, leading to potential crashes, data loss, or security risks.
 - **Hardcoded Secrets (CWE-798)**: Detection of embedded credentials, API keys, and other sensitive information in source code.
+- **Malicious Code (CWE-506)**: Intentionally harmful code that performs unauthorized or malicious actions like file deletion, unauthorized encryption, or data theft.
+- **Backdoors (CWE-288)**: Hidden access mechanisms that bypass normal security controls through undocumented endpoints or covert channels.
+- **Data Exfiltration (CWE-319)**: Unauthorized collection and transmission of sensitive data outside the system.
+- **Unethical Data Collection (CWE-359)**: Collection of user data without proper consent or beyond legitimate application needs.
+- **Malicious Network Communication (CWE-293)**: Suspicious or unauthorized outbound network connections and data transfers.
+- **Time Bombs or Logic Bombs (CWE-511)**: Code designed to trigger malicious actions based on specific conditions or timing.
+- **Obfuscation Techniques (CWE-116)**: Unnecessarily complex or obscured code potentially hiding malicious functionality.
+- **Unauthorized Cryptocurrency Mining (CWE-400)**: Unauthorized use of system resources for cryptocurrency mining operations.
 
-While BLAST is particularly adept at detecting business and code logic flaws, it can also scan for and detect a wide array of traditional SAST vulnerabilities not limited to those listed here.
+In addition to business logic vulnerabilities, BLAST can also detect common security flaws found in regular SAST scanning. 
 
 ## Secret Scanning Capabilities
 
@@ -96,7 +95,6 @@ BLAST supports a wide range of languages and their associated frameworks, ensuri
 
 - **Languages**: C#, Python, Ruby, Go, JavaScript, TypeScript, Java
 - **Frameworks**: .NET, Django, Ruby on Rails, Node.js, Spring, Flask, and more
-
 
 ## Conclusion
 
