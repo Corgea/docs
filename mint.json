@@ -73,7 +73,7 @@
         },
         {
           "group": "Policy Management",
-          "pages": ["policies", "sla_management"]
+          "pages": ["policies", "sla_management", "blocking_rules"]
         },
         "user_management"
       ]

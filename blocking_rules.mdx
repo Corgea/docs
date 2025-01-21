@@ -1,0 +1,163 @@
+---
+title: 'Blocking Rules'
+description: 'Blocking rules help enforce security and quality standards by preventing non-compliant code from being merged.'
+---
+
+## Overview
+
+### What it Does
+
+Blocking rules are a powerful feature that allows you to define specific conditions under which pull requests should be blocked from being merged. This helps ensure that your codebase adheres to your organization's security and quality standards by preventing potentially risky or non-compliant code changes from being merged.
+
+### Who it's For
+
+Blocking rules are primarily designed for:
+- Development teams
+- Project managers 
+- Security professionals
+
+This feature is particularly useful for organizations with strict compliance requirements or those working on mission-critical applications where code quality and security are paramount.
+
+## Key Features and Benefits
+
+<AccordionGroup>
+  <Accordion title="Enforce Coding Standards" icon="shield-check">
+    Define rules based on Common Weakness Enumerations (CWEs) to block pull requests that introduce specific types of vulnerabilities or code quality issues.
+  </Accordion>
+  <Accordion title="Customize Urgency Levels" icon="signal">
+    Assign urgency levels (e.g., critical, high, medium, low) to different types of issues, allowing you to prioritize and handle them accordingly.
+  </Accordion>
+  <Accordion title="Project-Specific Rules" icon="folder-tree">
+    Apply blocking rules to specific projects or across your entire organization, giving you granular control over which projects are subject to which rules.
+  </Accordion>
+  <Accordion title="Rule Management" icon="gear">
+    Easily create, edit, and delete blocking rules through a user-friendly interface, ensuring your rules stay up-to-date with your evolving requirements.
+  </Accordion>
+  <Accordion title="Rule Activation/Deactivation" icon="toggle-on">
+    Toggle the status of blocking rules to temporarily enable or disable them as needed, without losing their configurations.
+  </Accordion>
+</AccordionGroup>
+
+## How it Works with GitHub
+
+<Steps>
+  <Step title="Pull Request Submission">
+    Developer submits a pull request with code changes
+  </Step>
+  <Step title="Automated Analysis">
+    System analyzes code changes against active blocking rules
+  </Step>
+  <Step title="Rule Validation">
+    If violations are found, pull request is automatically blocked
+    <Frame>
+      <img src="/images/blocking_rules_pr_blocked.png" style={{ borderRadius: '0.5rem' }} />
+    </Frame>
+  </Step>
+  <Step title="Developer Notification">
+    Developer receives detailed notification about rule violations
+  </Step>
+  <Step title="Resolution">
+    Developer must fix violations before merge is allowed
+  </Step>
+</Steps>
+
+
+## Usage Guide
+
+### Creating a New Blocking Rule
+
+<Steps>
+  <Step title="Initiate Creation">
+    Click the "Add Blocking Rule" button
+  </Step>
+  <Step title="Basic Information">
+    Enter rule name and description
+    <Frame>
+      <img src="/images/blocking_rule_create.png" style={{ borderRadius: '0.5rem' }} />
+    </Frame>
+  </Step>
+  <Step title="Configure Settings">
+    Select urgency levels and target CWEs
+  </Step>
+  <Step title="Set Scope">
+    Choose applicable projects (optional)
+  </Step>
+  <Step title="Save">
+    Review and click "Create"
+  </Step>
+</Steps>
+
+### Managing Existing Rules
+
+<Tabs>
+  <Tab title="Edit Rule">
+    1. Locate rule in table
+    2. Click "Edit" button
+    3. Modify settings as needed
+    4. Click "Update" to save
+  </Tab>
+  <Tab title="Toggle Status">
+    1. Find rule in table
+    2. Click "Toggle Status"
+    3. Confirm status change
+  </Tab>
+  <Tab title="View Details">
+    1. Click on rule name
+    2. Review comprehensive information
+    3. Close modal when done
+  </Tab>
+</Tabs>
+
+### Viewing Rules on scans
+    You can view blocking rules that apply to your scans in two places:
+
+    1. On the scan details page, you'll see a "Blocking Rules" section showing all rules that were evaluated:
+    <Frame>
+      <img src="/images/blocking_rules_scan_details.png" style={{ borderRadius: '0.5rem' }} />
+    </Frame>
+
+    2. For individual issues, you can see which blocking rules were triggered in the issue details:
+    <Frame>
+      <img src="/images/blocking_rule_issue_details.png" style={{ borderRadius: '0.5rem' }} />
+    </Frame>
+
+    This makes it easy to understand which rules are affecting your scans and specific issues, helping you identify why certain changes may be blocked.
+
+## Examples
+
+<AccordionGroup>
+  <Accordion title="Blocking Insecure Cryptography" icon="lock">
+    Create a rule targeting CWE-326 (Inadequate Encryption Strength) and CWE-327 (Use of a Broken or Risky Cryptographic Algorithm) with "Critical" urgency to prevent weak encryption usage.
+  </Accordion>
+  <Accordion title="Enforcing Code Quality" icon="code">
+    Set up a rule for CWE-398 (Indicator of Poor Code Quality) and CWE-477 (Use of Obsolete Functions) with "Medium" urgency to maintain code standards.
+  </Accordion>
+</AccordionGroup>
+
+## Best Practices
+
+<Card title="Implementation Tips" icon="lightbulb">
+- Start with essential rules and gradually expand
+- Regular review and updates
+- Clear documentation and team training
+- Encourage feedback and collaboration
+- Strategic use of urgency levels
+</Card>
+
+## Troubleshooting
+
+<Warning>If a pull request is unexpectedly blocked, verify the active rules and their configurations first.</Warning>
+
+<AccordionGroup>
+  <Accordion title="Common Issues" icon="bug">
+    - Unexpected blocking behavior
+    - Rule targeting issues
+    - Project scope problems
+  </Accordion>
+  <Accordion title="Resolution Steps" icon="wrench">
+    - Check rule configurations
+    - Verify CWE targeting
+    - Confirm project settings
+    - Contact support if needed
+  </Accordion>
+</AccordionGroup>
