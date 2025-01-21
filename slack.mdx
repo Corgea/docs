@@ -28,6 +28,26 @@ This method provides flexibility by allowing you to create custom workflows that
     1. After creating the webhook, copy the provided Webhook URL
     2. Add steps to your workflow (e.g., "Send a message")
     3. Configure the message format using variables from the webhook payload
+
+    Here's an example payload that Corgea would send over. 
+    ```json
+          {
+        "title": "🐕 Corgea scan is complete!",
+        "user": "john@example.com",
+        "project": "My Project",
+        "num_issues": 10,
+        "severity_counts": {
+          "HIGH": 2,
+          "MEDIUM": 3,
+          "LOW": 5
+        },
+        "scan_url": "https://corgea.app/scan/?scan_id=123",
+        "message": "The Corgea scan for project My Project has completed with 10 issues found.\n🔴 - 2 high severity issues\n🟠 - 3 medium severity issues\n🟡 - 5 low severity issues\n\nView full scan details at: https://corgea.app/scan/?scan_id=123"
+      }
+      ```
+
+      You can use our canned message or create your own using variables. 
+
     4. You can add additional steps like:
        - Sending messages to multiple channels
        - Creating reminders
