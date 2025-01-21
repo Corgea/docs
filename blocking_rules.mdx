@@ -7,7 +7,7 @@ description: 'Blocking rules help enforce security and quality standards by prev
 
 ### What it Does
 
-Blocking rules are a powerful feature that allows you to define specific conditions under which pull requests should be blocked from being merged. This helps ensure that your codebase adheres to your organization's security and quality standards by preventing potentially risky or non-compliant code changes from being merged.
+Blocking rules are powerful guardrails that allow you to define specific conditions under which pull requests should be blocked from being merged. This helps ensure that your codebase adheres to your organization's security and quality standards by preventing potentially risky or non-compliant code changes from being merged.
 
 ### Who it's For
 
@@ -40,6 +40,10 @@ This feature is particularly useful for organizations with strict compliance req
 
 ## How it Works with GitHub
 
+<Info>
+  **Prerequisite** You must have installed and configured the [Corgea GitHub App](github_integration) with appropriate repository permissions.
+</Info>
+
 <Steps>
   <Step title="Pull Request Submission">
     Developer submits a pull request with code changes
@@ -55,9 +59,12 @@ This feature is particularly useful for organizations with strict compliance req
   </Step>
   <Step title="Developer Notification">
     Developer receives detailed notification about rule violations
+    <Frame>
+      <img src="/images/blocking_rules_pr_details.png" style={{ borderRadius: '0.5rem' }} />
+    </Frame>
   </Step>
   <Step title="Resolution">
-    Developer must fix violations before merge is allowed
+    Developer must fix violations and mark them as Fixed, or mark them as False Positive or Accepted Risk before merge is allowed
   </Step>
 </Steps>
 
@@ -77,7 +84,7 @@ This feature is particularly useful for organizations with strict compliance req
     </Frame>
   </Step>
   <Step title="Configure Settings">
-    Select urgency levels and target CWEs
+    Select urgency levels (Critical, High, Medium, or Low) and/or target CWEs - at least one of these must be defined for the rule to be valid
   </Step>
   <Step title="Set Scope">
     Choose applicable projects (optional)
