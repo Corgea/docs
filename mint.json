@@ -7,14 +7,19 @@
   },
   "favicon": "/logo/logo.png",
   "colors": {
-    "primary": "#3b71ca",
-    "light": "#3b71ca",
-    "dark": "#69a9de",
+    "primary": "#F56C26",
+    "light": "#F56C26",
+    "dark": "#F56C26",
+    "background": {
+      "light": "#fffdfd",
+      "dark": "#131313"
+    },
     "anchors": {
-      "from": "#3b71ca",
-      "to": "#69a9de"
+      "from": "#F56C26",
+      "to": "#F56C26"
     }
   },
+  "theme": "venus",
   "topbarLinks": [
     {
       "name": "Support",
