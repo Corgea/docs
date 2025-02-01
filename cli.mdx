@@ -1,0 +1,188 @@
+---
+title: 'CLI'
+description: 'Supercharge your security from the command line'
+---
+
+## Introduction
+
+Corgea CLI is a powerful developer tool that helps you find and fix security vulnerabilities in your code. Using our AI-powered scanner (BLAST) and platform, Corgea identifies complex security issues like business logic flaws, authentication vulnerabilities, and other hard-to-find bugs. The CLI provides commands to scan your codebase, inspect findings, interact with fixes, and much more - all designed with a great developer experience in mind.
+
+## Features
+
+- **Multiple Scanner Support**: Scan with BLAST (our AI-powered scanner), Semgrep, or Snyk.
+- **Issue Management**: List, inspect, and manage security findings.
+- **Fix Integration**: View and apply AI-generated fixes for vulnerabilities right from your terminal.
+- **Flexible Output**: Support for both human-readable and JSON output formats for easier CI integrations.
+- **CI/CD Integration**: Fail builds based on severity levels or custom blocking rules.
+- **Scan Management**: Track scan progress and results across your projects.
+
+## Prerequisites
+
+Before using the Corgea CLI, ensure you have:
+
+- **Corgea account**: An active Corgea account.
+- **API Token**: A valid API token from your Corgea dashboard.
+
+## Installation Guide
+
+### Install with PIP
+
+To install the Corgea CLI tool, you can use Python's package installer, pip. Open your terminal and run the following command:
+
+```bash
+pip install corgea-cli
+```
+
+This command fetches the Corgea CLI package from PyPI (Python Package Index) and installs it on your system. You can find more details about the package on its PyPI page: [https://pypi.org/project/corgea-cli/](https://pypi.org/project/corgea-cli/).
+
+### Install Manually
+
+<CodeGroup>
+```bash MacOS
+curl -L https://cli.corgea.app/aarch64_darwin/latest -o corgea.zip && unzip corgea.zip
+chmod +x corgea
+sudo mv corgea /usr/local/bin
+```
+
+```bash Windows
+Download the latest binary from https://cli.corgea.app/x86_64_windows/latest
+
+Move the executable to a directory in your PATH.
+```
+
+```bash Linux
+curl -L https://cli.corgea.app/x86_64_linux/latest -o corgea.zip && unzip corgea.zip
+chmod +x corgea
+sudo mv corgea /usr/local/bin
+```
+</CodeGroup>
+
+## Authentication
+
+### Login with your cli
+
+To authenticate with your API token, use the following command:
+
+```bash
+corgea login YOUR_API_TOKEN
+```
+
+### Point To A Single-Tenant Instance
+ 
+Customers using a single-tenant instance need to have the CLI point to their instance. 
+
+<CodeGroup>
+```bash MacOS/Unix
+export CORGEA_URL="https://<<Your Instance>>.corgea.app"
+```
+
+```bash Windows
+$env:CORGEA_URL="https://<<Your Instance>>.corgea.app"
+```
+</CodeGroup>
+
+## Usage
+### Commands and Options
+
+#### Upload a Scan Report
+
+Upload a scan report to Corgea via STDIN or a file:
+
+```bash
+corgea upload path/to/report.json
+```
+
+#### Scan Your Codebase
+
+To scan your current directory using the default BLAST scanner:
+
+```bash
+corgea scan
+```
+
+To specify a different scanner, such as Semgrep:
+
+```bash
+corgea scan semgrep
+```
+
+You can also set the CLI to fail on a specific severity level:
+
+```bash
+corgea scan --fail-on CR
+```
+
+Or fail based on blocking rules defined in the web app:
+
+```bash
+corgea scan --fail
+```
+
+#### Wait for a Scan
+
+To wait for the latest in-progress scan:
+
+```bash
+corgea wait
+```
+
+Or specify a scan ID to wait for:
+
+```bash
+corgea wait --scan-id SCAN_ID
+```
+
+#### List Scans or Issues
+
+To list all scans (paginated by default):
+
+```bash
+corgea ls
+```
+
+To list issues for a specific scan:
+
+```bash
+corgea ls --issues --scan-id SCAN_ID
+```
+
+You can also control the pagination:
+
+```bash
+corgea list --page 1 --page-size 10
+```
+
+Note: The `--json` option is available for commands like `list` and `inspect` to output results in JSON format, which is useful for integrations and automation.
+
+#### Inspect a Scan or Issue
+
+To inspect a specific scan:
+
+```bash
+corgea inspect SCAN_ID
+```
+
+To inspect issues with detailed output:
+
+```bash
+corgea inspect --issue --json --summary SCAN_ID
+```
+
+For fix explanations or diffs:
+
+```bash
+corgea inspect --issue --fix SCAN_ID
+corgea inspect --issue --diff SCAN_ID
+```
+
+### Additional Options
+
+For more options and commands, use:
+
+```bash
+corgea --help
+```
+
+## Release Notes
+
+For full release notes, please visit our [GitHub releases page](https://github.com/corgea/cli/releases).
