@@ -61,7 +61,7 @@
         "quickstart",
         {
           "group": "Setup & Configuration", 
-          "pages": ["how_it_works", "install_cli"]
+          "pages": ["how_it_works"]
         }
       ]
     },
@@ -99,6 +99,10 @@
           "pages": ["jira", "slack", "zapier", "webhooks"]
         }
       ]
+    },
+    {
+      "group": "Tools & Utilities",
+      "pages": ["cli"]
     },
     {
       "group": "API Reference",
