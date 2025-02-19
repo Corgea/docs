@@ -115,6 +115,10 @@
     {
       "group": "Trust & Compliance",
       "pages": ["security", "legal"]
+    },
+    {
+      "group": "Authentication",
+      "pages": ["sso"]
     }
   ],
   "footerSocials": {

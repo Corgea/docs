@@ -1,0 +1,129 @@
+# Single Sign-On (SSO)
+
+## Overview
+
+### Functionality
+The SSO by SAML feature allows users to authenticate and access multiple applications using a single set of credentials via the Security Assertion Markup Language (SAML) protocol. This feature streamlines the login process, enhances security, and reduces the need for multiple passwords.
+
+### Target Audience
+This feature is designed for organizations looking to implement Single Sign-On (SSO) for their users, providing a seamless and secure authentication experience across various applications.
+
+## Key Features and Benefits
+
+- **Centralized Authentication**: Log in once to access multiple applications without re-entering credentials.
+- **Enhanced Security**: Reduces the risk of password fatigue and phishing attacks by minimizing the number of passwords users need to remember.
+- **Improved User Experience**: Simplifies the login process, reducing the time and effort required to access different services.
+
+## Access Instructions
+
+To access the SSO by SAML feature, you must provide either a SAML metadata link or specific configuration details to the Corgea support team.
+
+## Setup Instructions
+
+1. **Submit SAML Metadata Link**: Provide a SAML metadata link to the Corgea support team for configuration.
+
+2. **Submit Configuration Details**:
+   - **Entity ID**: The unique identifier for the SAML entity.
+   - **X509 Certificate**: The certificate used for signing SAML assertions.
+   - **Single Sign-On Service Location**: The URL where the SAML IdP sends authentication responses.
+   - **Email Domain**: The email domain you want to configure for SSO.
+
+## Usage Guide
+
+### Key Workflows or Actions
+
+- **User Login**: Authenticate through the SAML IdP and get redirected back to the application with a SAML assertion. After entering your email address on the initial login page, the "Login by SAML" option will appear on the step 2 page if the setup is correct. This option is triggered by the email domain.
+<Steps>
+  <Step title="Initial Login Page">
+    <Card>
+      <img src="/images/sso_initial_login.png" style={{ borderRadius: '0.5rem' }} alt="Initial Login Page" />
+    </Card>
+    <Info>
+      Enter your email address on the initial login page. If your email domain is configured for SSO, the "Login by SAML" option will appear on the next page.
+    </Info>
+  </Step>
+  <Step title="Login by SAML Option">
+    <Card>
+      <img src="/images/sso_login_by_saml.png" style={{ borderRadius: '0.5rem' }} alt="Login by SAML Option" />
+    </Card>
+    <Info>
+      Click on the "Login by SAML" button to proceed with authentication through your SAML Identity Provider (IdP).
+    </Info>
+  </Step>
+  <Step title="SAML Authentication">
+    <Card>
+      <img src="/images/sso_saml_authentication.png" style={{ borderRadius: '0.5rem' }} alt="SAML Authentication" />
+    </Card>
+    <Info>
+      You will be redirected to your SAML IdP for authentication. Enter your credentials as required by your IdP.
+    </Info>
+  </Step>
+  <Step title="Redirect to Application">
+    <Card>
+      <img src="/images/sso_redirect_to_app.png" style={{ borderRadius: '0.5rem' }} alt="Redirect to Application" />
+    </Card>
+    <Info>
+      After successful authentication, you will be redirected back to the application with a SAML assertion, granting you access.
+    </Info>
+  </Step>
+</Steps>
+
+### Prerequisites or Dependencies
+
+- A configured SAML Identity Provider (IdP).
+
+## Best Practices
+
+- **Regularly Update Certificates**: Ensure that your x509 certificates are up-to-date to maintain secure connections.
+- **Test Configurations**: Before rolling out SSO to all users, test the configuration with a small group to ensure everything works as expected.
+
+## Troubleshooting
+
+- **Missing Referer Header**: If you encounter a "Missing Referer header" error, ensure that the HTTP_ORIGIN is correctly set in the request headers.
+- **No SAML Config Found**: If a configuration is not found, verify that the correct referer URL or email domain is being used.
+
+## Additional Resources
+
+- [SAML Protocol Overview](https://en.wikipedia.org/wiki/SAML_2.0)
+- [Troubleshooting SAML Issues](https://www.samltool.com/troubleshoot.php)
+- [Add an Okta SAML application](https://help.okta.com/oag/en-us/content/topics/access-gateway/add-app-saml-pass-thru-add-okta.htm)
+
+# SCIM as an Optional Feature
+
+## Overview
+
+### Functionality
+SCIM (System for Cross-domain Identity Management) is an open standard designed to manage user identities in cloud-based applications and services. It automates the exchange of user identity information between identity domains or IT systems, making it easier to manage user accounts across multiple platforms.
+
+### Target Audience
+This feature is ideal for organizations that need to manage user identities across various applications efficiently.
+
+## Key Features and Benefits
+
+- **Automated User Provisioning**: Automatically create, update, and deactivate user accounts in connected applications, reducing manual effort and errors.
+- **Consistent User Data**: Ensures that user information is consistent across all integrated applications, improving data accuracy and compliance.
+- **Scalability**: Easily manage a large number of users across multiple platforms, making it suitable for growing organizations.
+- **Security**: Enhances security by ensuring that user access is promptly updated or revoked as needed.
+
+## Why Customers Want SCIM
+
+- **Efficiency**: Automates repetitive tasks, freeing up IT resources for more strategic initiatives.
+- **Accuracy**: Reduces the risk of human error in user management, ensuring that user data is always up-to-date.
+- **Compliance**: Helps maintain compliance with data protection regulations by ensuring that user data is consistently managed and protected.
+- **Integration**: Seamlessly integrates with existing SSO solutions, providing a comprehensive identity management system.
+
+## SSO SCIM Provider Configuration
+
+To enable SCIM functionality, you need to configure the SCIM application in your SSO provider with the following settings:
+- Ensure SCIM is enabled.
+- Set up the Application SCIM Integration with:
+  - SCIM connector base URL: https://www.corgea.app/scim/v2/
+  - Unique user identifier field: email
+  - Supported provisioning actions:
+    - Push New Users
+    - Push Profile Updates
+  - Authentication Mode: HTTP Header
+
+Please contact the Corgea support team to obtain the necessary API token.
+
+By enabling SCIM, organizations can significantly enhance their identity management processes, leading to improved operational efficiency and security.
