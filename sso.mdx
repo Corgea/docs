@@ -22,13 +22,61 @@ This feature is designed for organizations looking to implement Single Sign-On (
 
 To access the SSO by SAML feature, you must provide either a SAML metadata link or specific configuration details to the Corgea support team.
 
-## Setup Instructions
+## SAML Configuration Instructions
 
-1. **Submit SAML Metadata Link or Configuration Details**: Provide either a SAML metadata link or the following configuration details to the Corgea support team:
-   - **Entity ID**: The unique identifier for the SAML entity.
-   - **X509 Certificate**: The certificate used for signing SAML assertions.
-   - **Single Sign-On Service Location**: The URL where the SAML IdP sends authentication responses.
-   - **Email Domain**: The email domain you want to configure for SSO.
+### Setting Up SAML in Your SSO Provider
+1. Access your SSO provider account and set up the SAML application using these parameters:
+
+- **Single Sign-On URL**: https://www.corgea.app/saml/acs
+- **Audience URI (SP Entity ID)**: https://www.corgea.app/saml/metadata
+- **Default RelayState**: https://www.corgea.app/projects
+- **Name ID Format**: EmailAddress
+- **Application Username**: Email
+- **Update Application Username On**: Create and update
+
+For the "Attribute Statement (optional)" section, use the following mappings:
+
+- **Name** -> **Value**
+  - email -> user.email
+  - firstName -> user.firstName
+  - lastName -> user.lastName
+
+  <Card>
+    <img src="/images/sso_okta_config.png" style={{ borderRadius: '0.5rem' }} alt="Okta Config" />
+  </Card>
+  
+Upon completing the setup, a new SAML metadata link will be provided.
+
+### Integrating SAML with Corgea
+
+<Steps>
+  <Step title="Navigate to Integrations">
+    Log into your Corgea account and head to the "Integrations" section.
+  </Step>
+  <Step title="Initiate SAML SSO">
+    Select the "Add" option within the "SAML SSO" area.
+  </Step>
+  <Step title="SAML Configuration">
+    <Card>
+      <img src="/images/sso_fetch_and_populate.png" style={{ borderRadius: '0.5rem' }} alt="SSO Modal" />
+    </Card>
+    - Input the SAML metadata URL in the **"Metadata URL"** field.
+    - Press the **"Fetch and Populate"** button to auto-fill fields such as Entity ID, SSO URL, and X.509 Certificate using the metadata.
+    - **Configuration Name**: Assign a name to your SAML configuration.
+    - **Email Domain**: Define the email domain for SSO setup.
+
+    **Manual Entry (if necessary)**:
+    - Should manual input be needed, ensure you have the following details:
+      - **Entity ID**: The SAML entity's unique identifier.
+      - **X509 Certificate**: The certificate for signing SAML assertions.
+      - **Single Sign-On Service Location**: The URL for SAML IdP authentication responses.
+  </Step>
+  <Step title="Finalize Configuration">
+    - Check the accuracy of the auto-filled fields.
+    - Hit the "Connect" button to finalize and save your SAML configuration.
+  </Step>
+</Steps>
+
 
 ## Usage Guide
 
