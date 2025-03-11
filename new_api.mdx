@@ -37,7 +37,7 @@ or
 ```
 Example Usage:
 ```bash
-curl https://corgea.app/api/v1/verify/your_token_here
+curl https://www.corgea.app/api/v1/verify/your_token_here
 ```
 
 ### Scan Upload API 
@@ -71,7 +71,7 @@ or
 ```
 Example Usage:
 ```bash
-curl -X POST https://corgea.app/api/v1/scan-upload?run_id=123&engine=corgea&project=myproject \
+curl -X POST https://www.corgea.app/api/v1/scan-upload?run_id=123&engine=corgea&project=myproject \
   -H "CORGEA-TOKEN: Bearer your_api_key" \
   --data-binary "@scan_report.txt"
 ```
@@ -82,7 +82,7 @@ Description: Initiates a new scan or continues an existing scan with a transfer 
 
 For new scans, you must first initiate the scan with a POST request. Currently, only "blast" scan type is supported, which requires uploading a single source code file. Your company account must have blast scanning enabled to use this feature.
 
-For large files that need to be split into chunks, you can continue the upload using PATCH requests with a transfer ID. Each chunk should be sent as a 'chunk_data' file parameter.
+To upload a file, it must be divided into chunks. You can continue the upload process using PATCH requests with a transfer ID. Each chunk should be sent as a 'chunk_data' file parameter.
 
 Endpoint:
 - `/start-scan` (for new scans)
@@ -123,6 +123,196 @@ Status Codes:
   - Invalid scan type (only "blast" supported)
   - Missing chunk_data file
   - Other scan initialization failures
+
+
+<ResponseField name="Code" type="Sample Python code for chunk upload">
+  <Expandable title="code">
+```import os
+import requests
+import argparse
+
+# This utility file is used to test chunk upload functionality.
+
+# Usage: 
+# Full Scan
+# python api/tests/test_upload_in_chunks.py --branch branchX --repo_url https://github.com/repo123 --sha 21jio112j3 --project_name projectX /path/to/your/file.zip
+
+# Partial Scan:
+# python api/tests/test_upload_in_chunks.py --branch branchX --repo_url https://github.com/repo123 --sha 21jio112j3 --project_name projectX --files_to_scan "vuln.py, test.py" --partial_scan true /path/to/your/file.zip
+
+# Configuration
+API_BASE_URL = "https://www.corgea.app/api/v1/start-scan"
+
+url_base_params = {"scan_type": "blast"} 
+token_headers = {"CORGEA-TOKEN": "<YOUR_TOKEN>"} 
+
+LARGE_CHUNK_SIZE = 5 * 1024 * 1024  # 5 MB chunks
+SMALL_CHUNK_SIZE = int(0.01 * 1024 * 1024)  # 10 KB is approximately 0.01 MB
+CHUNK_SIZE = LARGE_CHUNK_SIZE
+
+def initiate_upload(file_path):
+    """Initiate the chunked upload by sending file metadata and a blank chunk."""
+    file_name = os.path.basename(file_path)
+    file_size = os.path.getsize(file_path)
+
+    metadata = {
+        'file_name': file_name,
+        'file_size': file_size
+    }
+    print(f"Sending metadata for {file_name}:")
+    
+    blank_chunk = b'' 
+    files = {'files': (file_name, blank_chunk)}
+    
+    response = requests.post(API_BASE_URL, params=url_base_params, files=files, headers=token_headers, json=metadata)
+    if response.status_code == 200:
+        upload_response = response.json()
+        transfer_id = upload_response.get("transfer_id")
+        print(f"Upload initiated. Transfer ID: {transfer_id}. Message: {upload_response.get('message')}")
+        return transfer_id
+    else:
+        print(f"Failed to initiate upload: {response.text}")
+        return None
+
+def upload_chunk(file_path, transfer_id, chunk_offset, chunk_data, project_name, branch, repo_url, sha, partial_scan, files_to_scan):
+    """Upload a single chunk."""
+    headers = {
+        'Upload-Offset': str(chunk_offset),
+        'Upload-Length': str(os.path.getsize(file_path)),
+        'Upload-Name': os.path.basename(file_path),
+    }
+    print(f"headers: {headers}")
+
+    headers.update(token_headers)
+    
+    form_data = {
+        'project_name': project_name,
+        'branch': branch,
+        'repo_url': repo_url,
+        'sha': sha,
+        'partial_scan': partial_scan, 
+        'files_to_scan': files_to_scan
+    }
+
+    print(f"form_data: {form_data}")
+    files = {
+        'chunk_data': ('chunk', chunk_data, 'application/octet-stream'),
+    }
+    response = requests.patch(
+        f"{API_BASE_URL}/{transfer_id}/",
+        headers=headers,
+        params=url_base_params,
+        files=files,
+        data=form_data,
+    )
+    if response.status_code == 200:
+        print(f"Upload progress: {chunk_offset / os.path.getsize(file_path) * 100:.2f}% ({chunk_offset})")
+        return True, response.json(), response.headers
+    else:
+        print(f"Failed to upload chunk at offset {chunk_offset}: {response.text}")
+        return False, response.json(), response.headers
+
+def check_upload_status(transfer_id):
+    """Check the status of the current upload."""
+    response = requests.head(f"{API_BASE_URL}/{transfer_id}/", params=url_base_params, headers=token_headers)
+    if response.status_code == 200:
+        offset = response.headers.get('Upload-Offset')
+        print(f"Current upload offset from response header 'Upload-Offset': {offset}")
+        return int(offset)
+    else:
+        print(f"Failed to check upload status: {response.text}")
+        return None
+
+def upload_file_in_chunks(file_path, project_name, branch, repo_url, sha, partial_scan=False, files_to_scan=[]):
+    """Upload a file in chunks."""
+    file_size = os.path.getsize(file_path)
+    transfer_id = initiate_upload(file_path)
+    if not transfer_id:
+        return
+    
+    offset = check_upload_status(transfer_id) or 0
+    remote_offset = 0
+    print(f"Uploading file in chunks. Total size: {file_size}")
+    
+    with open(file_path, 'rb') as f:
+        f.seek(offset)
+        while offset < file_size and remote_offset < file_size:
+            chunk_data = f.read(CHUNK_SIZE)
+            success, response, response_headers = upload_chunk(file_path, transfer_id, offset, chunk_data, project_name, branch, repo_url, sha, partial_scan, files_to_scan)
+            if not success:
+                print("Aborting upload due to an error.")
+                return
+            offset += len(chunk_data)
+            print(f"Expected to have written {offset}")
+
+            if response_headers.get('Upload-Offset'):
+                remote_offset = int(response_headers.get('Upload-Offset', offset))
+
+    print(f"Upload progress: 100% ({file_size}) {remote_offset}")
+    print(f"File {file_path} uploaded successfully!")
+    print(f"Scan ID: {response.get('scan_id')}")
+
+if __name__ == "__main__":
+    parser = argparse.ArgumentParser(description="Upload a large file in chunks.")
+    parser.add_argument(
+        "file",
+        type=str,
+        help="Path to the file to be uploaded."
+    )
+    parser.add_argument(
+        "--branch",
+        type=str,
+        required=False,
+        help="Branch of the repository."
+    )
+    parser.add_argument(
+        "--repo_url",
+        type=str,
+        required=False,
+        help="URL of the repository."
+    )
+    parser.add_argument(
+        "--sha",
+        type=str,
+        required=False,
+        help="SHA of the project."
+    )
+    parser.add_argument(
+        "--project_name",
+        type=str,
+        required=False,
+        help="Name of the project."
+    )
+    parser.add_argument(
+        "--partial_scan",
+        type=bool,
+        required=False,
+        help="True if this is a partial scan."
+    )
+    parser.add_argument(
+        "--files_to_scan",
+        type=str,
+        required=False,
+        help="Comma-separated files to scan."
+    )
+    args = parser.parse_args()
+
+    file_to_upload = args.file
+    if not os.path.isfile(file_to_upload):
+        print(f"Error: File '{file_to_upload}' does not exist.")
+    else:
+        print("Parameters received:")
+        print(f"File to upload: {file_to_upload}")
+        print(f"Project name: {args.project_name}")
+        print(f"Branch: {args.branch}")
+        print(f"Repo URL: {args.repo_url}")
+        print(f"Files to scan: {args.files_to_scan}")
+        print(f"Partial scan: {args.partial_scan}")
+        upload_file_in_chunks(file_to_upload, args.project_name, args.branch, args.repo_url, args.sha, args.partial_scan, args.files_to_scan)
+```
+</Expandable>
+</ResponseField>
+
 
 Here are some example responses for the `/start-scan` and `/start-scan/<str:transfer_id>/` endpoints. These responses cover the different scenarios handled by the endpoint, including successful scan initiation, file upload errors, invalid request methods, and upload status checks. The responses are formatted as JSON objects with appropriate status codes and error messages.
 
@@ -178,6 +368,35 @@ Here are some example responses for the `/start-scan` and `/start-scan/<str:tran
 }
 ```
 
+Response headers should include `Upload-Offset` looks like this
+```
+'Upload-Offset': '545220'
+```
+**Success Response (200 OK)**: Once the full chunk is uploaded, the response will include a `scan_id` instead of a `transfer_id`. 
+This occurs when the `Upload-Offset` in the response headers matches the `Upload-Length` in the request headers. 
+You can use the `scan_id` to retrieve more scan-specific details using other APIs.
+
+```json
+{
+  "scan_id": "1a5afaa3-72ac-458f-a492-ac40ffc88e76,
+  "status": "success",
+  "message": "Chunk uploaded successfully."
+}
+```
+
+Request headers should look like
+```
+Upload-Offset: '545220',
+Upload-Length: '578220',
+Upload-Name: 'dvpwa.zip'
+```
+
+Response header should have
+```
+'Upload-Offset': '578220'
+```
+
+
 **Error Response (400 Bad Request)**:
 ```json
 {
@@ -201,17 +420,7 @@ Here are some example responses for the `/start-scan` and `/start-scan/<str:tran
 {
   "transfer_id": "c9b0a8c7-f9b4-4c10-9d58-cd4c7e1c9c52",
   "status": "success",
-  "message": "Upload in progress.",
-  "progress": 0.5
-}
-```
-
-```json
-{
-  "transfer_id": "c9b0a8c7-f9b4-4c10-9d58-cd4c7e1c9c52",
-  "status": "success",
-  "message": "Upload completed.",
-  "progress": 1.0
+  "message": "Chunk received.",
 }
 ```
 
@@ -273,7 +482,7 @@ Response Body:
 
 Example Usage:
 ```bash
-curl https://corgea.app/api/v1/scans?project=myproject&page=1&page_size=10 \
+curl https://www.corgea.app/api/v1/scans?project=myproject&page=1&page_size=10 \
   -H "CORGEA-TOKEN: Bearer your_api_key"
 ```
 
@@ -315,7 +524,7 @@ or
 ```
 Example Usage:
 ```bash
-curl https://corgea.app/api/v1/scan/scan_id_here \
+curl https://www.corgea.app/api/v1/scan/scan_id_here \
   -H "CORGEA-TOKEN: Bearer your_api_key"
 ```
 
@@ -394,7 +603,7 @@ or
 ```
 Example Usage:
 ```bash
-curl https://corgea.app/api/v1/scan/scan_id_here/issues?page=1&page_size=10 \
+curl https://www.corgea.app/api/v1/scan/scan_id_here/issues?page=1&page_size=10 \
   -H "CORGEA-TOKEN: Bearer your_api_key"
 ```
 
@@ -472,6 +681,6 @@ or
 ```
 Example Usage:
 ```bash
-curl https://corgea.app/api/v1/issue/issue_id_here?show_full_code=true \
+curl https://www.corgea.app/api/v1/issue/issue_id_here?show_full_code=true \
   -H "CORGEA-TOKEN: Bearer your_api_key"
 ```
