@@ -125,8 +125,8 @@ Status Codes:
   - Other scan initialization failures
 
 
-Below is a sample Python script that demonstrates how to upload files in chunks.
-
+<ResponseField name="Code" type="Sample Python code for chunk upload">
+  <Expandable title="code">
 ```import os
 import requests
 import argparse
@@ -141,7 +141,7 @@ import argparse
 # python api/tests/test_upload_in_chunks.py --branch branchX --repo_url https://github.com/repo123 --sha 21jio112j3 --project_name projectX --files_to_scan "vuln.py, test.py" --partial_scan true /path/to/your/file.zip
 
 # Configuration
-API_BASE_URL = "http://localhost:8030/api/v1/start-scan"  # Replace with your actual API endpoint
+API_BASE_URL = "https://www.corgea.app/api/v1/start-scan"
 
 url_base_params = {"scan_type": "blast"} 
 token_headers = {"CORGEA-TOKEN": "<YOUR_TOKEN>"} 
@@ -310,6 +310,8 @@ if __name__ == "__main__":
         print(f"Partial scan: {args.partial_scan}")
         upload_file_in_chunks(file_to_upload, args.project_name, args.branch, args.repo_url, args.sha, args.partial_scan, args.files_to_scan)
 ```
+</Expandable>
+</ResponseField>
 
 
 Here are some example responses for the `/start-scan` and `/start-scan/<str:transfer_id>/` endpoints. These responses cover the different scenarios handled by the endpoint, including successful scan initiation, file upload errors, invalid request methods, and upload status checks. The responses are formatted as JSON objects with appropriate status codes and error messages.
