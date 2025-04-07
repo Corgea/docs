@@ -1,32 +1,99 @@
 ---
-title: 'Azure Devops'
-description: 'Generating pull requests in Azure Devops.'
+title: 'Azure DevOps'
+description: 'Comprehensive Guide to Configuring Azure DevOps with Corgea'
 ---
 
-
-Customers can use Corgea's Azure DevOps integration to issue pull requests for fixes from Corgea. 
+The integration of Azure DevOps with Corgea empowers users to seamlessly scan projects and initiate pull requests for code fixes directly from the Corgea platform.
 
 <Steps>
-  <Step title="Create a Azure Devops personal access token">
-      Navigate to your Azure Devops account and create a personal access token.
+  <Step title="Generate an Azure DevOps Personal Access Token">
+    Access your Azure DevOps account and generate a personal access token (PAT) with both read and write permissions.
     <Frame>
-      <img src="/images/azure-devops-1.png" style={{ borderRadius: '0.5rem' }} />
+      <img src="/images/azure-devops-1.png" style={{ borderRadius: '0.5rem' }} alt="Create Personal Access Token" />
     </Frame>
-    The token should have read and write permissions.
     <Frame>
-      <img src="/images/azure-devops-2.png" style={{ borderRadius: '0.5rem' }} />
+      <img src="/images/azure-devops-2.png" style={{ borderRadius: '0.5rem' }} alt="Token Permissions" />
     </Frame>
   </Step>
-  <Step title="Add the token to Corgea">
-      Go to the <a href="https://www.corgea.app/integrations/" target="_blank">integrations</a> page in Corgea and add the token in the Azure Devops section. Make sure to save the token.
-        <Frame>
-          <img src="/images/azure-devops-3.png" style={{ borderRadius: '0.5rem' }} />
-        </Frame>
-  </Step>
-  <Step title="Issue a PR to Azure Devops">
-      You can now issue a PR that fixes an issue from any issue page in Corgea.
+  <Step title="Integrate the Token with Corgea">
+    Proceed to the <a href="https://www.corgea.app/integrations/" target="_blank">Integrations</a> page on Corgea. Click the "+" button within the Azure DevOps section and ensure the token is securely saved.
     <Frame>
-      <img src="/images/azure-devops-4.png" style={{ borderRadius: '0.5rem' }} />
+      <img src="/images/azure-devops-modal-3.png" style={{ borderRadius: '0.5rem' }} alt="Add Token to Corgea" />
+    </Frame>
+  </Step>
+  <Step title="Identify Azure DevOps Projects in Corgea">
+    After configuration, navigate to the <a href="https://www.corgea.app/projects/" target="_blank">Projects</a> page. Your Azure DevOps project will be displayed with a Windows icon. Click the "+" in the action column to initiate the first scan, or select the project name and click "New Scan" to commence a new scan.
+    <Frame>
+      <img src="/images/azure-devops-projects-4.png" style={{ borderRadius: '0.5rem' }} alt="Search Projects" />
+    </Frame>
+  </Step>
+  <Step title="Submit a Pull Request to Azure DevOps">
+    From any issue page associated with Azure DevOps projects in Corgea, you can submit a pull request to address an issue.
+    <Frame>
+      <img src="/images/azure-devops-issue-pr-5.png" style={{ borderRadius: '0.5rem' }} alt="Issue Pull Request" />
+    </Frame>
+  </Step>
+</Steps>
+
+## Optional: Webhook Configuration
+
+To enable scans for each pull request, configure a webhook. Ensure you possess the requisite permissions to set up webhooks for your project.
+
+<Steps>
+  <Step>
+    Select "Project settings" located at the bottom left of the Azure DevOps interface.
+    <Frame>
+      <img src="/images/azure-webhook-1.png" style={{ borderRadius: '0.5rem' }} alt="Project Settings" />
+    </Frame>
+  </Step>
+  <Step>
+    Click on "Service Hooks". Multiple clicks may be necessary if it does not load immediately.
+    <Frame>
+      <img src="/images/azure-webhook-2.png" style={{ borderRadius: '0.5rem', width: '50%' }} alt="Service Hooks" />
+    </Frame>
+  </Step>
+  <Step>
+    Click the "+" button and choose "Web Hooks".
+    <Frame>
+      <img src="/images/azure-webhook-3.png" style={{ borderRadius: '0.5rem' }} alt="Web Hooks" />
+    </Frame>
+  </Step>
+  <Step>
+    Select "Pull request created" as the trigger event, configure any optional settings, and click "Next".
+    <Frame>
+      <img src="/images/azure-webhook-4.png" style={{ borderRadius: '0.5rem' }} alt="Trigger Event" />
+    </Frame>
+  </Step>
+  <Step>
+    In the Settings section, input the URL as https://www.corgea.app/azure_webhook/ or {YOUR_CORGEA_SERVER}/azure_webhook/ for private deployments.
+    <Frame>
+      <img src="/images/azure-webhook-fill-in-url.png" style={{ borderRadius: '0.5rem' }} alt="Webhook URL" />
+    </Frame>
+  </Step>
+  <Step>
+    Open a new browser tab, navigate to the Corgea integrations page, and locate your Azure integration. Copy the X-CORGEA-UUID value.
+    <Frame>
+      <img src="/images/azure-webhook-5.png" style={{ borderRadius: '0.5rem' }} alt="X-CORGEA-UUID" />
+    </Frame>
+  </Step>
+  <Step>
+    Return to the Azure DevOps Webhook configuration page and populate the headers section with:
+    - X-CORGEA-UUID: (UUID value you copied)
+    - X-WEB-TOKEN: (the same PAT configured in Corgea)
+    <Frame>
+      <img src="/images/azure-webhook-6.png" style={{ borderRadius: '0.5rem' }} alt="Headers Configuration" />
+    </Frame>
+  </Step>
+  <Step>
+    Click "Finish" to save the configuration. Disregard the "Test" button as it may attempt to trigger scans for files you do not have access to.
+  </Step>
+  <Step>
+    Validate the setup by creating a new pull request. A successful configuration will display a successful event in the webhook history and trigger a new scan on the Corgea Scans page at https://www.corgea.app/scans/.
+    <Frame>
+      <img src="/images/azure-webhook-7.png" style={{ borderRadius: '0.5rem' }} alt="Webhook History" />
+    </Frame>
+    <Frame>
+      <img src="/images/azure-webhook-8.png" style={{ borderRadius: '0.5rem' }} alt="Corgea Scans" />
     </Frame>
   </Step>
 </Steps>
