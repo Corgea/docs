@@ -24,7 +24,7 @@ To access the SSO by SAML feature, you must provide either a SAML metadata link 
 
 ## SAML Configuration Instructions
 
-### Setting Up SAML in Your SSO Provider
+### Setting Up SSO SAML in Your SSO Provider
 1. Access your SSO provider account and set up the SAML application using these parameters:
 
 - **Single Sign-On URL**: https://www.corgea.app/saml/acs/
@@ -45,7 +45,15 @@ For the "Attribute Statement (optional)" section, use the following mappings:
     <img src="/images/sso_okta_config.png" style={{ borderRadius: '0.5rem' }} alt="Okta Config" />
   </Card>
   
+Ensure to update permission setting for the user, if needed. 
+
+  <Card>
+    <img src="/images/sso_okta_assign_app.png" style={{ borderRadius: '0.5rem' }} alt="Okta Config" />
+  </Card>
+
 Upon completing the setup, a new SAML metadata link will be provided.
+
+
 
 ### Integrating SAML with Corgea
 
@@ -75,13 +83,11 @@ Upon completing the setup, a new SAML metadata link will be provided.
     - Check the accuracy of the auto-filled fields.
     - Hit the "Connect" button to finalize and save your SAML configuration.
   </Step>
+
 </Steps>
 
-
-## Usage Guide
-
-### Key Workflows or Actions
-
+### Login by SSO.
+- Once SAML configuration is properly configured, you should be now able to login through your SSO service.
 - **User Login**: Authenticate through the SAML IdP and get redirected back to the application with a SAML assertion. After entering your email address on the initial login page, the "Login by SAML" option will appear on the step 2 page if the setup is correct. This option is triggered by the email domain.
 <Steps>
   <Step title="Initial Login Page">
@@ -118,6 +124,62 @@ Upon completing the setup, a new SAML metadata link will be provided.
   </Step>
 </Steps>
 
+
+### Step-by-Step Guide to Configuring SSO SAML for Microsoft Entra
+<Steps>
+  <Step title="Access Azure Active Directory">
+    Begin by logging into your Azure portal. Once logged in, navigate to the "Azure Active Directory" section.
+  </Step>
+  <Step title="Create a New Application">
+    <Card>
+      <img src="/images/sso_azure_create_app.png" style={{ borderRadius: '0.5rem' }} alt="Azure Create App" />
+    </Card>
+    - Go to "Enterprise applications" and select "New application".
+    - Opt for "Create your own application" and provide a name for your new application.
+  </Step>
+  <Step title="Configure SAML-based Sign-On">
+    <Card>
+      <img src="/images/sso_azure_choose_sampl_app.png" style={{ borderRadius: '0.5rem' }} alt="Azure SAML Config" />
+    </Card>
+    - Within the application settings, choose "Single sign-on" and select "SAML".
+  </Step>
+  <Step title="Copy SAML Metadata URL">
+    <Card>
+      <img src="/images/sso_azure_copy_metadata.png" style={{ borderRadius: '0.5rem' }} alt="Copy SAML Fields" />
+    </Card>
+    - Copy the Federation Metadata XML URL for later use.
+  </Step>
+  <Step title="Populate SAML Configuration in Corgea">
+    <Card>
+      <img src="/images/sso_populate_azure_on_corgea.png" style={{ borderRadius: '0.5rem' }} alt="Populate Azure on Corgea" />
+    </Card>
+    - Log into your Corgea account and proceed to the "Integrations" section.
+    - Click on "+ Add" button in SAML SSO section.
+    - Enter the copied SAML metadata URL into the "Metadata URL" field and click "Fetch and Populate".
+    - Check the auto-filled fields for accuracy.
+  </Step>
+  <Step title="Finalize and Test Configuration">
+    - Click the "Connect" button to save your SAML configuration.
+  </Step>
+  <Step title="Copy Updated Corgea SSO URLs">
+    <Card>
+      <img src="/images/sso_copy_updated_fields.png" style={{ borderRadius: '0.5rem' }} alt="SSO fields" />
+    </Card>
+    - After saving the SAML integration, view the updated identifier and ACS URL by clicking "View All" in the SAML SSO section.
+  </Step>
+  <Step title="Fill in SSO SAML Config on Entra">
+    <Card>
+      <img src="/images/sso_azure_fill_in_basic_saml_config.png" style={{ borderRadius: '0.5rem' }} alt="SSO fields" />
+    </Card>
+    - Enter the copied SSO fields into the corresponding fields on your SAML Basic configuration page in Entra.
+    - Double-check all entries for accuracy to ensure a successful SSO connection, then click the "Save" button at the top.
+  </Step>
+  <Step title="Test login by SSO">
+      Now you should be able to login with configured domain through login page. [Login by SSO](/sso#login-by-sso)
+  </Step>
+</Steps>
+
+
 ### Prerequisites or Dependencies
 
 - A configured SAML Identity Provider (IdP).
@@ -129,8 +191,9 @@ Upon completing the setup, a new SAML metadata link will be provided.
 
 ## Troubleshooting
 
-- **Missing Referer Header**: If you encounter a "Missing Referer header" error, ensure that the HTTP_ORIGIN is correctly set in the request headers.
-- **No SAML Config Found**: If a configuration is not found, verify that the correct referer URL or email domain is being used.
+- **Missing Referer Header**: If you receive a "Missing Referer header" error, check that the HTTP_ORIGIN is correctly configured in the request headers.
+- **No SAML Configuration Found**: If the configuration is missing, ensure that the correct referer URL or email domain is being utilized.
+- **Permission Update**: If a user cannot access the SAML application, verify that their permissions are correctly configured and updated.
 
 ## Additional Resources
 
