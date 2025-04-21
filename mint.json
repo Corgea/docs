@@ -92,7 +92,7 @@
         },
         {
           "group": "Source Control",
-          "pages": ["github", "gitlab", "azure_devops"]
+          "pages": ["github", "gitlab", "azure_devops", "bitbucket"]
         },
         {
           "group": "Automation Management",

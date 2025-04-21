@@ -1,0 +1,120 @@
+---
+title: 'Bitbucket'
+description: 'Setting up Corgea with Bitbucket'
+---
+
+Corgea integrates seamlessly with Bitbucket to provide comprehensive vulnerability detection and remediation as part of your CI/CD pipeline. This guide walks you through setting up the integration to automatically scan your code, upload results to Corgea, and display findings directly in your pull requests.
+
+## Overview
+
+The integration follows this workflow:
+
+1. Developer pushes code or opens a PR in Bitbucket
+2. Bitbucket Pipeline runs build, tests, and security scans
+3. Security scanner (e.g., Fortify SAST, Snyk, etc.) performs analysis and generates findings
+4. Corgea CLI uploads and processes the security results
+5. Results are posted back to Bitbucket as Code Insights
+
+## Prerequisites
+
+Before setting up the integration, ensure you have:
+
+- Administrative access to your Bitbucket repository
+- A security scanning tool configured (e.g., Fortify SAST, Snyk, etc.)
+- A Corgea API token (available in your account settings)
+- Appropriate permissions to configure Bitbucket Pipelines
+
+## Integration Steps
+
+<Steps>
+  <Step title="Configure Repository Variables">
+    In your Bitbucket repository settings, add the following repository variables:
+
+    1. `CORGEA_API_TOKEN`: Your Corgea API token
+    2. `BITBUCKET_USERNAME`: A Bitbucket user with API access
+    3. `BITBUCKET_APP_PASSWORD`: An app password with appropriate permissions
+
+    These variables will be securely used by the pipeline to authenticate with both Corgea and Bitbucket APIs.
+  </Step>
+
+  <Step title="Configure Bitbucket Pipelines">
+    Create or update your `bitbucket-pipelines.yml` file in the root of your repository. This file defines the CI/CD pipeline that will run your build, tests, and security scans.
+
+    ```yaml
+    image: python:3.11      # or any base image with your security tools + Python + jq
+
+    pipelines:
+      default:
+        - step:
+            name: Build-Test-Security-Corgea
+            caches:
+              - pip
+            script:
+              # ---------- Build & Test ----------
+              # Your build and test commands here
+              
+              # ---------- Security Scan ----------
+              # Example using Fortify SAST
+              - sourceanalyzer -b ${BITBUCKET_REPO} -clean
+              - sourceanalyzer -b ${BITBUCKET_REPO} javac -cp libs/*.jar $(git ls-files '*.java')
+              - sourceanalyzer -b ${BITBUCKET_REPO} -scan -f scan.fpr -disable-source-bundling true
+              
+              # ---------- Corgea ----------
+              - pip install --quiet corgea-cli
+              - corgea login ${CORGEA_API_TOKEN}
+              - corgea upload scan.fpr --project ${BITBUCKET_REPO}
+
+              # Wait for triage to complete and capture the Scan ID
+              - SCAN_ID=$(corgea wait | jq -r '.id')
+
+              # ---------- Retrieve & iterate through issues ----------
+              - mkdir -p corgea_issues
+              # List ALL issues for this scan, in JSON
+              - corgea ls --issues --scan-id "${SCAN_ID}" --json > issues.json
+              # Extract each issue ID and loop
+              - |
+                for ISSUE_ID in $(jq -r '.[].id' issues.json); do
+                  echo "Fetching details for $ISSUE_ID"
+                  corgea inspect --issue "$ISSUE_ID" --json > "corgea_issues/${ISSUE_ID}.json"
+                done
+
+              # ---------- Code Insights ----------
+              # A helper that reads the *.json files and pushes annotations
+              - ./scripts/post-code-insights.sh corgea_issues
+    ```
+  </Step>
+
+</Steps>
+
+## How It Works
+
+1. **Trigger**: When a developer pushes code or opens a PR, Bitbucket Pipelines automatically runs the configured pipeline.
+
+2. **Security Scan**: The pipeline runs your chosen security scanner to analyze your code and generate results containing potential vulnerabilities.
+
+3. **Corgea Processing**: The Corgea CLI uploads the results to Corgea's cloud platform, which:
+   - Parses the security findings
+   - Deduplicates findings
+   - Uses AI to triage issues (BLAST)
+   - Optionally generates Git-diff fixes
+
+4. **Results Integration**: The pipeline fetches the processed results from Corgea and posts them to Bitbucket Code Insights, making them visible directly in the PR.
+
+5. **Developer Feedback**: Developers see security issues as inline comments in their code, with severity indicators and detailed explanations.
+
+## Viewing Results
+
+After the pipeline completes, you can view the security findings in several ways:
+
+1. **Pull Request View**: Security annotations appear directly in the PR diff view
+2. **Code Insights Tab**: A summary report is available in the PR's Code Insights tab
+3. **Corgea Dashboard**: Comprehensive analysis and fix suggestions are available in your Corgea dashboard
+
+## Troubleshooting
+
+If you encounter issues with the integration, check the following:
+
+- Ensure all repository variables are correctly set
+- Verify that your security scan is completing successfully
+- Check the Bitbucket Pipeline logs for any error messages
+- Confirm that your Corgea API token has not expired
