@@ -212,4 +212,20 @@ Example or description: [Add an content]
 
 ```
 
-By providing rich context about your business environment, security controls, and infrastructure, you help Corgea deliver more accurate and relevant security analysis tailored to your specific needs.
+Providing rich context about your business environment, security controls, and infrastructure helps Corgea deliver more accurate and relevant security analysis tailored to your specific needs.
+
+### Corgea Policy YAML Configuration Support
+
+Customers can now define security policies for their projects using a `corgea_policy_iq.yaml` file. This configuration file allows for the specification of comprehensive security policies, including:
+
+- Specific CWE
+- Ignored paths
+- Sub-folder specific policies
+
+For reference, an example repository can be found here: [Example Repository](https://github.com/yhoztak/dvpwa/blob/master/corgea_policy_iq.yaml). Sub-folder specific policies can be configured as demonstrated in the example repository linked above.
+
+### Repository Policy Display
+
+Uploaded policies within a repository will be accessible under the `/policies` directory. Each configuration file will be listed, and by selecting the "# of policies" column, users can view a read-only list of the policies generated from the configuration file.
+
+This approach is recommended over web-based solutions because it allows the history of policy IQ changes to be part of the Git repository. This integration provides developers with better control over how vulnerabilities should be handled, ensuring that changes are tracked and managed efficiently.
