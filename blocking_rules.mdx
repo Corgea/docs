@@ -41,7 +41,7 @@ This feature is particularly useful for organizations with strict compliance req
 ## How it Works with GitHub
 
 <Info>
-  **Prerequisite** You must have installed and configured the [Corgea GitHub App](github_integration) with appropriate repository permissions.
+  **Prerequisite** You must have installed and configured the [Corgea GitHub App](github) with appropriate repository permissions.
 </Info>
 
 <Steps>
@@ -67,6 +67,37 @@ This feature is particularly useful for organizations with strict compliance req
     Developer must fix violations and mark them as Fixed, or mark them as False Positive or Accepted Risk before merge is allowed
   </Step>
 </Steps>
+
+## How it Works with Azure DevOps
+
+<Info>
+  **Prerequisite** Make sure the [Azure DevOps integration](azure_devops) with Corgea is configured and you have the necessary permissions.
+</Info>
+
+<Steps>
+  <Step title="Pull Request Submission">
+    A developer submits a pull request with code changes in Azure DevOps.
+  </Step>
+  <Step title="Automated Analysis">
+    The system evaluates the code changes against the active blocking rules set in Corgea.
+  </Step>
+  <Step title="Rule Validation">
+    If violations are found, the pull request is automatically blocked.
+    <Frame>
+      <img src="/images/azure_blocking_rules_pr_blocked.png" style={{ borderRadius: '0.5rem' }} />
+    </Frame>
+  </Step>
+  <Step title="Developer Notification">
+    The developer receives a link to view detailed information about the failed issues on the Corgea Scan page.
+    <Frame>
+      <img src="/images/azure_see_details_of_issues.png" style={{ borderRadius: '0.5rem' }} />
+    </Frame>
+  </Step>
+  <Step title="Resolution">
+    The developer must resolve the violations by fixing them or marking them as False Positive or Accepted Risk before the merge can proceed.
+  </Step>
+</Steps>
+
 
 
 ## Usage Guide
