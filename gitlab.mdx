@@ -55,6 +55,7 @@ To enable Corgea to scan your repositories and comment on merge requests, you'll
     1. Go to your project's Settings > Webhooks
     2. Add a new webhook with the following settings:
        - URL: `https://www.corgea.app/gitlab_webhook/` (or your provided webhook URL)
+       - Custom header: Add `X-Corgea-UUID` with the value found under the integrations setting page > GitLab > View All
        - Select triggers: 
          - Merge request events
          - Comments
