@@ -71,6 +71,12 @@ corgea login YOUR_API_TOKEN
  
 Customers using a single-tenant instance need to have the CLI point to their instance. 
 
+```bash
+corgea login --url https://<<Your Instance>>.corgea.app YOUR_API_TOKEN
+```
+
+You can also set the URL in an environment variable and the CLI will automatically detect it.
+
 <CodeGroup>
 ```bash MacOS/Unix
 export CORGEA_URL="https://<<Your Instance>>.corgea.app"
@@ -118,6 +124,33 @@ Or fail based on blocking rules defined in the web app:
 corgea scan --fail
 ```
 
+By default, the scan command scans the entire project. However, if you only want to scan your changes before committing, you can use the --only-uncommitted option.
+
+```bash
+corgea scan --only-uncommitted
+```
+The regular BLAST scan includes multiple scans:
+- Base AI Scan
+- PolicyIQ Scan
+- Malicious Code Detection Scan
+- Secrets Detection Scan
+- Personally identifiable information (PII) Detection Scan
+
+By default, all these scans run (if they are enabled for your company account plan). However, the CLI provides the flexibility to run a scan targeting one or more types with the --scan-type option.
+```bash
+corgea scan --scan-type secrets
+```
+or multipe types
+
+```bash
+corgea scan --scan-type base,policy,secrets,pii
+```
+
+To target specific policies with a policyIQ scan, use the --policy option. This allows you to focus on one or more policies by passing their ID(s).
+
+```bash
+corgea scan --scan-type policy --policy 1
+```
 #### Wait for a Scan
 
 To wait for the latest in-progress scan:
@@ -154,6 +187,10 @@ corgea list --page 1 --page-size 10
 
 Note: The `--json` option is available for commands like `list` and `inspect` to output results in JSON format, which is useful for integrations and automation.
 
+```bash
+corgea list --page 1 --page-size 10 --json
+```
+
 #### Inspect a Scan or Issue
 
 To inspect a specific scan:
@@ -175,6 +212,21 @@ corgea inspect --issue --fix SCAN_ID
 corgea inspect --issue --diff SCAN_ID
 ```
 
+### Integrating with GIT Hooks
+To ensure code quality and security, you can integrate Corgea CLI with your Git workflow using pre-commit hooks. This feature allows you to scan your code changes before committing or pushing them. To set up the pre-commit hook, simply run
+
+```bash
+corgea setup-hooks
+```
+When setting up the pre-commit hook, you will be prompted to enter your preferred configurations for the scan. To quickly set it up with the default settings, which include scan types for PII and secrets, and fail levels set to CR, HI, ME, and LO, you can run
+
+```bash
+corgea setup-hooks --default-config
+```
+To bypass the pre-commit check when committing, use the following command:
+```bash
+git commit --no-verify
+```
 ### Additional Options
 
 For more options and commands, use:
