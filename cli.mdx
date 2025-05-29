@@ -134,7 +134,7 @@ corgea wait --scan-id SCAN_ID
 
 #### List Scans or Issues
 
-To list all scans (paginated by default):
+To list all scans for a current directory (paginated by default):
 
 ```bash
 corgea ls
@@ -165,14 +165,14 @@ corgea inspect SCAN_ID
 To inspect issues with detailed output:
 
 ```bash
-corgea inspect --issue --json --summary SCAN_ID
+corgea inspect --issue --json --summary ISSUE_ID
 ```
 
 For fix explanations or diffs:
 
 ```bash
-corgea inspect --issue --fix SCAN_ID
-corgea inspect --issue --diff SCAN_ID
+corgea inspect --issue --fix ISSUE_ID
+corgea inspect --issue --diff ISSUE_ID
 ```
 
 ### Additional Options
