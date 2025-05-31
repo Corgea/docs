@@ -130,7 +130,7 @@ By default, the scan command scans the entire project. However, if you only want
 corgea scan --only-uncommitted
 ```
 The regular BLAST scan includes multiple scans:
-- Base AI Scan
+- Blast Base AI Scan
 - PolicyIQ Scan
 - Malicious Code Detection Scan
 - Secrets Detection Scan
@@ -143,7 +143,7 @@ corgea scan --scan-type secrets
 or multipe types
 
 ```bash
-corgea scan --scan-type base,policy,secrets,pii
+corgea scan --scan-type blast,policy,secrets,pii
 ```
 
 To target specific policies with a policyIQ scan, use the --policy option. This allows you to focus on one or more policies by passing their ID(s).
