@@ -151,6 +151,18 @@ To target specific policies with a policyIQ scan, use the --policy option. This 
 ```bash
 corgea scan --scan-type policy --policy 1
 ```
+
+#### Export Scan Report
+The Corgea CLI allows you to export scan results to a file, which is particularly useful when running the tool within a CI pipeline. You can do this using the --out-format and --out-file options.
+
+```bash
+corgea scan --out-format=json --out-file=report.json
+```
+
+The CLI currently supports html and json as output formats.
+```bash
+corgea scan --out-format=html --out-file=report.html
+```
 #### Wait for a Scan
 
 To wait for the latest in-progress scan:
