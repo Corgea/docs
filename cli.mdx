@@ -177,7 +177,7 @@ Or specify a scan ID to wait for:
 corgea wait --scan-id SCAN_ID
 ```
 
-#### List Scans or Issues
+#### List Scans, Issues or SCA Issues
 
 To list all scans for a current directory (paginated by default):
 
@@ -203,6 +203,15 @@ Note: The `--json` option is available for commands like `list` and `inspect` to
 corgea list --page 1 --page-size 10 --json
 ```
 
+To list SCA for a project or a scan use `--sca-issues` or '-c' shorthand
+
+```bash
+corgea list --sca-issues --page 1 --page-size 10 --json
+```
+or
+```bash
+corgea list --c --page 1 --page-size 10 --json
+```
 #### Inspect a Scan or Issue
 
 To inspect a specific scan:
