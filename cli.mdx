@@ -39,19 +39,19 @@ This command fetches the Corgea CLI package from PyPI (Python Package Index) and
 
 <CodeGroup>
 ```bash MacOS
-curl -L https://cli.corgea.app/aarch64_darwin/latest -o corgea.zip && unzip corgea.zip
+curl -L https://github.com/Corgea/cli/releases/download/v.1.6.3/corgea_macos_aarch64.zip -o corgea.zip && unzip corgea.zip
 chmod +x corgea
 sudo mv corgea /usr/local/bin
 ```
 
 ```bash Windows
-Download the latest binary from https://cli.corgea.app/x86_64_windows/latest
+Download the latest binary from https://github.com/Corgea/cli/releases/download/v.1.6.3/corgea_windows_x64.zip
 
 Move the executable to a directory in your PATH.
 ```
 
 ```bash Linux
-curl -L https://cli.corgea.app/x86_64_linux/latest -o corgea.zip && unzip corgea.zip
+curl -L https://github.com/Corgea/cli/releases/download/v.1.6.3/corgea_linux_x86_64.zip -o corgea.zip && unzip corgea.zip
 chmod +x corgea
 sudo mv corgea /usr/local/bin
 ```
@@ -68,8 +68,8 @@ corgea login YOUR_API_TOKEN
 ```
 
 ### Point To A Single-Tenant Instance
- 
-Customers using a single-tenant instance need to have the CLI point to their instance. 
+
+Customers using a single-tenant instance need to have the CLI point to their instance.
 
 ```bash
 corgea login --url https://<<Your Instance>>.corgea.app YOUR_API_TOKEN
