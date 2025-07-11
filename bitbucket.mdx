@@ -28,13 +28,11 @@ Before setting up the integration, ensure you have:
 
 <Steps>
   <Step title="Configure Repository Variables">
-    In your Bitbucket repository settings, add the following repository variables:
+    In your Bitbucket repository settings, add the following in the "Repository variables" section:
 
-    1. `CORGEA_API_TOKEN`: Your Corgea API token
-    2. `BITBUCKET_USERNAME`: A Bitbucket user with API access
-    3. `BITBUCKET_APP_PASSWORD`: An app password with appropriate permissions
+    - `CORGEA_API_TOKEN`: Your Corgea API token
 
-    These variables will be securely used by the pipeline to authenticate with both Corgea and Bitbucket APIs.
+    This variable will be securely used by the pipeline to authenticate with Corgea.
 
   </Step>
 
@@ -88,7 +86,7 @@ Before setting up the integration, ensure you have:
   </Step>
 
   <Step title="Configure Bitbucket Pipelines (Corgea-only Scan)">
-    If you would rather skip a dedicated SAST tool and let Corgea handle scanning end-to-end, use the following pipeline. It installs your Python dependencies, runs unit tests and linting, then executes `corgea scan` to analyse the repository. The remainder of the script waits for triage and pushes issue details back to Bitbucket Code Insights.
+    If you would rather skip a dedicated SAST tool and let Corgea handle scanning end-to-end, use the following pipeline. In this example, we use the lightning-fast [`uv`](https://docs.astral.sh/uv/) python package manager to install dependencies, runs unit tests and linting, then executes [`corgea scan`](/cli#scan-your-codebase) to analyse the repository. The remainder of the script checks for triage and pushes issue details back to Bitbucket Code Insights.
 
     ```yaml
     image: python:3.11      # or any base image with your security tools + Python + jq + make
