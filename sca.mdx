@@ -1,0 +1,172 @@
+---
+title: 'Dependency Scanning (SCA)'
+description: "Dependency Scanning, also known as Software Composition Analysis (SCA), automatically identifies known security vulnerabilities in your project's third-party dependencies and libraries. It scans dependency manifest files (like `package.json`, `requirements.txt`, `pom.xml`) and provides detailed vulnerability information including CVE identifiers, CVSS scores, and remediation guidance."
+---
+
+## Overview
+
+* **What it Does**: Dependency Scanning, also known as Software Composition Analysis (SCA), automatically identifies known security vulnerabilities in your project's third-party dependencies and libraries. It scans dependency manifest files (like `package.json`, `requirements.txt`, `pom.xml`) and provides detailed vulnerability information including CVE identifiers, CVSS scores, and remediation guidance.
+
+* **Who it's For**: This feature is designed for security teams, developers, DevOps engineers, and anyone responsible for maintaining secure software applications. It's particularly valuable for teams managing projects with numerous third-party dependencies who need to stay informed about security vulnerabilities that could impact their applications.
+
+## Key Features and Benefits
+
+* **Comprehensive Ecosystem Coverage**: Scans dependencies across 25+ programming languages and ecosystems including Python, JavaScript/Node.js, Java, Go, Ruby, PHP, C#, Swift, and many more
+* **Authoritative Data Sources**: Leverages multiple trusted vulnerability databases including:
+  - GitHub Advisory Database (CC-BY 4.0)
+  - PyPI Advisory Database (CC-BY 4.0)
+  - Go Vulnerability Database (CC-BY 4.0)
+  - Rust Advisory Database (CC0 1.0)
+  - Global Security Database (CC0 1.0)
+  - OSS-Fuzz (CC-BY 4.0)
+  - Rocky Linux (BSD)
+  - AlmaLinux (MIT)
+  - Haskell Security Advisories (CC0 1.0)
+  - RConsortium Advisory Database (Apache 2.0)
+  - OpenSSF Malicious Packages (Apache 2.0)
+  - Python Software Foundation Database (CC-BY 4.0)
+  - Bitnami Vulnerability Database (Apache 2.0)
+  - Ubuntu (GPL v3)
+  - And many more authoritative sources
+* **Rich Vulnerability Intelligence**: Provides detailed vulnerability information including:
+  - CVE identifiers and alternative vulnerability IDs
+  - CVSS scores and severity ratings (Critical, High, Medium, Low)
+  - Affected package versions and available fixes
+  - Detailed vulnerability descriptions and references
+  - Publication dates and external links
+* **Smart Scanning Logic**: Automatically detects when dependency files are present and optimizes scanning performance
+
+## Setup Instructions
+
+### Prerequisites
+- Project must contain at least one supported dependency file
+- Appropriate permissions to run security scans
+- Access to the scanning service
+
+### Configuration Steps
+
+1. **Access Scanning Configuration**: Navigate to your project's security scanning settings
+2. **Enable SCA Scanning**: Toggle the dependency scanning option to "enabled"
+3. **Verify Dependency Files**: Ensure your project contains supported dependency files:
+   ```
+   # Python
+   requirements.txt, Pipfile, Pipfile.lock, pyproject.toml, poetry.lock
+   
+   # JavaScript/Node.js
+   package.json, package-lock.json, yarn.lock, pnpm-lock.yaml
+   
+   # Java
+   pom.xml, build.gradle, build.gradle.kts, gradle.lockfile
+   
+   # Go
+   go.mod, go.sum
+   
+   # Ruby
+   Gemfile, Gemfile.lock
+   
+   # PHP
+   composer.json, composer.lock
+   
+   # C#
+   *.csproj, packages.config
+   
+   # Swift
+   Package.swift, Package.resolved
+   ```
+
+4. **Configure Scan Scope**: Choose whether to include dependency scanning in full or partial scans
+5. **Set Up Notifications**: Configure how you want to be notified of new vulnerabilities
+
+## Usage Guide
+
+### Key Workflows
+
+1. **Automatic Detection**: The system automatically identifies dependency files in your project directory
+2. **Comprehensive Scanning**: Analyzes all supported dependency files and cross-references against vulnerability databases
+3. **Vulnerability Processing**: Processes scan results and enriches with additional security intelligence
+4. **Issue Creation**: Creates trackable security issues for each vulnerability found
+5. **Reporting**: Generates comprehensive vulnerability reports with actionable remediation guidance
+
+### Supported Ecosystems
+
+The dependency scanning feature supports the following ecosystems:
+
+- **AlmaLinux** - Enterprise Linux packages
+- **Alpine** - Alpine Linux packages
+- **Android** - Android app dependencies
+- **Bitnami** - Bitnami application packages
+- **crates.io** - Rust packages
+- **Curl** - cURL library vulnerabilities
+- **Debian GNU/Linux** - Debian packages
+- **Git** - Git repositories (including C/C++)
+- **GitHub Actions** - GitHub Action workflows
+- **Go** - Go modules and packages
+- **Haskell** - Haskell packages
+- **Hex** - Elixir packages
+- **Linux kernel** - Linux kernel vulnerabilities
+- **Maven** - Java Maven dependencies
+- **npm** - Node.js packages
+- **NuGet** - .NET packages
+- **OSS-Fuzz** - Google's continuous fuzzing service
+- **Packagist** - PHP packages
+- **Pub** - Dart packages
+- **PyPI** - Python packages
+- **Python** - Python language vulnerabilities
+- **R** - R packages (CRAN and Bioconductor)
+- **Rocky Linux** - Rocky Linux packages
+- **RubyGems** - Ruby packages
+- **SwiftURL** - Swift packages
+- **Ubuntu OS** - Ubuntu packages
+
+### Multi-Ecosystem Project Example
+```
+Enterprise Application:
+├── backend/
+│   ├── requirements.txt        ✓ Python dependencies
+│   ├── pom.xml                 ✓ Java dependencies
+│   └── go.mod                  ✓ Go dependencies
+├── frontend/
+│   ├── package.json            ✓ Node.js dependencies
+│   └── package-lock.json       ✓ Lock file
+├── mobile/
+│   └── Gemfile                 ✓ Ruby dependencies
+└── infrastructure/
+    └── docker-compose.yml      ✓ Container dependencies
+```
+
+### Vulnerability Severity Breakdown
+- **Critical**: Immediate action required, potential for complete system compromise
+- **High**: Should be addressed promptly, significant security impact
+- **Medium**: Should be addressed in regular maintenance cycles
+- **Low**: Minor issues that can be addressed when convenient
+
+## Best Practices
+
+* **Regular Scanning**: Enable automatic scanning to catch new vulnerabilities as they are disclosed
+* **Dependency Updates**: Promptly update dependencies when fixes are available for identified vulnerabilities
+* **Severity Prioritization**: Focus on addressing Critical and High severity vulnerabilities first
+* **Risk Assessment**: Evaluate whether vulnerabilities actually affect your application's attack surface
+* **Dependency Hygiene**: Regularly review and remove unused dependencies to reduce attack surface
+* **Version Pinning**: Use specific version numbers in dependency files for consistent scanning results
+* **Monitoring**: Set up alerts for new vulnerabilities discovered in your dependencies
+* **Documentation**: Maintain records of accepted risks and remediation decisions
+
+## Troubleshooting
+
+### Common Issues
+
+**Issue**: No vulnerabilities found but dependencies are present
+* **Solution**: Verify that dependency files are in supported formats and contain valid package information
+* **Check**: Ensure dependency files are not corrupted or contain syntax errors
+
+**Issue**: Scan results seem incomplete
+* **Solution**: Check that all dependency files are included in the scan scope
+* **Check**: Verify that dependency files are properly formatted and accessible
+
+**Issue**: False positive vulnerabilities reported
+* **Solution**: Review vulnerability details to determine if they actually affect your application
+* **Check**: Consider the specific usage patterns and attack vectors in your application
+
+**Issue**: Scan performance is slow
+* **Solution**: This is normal for large projects with many dependencies
+* **Check**: Consider using incremental scanning for changed files only
