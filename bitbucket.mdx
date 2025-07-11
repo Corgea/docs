@@ -35,6 +35,7 @@ Before setting up the integration, ensure you have:
     3. `BITBUCKET_APP_PASSWORD`: An app password with appropriate permissions
 
     These variables will be securely used by the pipeline to authenticate with both Corgea and Bitbucket APIs.
+
   </Step>
 
   <Step title="Configure Bitbucket Pipelines">
@@ -51,14 +52,15 @@ Before setting up the integration, ensure you have:
               - pip
             script:
               # ---------- Build & Test ----------
+              - apt-get update && apt-get install -y --no-install-recommends jq
               # Your build and test commands here
-              
+
               # ---------- Security Scan ----------
               # Example using Fortify SAST
               - sourceanalyzer -b ${BITBUCKET_REPO} -clean
               - sourceanalyzer -b ${BITBUCKET_REPO} javac -cp libs/*.jar $(git ls-files '*.java')
               - sourceanalyzer -b ${BITBUCKET_REPO} -scan -f scan.fpr -disable-source-bundling true
-              
+
               # ---------- Corgea ----------
               - pip install --quiet corgea-cli
               - corgea login ${CORGEA_API_TOKEN}
@@ -73,7 +75,7 @@ Before setting up the integration, ensure you have:
               - corgea ls --issues --scan-id "${SCAN_ID}" --json > issues.json
               # Extract each issue ID and loop
               - |
-                for ISSUE_ID in $(jq -r '.[].id' issues.json); do
+                for ISSUE_ID in $(jq -r '.results.[].id' issues.json); do
                   echo "Fetching details for $ISSUE_ID"
                   corgea inspect --issue "$ISSUE_ID" --json > "corgea_issues/${ISSUE_ID}.json"
                 done
@@ -82,6 +84,7 @@ Before setting up the integration, ensure you have:
               # A helper that reads the *.json files and pushes annotations
               - ./scripts/post-code-insights.sh corgea_issues
     ```
+
   </Step>
 
 </Steps>
@@ -93,6 +96,7 @@ Before setting up the integration, ensure you have:
 2. **Security Scan**: The pipeline runs your chosen security scanner to analyze your code and generate results containing potential vulnerabilities.
 
 3. **Corgea Processing**: The Corgea CLI uploads the results to Corgea's cloud platform, which:
+
    - Parses the security findings
    - Deduplicates findings
    - Uses AI to triage issues (BLAST)
