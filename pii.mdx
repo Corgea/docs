@@ -1,0 +1,180 @@
+---
+title: 'PII/PHI Scanning'
+description: "PII/PHI Scanning automatically detects and identifies Personally Identifiable Information (PII) and Protected Health Information (PHI) in your codebase. It scans source code, configuration files, and documentation to find sensitive data patterns like credit card numbers, social security numbers, email addresses, medical records, and other personal information that could pose privacy and compliance risks."
+---
+
+## Overview
+
+* **What it Does**: PII/PHI Scanning automatically detects and identifies Personally Identifiable Information (PII) and Protected Health Information (PHI) in your codebase. It scans source code, configuration files, and documentation to find sensitive data patterns like credit card numbers, social security numbers, email addresses, medical records, and other personal information that could pose privacy and compliance risks.
+
+* **Who it's For**: This feature is designed for security teams, compliance officers, developers, and organizations that handle sensitive personal data. It's particularly valuable for healthcare organizations, financial institutions, e-commerce platforms, and any business that must comply with privacy regulations like GDPR, HIPAA, CCPA, or PCI DSS.
+
+## Key Features and Benefits
+
+* **Comprehensive Data Detection**: Identifies over 50 types of sensitive information including:
+  - Personal identifiers (SSN, passport numbers, driver's license)
+  - Financial data (credit card numbers, bank account numbers, IBAN)
+  - Contact information (email addresses, phone numbers, addresses)
+  - Medical information (patient IDs, medical record numbers, diagnosis codes)
+  - Government identifiers (tax IDs, national IDs, military IDs)
+  - Biometric data (fingerprints, facial recognition data)
+  - Authentication credentials (passwords, API keys, tokens)
+* **Multi-Language Support**: Scans both code and text files across a wide range of supported languages and file types.
+* **False Positive Detection**: After detecting PII in the codebase, we run the results through our AI-powered false positive detection system to minimize the number of inaccurate findings.
+
+## How to Access
+
+### Prerequisites
+- Project must contain source code files to scan
+- Appropriate permissions to run security scans
+- Access to the scanning service
+
+### Configuration Steps
+
+1. **Access Scanning Configuration**: Navigate to your project's security scanning settings
+2. **Enable PII/PHI Scanning**: Toggle the PII/PHI scanning option to "enabled"
+3. **Set Sensitivity Levels**: Configure detection sensitivity based on your compliance requirements
+4. **Set Up Notifications**: Configure alerts for detected sensitive data
+
+## Usage Guide
+
+### Key Workflows
+
+1. **Automated Scanning**: The system automatically scans new code commits and pull requests
+2. **Manual Scanning**: Initiate on-demand scans for specific files or directories
+3. **Batch Processing**: Scan entire codebases for comprehensive privacy audits
+4. **Continuous Monitoring**: Set up scheduled scans to catch new sensitive data as it's added
+5. **Issue Tracking**: Automatically create and track remediation tasks for detected issues
+
+### Supported Data Types
+
+The PII/PHI scanner detects the following categories of sensitive information:
+
+- **Personal Identifiers**: SSN, passport numbers, driver's license, national ID
+- **Financial Information**: Credit card numbers, bank accounts, routing numbers, IBAN
+- **Contact Details**: Email addresses, phone numbers, physical addresses
+- **Medical Data**: Patient IDs, medical record numbers, diagnosis codes, prescription data
+- **Government Data**: Tax IDs, military IDs, government employee numbers
+- **Authentication**: Passwords, API keys, access tokens, private keys
+- **Biometric Data**: Fingerprints, facial recognition data, voice patterns
+- **Location Data**: GPS coordinates, device identifiers
+
+### Multi-Project Example
+```
+Healthcare Application:
+├── patient-portal/
+│   ├── src/
+│   │   ├── patient-data.js      ✓ Patient records
+│   │   ├── billing-api.py       ✓ Payment information
+│   │   └── auth-service.go      ✓ Authentication tokens
+│   ├── config/
+│   │   └── database.yml         ✓ Connection strings
+│   └── docs/
+│       └── api-spec.md          ✓ API documentation
+├── admin-dashboard/
+│   └── src/
+│       └── user-management.js   ✓ Admin credentials
+└── mobile-app/
+    └── src/
+        └── location-service.js  ✓ GPS coordinates
+```
+
+### Severity Classification
+- **Critical**: Highly sensitive data (SSN, credit cards, medical records) exposed in production code
+- **High**: Personal identifiers or financial data in development/test environments
+- **Medium**: Contact information or location data that could be aggregated
+- **Low**: Public information or properly anonymized data
+
+## Examples
+
+### Example 1: Credit Card Detection
+```javascript
+// ❌ High Risk - Credit card number in code
+const paymentData = {
+  cardNumber: "4111-1111-1111-1111",
+  expiryDate: "12/25",
+  cvv: "123"
+};
+
+// ✅ Safe - Masked or tokenized data
+const paymentData = {
+  cardToken: "tok_1234567890",
+  lastFour: "1111"
+};
+```
+
+### Example 2: Email Address Handling
+```python
+# ❌ Medium Risk - Email in configuration
+DATABASE_CONFIG = {
+    "host": "db.example.com",
+    "user": "admin@company.com",
+    "password": "secret123"
+}
+
+# ✅ Safe - Environment variables
+DATABASE_CONFIG = {
+    "host": os.getenv("DB_HOST"),
+    "user": os.getenv("DB_USER"),
+    "password": os.getenv("DB_PASSWORD")
+}
+```
+
+### Example 3: Medical Data Protection
+```java
+// ❌ Critical Risk - Patient data in code
+public class PatientRecord {
+    private String patientId = "P12345";
+    private String diagnosis = "Diabetes Type 2";
+    private String ssn = "123-45-6789";
+}
+
+// ✅ Safe - Proper data handling
+public class PatientRecord {
+    private String patientToken = generateSecureToken();
+    private String diagnosisCode = "E11.9"; // ICD-10 code
+    private String maskedSsn = "***-**-6789";
+}
+```
+
+## Best Practices
+
+* **Data Minimization**: Only collect and store the minimum amount of personal data necessary
+* **Encryption at Rest**: Always encrypt sensitive data when stored in databases or files
+* **Environment Variables**: Use environment variables for configuration instead of hardcoding
+* **Tokenization**: Replace sensitive data with secure tokens in development and testing
+* **Regular Audits**: Schedule periodic scans to catch new sensitive data
+* **Access Controls**: Implement proper access controls for sensitive data
+* **Data Classification**: Tag and categorize data based on sensitivity levels
+* **Secure Development**: Train developers on secure coding practices for handling PII/PHI
+* **Compliance Monitoring**: Regularly review findings against regulatory requirements
+* **Incident Response**: Have a plan for handling data breaches or exposures
+
+## Troubleshooting
+
+### Common Issues
+
+
+**Issue**: Missing detection of organization-specific data patterns
+* **Solution**: Create custom detection patterns for your specific data formats
+* **Check**: Verify that custom patterns are properly configured and tested
+
+**Issue**: Scan performance is slow on large codebases
+* **Solution**: Use incremental scanning or exclude non-essential directories. The initial scan is typically the slowest, but performance should improve significantly afterward.
+* **Check**: Consider scanning only changed files in CI/CD pipelines
+
+**Issue**: High number of findings overwhelming the team
+* **Solution**: Start with critical and high-severity findings first
+* **Check**: Implement a phased approach to remediation based on risk levels
+
+**Issue**: Compliance mapping not accurate for your industry
+* **Solution**: Customize compliance framework mappings for your specific regulations
+* **Check**: Review and update mappings based on your organization's compliance requirements
+
+## Additional Resources
+
+* **Privacy Regulations**: [GDPR](https://gdpr.eu/), [HIPAA](https://www.hhs.gov/hipaa/index.html), [CCPA](https://oag.ca.gov/privacy/ccpa), [PCI DSS](https://www.pcisecuritystandards.org/)
+* **Secure Coding Guidelines**: [OWASP Secure Coding Practices](https://owasp.org/www-project-secure-coding-practices-quick-reference-guide/)
+* **Data Protection**: [NIST Privacy Framework](https://www.nist.gov/privacy-framework)
+* **Compliance Tools**: Integration guides for popular compliance management platforms
+* **Training Resources**: Developer training materials for privacy-aware coding practices

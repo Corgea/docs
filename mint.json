@@ -70,7 +70,7 @@
       "pages": [
         {
           "group": "Security Analysis",
-          "pages": ["blast", "sca", "vulnerability_support", "language_support" , "scanning"]
+          "pages": ["blast", "sca", "pii", "vulnerability_support", "language_support" , "scanning"]
         },
         {
           "group": "Issue Management",
