@@ -28,17 +28,16 @@ Before setting up the integration, ensure you have:
 
 <Steps>
   <Step title="Configure Repository Variables">
-    In your Bitbucket repository settings, add the following repository variables:
+    In your Bitbucket repository settings, add the following in the "Repository variables" section:
 
-    1. `CORGEA_API_TOKEN`: Your Corgea API token
-    2. `BITBUCKET_USERNAME`: A Bitbucket user with API access
-    3. `BITBUCKET_APP_PASSWORD`: An app password with appropriate permissions
+    - `CORGEA_API_TOKEN`: Your Corgea API token
 
-    These variables will be securely used by the pipeline to authenticate with both Corgea and Bitbucket APIs.
+    This variable will be securely used by the pipeline to authenticate with Corgea.
+
   </Step>
 
-  <Step title="Configure Bitbucket Pipelines">
-    Create or update your `bitbucket-pipelines.yml` file in the root of your repository. This file defines the CI/CD pipeline that will run your build, tests, and security scans.
+  <Step title="Configure Bitbucket Pipelines (External Security Scan)">
+    Create or update your `bitbucket-pipelines.yml` file in the root of your repository. This example keeps a dedicated SAST engine (e.g., Fortify SAST) and then hands the results off to Corgea for triage and PR annotations.
 
     ```yaml
     image: python:3.11      # or any base image with your security tools + Python + jq
@@ -51,14 +50,15 @@ Before setting up the integration, ensure you have:
               - pip
             script:
               # ---------- Build & Test ----------
+              - apt-get update && apt-get install -y --no-install-recommends jq
               # Your build and test commands here
-              
+
               # ---------- Security Scan ----------
               # Example using Fortify SAST
               - sourceanalyzer -b ${BITBUCKET_REPO} -clean
               - sourceanalyzer -b ${BITBUCKET_REPO} javac -cp libs/*.jar $(git ls-files '*.java')
               - sourceanalyzer -b ${BITBUCKET_REPO} -scan -f scan.fpr -disable-source-bundling true
-              
+
               # ---------- Corgea ----------
               - pip install --quiet corgea-cli
               - corgea login ${CORGEA_API_TOKEN}
@@ -70,10 +70,10 @@ Before setting up the integration, ensure you have:
               # ---------- Retrieve & iterate through issues ----------
               - mkdir -p corgea_issues
               # List ALL issues for this scan, in JSON
-              - corgea ls --issues --scan-id "${SCAN_ID}" --json > issues.json
+              - corgea ls --issues --scan-id \"${SCAN_ID}\" --json > issues.json
               # Extract each issue ID and loop
               - |
-                for ISSUE_ID in $(jq -r '.[].id' issues.json); do
+                for ISSUE_ID in $(jq -r '.results.[].id' issues.json); do
                   echo "Fetching details for $ISSUE_ID"
                   corgea inspect --issue "$ISSUE_ID" --json > "corgea_issues/${ISSUE_ID}.json"
                 done
@@ -82,6 +82,60 @@ Before setting up the integration, ensure you have:
               # A helper that reads the *.json files and pushes annotations
               - ./scripts/post-code-insights.sh corgea_issues
     ```
+
+  </Step>
+
+  <Step title="Configure Bitbucket Pipelines (Corgea-only Scan)">
+    If you would rather skip a dedicated SAST tool and let Corgea handle scanning end-to-end, use the following pipeline. In this example, we use the lightning-fast [`uv`](https://docs.astral.sh/uv/) python package manager to install dependencies, runs unit tests and linting, then executes [`corgea scan`](/cli#scan-your-codebase) to analyse the repository. The remainder of the script checks for triage and pushes issue details back to Bitbucket Code Insights.
+
+    ```yaml
+    image: python:3.11      # or any base image with your security tools + Python + jq + make
+
+    pipelines:
+      default:
+        - step:
+            name: Build-Test-Corgea
+            caches:
+              - pip
+            script:
+              # ---------- Build & Test ----------
+              - apt-get update && apt-get install -y --no-install-recommends make jq
+              - pip install --quiet uv
+              - make install          # install dependencies via uv
+              - make lint             # static analysis via ruff
+              - make test             # run pytest suite
+              - source .venv/bin/activate     # activate the virtual environment
+
+              # ---------- Corgea Scan ----------
+              - uv add --group dev corgea-cli # install corgea-cli via uv
+              - corgea login ${CORGEA_API_TOKEN} # login to Corgea
+              - corgea scan # scan the repo
+              - SCAN_ID=$(corgea ls | grep -oE '^[0-9a-f-]{36}' | head -1) # get the scan id
+              - |
+                if [ -n "$SCAN_ID" ]; then
+                  echo "SCAN_ID found: $SCAN_ID"
+                else
+                  echo "No SCAN_ID found with 'corgea ls'"
+                  exit 1
+                fi
+
+              # ---------- Retrieve & iterate through issues ----------
+              - mkdir -p corgea_issues
+              # List ALL issues for this scan, in JSON
+              - corgea ls --issues --scan-id "${SCAN_ID}" --json > issues.json
+              # Extract each issue ID and loop
+              - |
+                for ISSUE_ID in $(jq -r '.results.[].id' issues.json); do
+                  echo "Fetching details for $ISSUE_ID"
+                  corgea inspect --issue "$ISSUE_ID" --json > "corgea_issues/${ISSUE_ID}.json"
+                  cat "corgea_issues/${ISSUE_ID}.json"
+                done
+
+              # ---------- Code Insights ----------
+              # A helper that reads the *.json files and pushes annotations
+              # - ./scripts/post-code-insights.sh corgea_issues
+    ```
+
   </Step>
 
 </Steps>
@@ -93,6 +147,7 @@ Before setting up the integration, ensure you have:
 2. **Security Scan**: The pipeline runs your chosen security scanner to analyze your code and generate results containing potential vulnerabilities.
 
 3. **Corgea Processing**: The Corgea CLI uploads the results to Corgea's cloud platform, which:
+
    - Parses the security findings
    - Deduplicates findings
    - Uses AI to triage issues (BLAST)
