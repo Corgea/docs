@@ -1,0 +1,144 @@
+---
+title: 'Issue Export'
+description: 'Export security findings in various formats including SARIF, CSV, and PDF'
+---
+
+## Overview
+
+Corgea provides multiple export options for your security findings, allowing you to integrate with various tools and workflows. You can export scan results in industry-standard formats for further analysis, reporting, or integration with other security tools.
+
+## Export Formats
+
+### SARIF Export
+
+SARIF (Static Analysis Results Interchange Format) is an industry-standard format for representing the output of static analysis tools. Corgea supports exporting scan results in SARIF 2.1.0 format, making it easy to integrate with various security tools and CI/CD pipelines.
+
+#### How to Export to SARIF
+
+<Steps>
+  <Step title="Navigate to Scan Results">
+    Go to your project's scan results page where you can see all detected security issues.
+    <Card>
+      <img src="/images/scan_option.png" style={{ borderRadius: '0.5rem' }} alt="Scan Options" />
+    </Card>
+  </Step>
+  <Step title="Access Export Options">
+    Click on the export options menu to see available export formats.
+    <Card>
+      <img src="/images/scan_export_to_sarif_option.png" style={{ borderRadius: '0.5rem' }} alt="SARIF Export Option" />
+    </Card>
+  </Step>
+  <Step title="Select SARIF Format">
+    Choose the SARIF export option to download your security findings in SARIF format.
+  </Step>
+</Steps>
+
+#### SARIF Report Structure
+
+The exported SARIF report follows the SARIF 2.1.0 specification and includes:
+
+- **Tool Information**: Details about Corgea as the scanning tool
+- **Rules**: Definitions of security vulnerabilities detected, including CWE classifications
+- **Results**: Individual security findings with locations and metadata
+
+Each security rule in the SARIF report includes:
+
+```json
+{
+  "id": "CWE-89",
+  "name": "SQL Injection",
+  "shortDescription": {
+    "text": "SQL Injection"
+  },
+  "fullDescription": {
+    "text": "CWE-89: Improper Neutralization of Special Elements used in an SQL Command ('SQL Injection')"
+  },
+  "defaultConfiguration": {
+    "level": "warning"
+  }
+}
+```
+
+#### Sample SARIF Report
+
+You can view a complete sample SARIF report here: [Sample SARIF Report](/samples/corgea_a45fca2d-3684-4586-951e-d8181e78df19.sarif)
+
+The sample report demonstrates how Corgea exports various security vulnerabilities including:
+- SQL Injection (CWE-89)
+- Cross-site Scripting (CWE-79) 
+- Path Traversal (CWE-22)
+- Missing Authorization (CWE-862)
+- And many other common security vulnerabilities
+
+### CSV Export
+
+CSV (Comma-Separated Values) format provides a simple, spreadsheet-compatible export option for your security findings. This format is ideal for:
+
+- Creating custom reports and dashboards
+- Importing into business intelligence tools
+- Sharing findings with stakeholders who prefer tabular data
+- Performing bulk analysis in spreadsheet applications
+
+The CSV export includes key information about each security finding such as:
+- Issue ID and Scan ID for tracking
+- Project name and classification details
+- Vulnerability type (CWE classification) and urgency level
+- File location, line number, and programming language
+- Issue description and severity ratings
+
+#### Sample CSV Report
+
+You can view a complete sample CSV report here: [Sample CSV Report](/samples/corgea_a45fca2d-3684-4586-951e-d8181e78df19.csv)
+
+The CSV format includes these columns:
+- **Issue ID**: Unique identifier for each security finding
+- **Scan ID**: Identifier linking findings to specific scan runs
+- **Project Name**: Name of the scanned project
+- **Classification ID**: CWE identifier (e.g., CWE-89 for SQL Injection)
+- **Issue Classification**: Human-readable vulnerability name
+- **Urgency**: Priority level (CR=Critical, HI=High, ME=Medium)
+- **File**: Path to the affected source code file
+- **Line Number**: Specific line where the issue was detected
+- **Language**: Programming language of the affected file
+
+### PDF Export (Coming Soon)
+
+PDF export functionality is currently in development and will be available soon. This feature will provide:
+- Professional, formatted reports suitable for executive summaries
+- Detailed vulnerability descriptions and remediation guidance
+- Charts and visualizations of security findings
+- Customizable report templates
+
+## Integration Benefits
+
+### SARIF Integration Advantages
+
+- **Tool Compatibility**: SARIF files can be consumed by various security tools, IDEs, and CI/CD systems
+- **GitHub Integration**: GitHub natively supports SARIF for security alerts and code scanning
+- **Standardized Format**: Industry-standard format ensures compatibility across different platforms
+- **Rich Metadata**: Includes detailed location information, severity levels, and remediation guidance
+
+### Use Cases
+
+- **CI/CD Pipeline Integration**: Automatically process SARIF reports in your build pipeline
+- **Security Dashboard Integration**: Import findings into centralized security management platforms
+- **Compliance Reporting**: Generate standardized reports for security audits and compliance requirements
+- **Developer Workflow**: Integrate with IDEs that support SARIF for inline security feedback
+
+## Best Practices
+
+- **Regular Exports**: Set up regular exports to track security improvements over time
+- **Version Control**: Store exported reports alongside your code for historical tracking
+- **Automated Processing**: Use SARIF exports in automated workflows for continuous security monitoring
+- **Tool Integration**: Leverage SARIF compatibility to integrate with your existing security toolchain
+
+## Technical Specifications
+
+### SARIF Version
+Corgea exports use SARIF version 2.1.0, ensuring compatibility with the latest tools and platforms.
+
+### File Size Considerations
+Large projects may generate substantial SARIF files. Consider filtering results or exporting specific vulnerability types for very large codebases.
+
+### Schema Validation
+All exported SARIF files conform to the official SARIF 2.1.0 JSON schema, ensuring reliable parsing by compatible tools.
