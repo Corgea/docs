@@ -1,0 +1,47 @@
+Issue ID,Scan ID,Project Name,Classification ID,Issue Classification,Urgency,File,Line Number,Language
+b1396f32-8eab-4bba-8b05-4c95e6b2f8b8,a45fca2d-3684-4586-951e-d8181e78df19,insecure-kubernetes-deployments,CWE-89,SQL Injection,CR,insecure-api/main.py,115,python
+221a3b31-546b-4d74-9b74-75542d25b223,a45fca2d-3684-4586-951e-d8181e78df19,insecure-kubernetes-deployments,CWE-200,Exposure of Sensitive Information to an Unauthorized Actor,CR,insecure-api/main.py,90,python
+e4565bf8-ac20-461e-9ee6-a6806ff11211,a45fca2d-3684-4586-951e-d8181e78df19,insecure-kubernetes-deployments,CWE-639,Authorization Bypass Through User-Controlled Key,HI,insecure-api/main.py,177,python
+a726cefb-f589-4d49-aa40-ed0b2a38f263,a45fca2d-3684-4586-951e-d8181e78df19,insecure-kubernetes-deployments,CWE-918,SSRF,CR,insecure-api/main.py,204,python
+b739641f-d77a-4f83-94fb-6f44dabe9160,a45fca2d-3684-4586-951e-d8181e78df19,insecure-kubernetes-deployments,CWE-287,Improper Authentication,HI,insecure-api/main.py,68,python
+7a65bb5c-c0bd-46c3-9b4c-d5e92e16f843,a45fca2d-3684-4586-951e-d8181e78df19,insecure-kubernetes-deployments,CWE-601,Open Redirect,HI,insecure-api/main.py,214,python
+1702062b-2070-440c-8b62-79e9ee4a1630,a45fca2d-3684-4586-951e-d8181e78df19,insecure-kubernetes-deployments,CWE-79,Cross-site Scripting,CR,insecure-api/main.py,170,python
+d98a2b0b-7b9d-492b-8b9a-51bd36e8514d,a45fca2d-3684-4586-951e-d8181e78df19,insecure-kubernetes-deployments,CWE-915,Improperly Controlled Modification of Dynamically-Determined Object Attributes,HI,insecure-api/main.py,105,python
+beddaf5c-1069-4305-8c03-80242665efba,a45fca2d-3684-4586-951e-d8181e78df19,insecure-kubernetes-deployments,CWE-862,Missing Authorization,HI,insecure-api/main.py,59,python
+06793571-d32e-43c2-be55-2805792ffe6f,a45fca2d-3684-4586-951e-d8181e78df19,insecure-kubernetes-deployments,CWE-307,Improper Restriction of Excessive Authentication Attempts,ME,insecure-api/main.py,96,python
+a7415c88-7ebb-45d3-affc-13fb7c12ea62,a45fca2d-3684-4586-951e-d8181e78df19,insecure-kubernetes-deployments,CWE-89,SQL Injection,CR,insecure-js/server.js,117,javascript
+dc72d879-8f71-4038-988a-6fcf95e63b73,a45fca2d-3684-4586-951e-d8181e78df19,insecure-kubernetes-deployments,CWE-1321,Prototype Pollution,HI,insecure-js/server.js,197,javascript
+8cc46bdf-dcbe-4e2f-aee9-484586c7568c,a45fca2d-3684-4586-951e-d8181e78df19,insecure-kubernetes-deployments,CWE-94,Code Injection,CR,insecure-js/server.js,179,javascript
+60a30bf7-ebf9-4e9e-bdc8-a4849849042b,a45fca2d-3684-4586-951e-d8181e78df19,insecure-kubernetes-deployments,CWE-614,Sensitive Cookie in HTTPS Session Without 'Secure' Attribute,ME,insecure-js/server.js,69,javascript
+04856774-af5d-4f71-9bd7-915e92932df7,a45fca2d-3684-4586-951e-d8181e78df19,insecure-kubernetes-deployments,CWE-89,SQL Injection,CR,insecure-js/server.js,135,javascript
+871cb537-c3ba-4bd7-bc01-cf60a8e0faf2,a45fca2d-3684-4586-951e-d8181e78df19,insecure-kubernetes-deployments,CWE-79,Cross-site Scripting,HI,insecure-js/server.js,216,javascript
+e3294a4f-c655-4f4b-9e41-70b341e00936,a45fca2d-3684-4586-951e-d8181e78df19,insecure-kubernetes-deployments,CWE-94,Code Injection,CR,insecure-js/server.js,56,javascript
+37cf935b-bf14-40e2-b7cc-2c0f53f491ac,a45fca2d-3684-4586-951e-d8181e78df19,insecure-kubernetes-deployments,CWE-200,Exposure of Sensitive Information to an Unauthorized Actor,CR,insecure-js/server.js,76,javascript
+07e53f6d-2269-48ed-942d-c9bea63de875,a45fca2d-3684-4586-951e-d8181e78df19,insecure-kubernetes-deployments,CWE-89,SQL Injection,CR,insecure-js/server.js,81,javascript
+27d8217c-a3fc-4b41-a1f1-d2823ccb65a5,a45fca2d-3684-4586-951e-d8181e78df19,insecure-kubernetes-deployments,CWE-89,SQL Injection,CR,insecure-js/server.js,158,javascript
+d3b2091f-d780-4d04-a29c-5e96f1def968,a45fca2d-3684-4586-951e-d8181e78df19,insecure-kubernetes-deployments,CWE-611,Improper Restriction of XML External Entity Reference,CR,insecure-app/app.py,122,python
+18e0bd0c-6717-4feb-b16f-842c15b30b8b,a45fca2d-3684-4586-951e-d8181e78df19,insecure-kubernetes-deployments,CWE-79,Cross-site Scripting,HI,insecure-app/app.py,115,python
+b97a7909-9795-4286-a1f1-489ca19d0360,a45fca2d-3684-4586-951e-d8181e78df19,insecure-kubernetes-deployments,CWE-639,Authorization Bypass Through User-Controlled Key,CR,insecure-java/src/main/java/com/example/catapp/controllers/UserController.java,128,java
+e4566bfd-932b-45d1-a31a-e8d7fbfc3a84,a45fca2d-3684-4586-951e-d8181e78df19,insecure-kubernetes-deployments,CWE-89,SQL Injection,CR,insecure-app/app.py,152,python
+47793279-e779-4ed7-a544-9c337c80ed87,a45fca2d-3684-4586-951e-d8181e78df19,insecure-kubernetes-deployments,CWE-918,SSRF,CR,insecure-app/app.py,142,python
+a6114005-cd67-4d8a-8780-3e5a57f598cb,a45fca2d-3684-4586-951e-d8181e78df19,insecure-kubernetes-deployments,CWE-639,Authorization Bypass Through User-Controlled Key,HI,insecure-java/src/main/java/com/example/catapp/controllers/UserController.java,103,java
+850b4434-558c-4807-8c7b-a1dd4565b590,a45fca2d-3684-4586-951e-d8181e78df19,insecure-kubernetes-deployments,CWE-22,Path Traversal,CR,insecure-app/app.py,93,python
+e40ca9b0-3577-4041-9ae2-77faaa1ec5d3,a45fca2d-3684-4586-951e-d8181e78df19,insecure-kubernetes-deployments,CWE-78,OS Command Injection,CR,insecure-app/app.py,82,python
+ec9e1dff-427d-46c0-a3ee-95fd278148ef,a45fca2d-3684-4586-951e-d8181e78df19,insecure-kubernetes-deployments,CWE-639,Authorization Bypass Through User-Controlled Key,HI,insecure-java/src/main/java/com/example/catapp/controllers/UserController.java,77,java
+9eaa770a-9a14-4d56-9350-0dcb316725da,a45fca2d-3684-4586-951e-d8181e78df19,insecure-kubernetes-deployments,CWE-89,SQL Injection,CR,insecure-app/app.py,101,python
+c3d5b997-2c9b-47f5-a239-8fb9215ddc85,a45fca2d-3684-4586-951e-d8181e78df19,insecure-kubernetes-deployments,CWE-256,Plaintext Storage of a Password,CR,insecure-java/src/main/java/com/example/catapp/controllers/UserController.java,34,java
+240727bf-0e36-4ba4-9abe-27295e3fff69,a45fca2d-3684-4586-951e-d8181e78df19,insecure-kubernetes-deployments,CWE-209,Generation of Error Message Containing Sensitive Information,ME,insecure-java/src/main/java/com/example/catapp/config/GlobalExceptionHandler.java,13,java
+44e98c51-4dcd-4415-a746-a37dbe08977d,a45fca2d-3684-4586-951e-d8181e78df19,insecure-kubernetes-deployments,CWE-352,CSRF,HI,insecure-java/src/main/java/com/example/catapp/controllers/CommentController.java,41,java
+e686e550-1f88-4ed9-bd28-df0bf6856618,a45fca2d-3684-4586-951e-d8181e78df19,insecure-kubernetes-deployments,CWE-256,Plaintext Storage of a Password,CR,insecure-java/src/main/java/com/example/catapp/models/User.java,36,java
+df6ca8c7-1ded-4e8c-98ee-d5c02dd1748b,a45fca2d-3684-4586-951e-d8181e78df19,insecure-kubernetes-deployments,CWE-256,Plaintext Storage of a Password,CR,insecure-java/src/main/java/com/example/catapp/models/User.java,40,java
+895d2de0-b98b-4e7d-ad85-950ba7d83382,a45fca2d-3684-4586-951e-d8181e78df19,insecure-kubernetes-deployments,CWE-862,Missing Authorization,HI,insecure-java/src/main/java/com/example/catapp/controllers/CatPictureController.java,36,java
+a4a45427-3782-4422-bbb2-d84aff9b2e89,a45fca2d-3684-4586-951e-d8181e78df19,insecure-kubernetes-deployments,CWE-256,Plaintext Storage of a Password,CR,insecure-java/src/main/java/com/example/catapp/models/User.java,17,java
+21fe5668-8674-4d17-934d-eef03fc49038,a45fca2d-3684-4586-951e-d8181e78df19,insecure-kubernetes-deployments,CWE-502,Deserialization of Untrusted Data,CR,insecure-java/Exploit.java,4,java
+551aac04-7a0d-4839-98fd-24182c9910ea,a45fca2d-3684-4586-951e-d8181e78df19,insecure-kubernetes-deployments,CWE-22,Path Traversal,CR,insecure-ai/app.py,243,python
+50f45e83-cf57-498a-8719-5b5167b30d84,a45fca2d-3684-4586-951e-d8181e78df19,insecure-kubernetes-deployments,CWE-94,Code Injection,HI,insecure-ai/app.py,210,python
+07f860bd-79af-4139-b726-0591fc822940,a45fca2d-3684-4586-951e-d8181e78df19,insecure-kubernetes-deployments,CWE-532,Insertion of Sensitive Information into Log File,ME,insecure-ai/app.py,102,python
+25628035-6c0d-4ae3-ac1e-644948bc452f,a45fca2d-3684-4586-951e-d8181e78df19,insecure-kubernetes-deployments,CWE-311,Missing Encryption of Sensitive Data,CR,insecure-js/init_db.js,23,javascript
+d41bc149-6429-48ef-bbcd-108809a2fd4d,a45fca2d-3684-4586-951e-d8181e78df19,insecure-kubernetes-deployments,CWE-502,Deserialization of Untrusted Data,CR,insecure-java/src/main/java/com/example/insecurejava/UnsafeDeserializationController.java,16,java
+970b7c8c-b13e-423c-88d6-539ad00be198,a45fca2d-3684-4586-951e-d8181e78df19,insecure-kubernetes-deployments,CWE-257,Storing Passwords in a Recoverable Format,CR,insecure-java/src/main/java/com/example/catapp/repositories/UserRepository.java,9,java
+6cfc1822-32a0-4456-a171-b3be595edaa3,a45fca2d-3684-4586-951e-d8181e78df19,insecure-kubernetes-deployments,CWE-200,Exposure of Sensitive Information to an Unauthorized Actor,CR,exploits/CVE-2025-32433/ssh_exploit/CVE-2025-32433.py,170,python
+7cbebeb9-869e-41f9-8017-b48e04ff25ca,a45fca2d-3684-4586-951e-d8181e78df19,insecure-kubernetes-deployments,CWE-288,Authentication Bypass Using an Alternate Path or Channel,CR,exploits/CVE-2025-32433/ssh_exploit/CVE-2025-32433.py,263,python
