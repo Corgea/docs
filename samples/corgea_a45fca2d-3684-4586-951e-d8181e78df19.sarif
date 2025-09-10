@@ -1,0 +1,1297 @@
+{
+  "$schema": "https://docs.oasis-open.org/sarif/sarif/v2.1.0/errata01/os/schemas/sarif-schema-2.1.0.json",
+  "version": "2.1.0",
+  "runs": [
+    {
+      "tool": {
+        "driver": {
+          "name": "Corgea",
+          "version": "1.0.0",
+          "informationUri": "https://corgea.com/",
+          "rules": [
+            {
+              "id": "CWE-89",
+              "name": "SQL Injection",
+              "shortDescription": {
+                "text": "SQL Injection"
+              },
+              "fullDescription": {
+                "text": "CWE-89: Improper Neutralization of Special Elements used in an SQL Command ('SQL Injection')"
+              },
+              "defaultConfiguration": {
+                "level": "warning"
+              }
+            },
+            {
+              "id": "CWE-200",
+              "name": "Exposure of Sensitive Information to an Unauthorized Actor",
+              "shortDescription": {
+                "text": "Exposure of Sensitive Information to an Unauthorized Actor"
+              },
+              "fullDescription": {
+                "text": "CWE-200: Exposure of Sensitive Information to an Unauthorized Actor"
+              },
+              "defaultConfiguration": {
+                "level": "warning"
+              }
+            },
+            {
+              "id": "CWE-639",
+              "name": "Authorization Bypass Through User-Controlled Key",
+              "shortDescription": {
+                "text": "Authorization Bypass Through User-Controlled Key"
+              },
+              "fullDescription": {
+                "text": "CWE-639: Authorization Bypass Through User-Controlled Key"
+              },
+              "defaultConfiguration": {
+                "level": "warning"
+              }
+            },
+            {
+              "id": "CWE-918",
+              "name": "SSRF",
+              "shortDescription": {
+                "text": "SSRF"
+              },
+              "fullDescription": {
+                "text": "CWE-918: Server-Side Request Forgery (SSRF)"
+              },
+              "defaultConfiguration": {
+                "level": "warning"
+              }
+            },
+            {
+              "id": "CWE-287",
+              "name": "Improper Authentication",
+              "shortDescription": {
+                "text": "Improper Authentication"
+              },
+              "fullDescription": {
+                "text": "CWE-287: Improper Authentication"
+              },
+              "defaultConfiguration": {
+                "level": "warning"
+              }
+            },
+            {
+              "id": "CWE-601",
+              "name": "Open Redirect",
+              "shortDescription": {
+                "text": "Open Redirect"
+              },
+              "fullDescription": {
+                "text": "CWE-601: URL Redirection to Untrusted Site ('Open Redirect')"
+              },
+              "defaultConfiguration": {
+                "level": "warning"
+              }
+            },
+            {
+              "id": "CWE-79",
+              "name": "Cross-site Scripting",
+              "shortDescription": {
+                "text": "Cross-site Scripting"
+              },
+              "fullDescription": {
+                "text": "CWE-79: Improper Neutralization of Input During Web Page Generation ('Cross-site Scripting')"
+              },
+              "defaultConfiguration": {
+                "level": "warning"
+              }
+            },
+            {
+              "id": "CWE-915",
+              "name": "Improperly Controlled Modification of Dynamically-Determined Object Attributes",
+              "shortDescription": {
+                "text": "Improperly Controlled Modification of Dynamically-Determined Object Attributes"
+              },
+              "fullDescription": {
+                "text": "CWE-915: Improperly Controlled Modification of Dynamically-Determined Object Attributes"
+              },
+              "defaultConfiguration": {
+                "level": "warning"
+              }
+            },
+            {
+              "id": "CWE-862",
+              "name": "Missing Authorization",
+              "shortDescription": {
+                "text": "Missing Authorization"
+              },
+              "fullDescription": {
+                "text": "CWE-862: Missing Authorization"
+              },
+              "defaultConfiguration": {
+                "level": "warning"
+              }
+            },
+            {
+              "id": "CWE-307",
+              "name": "Improper Restriction of Excessive Authentication Attempts",
+              "shortDescription": {
+                "text": "Improper Restriction of Excessive Authentication Attempts"
+              },
+              "fullDescription": {
+                "text": "CWE-307: Improper Restriction of Excessive Authentication Attempts"
+              },
+              "defaultConfiguration": {
+                "level": "warning"
+              }
+            },
+            {
+              "id": "CWE-1321",
+              "name": "Prototype Pollution",
+              "shortDescription": {
+                "text": "Prototype Pollution"
+              },
+              "fullDescription": {
+                "text": "CWE-1321: Improperly Controlled Modification of Object Prototype Attributes ('Prototype Pollution')"
+              },
+              "defaultConfiguration": {
+                "level": "warning"
+              }
+            },
+            {
+              "id": "CWE-94",
+              "name": "Code Injection",
+              "shortDescription": {
+                "text": "Code Injection"
+              },
+              "fullDescription": {
+                "text": "CWE-94: Improper Control of Generation of Code ('Code Injection')"
+              },
+              "defaultConfiguration": {
+                "level": "warning"
+              }
+            },
+            {
+              "id": "CWE-614",
+              "name": "Sensitive Cookie in HTTPS Session Without 'Secure' Attribute",
+              "shortDescription": {
+                "text": "Sensitive Cookie in HTTPS Session Without 'Secure' Attribute"
+              },
+              "fullDescription": {
+                "text": "CWE-614: Sensitive Cookie in HTTPS Session Without 'Secure' Attribute"
+              },
+              "defaultConfiguration": {
+                "level": "warning"
+              }
+            },
+            {
+              "id": "CWE-611",
+              "name": "Improper Restriction of XML External Entity Reference",
+              "shortDescription": {
+                "text": "Improper Restriction of XML External Entity Reference"
+              },
+              "fullDescription": {
+                "text": "CWE-611: Improper Restriction of XML External Entity Reference"
+              },
+              "defaultConfiguration": {
+                "level": "warning"
+              }
+            },
+            {
+              "id": "CWE-22",
+              "name": "Path Traversal",
+              "shortDescription": {
+                "text": "Path Traversal"
+              },
+              "fullDescription": {
+                "text": "CWE-22: Improper Limitation of a Pathname to a Restricted Directory ('Path Traversal')"
+              },
+              "defaultConfiguration": {
+                "level": "warning"
+              }
+            },
+            {
+              "id": "CWE-78",
+              "name": "OS Command Injection",
+              "shortDescription": {
+                "text": "OS Command Injection"
+              },
+              "fullDescription": {
+                "text": "CWE-78: Improper Neutralization of Special Elements used in an OS Command ('OS Command Injection')"
+              },
+              "defaultConfiguration": {
+                "level": "warning"
+              }
+            },
+            {
+              "id": "CWE-256",
+              "name": "Plaintext Storage of a Password",
+              "shortDescription": {
+                "text": "Plaintext Storage of a Password"
+              },
+              "fullDescription": {
+                "text": "CWE-256: Plaintext Storage of a Password"
+              },
+              "defaultConfiguration": {
+                "level": "warning"
+              }
+            },
+            {
+              "id": "CWE-209",
+              "name": "Generation of Error Message Containing Sensitive Information",
+              "shortDescription": {
+                "text": "Generation of Error Message Containing Sensitive Information"
+              },
+              "fullDescription": {
+                "text": "CWE-209: Generation of Error Message Containing Sensitive Information"
+              },
+              "defaultConfiguration": {
+                "level": "warning"
+              }
+            },
+            {
+              "id": "CWE-352",
+              "name": "CSRF",
+              "shortDescription": {
+                "text": "CSRF"
+              },
+              "fullDescription": {
+                "text": "CWE-352: Cross-Site Request Forgery (CSRF)"
+              },
+              "defaultConfiguration": {
+                "level": "warning"
+              }
+            },
+            {
+              "id": "CWE-502",
+              "name": "Deserialization of Untrusted Data",
+              "shortDescription": {
+                "text": "Deserialization of Untrusted Data"
+              },
+              "fullDescription": {
+                "text": "CWE-502: Deserialization of Untrusted Data"
+              },
+              "defaultConfiguration": {
+                "level": "warning"
+              }
+            },
+            {
+              "id": "CWE-532",
+              "name": "Insertion of Sensitive Information into Log File",
+              "shortDescription": {
+                "text": "Insertion of Sensitive Information into Log File"
+              },
+              "fullDescription": {
+                "text": "CWE-532: Insertion of Sensitive Information into Log File"
+              },
+              "defaultConfiguration": {
+                "level": "warning"
+              }
+            },
+            {
+              "id": "CWE-311",
+              "name": "Missing Encryption of Sensitive Data",
+              "shortDescription": {
+                "text": "Missing Encryption of Sensitive Data"
+              },
+              "fullDescription": {
+                "text": "CWE-311: Missing Encryption of Sensitive Data"
+              },
+              "defaultConfiguration": {
+                "level": "warning"
+              }
+            },
+            {
+              "id": "CWE-257",
+              "name": "Storing Passwords in a Recoverable Format",
+              "shortDescription": {
+                "text": "Storing Passwords in a Recoverable Format"
+              },
+              "fullDescription": {
+                "text": "CWE-257: Storing Passwords in a Recoverable Format"
+              },
+              "defaultConfiguration": {
+                "level": "warning"
+              }
+            },
+            {
+              "id": "CWE-288",
+              "name": "Authentication Bypass Using an Alternate Path or Channel",
+              "shortDescription": {
+                "text": "Authentication Bypass Using an Alternate Path or Channel"
+              },
+              "fullDescription": {
+                "text": "CWE-288: Authentication Bypass Using an Alternate Path or Channel"
+              },
+              "defaultConfiguration": {
+                "level": "warning"
+              }
+            }
+          ]
+        }
+      },
+      "results": [
+        {
+          "ruleId": "CWE-89",
+          "level": "warning",
+          "message": {
+            "text": "Security issue detected"
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "insecure-api/main.py"
+                },
+                "region": {
+                  "startLine": 115
+                }
+              }
+            }
+          ],
+          "guid": "642d66878de693077bc0d2aa7fccdd11e54e956b1b845e1e22d98b3ee4276cf5",
+          "issue_id": "b1396f32-8eab-4bba-8b05-4c95e6b2f8b8"
+        },
+        {
+          "ruleId": "CWE-200",
+          "level": "warning",
+          "message": {
+            "text": "Security issue detected"
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "insecure-api/main.py"
+                },
+                "region": {
+                  "startLine": 90
+                }
+              }
+            }
+          ],
+          "guid": "92d00821eabbda55a548dce7f176bd981bb869908a1168924cd61a52a549bc63",
+          "issue_id": "221a3b31-546b-4d74-9b74-75542d25b223"
+        },
+        {
+          "ruleId": "CWE-639",
+          "level": "warning",
+          "message": {
+            "text": "Security issue detected"
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "insecure-api/main.py"
+                },
+                "region": {
+                  "startLine": 177
+                }
+              }
+            }
+          ],
+          "guid": "4a2c941cdb3fb9d3291fcc2ffe53b7fa50aebb2959e7e22bfddcd3e49a147762",
+          "issue_id": "e4565bf8-ac20-461e-9ee6-a6806ff11211"
+        },
+        {
+          "ruleId": "CWE-918",
+          "level": "warning",
+          "message": {
+            "text": "Security issue detected"
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "insecure-api/main.py"
+                },
+                "region": {
+                  "startLine": 204
+                }
+              }
+            }
+          ],
+          "guid": "a86824c2f7a35a65fa779c84078b665ead096a037d0640e3febfa4121ae85bf3",
+          "issue_id": "a726cefb-f589-4d49-aa40-ed0b2a38f263"
+        },
+        {
+          "ruleId": "CWE-287",
+          "level": "warning",
+          "message": {
+            "text": "Security issue detected"
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "insecure-api/main.py"
+                },
+                "region": {
+                  "startLine": 68
+                }
+              }
+            }
+          ],
+          "guid": "24344285accb53c9ab41ffa31126e83bfad6acdba1ba9552de6819dd2d6e0547",
+          "issue_id": "b739641f-d77a-4f83-94fb-6f44dabe9160"
+        },
+        {
+          "ruleId": "CWE-601",
+          "level": "warning",
+          "message": {
+            "text": "Security issue detected"
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "insecure-api/main.py"
+                },
+                "region": {
+                  "startLine": 214
+                }
+              }
+            }
+          ],
+          "guid": "8ce806d8527e1d9483b305299368fc3c72f55c8529a2b305b2c51f06c1539705",
+          "issue_id": "7a65bb5c-c0bd-46c3-9b4c-d5e92e16f843"
+        },
+        {
+          "ruleId": "CWE-79",
+          "level": "warning",
+          "message": {
+            "text": "Security issue detected"
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "insecure-api/main.py"
+                },
+                "region": {
+                  "startLine": 170
+                }
+              }
+            }
+          ],
+          "guid": "ba1eceb582781e5d34de1092be1a816e7f4ce4599cf7bd0be27691042a39c55c",
+          "issue_id": "1702062b-2070-440c-8b62-79e9ee4a1630"
+        },
+        {
+          "ruleId": "CWE-915",
+          "level": "warning",
+          "message": {
+            "text": "Security issue detected"
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "insecure-api/main.py"
+                },
+                "region": {
+                  "startLine": 105
+                }
+              }
+            }
+          ],
+          "guid": "669d96bbbc21f9a3226b77d9eccfc7899c8e8c1424493b5421f16f1b5cba062a",
+          "issue_id": "d98a2b0b-7b9d-492b-8b9a-51bd36e8514d"
+        },
+        {
+          "ruleId": "CWE-862",
+          "level": "warning",
+          "message": {
+            "text": "Security issue detected"
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "insecure-api/main.py"
+                },
+                "region": {
+                  "startLine": 59
+                }
+              }
+            }
+          ],
+          "guid": "9c1ffcd38a8c3e37f16896febb2ed4c2b92eb2ed8473c836001538527a9a815b",
+          "issue_id": "beddaf5c-1069-4305-8c03-80242665efba"
+        },
+        {
+          "ruleId": "CWE-307",
+          "level": "warning",
+          "message": {
+            "text": "Security issue detected"
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "insecure-api/main.py"
+                },
+                "region": {
+                  "startLine": 96
+                }
+              }
+            }
+          ],
+          "guid": "bee9c0bbfd7f3c0fd5e13df36ce15ca3b2aed11ca2e31b2bd17f9dc88cd4b0e9",
+          "issue_id": "06793571-d32e-43c2-be55-2805792ffe6f"
+        },
+        {
+          "ruleId": "CWE-89",
+          "level": "warning",
+          "message": {
+            "text": "Security issue detected"
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "insecure-js/server.js"
+                },
+                "region": {
+                  "startLine": 117
+                }
+              }
+            }
+          ],
+          "guid": "537167050d9da0e639a15854610fa56e5b13d2ea03f7029fd6ac0bb6608fc554",
+          "issue_id": "a7415c88-7ebb-45d3-affc-13fb7c12ea62"
+        },
+        {
+          "ruleId": "CWE-1321",
+          "level": "warning",
+          "message": {
+            "text": "Security issue detected"
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "insecure-js/server.js"
+                },
+                "region": {
+                  "startLine": 197
+                }
+              }
+            }
+          ],
+          "guid": "4caac51f477231fa8e47fa5160470f9bbd98b9f2fd0970bb1d69ac468eb7f89f",
+          "issue_id": "dc72d879-8f71-4038-988a-6fcf95e63b73"
+        },
+        {
+          "ruleId": "CWE-94",
+          "level": "warning",
+          "message": {
+            "text": "Security issue detected"
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "insecure-js/server.js"
+                },
+                "region": {
+                  "startLine": 179
+                }
+              }
+            }
+          ],
+          "guid": "6a865dd8a457174b7a2c6a5f370a23d4fc40ace05d8fc810498d51323ed5a825",
+          "issue_id": "8cc46bdf-dcbe-4e2f-aee9-484586c7568c"
+        },
+        {
+          "ruleId": "CWE-614",
+          "level": "warning",
+          "message": {
+            "text": "Security issue detected"
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "insecure-js/server.js"
+                },
+                "region": {
+                  "startLine": 69
+                }
+              }
+            }
+          ],
+          "guid": "e937689fc58fddb04edf123a6adf5e83ae1349047336ed9a673a7c70270ed8e0",
+          "issue_id": "60a30bf7-ebf9-4e9e-bdc8-a4849849042b"
+        },
+        {
+          "ruleId": "CWE-89",
+          "level": "warning",
+          "message": {
+            "text": "Security issue detected"
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "insecure-js/server.js"
+                },
+                "region": {
+                  "startLine": 135
+                }
+              }
+            }
+          ],
+          "guid": "558ef0adb468302acbf925306ce6f4e0fc2e3ade6ca593cee75cd7d6d8c4442e",
+          "issue_id": "04856774-af5d-4f71-9bd7-915e92932df7"
+        },
+        {
+          "ruleId": "CWE-79",
+          "level": "warning",
+          "message": {
+            "text": "Security issue detected"
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "insecure-js/server.js"
+                },
+                "region": {
+                  "startLine": 216
+                }
+              }
+            }
+          ],
+          "guid": "0d42674584bd6f7023754a7a7398230ca4b6ff8b4ec8bd8c5180e8c87166f295",
+          "issue_id": "871cb537-c3ba-4bd7-bc01-cf60a8e0faf2"
+        },
+        {
+          "ruleId": "CWE-94",
+          "level": "warning",
+          "message": {
+            "text": "Security issue detected"
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "insecure-js/server.js"
+                },
+                "region": {
+                  "startLine": 56
+                }
+              }
+            }
+          ],
+          "guid": "0806fc18883bc58796dd832edf7f1766a240ee8dcd0d9e71df079811a28b4796",
+          "issue_id": "e3294a4f-c655-4f4b-9e41-70b341e00936"
+        },
+        {
+          "ruleId": "CWE-200",
+          "level": "warning",
+          "message": {
+            "text": "Security issue detected"
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "insecure-js/server.js"
+                },
+                "region": {
+                  "startLine": 76
+                }
+              }
+            }
+          ],
+          "guid": "3acc721ba98d0140482d66d3e82d1a092b0cf3c4da0706ff5322af88149187af",
+          "issue_id": "37cf935b-bf14-40e2-b7cc-2c0f53f491ac"
+        },
+        {
+          "ruleId": "CWE-89",
+          "level": "warning",
+          "message": {
+            "text": "Security issue detected"
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "insecure-js/server.js"
+                },
+                "region": {
+                  "startLine": 81
+                }
+              }
+            }
+          ],
+          "guid": "d5301685171ff6ed040d19af8ba97ab946ff467a0c682021c8ed83925aeba786",
+          "issue_id": "07e53f6d-2269-48ed-942d-c9bea63de875"
+        },
+        {
+          "ruleId": "CWE-89",
+          "level": "warning",
+          "message": {
+            "text": "Security issue detected"
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "insecure-js/server.js"
+                },
+                "region": {
+                  "startLine": 158
+                }
+              }
+            }
+          ],
+          "guid": "10b108386e7344203705fbfffa3d3984cfb7b3f5afa796874b8784852f1455bc",
+          "issue_id": "27d8217c-a3fc-4b41-a1f1-d2823ccb65a5"
+        },
+        {
+          "ruleId": "CWE-611",
+          "level": "warning",
+          "message": {
+            "text": "Security issue detected"
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "insecure-app/app.py"
+                },
+                "region": {
+                  "startLine": 122
+                }
+              }
+            }
+          ],
+          "guid": "dd9d1d0a372f4ec46bcf2592701f6f2da9d66276c3f535b6e665d2f6e6173723",
+          "issue_id": "d3b2091f-d780-4d04-a29c-5e96f1def968"
+        },
+        {
+          "ruleId": "CWE-79",
+          "level": "warning",
+          "message": {
+            "text": "Security issue detected"
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "insecure-app/app.py"
+                },
+                "region": {
+                  "startLine": 115
+                }
+              }
+            }
+          ],
+          "guid": "62f67f27cb0f9aa318e80d308595689c0d45c3e6c2679d5c62644d7be5d43686",
+          "issue_id": "18e0bd0c-6717-4feb-b16f-842c15b30b8b"
+        },
+        {
+          "ruleId": "CWE-639",
+          "level": "warning",
+          "message": {
+            "text": "Security issue detected"
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "insecure-java/src/main/java/com/example/catapp/controllers/UserController.java"
+                },
+                "region": {
+                  "startLine": 128
+                }
+              }
+            }
+          ],
+          "guid": "f58475710accf96f838f9984c69b95ff5a7a95d5ac0ccdac87d2d47b14bbfb06",
+          "issue_id": "b97a7909-9795-4286-a1f1-489ca19d0360"
+        },
+        {
+          "ruleId": "CWE-89",
+          "level": "warning",
+          "message": {
+            "text": "Security issue detected"
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "insecure-app/app.py"
+                },
+                "region": {
+                  "startLine": 152
+                }
+              }
+            }
+          ],
+          "guid": "645dfc5b42a89573d939cde1f5fa1efa77b0bb695d03691b494c56196b501e5a",
+          "issue_id": "e4566bfd-932b-45d1-a31a-e8d7fbfc3a84"
+        },
+        {
+          "ruleId": "CWE-918",
+          "level": "warning",
+          "message": {
+            "text": "Security issue detected"
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "insecure-app/app.py"
+                },
+                "region": {
+                  "startLine": 142
+                }
+              }
+            }
+          ],
+          "guid": "be13aa91d440ef1d4a99f72abf4b47a78dcd2e32804a25ca74cd073021101496",
+          "issue_id": "47793279-e779-4ed7-a544-9c337c80ed87"
+        },
+        {
+          "ruleId": "CWE-639",
+          "level": "warning",
+          "message": {
+            "text": "Security issue detected"
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "insecure-java/src/main/java/com/example/catapp/controllers/UserController.java"
+                },
+                "region": {
+                  "startLine": 103
+                }
+              }
+            }
+          ],
+          "guid": "7fe11ed02c8a56fbf88458d44c40812a6f5625a76f4052ba3f823ccbb2b42204",
+          "issue_id": "a6114005-cd67-4d8a-8780-3e5a57f598cb"
+        },
+        {
+          "ruleId": "CWE-22",
+          "level": "warning",
+          "message": {
+            "text": "Security issue detected"
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "insecure-app/app.py"
+                },
+                "region": {
+                  "startLine": 93
+                }
+              }
+            }
+          ],
+          "guid": "fd6213b948a5023a2c2a408f4dad58f314dce460322ec35c687d996e637f536c",
+          "issue_id": "850b4434-558c-4807-8c7b-a1dd4565b590"
+        },
+        {
+          "ruleId": "CWE-78",
+          "level": "warning",
+          "message": {
+            "text": "Security issue detected"
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "insecure-app/app.py"
+                },
+                "region": {
+                  "startLine": 82
+                }
+              }
+            }
+          ],
+          "guid": "c449da4127812947a8b2e8ad507514e0bae5395e31f85ce6380436793af1a5c0",
+          "issue_id": "e40ca9b0-3577-4041-9ae2-77faaa1ec5d3"
+        },
+        {
+          "ruleId": "CWE-639",
+          "level": "warning",
+          "message": {
+            "text": "Security issue detected"
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "insecure-java/src/main/java/com/example/catapp/controllers/UserController.java"
+                },
+                "region": {
+                  "startLine": 77
+                }
+              }
+            }
+          ],
+          "guid": "38f8e1d04ad339046ef8bb28864151c0b91d766b8c8f3e8f02bbc5b5fa0e4885",
+          "issue_id": "ec9e1dff-427d-46c0-a3ee-95fd278148ef"
+        },
+        {
+          "ruleId": "CWE-89",
+          "level": "warning",
+          "message": {
+            "text": "Security issue detected"
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "insecure-app/app.py"
+                },
+                "region": {
+                  "startLine": 101
+                }
+              }
+            }
+          ],
+          "guid": "18d1c6ed75c70d5bf39cc4e8d31f2376d0f16650604d55108dd749bb03be3959",
+          "issue_id": "9eaa770a-9a14-4d56-9350-0dcb316725da"
+        },
+        {
+          "ruleId": "CWE-256",
+          "level": "warning",
+          "message": {
+            "text": "Security issue detected"
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "insecure-java/src/main/java/com/example/catapp/controllers/UserController.java"
+                },
+                "region": {
+                  "startLine": 34
+                }
+              }
+            }
+          ],
+          "guid": "5faf08f341e04c050fe5221f030df27742f24e0fad97c65b3ec1ba03e4aeb6f7",
+          "issue_id": "c3d5b997-2c9b-47f5-a239-8fb9215ddc85"
+        },
+        {
+          "ruleId": "CWE-209",
+          "level": "warning",
+          "message": {
+            "text": "Security issue detected"
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "insecure-java/src/main/java/com/example/catapp/config/GlobalExceptionHandler.java"
+                },
+                "region": {
+                  "startLine": 13
+                }
+              }
+            }
+          ],
+          "guid": "a06e8724afbbaf16466e04924c559a206d0336f950892fed99590e930f6a32e5",
+          "issue_id": "240727bf-0e36-4ba4-9abe-27295e3fff69"
+        },
+        {
+          "ruleId": "CWE-352",
+          "level": "warning",
+          "message": {
+            "text": "Security issue detected"
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "insecure-java/src/main/java/com/example/catapp/controllers/CommentController.java"
+                },
+                "region": {
+                  "startLine": 41
+                }
+              }
+            }
+          ],
+          "guid": "8f0286bdf68c083b448ef121dc5305e63f4150af33c7df1514bfec05ff02392e",
+          "issue_id": "44e98c51-4dcd-4415-a746-a37dbe08977d"
+        },
+        {
+          "ruleId": "CWE-256",
+          "level": "warning",
+          "message": {
+            "text": "Security issue detected"
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "insecure-java/src/main/java/com/example/catapp/models/User.java"
+                },
+                "region": {
+                  "startLine": 36
+                }
+              }
+            }
+          ],
+          "guid": "a7cdeda45b8bd311cf3ba75d5b52ce1a975ca5a6dcf68d71bbd8fba3ff8b0150",
+          "issue_id": "e686e550-1f88-4ed9-bd28-df0bf6856618"
+        },
+        {
+          "ruleId": "CWE-256",
+          "level": "warning",
+          "message": {
+            "text": "Security issue detected"
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "insecure-java/src/main/java/com/example/catapp/models/User.java"
+                },
+                "region": {
+                  "startLine": 40
+                }
+              }
+            }
+          ],
+          "guid": "56856058ab90bab4c896070773320363fa3bd6419cbd355c0fd394543fdf6c4a",
+          "issue_id": "df6ca8c7-1ded-4e8c-98ee-d5c02dd1748b"
+        },
+        {
+          "ruleId": "CWE-862",
+          "level": "warning",
+          "message": {
+            "text": "Security issue detected"
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "insecure-java/src/main/java/com/example/catapp/controllers/CatPictureController.java"
+                },
+                "region": {
+                  "startLine": 36
+                }
+              }
+            }
+          ],
+          "guid": "a6e3518f026ce038465c776b23d304a69fc8216efa0344a37e8807393a5e27a2",
+          "issue_id": "895d2de0-b98b-4e7d-ad85-950ba7d83382"
+        },
+        {
+          "ruleId": "CWE-256",
+          "level": "warning",
+          "message": {
+            "text": "Security issue detected"
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "insecure-java/src/main/java/com/example/catapp/models/User.java"
+                },
+                "region": {
+                  "startLine": 17
+                }
+              }
+            }
+          ],
+          "guid": "7a2e6e1345cc104d5193b24d714003ebc1a4375b03a7dc25e06d15f75fa26357",
+          "issue_id": "a4a45427-3782-4422-bbb2-d84aff9b2e89"
+        },
+        {
+          "ruleId": "CWE-502",
+          "level": "warning",
+          "message": {
+            "text": "Security issue detected"
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "insecure-java/Exploit.java"
+                },
+                "region": {
+                  "startLine": 4
+                }
+              }
+            }
+          ],
+          "guid": "d1e8a35150931def7b2637f12ffe07e8b7c7f4a348e0706bdd25e7364f08d5fa",
+          "issue_id": "21fe5668-8674-4d17-934d-eef03fc49038"
+        },
+        {
+          "ruleId": "CWE-22",
+          "level": "warning",
+          "message": {
+            "text": "Security issue detected"
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "insecure-ai/app.py"
+                },
+                "region": {
+                  "startLine": 243
+                }
+              }
+            }
+          ],
+          "guid": "9073496d269a769d482e3d84f6a0df8815d266dc843bc341fe8a225af22d551c",
+          "issue_id": "551aac04-7a0d-4839-98fd-24182c9910ea"
+        },
+        {
+          "ruleId": "CWE-94",
+          "level": "warning",
+          "message": {
+            "text": "Security issue detected"
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "insecure-ai/app.py"
+                },
+                "region": {
+                  "startLine": 210
+                }
+              }
+            }
+          ],
+          "guid": "3bf1a01338003d9f4fbe2cfe426d4867aa94ed3dd55dc1c97122531ba6e5b495",
+          "issue_id": "50f45e83-cf57-498a-8719-5b5167b30d84"
+        },
+        {
+          "ruleId": "CWE-532",
+          "level": "warning",
+          "message": {
+            "text": "Security issue detected"
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "insecure-ai/app.py"
+                },
+                "region": {
+                  "startLine": 102
+                }
+              }
+            }
+          ],
+          "guid": "ca89d43d34221725e219d66fda7bc033fc11aa8d8ff54d36af94442c40026714",
+          "issue_id": "07f860bd-79af-4139-b726-0591fc822940"
+        },
+        {
+          "ruleId": "CWE-311",
+          "level": "warning",
+          "message": {
+            "text": "Security issue detected"
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "insecure-js/init_db.js"
+                },
+                "region": {
+                  "startLine": 23
+                }
+              }
+            }
+          ],
+          "guid": "1d887258cae2f7d50ca50b256d4fd4e1fb6a885c1310dd0342df8b01fc8d8a49",
+          "issue_id": "25628035-6c0d-4ae3-ac1e-644948bc452f"
+        },
+        {
+          "ruleId": "CWE-502",
+          "level": "warning",
+          "message": {
+            "text": "Security issue detected"
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "insecure-java/src/main/java/com/example/insecurejava/UnsafeDeserializationController.java"
+                },
+                "region": {
+                  "startLine": 16
+                }
+              }
+            }
+          ],
+          "guid": "7b9400e70dcb828e04d330d0021f8e66822a17916380f7607f8e989a06ba951f",
+          "issue_id": "d41bc149-6429-48ef-bbcd-108809a2fd4d"
+        },
+        {
+          "ruleId": "CWE-257",
+          "level": "warning",
+          "message": {
+            "text": "Security issue detected"
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "insecure-java/src/main/java/com/example/catapp/repositories/UserRepository.java"
+                },
+                "region": {
+                  "startLine": 9
+                }
+              }
+            }
+          ],
+          "guid": "70b6c1c41b2283e796f92a641c5c4bb82f80f334d7fc1fb01b6a8091b3905773",
+          "issue_id": "970b7c8c-b13e-423c-88d6-539ad00be198"
+        },
+        {
+          "ruleId": "CWE-200",
+          "level": "warning",
+          "message": {
+            "text": "Security issue detected"
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "exploits/CVE-2025-32433/ssh_exploit/CVE-2025-32433.py"
+                },
+                "region": {
+                  "startLine": 170
+                }
+              }
+            }
+          ],
+          "guid": "52d0df43f942d4b5009702986bb0094e56437b6363ee835e262701e10f2e4854",
+          "issue_id": "6cfc1822-32a0-4456-a171-b3be595edaa3"
+        },
+        {
+          "ruleId": "CWE-288",
+          "level": "warning",
+          "message": {
+            "text": "Security issue detected"
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "exploits/CVE-2025-32433/ssh_exploit/CVE-2025-32433.py"
+                },
+                "region": {
+                  "startLine": 263
+                }
+              }
+            }
+          ],
+          "guid": "24430e1cc1e3e987722ca095041b8eeff64cd45638889d74636c6bd1a1cd561a",
+          "issue_id": "7cbebeb9-869e-41f9-8017-b48e04ff25ca"
+        }
+      ]
+    }
+  ]
+}

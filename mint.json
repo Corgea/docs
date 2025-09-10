@@ -74,7 +74,7 @@
         },
         {
           "group": "Issue Management",
-          "pages": ["fixes", "false_positive", "issue_assignment"]
+          "pages": ["fixes", "false_positive", "issue_assignment", "issue_export"]
         },
         {
           "group": "Policy Management",
