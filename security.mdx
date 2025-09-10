@@ -32,9 +32,10 @@ CEO of Corgea
   <Accordion icon="users" title="Which 3rd parties do you share data with?">
     To provide adequate service, Corgea limits the number of 3rd parties that receive data and shares with the following 3rd parties only:
     - Amazon Web Services: used to host corgea instances, and databases. 
-    - OpenAI: used in aiding Corgea in fixing insecure code, and in part of the fix QA process. 
+    - OpenAI or AzureOpenAI: used in aiding Corgea in fixing insecure code, and in part of the fix QA process. We maintain a ZDR (Zero Data Retention) with both. 
     - Sentry: for application performance monitoring and error tracking. 
     - Google Analytics: to track and report on website traffic and events. 
+    - PostHog: product analytics and client error tracking.
   </Accordion>
   <Accordion icon="merge" title="Does Corgea auto-merge the proposed fixes into our codebase?">
     Corgea empowers your team with full control. While we automate the creation of Pull-Requests (PRs), the choice to merge rests with your engineers, ensuring that every change aligns with your project’s objectives. For those who prefer manual integration, diffs are available for direct application within your preferred IDE.
