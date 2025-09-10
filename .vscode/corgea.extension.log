@@ -1,0 +1,14 @@
+[2025-09-10T14:29:57.065Z] Request: GET http://10.0.13.14/api/v1/issues
+[2025-09-10T14:29:57.065Z] Request Headers: {"Accept":"application/json, text/plain, */*","CORGEA-TOKEN":"55c96384-f60c-4c54-a93c-14e63dd87369"}
+[2025-09-10T14:29:57.066Z] Request Params: {"project":"docs","page":1,"page_size":50}
+[2025-09-10T14:29:57.066Z] Request Data: undefined
+[2025-09-10T14:29:58.059Z] Response Status: 200
+[2025-09-10T14:29:58.059Z] Response Headers: {"server":"nginx/1.25.3","date":"Wed, 10 Sep 2025 14:29:58 GMT","content-type":"application/json","content-length":"78","connection":"close","x-frame-options":"DENY","vary":"Cookie","x-content-type-options":"nosniff","referrer-policy":"same-origin","cross-origin-opener-policy":"same-origin","server-timing":"cfReqDur;dur=649.573","cf-team":"29d5a19c80000075a8ed3b4400000001"}
+[2025-09-10T14:29:58.060Z] Response Data: {"status":"ok","issues":[],"page":1,"total_pages":1,"total_issues":0}
+[2025-09-10T14:29:58.060Z] Request: GET http://10.0.13.14/api/v1/issues
+[2025-09-10T14:29:58.060Z] Request Headers: {"Accept":"application/json, text/plain, */*","CORGEA-TOKEN":"55c96384-f60c-4c54-a93c-14e63dd87369"}
+[2025-09-10T14:29:58.060Z] Request Params: {"project":"docs","page":1,"page_size":50}
+[2025-09-10T14:29:58.060Z] Request Data: undefined
+[2025-09-10T14:29:58.690Z] Response Status: 200
+[2025-09-10T14:29:58.690Z] Response Headers: {"server":"nginx/1.25.3","date":"Wed, 10 Sep 2025 14:29:58 GMT","content-type":"application/json","content-length":"78","connection":"close","x-frame-options":"DENY","vary":"Cookie","x-content-type-options":"nosniff","referrer-policy":"same-origin","cross-origin-opener-policy":"same-origin","server-timing":"cfReqDur;dur=521.052","cf-team":"29d5a19f72000075a8ed445400000001"}
+[2025-09-10T14:29:58.690Z] Response Data: {"status":"ok","issues":[],"page":1,"total_pages":1,"total_issues":0}
