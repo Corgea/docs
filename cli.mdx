@@ -71,29 +71,61 @@ sudo mv corgea /usr/local/bin
 
 ### Login with your cli
 
-To authenticate with your API token, use the following command:
+To authenticate with the CLI, use the following command. This will redirect you to the web application to authorize the CLI:
+```bash
+corgea login
+```
+
+#### Login with custom scope (for customers with Single-Tenant Instance)
+**Hint:** Your company scope is the Corgea subdomain, for example: `https://your-company.corgea.app`
+```bash
+corgea login --scope your-company
+```
+
+
+#### Login with API Key (recommended for CI/CD pipelines)
+
+For automated pipelines and CI/CD environments, use API key authentication which provides a more reliable, non-interactive authentication method:
 
 ```bash
 corgea login YOUR_API_TOKEN
 ```
 
-### Point To A Single-Tenant Instance
+You can also set the API token in an environment variable:
 
-Customers using a single-tenant instance need to have the CLI point to their instance.
+<CodeGroup>
+```bash MacOS/Unix
+export CORGEA_API_TOKEN="your-api-token-here"
+corgea login
+```
+
+```bash Windows
+$env:CORGEA_API_TOKEN="your-api-token-here"
+corgea login
+```
+</CodeGroup>
+
+#### Point To A Single-Tenant Instance
+
+Customers using a single-tenant instance need to configure the CLI to point to their specific instance using the `--url` option:
 
 ```bash
 corgea login --url https://<<Your Instance>>.corgea.app YOUR_API_TOKEN
 ```
 
-You can also set the URL in an environment variable and the CLI will automatically detect it.
+You can also set the URL in an environment variable and the CLI will automatically detect it:
 
 <CodeGroup>
 ```bash MacOS/Unix
 export CORGEA_URL="https://<<Your Instance>>.corgea.app"
+export CORGEA_API_TOKEN="your-api-token-here"
+corgea login
 ```
 
 ```bash Windows
 $env:CORGEA_URL="https://<<Your Instance>>.corgea.app"
+$env:CORGEA_API_TOKEN="your-api-token-here"
+corgea login
 ```
 </CodeGroup>
 
@@ -169,9 +201,13 @@ The Corgea CLI allows you to export scan results to a file, which is particularl
 corgea scan --out-format=json --out-file=report.json
 ```
 
-The CLI currently supports html and json as output formats.
+The CLI currently supports html, json and SARIF as output formats.
 ```bash
 corgea scan --out-format=html --out-file=report.html
+```
+
+```bash
+corgea scan --out-format=sarif --out-file=report.sarif
 ```
 #### Wait for a Scan
 
