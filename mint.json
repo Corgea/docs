@@ -80,7 +80,10 @@
           "group": "Policy Management",
           "pages": ["policies", "sla_management", "blocking_rules"]
         },
-        "user_management"
+        {
+          "group": "Users & Groups",
+          "pages": ["user_management", "permission_groups"]
+        }
       ]
     },
     {

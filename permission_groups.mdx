@@ -1,0 +1,315 @@
+---
+title: 'Permission Groups'
+description: 'This document provides a comprehensive overview of all permissions available for assignment to permission groups in the Corgea platform. Permissions control what actions users can perform within the system.'
+---
+
+## User Management Permissions
+
+<AccordionGroup>
+  <Accordion title="User Permissions" icon="user">
+    These permissions control user account management within the system.
+
+    ### Can add user
+    **Description:** Create new user accounts in the system.
+    
+    **Use Case:** Allows users to register new team members and set up their accounts.
+
+    ### Can change user
+    **Description:** Modify existing user account information and settings.
+    
+    **Use Case:** Update user profiles, change email addresses, modify user roles, or update account details.
+
+    ### Can delete user
+    **Description:** Remove user accounts from the system.
+    
+    **Use Case:** Deactivate or permanently delete user accounts when team members leave or accounts are no longer needed.
+
+    ### Can view user
+    **Description:** View user account information and profiles.
+    
+    **Use Case:** Access user details, view team member information, or check user status.
+  </Accordion>
+
+  <Accordion title="Permission Group Management" icon="users">
+    These permissions control the management of permission groups themselves.
+
+    ### Can add Permission Group
+    **Description:** Create new permission groups with custom permission sets.
+    
+    **Use Case:** Set up role-based access control by creating groups like "Developers", "Security Team", or "Managers" with specific permissions.
+
+    ### Can change Permission Group
+    **Description:** Modify existing permission group settings and assigned permissions.
+    
+    **Use Case:** Update group permissions, change group names, or adjust access levels as organizational needs evolve.
+
+    ### Can view Permission Group
+    **Description:** View permission group configurations and assigned permissions.
+    
+    **Use Case:** Review current group settings, audit permissions, or understand access control structure.
+
+    ### Can delete Permission Group
+    **Description:** Remove permission groups from the system.
+    
+    **Use Case:** Clean up unused groups or remove deprecated role configurations.
+  </Accordion>
+
+  <Accordion title="Company Management" icon="building">
+    These permissions control company-level settings and information.
+
+    ### Can change company
+    **Description:** Modify company settings, configuration, and organizational details.
+    
+    **Use Case:** Update company information, change billing settings, modify organizational policies, or adjust company-wide configurations.
+
+    ### Can view company
+    **Description:** View company information and settings.
+    
+    **Use Case:** Access company details, review organizational information, or check company-wide settings and policies.
+  </Accordion>
+</AccordionGroup>
+
+## Security Analysis Permissions
+
+<AccordionGroup>
+  <Accordion title="Issue Management" icon="shield">
+    These permissions control access to security issues and vulnerabilities.
+
+    ### Can add issue
+    **Description:** Create new security issues or manually report vulnerabilities.
+    
+    **Use Case:** Allow security team members to manually create issues for discovered vulnerabilities or security concerns.
+
+    ### Can delete issue
+    **Description:** Remove security issues from the system.
+    
+    **Use Case:** Clean up false positives, remove resolved issues, or manage issue lifecycle.
+
+    ### Can view issue
+    **Description:** View security issues, vulnerabilities, and their details.
+    
+    **Use Case:** Access issue reports, review vulnerability details, or monitor security status across projects.
+
+    ### Can modify project tags
+    **Description:** Add, remove, or modify tags associated with projects.
+    
+    **Use Case:** Organize projects with custom tags, categorize projects by team or technology, or improve project management and filtering.
+  </Accordion>
+
+  <Accordion title="SAST Scan Management" icon="bug">
+    These permissions control Static Application Security Testing (SAST) scan operations.
+
+    ### Can add SAST Scan
+    **Description:** Initiate new SAST security scans on projects.
+    
+    **Use Case:** Start security scans, trigger manual scans, or schedule new security analysis runs.
+
+    ### Can view SAST Scan
+    **Description:** View SAST scan results, reports, and scan history.
+    
+    **Use Case:** Review scan results, analyze security findings, or monitor scan progress and outcomes.
+
+    ### Can delete SAST Scan
+    **Description:** Remove SAST scan records and results from the system.
+    
+    **Use Case:** Clean up old scan data, remove failed scans, or manage scan history storage.
+  </Accordion>
+
+  <Accordion title="SCA Issue Management" icon="box">
+    These permissions control Software Composition Analysis (SCA) issue management.
+
+    ### Can view sca issue
+    **Description:** View Software Composition Analysis issues and dependency vulnerabilities.
+    
+    **Use Case:** Review third-party library vulnerabilities, check dependency security status, or analyze open source component risks.
+
+    ### Can add sca issue
+    **Description:** Create new SCA issues or manually report dependency vulnerabilities.
+    
+    **Use Case:** Manually flag dependency issues, report newly discovered vulnerabilities in third-party components.
+
+    ### Can change sca issue
+    **Description:** Modify SCA issue details, status, or resolution information.
+    
+    **Use Case:** Update issue status, add resolution notes, or modify vulnerability assessment details.
+
+    ### Can delete sca issue
+    **Description:** Remove SCA issues from the system.
+    
+    **Use Case:** Clean up false positives, remove resolved dependency issues, or manage SCA issue lifecycle.
+  </Accordion>
+</AccordionGroup>
+
+## API and Integration Permissions
+
+<Accordion title="API Token Management" icon="key">
+  These permissions control API access and token management.
+
+  ### Can change token
+  **Description:** Modify API tokens, including regeneration, expiration, or permission changes.
+  
+  **Use Case:** Update token permissions, regenerate compromised tokens, or modify token expiration settings.
+
+  ### Can view token
+  **Description:** View API tokens and their associated permissions and usage.
+  
+  **Use Case:** Review token usage, audit API access, or check token permissions and status.
+</Accordion>
+
+## Policy Management Permissions
+
+<AccordionGroup>
+  <Accordion title="General Policy Management" icon="file">
+    These permissions control the core policy management functionality.
+
+    ### Can add Policy
+    **Description:** Create new security policies and compliance rules.
+    
+    **Use Case:** Define new security standards, create compliance policies, or establish organizational security guidelines.
+
+    ### Can change Policy
+    **Description:** Modify existing policies, rules, and compliance settings.
+    
+    **Use Case:** Update policy requirements, adjust compliance rules, or modify security standards as organizational needs change.
+
+    ### Can view Policy
+    **Description:** View policies, compliance rules, and security standards.
+    
+    **Use Case:** Review current policies, understand compliance requirements, or audit security standards.
+
+    ### Can delete Policy
+    **Description:** Remove policies and compliance rules from the system.
+    
+    **Use Case:** Clean up outdated policies, remove deprecated compliance rules, or manage policy lifecycle.
+  </Accordion>
+
+  <Accordion title="Issue SLA Management" icon="clock">
+    These permissions control Issue Service Level Agreement (SLA) settings.
+
+    ### Can add Issue SLA
+    **Description:** Create new issue SLA definitions and response time requirements.
+    
+    **Use Case:** Define response time requirements for different types of security issues, set up escalation procedures.
+
+    ### Can change Issue SLA
+    **Description:** Modify existing issue SLA settings and response time requirements.
+    
+    **Use Case:** Update SLA requirements, adjust response times, or modify escalation procedures.
+
+    ### Can view Issue SLA
+    **Description:** View issue SLA settings and response time requirements.
+    
+    **Use Case:** Review SLA requirements, check response time commitments, or audit SLA compliance.
+
+    ### Can delete Issue SLA
+    **Description:** Remove issue SLA definitions from the system.
+    
+    **Use Case:** Clean up outdated SLA requirements or remove deprecated response time standards.
+  </Accordion>
+
+  <Accordion title="Blocking Rule Management" icon="ban">
+    These permissions control blocking rules that prevent certain actions.
+
+    ### Can add blocking rule
+    **Description:** Create new blocking rules to prevent specific actions or deployments.
+    
+    **Use Case:** Set up rules to block deployments with critical vulnerabilities, prevent releases with compliance violations.
+
+    ### Can change blocking rule
+    **Description:** Modify existing blocking rules and their conditions.
+    
+    **Use Case:** Update blocking criteria, adjust rule conditions, or modify deployment restrictions.
+
+    ### Can view blocking rule
+    **Description:** View blocking rules and their current configurations.
+    
+    **Use Case:** Review current blocking rules, understand deployment restrictions, or audit rule effectiveness.
+
+    ### Can delete blocking rule
+    **Description:** Remove blocking rules from the system.
+    
+    **Use Case:** Clean up outdated rules, remove unnecessary restrictions, or manage rule lifecycle.
+  </Accordion>
+
+  <Accordion title="PR Scan Comment Rules" icon="message">
+    These permissions control automated comment rules for pull request scans.
+
+    ### Can add pr scan comment rule
+    **Description:** Create new rules for automated comments on pull request scans.
+    
+    **Use Case:** Set up automated feedback for developers, create custom comment templates for different scan results.
+
+    ### Can change pr scan comment rule
+    **Description:** Modify existing PR scan comment rules and templates.
+    
+    **Use Case:** Update comment templates, adjust feedback rules, or modify automated communication settings.
+
+    ### Can view pr scan comment rule
+    **Description:** View PR scan comment rules and their configurations.
+    
+    **Use Case:** Review current comment rules, understand automated feedback settings, or audit communication policies.
+
+    ### Can delete pr scan comment rule
+    **Description:** Remove PR scan comment rules from the system.
+    
+    **Use Case:** Clean up outdated comment rules, remove unnecessary automated feedback, or manage rule lifecycle.
+  </Accordion>
+
+  <Accordion title="Scheduled Scan Management" icon="calendar">
+    These permissions control scheduled security scan configurations.
+
+    ### Can add Scheduled Scan
+    **Description:** Create new scheduled security scans with custom timing and parameters.
+    
+    **Use Case:** Set up regular security scans, create automated scan schedules, or establish recurring security assessments.
+
+    ### Can change Scheduled Scan
+    **Description:** Modify existing scheduled scan settings, timing, or parameters.
+    
+    **Use Case:** Update scan frequency, adjust scan parameters, or modify scheduling configurations.
+
+    ### Can view Scheduled Scan
+    **Description:** View scheduled scan configurations and their current settings.
+    
+    **Use Case:** Review scan schedules, check upcoming scans, or audit automated scanning configurations.
+
+    ### Can delete Scheduled Scan
+    **Description:** Remove scheduled scans from the system.
+    
+    **Use Case:** Clean up outdated scan schedules, remove unnecessary automated scans, or manage scan lifecycle.
+  </Accordion>
+</AccordionGroup>
+
+## Best Practices
+
+<Tabs>
+  <Tab title="Permission Assignment">
+    <Steps>
+      <Step title="Identify User Roles">
+        Determine the specific roles and responsibilities within your organization (e.g., Security Analyst, Developer, Manager).
+      </Step>
+      <Step title="Map Permissions to Roles">
+        Assign only the minimum required permissions for each role to follow the principle of least privilege.
+      </Step>
+      <Step title="Create Permission Groups">
+        Create permission groups that correspond to organizational roles and assign the appropriate permissions.
+      </Step>
+      <Step title="Assign Users to Groups">
+        Add users to the appropriate permission groups based on their role and responsibilities.
+      </Step>
+    </Steps>
+  </Tab>
+  
+  <Tab title="Security Considerations">
+    <Check>Regularly audit permission assignments to ensure they align with current organizational needs</Check>
+    <Check>Remove unused permissions and clean up deprecated permission groups</Check>
+    <Check>Use integration user permissions only for automated systems, not human users</Check>
+    <Check>Implement regular reviews of high-privilege permissions like user management and policy changes</Check>
+  </Tab>
+  
+  <Tab title="Troubleshooting">
+    <Tip>If a user cannot perform an expected action, check their permission group assignments and individual permissions</Tip>
+    <Tip>Use the view permissions to audit what access a user or group currently has</Tip>
+    <Tip>Remember that permissions are additive - users get all permissions from all groups they belong to</Tip>
+  </Tab>
+</Tabs>
