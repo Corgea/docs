@@ -98,3 +98,17 @@
 [2025-10-06T17:31:21.168Z] Response Status: 200
 [2025-10-06T17:31:21.168Z] Response Headers: {"date":"Mon, 06 Oct 2025 17:31:21 GMT","server":"WSGIServer/0.2 CPython/3.12.11","content-type":"application/json","x-frame-options":"DENY","content-length":"30","vary":"Cookie","x-content-type-options":"nosniff","referrer-policy":"same-origin","cross-origin-opener-policy":"same-origin"}
 [2025-10-06T17:31:21.168Z] Response Data: {"status":"no_project_found"}
+[2025-10-15T16:44:24.246Z] Request: GET http://127.0.0.1:8030/api/v1/issues
+[2025-10-15T16:44:24.246Z] Request Headers: {"Accept":"application/json, text/plain, */*","CORGEA-TOKEN":"593559fc-10da-4d43-998d-d7eb3aba4718"}
+[2025-10-15T16:44:24.246Z] Request Params: {"project":"docs","page":1,"page_size":50}
+[2025-10-15T16:44:24.246Z] Request Data: undefined
+[2025-10-15T16:44:24.387Z] Response Status: 200
+[2025-10-15T16:44:24.387Z] Response Headers: {"date":"Wed, 15 Oct 2025 16:44:24 GMT","server":"WSGIServer/0.2 CPython/3.12.11","content-type":"application/json","x-frame-options":"DENY","content-length":"30","vary":"Cookie","x-content-type-options":"nosniff","referrer-policy":"same-origin","cross-origin-opener-policy":"same-origin"}
+[2025-10-15T16:44:24.387Z] Response Data: {"status":"no_project_found"}
+[2025-10-15T16:44:24.387Z] Request: GET http://127.0.0.1:8030/api/v1/issues
+[2025-10-15T16:44:24.387Z] Request Headers: {"Accept":"application/json, text/plain, */*","CORGEA-TOKEN":"593559fc-10da-4d43-998d-d7eb3aba4718"}
+[2025-10-15T16:44:24.387Z] Request Params: {"project":"docs","page":1,"page_size":50}
+[2025-10-15T16:44:24.387Z] Request Data: undefined
+[2025-10-15T16:44:24.447Z] Response Status: 200
+[2025-10-15T16:44:24.447Z] Response Headers: {"date":"Wed, 15 Oct 2025 16:44:24 GMT","server":"WSGIServer/0.2 CPython/3.12.11","content-type":"application/json","x-frame-options":"DENY","content-length":"30","vary":"Cookie","x-content-type-options":"nosniff","referrer-policy":"same-origin","cross-origin-opener-policy":"same-origin"}
+[2025-10-15T16:44:24.447Z] Response Data: {"status":"no_project_found"}
