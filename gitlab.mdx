@@ -40,14 +40,24 @@ Before setting up the GitLab integration, ensure that you have the following:
 To enable Corgea to scan your repositories and comment on merge requests, you'll need to configure a few settings in GitLab:
 
 <Steps>
-  <Step title="Create Personal Access Token">
-    1. Log in to your GitLab account
-    2. Go to your User Settings > Access Tokens
-    3. Create a new token with the following scopes:
+  <Step title="Create Access Token">
+    **Recommended**: Create a dedicated Corgea user in GitLab so that comments and merge requests appear to come from Corgea.
+
+    **Option 1: Personal Access Token (under Corgea user)**
+    1. Create a new GitLab user account named "Corgea" (or similar)
+    2. Log in to the Corgea user account
+    3. Go to User Settings > Access Tokens
+    4. Create a new token with the following scopes:
        - `api` (Read/Write API access)
        - `read_api` 
        - `read_repository`
        - `write_repository`
+    5. Copy the generated token - you'll need this for the Corgea integration setup
+
+    **Option 2: Group Access Token**
+    1. Go to your group's Settings > Access Tokens
+    2. Create a new group access token with the same scopes as above
+    3. This token will apply to all projects in the group
     4. Copy the generated token - you'll need this for the Corgea integration setup
   </Step>
   <Step title="Configure Webhook">
@@ -56,9 +66,10 @@ To enable Corgea to scan your repositories and comment on merge requests, you'll
     2. Add a new webhook with the following settings:
        - URL: `https://www.corgea.app/gitlab_webhook/` (or your provided webhook URL)
        - Custom header: Add `X-Corgea-UUID` with the value found under the integrations setting page > GitLab > View All
-       - Select triggers: 
+       - Select triggers:
          - Merge request events
          - Comments
+    <img src="/images/gitlab_webhook_config.png" style={{ borderRadius: '0.5rem' }} />
     3. Click "Add webhook"
 
     For Group-level webhook:
