@@ -3,11 +3,34 @@ title: "Changelog"
 description: "Product updates and announcements"
 ---
 
+
+<Update label="2025.10.17">
+  **New Features & Enhancements:**
+  - Project Management: Added permissions to allow authorized users to delete projects when needed.
+  - CWE Filtering: Introduced an option to filter vulnerabilities by CWE category directly in project settings.
+  - SAML Integration: Added support for assigning default groups when users log in via SAML.
+  - Language Detection: The platform now automatically detects the programming language for imported scans, improving compatibility and accuracy.
+  - Endpoint Discovery: Enhanced the endpoint discovery engine with support for PHP and C# projects.
+  - Feedback System: Added the ability to provide feedback on false positives to continuously improve detection accuracy.
+
+  **Platform Improvements:**
+  - Improved GitLab and Azure DevOps scheduled scan reliability.
+  - Enhanced GitHub app installation handling to support webhook timing edge cases.
+  - Ensured all project types can be deleted consistently.
+  - Prevented unnecessary processing of privileged users during webhook callbacks.
+  - Streamlined project linking using project IDs for more consistent behavior.
+
+  **General Fixes & Maintenance:**
+  - Fixed minor UI issues such as button alignment and whitespace handling.
+  - General performance, stability, and reliability improvements across the platform.
+</Update>
+
+
+
 <Update label="2025.10.09">
   **New Features:**
   - Risk Management Enhancements: Added automatic expiry options for accepted risks, making it easier to manage ongoing security decisions.
   - Project Settings Update: Improved project settings interface for a smoother configuration experience.
-  - Corgea Chat Integration: Introduced a new "Chat with Corgea" feature to enhance collaboration and support directly within the platform.
 
   **AI & Automation Improvements:**
   - False Positive Detection: Upgraded the false-positive detection system to use GPT-5, providing smarter and more accurate results.
