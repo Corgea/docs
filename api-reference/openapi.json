@@ -1,14 +1,29 @@
 {
   "openapi": "3.0.0",
   "info": {
-    "title": "Corgea CLI API",
-    "version": "1.0.0"
+    "title": "Corgea API",
+    "version": "1.0.0",
+    "description": "API for interacting with Corgea's scanning and vulnerability management features"
   },
+  "servers": [
+    {
+      "url": "https://www.corgea.app/api/v1",
+      "description": "Production server"
+    }
+  ],
+  "security": [
+    {
+      "CorgeaToken": []
+    }
+  ],
   "paths": {
-    "/cli/verify/{token}": {
+    "/verify/{token}": {
       "get": {
-        "summary": "Verify Token",
-        "operationId": "verifyToken",
+        "summary": "Verify Token (Deprecated)",
+        "operationId": "verifyTokenDeprecated",
+        "tags": ["Authentication"],
+        "security": [],
+        "deprecated": true,
         "parameters": [
           {
             "name": "token",
@@ -17,19 +32,20 @@
             "schema": {
               "type": "string"
             },
-            "description": "Token to be verified"
+            "description": "The token to be verified"
           }
         ],
         "responses": {
           "200": {
-            "description": "Token verified",
+            "description": "Token is valid",
             "content": {
               "application/json": {
                 "schema": {
                   "type": "object",
                   "properties": {
                     "status": {
-                      "type": "string"
+                      "type": "string",
+                      "example": "ok"
                     }
                   }
                 }
@@ -44,7 +60,8 @@
                   "type": "object",
                   "properties": {
                     "status": {
-                      "type": "string"
+                      "type": "string",
+                      "example": "error"
                     }
                   }
                 }
@@ -54,460 +71,57 @@
         }
       }
     },
-    "/cli/scan-upload": {
-      "post": {
-        "summary": "Upload Scan",
-        "operationId": "cliScanUpload",
-        "parameters": [
-          {
-            "name": "token",
-            "in": "query",
-            "required": true,
-            "schema": {
-              "type": "string"
-            }
-          },
-          {
-            "name": "run_id",
-            "in": "query",
-            "required": true,
-            "schema": {
-              "type": "string"
-            }
-          },
-          {
-            "name": "engine",
-            "in": "query",
-            "required": true,
-            "schema": {
-              "type": "string"
-            }
-          },
-          {
-            "name": "project",
-            "in": "query",
-            "required": true,
-            "schema": {
-              "type": "string"
-            }
-          }
-        ],
-        "requestBody": {
-          "required": true,
-          "content": {
-            "application/json": {
-              "schema": {
-                "type": "object"
-              }
-            }
-          }
-        },
-        "responses": {
-          "200": {
-            "description": "Scan uploaded",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "type": "object",
-                  "properties": {
-                    "status": {
-                      "type": "string"
-                    }
-                  }
-                }
-              }
-            }
-          },
-          "401": {
-            "description": "Unauthorized",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "type": "object",
-                  "properties": {
-                    "status": {
-                      "type": "string"
-                    }
-                  }
-                }
-              }
-            }
-          }
-        }
-      }
-    },
-    "/cli/git-config-upload": {
-      "post": {
-        "summary": "Upload Git Config",
-        "operationId": "cliGitConfigUpload",
-        "parameters": [
-          {
-            "name": "token",
-            "in": "query",
-            "required": true,
-            "schema": {
-              "type": "string"
-            }
-          },
-          {
-            "name": "run_id",
-            "in": "query",
-            "required": true,
-            "schema": {
-              "type": "string"
-            }
-          }
-        ],
-        "requestBody": {
-          "required": true,
-          "content": {
-            "text/plain": {
-              "schema": {
-                "type": "string"
-              }
-            }
-          }
-        },
-        "responses": {
-          "200": {
-            "description": "Git config uploaded",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "type": "object",
-                  "properties": {
-                    "status": {
-                      "type": "string"
-                    }
-                  }
-                }
-              }
-            }
-          },
-          "400": {
-            "description": "Invalid content",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "type": "object",
-                  "properties": {
-                    "status": {
-                      "type": "string"
-                    }
-                  }
-                }
-              }
-            }
-          },
-          "401": {
-            "description": "Unauthorized",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "type": "object",
-                  "properties": {
-                    "status": {
-                      "type": "string"
-                    }
-                  }
-                }
-              }
-            }
-          }
-        }
-      }
-    },
-    "/cli/code-upload": {
-      "post": {
-        "summary": "Upload Code",
-        "operationId": "cliCodeUpload",
-        "parameters": [
-          {
-            "name": "token",
-            "in": "query",
-            "required": true,
-            "schema": {
-              "type": "string"
-            }
-          },
-          {
-            "name": "run_id",
-            "in": "query",
-            "required": true,
-            "schema": {
-              "type": "string"
-            }
-          },
-          {
-            "name": "path",
-            "in": "query",
-            "required": true,
-            "schema": {
-              "type": "string"
-            }
-          }
-        ],
-        "requestBody": {
-          "required": true,
-          "content": {
-            "multipart/form-data": {
-              "schema": {
-                "type": "object",
-                "properties": {
-                  "file": {
-                    "type": "string",
-                    "format": "binary"
-                  }
-                }
-              }
-            }
-          }
-        },
-        "responses": {
-          "200": {
-            "description": "Code uploaded",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "type": "object",
-                  "properties": {
-                    "status": {
-                      "type": "string"
-                    }
-                  }
-                }
-              }
-            }
-          },
-          "400": {
-            "description": "Invalid content",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "type": "object",
-                  "properties": {
-                    "status": {
-                      "type": "string"
-                    }
-                  }
-                }
-              }
-            }
-          },
-          "401": {
-            "description": "Unauthorized",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "type": "object",
-                  "properties": {
-                    "status": {
-                      "type": "string"
-                    }
-                  }
-                }
-              }
-            }
-          }
-        }
-      }
-    },
-    "/cli/ci-data-upload": {
-      "post": {
-        "summary": "Upload CI Data",
-        "operationId": "cliCiDataUpload",
-        "parameters": [
-          {
-            "name": "token",
-            "in": "query",
-            "required": true,
-            "schema": {
-              "type": "string"
-            }
-          },
-          {
-            "name": "run_id",
-            "in": "query",
-            "required": true,
-            "schema": {
-              "type": "string"
-            }
-          },
-          {
-            "name": "platform",
-            "in": "query",
-            "required": true,
-            "schema": {
-              "type": "string"
-            }
-          }
-        ],
-        "requestBody": {
-          "required": true,
-          "content": {
-            "application/json": {
-              "schema": {
-                "type": "object"
-              }
-            }
-          }
-        },
-        "responses": {
-          "200": {
-            "description": "CI data uploaded",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "type": "object",
-                  "properties": {
-                    "status": {
-                      "type": "string"
-                    }
-                  }
-                }
-              }
-            }
-          },
-          "401": {
-            "description": "Unauthorized",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "type": "object",
-                  "properties": {
-                    "status": {
-                      "type": "string"
-                    }
-                  }
-                }
-              }
-            }
-          }
-        }
-      }
-    },
-    "/cli/issues": {
+    "/verify": {
       "get": {
-        "summary": "Get All Issues",
-        "operationId": "cliGetAllIssues",
+        "summary": "Verify Token",
+        "operationId": "verifyToken",
+        "tags": ["Authentication"],
+        "description": "Verify the API token and optionally return user information",
         "parameters": [
           {
-            "name": "token",
-            "in": "query",
-            "required": true,
-            "schema": {
-              "type": "string"
-            }
-          },
-          {
-            "name": "project",
+            "name": "user_info",
             "in": "query",
             "required": false,
             "schema": {
-              "type": "string"
-            }
+              "type": "boolean",
+              "default": false
+            },
+            "description": "Whether to include user information in the response"
           }
         ],
         "responses": {
           "200": {
-            "description": "List of issues",
+            "description": "Token is valid",
             "content": {
               "application/json": {
                 "schema": {
                   "type": "object",
                   "properties": {
                     "status": {
-                      "type": "string"
+                      "type": "string",
+                      "example": "ok"
                     },
-                    "issues": {
-                      "type": "array",
-                      "items": {
-                        "type": "object",
-                        "properties": {
-                          "id": { "type": "string" },
-                          "classification": { "type": "string" },
-                          "urgency": { "type": "string" },
-                          "project": { "type": "string" },
-                          "created_at": { "type": "string", "format": "date-time" },
-                          "hold_fix": { "type": "boolean" },
-                          "hold_reason": { "type": "string" },
-                          "file_path": { "type": "string" },
-                          "line_num": { "type": "integer" }
-                        }
-                      }
-                    }
-                  }
-                }
-              }
-            }
-          },
-          "401": {
-            "description": "Unauthorized",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "type": "object",
-                  "properties": {
-                    "status": {
-                      "type": "string"
-                    }
-                  }
-                }
-              }
-            }
-          }
-        }
-      }
-    },
-    "/cli/issues-tree": {
-      "get": {
-        "summary": "Get Issues Tree",
-        "operationId": "cliGetIssuesTree",
-        "parameters": [
-          {
-            "name": "token",
-            "in": "query",
-            "required": true,
-            "schema": {
-              "type": "string"
-            }
-          },
-          {
-            "name": "project",
-            "in": "query",
-            "required": false,
-            "schema": {
-              "type": "string"
-            }
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "Issues tree",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "type": "object",
-                  "properties": {
-                    "status": { "type": "string" },
-                    "project": { "type": "string" },
-                    "issues": {
-                      "type": "array",
-                      "items": {
-                        "type": "object",
-                        "properties": {
-                          "file_path": { "type": "string" },
-                          "vulnerabilities": {
-                            "type": "array",
-                            "items": {
-                              "type": "object",
-                              "properties": {
-                                "id": { "type": "string" },
-                                "classification": { "type": "string" },
-                                "urgency": { "type": "string" },
-                                "line_num": { "type": "integer" },
-                                "status": { "type": "string" }
-                              }
+                    "user": {
+                      "type": "object",
+                      "description": "User information (only included if user_info=true)",
+                      "properties": {
+                        "id": {
+                          "type": "integer"
+                        },
+                        "email": {
+                          "type": "string"
+                        },
+                        "name": {
+                          "type": "string"
+                        },
+                        "company": {
+                          "type": "object",
+                          "properties": {
+                            "id": {
+                              "type": "integer"
+                            },
+                            "name": {
+                              "type": "string"
                             }
                           }
                         }
@@ -519,13 +133,16 @@
             }
           },
           "401": {
-            "description": "Unauthorized",
+            "description": "Invalid or missing token",
             "content": {
               "application/json": {
                 "schema": {
                   "type": "object",
                   "properties": {
-                    "status": { "type": "string" }
+                    "status": {
+                      "type": "string",
+                      "example": "error"
+                    }
                   }
                 }
               }
@@ -534,66 +151,1232 @@
         }
       }
     },
-    "/cli/issue/{issue_id}": {
+    "/issues": {
       "get": {
-        "summary": "Get Issue",
-        "operationId": "cliGetIssue",
+        "summary": "List All Issues",
+        "operationId": "listIssues",
+        "tags": ["Issues"],
+        "description": "Retrieve a list of all security issues for the authenticated user's company",
         "parameters": [
           {
-            "name": "token",
+            "name": "project",
             "in": "query",
-            "required": true,
-            "schema": {
-              "type": "string"
-            }
-          },
-          {
-            "name": "issue_id",
-            "in": "path",
-            "required": true,
+            "required": false,
             "schema": {
               "type": "string"
             },
-            "description": "ID of the issue"
+            "description": "Filter issues by project name"
+          },
+          {
+            "name": "repo",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "string"
+            },
+            "description": "Filter issues by repository URL"
+          },
+          {
+            "name": "page",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "integer",
+              "default": 1
+            },
+            "description": "The page number for pagination"
+          },
+          {
+            "name": "page_size",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "integer",
+              "default": 20,
+              "maximum": 50
+            },
+            "description": "The number of results per page"
           }
         ],
         "responses": {
           "200": {
-            "description": "Issue details",
+            "description": "Issues retrieved successfully or no project found",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "oneOf": [
+                    {
+                      "type": "object",
+                      "properties": {
+                        "status": {
+                          "type": "string",
+                          "example": "ok"
+                        },
+                        "page": {
+                          "type": "integer"
+                        },
+                        "total_pages": {
+                          "type": "integer"
+                        },
+                        "total_issues": {
+                          "type": "integer"
+                        },
+                        "issues": {
+                          "type": "array",
+                          "items": {
+                            "$ref": "#/components/schemas/Issue"
+                          }
+                        }
+                      }
+                    },
+                    {
+                      "type": "object",
+                      "properties": {
+                        "status": {
+                          "type": "string",
+                          "example": "no_project_found"
+                        }
+                      }
+                    }
+                  ]
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/issues/sca": {
+      "get": {
+        "summary": "List SCA Issues",
+        "operationId": "listScaIssues",
+        "tags": ["Issues", "SCA"],
+        "description": "Retrieve a list of Software Composition Analysis (SCA) issues",
+        "parameters": [
+          {
+            "name": "project",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "string"
+            },
+            "description": "Filter SCA issues by project name"
+          },
+          {
+            "name": "repo",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "string"
+            },
+            "description": "Filter SCA issues by repository URL"
+          },
+          {
+            "name": "page",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "integer",
+              "default": 1
+            },
+            "description": "The page number for pagination"
+          },
+          {
+            "name": "page_size",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "integer",
+              "default": 20,
+              "maximum": 50
+            },
+            "description": "The number of results per page"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "SCA issues retrieved successfully or no project found",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "oneOf": [
+                    {
+                      "type": "object",
+                      "properties": {
+                        "status": {
+                          "type": "string",
+                          "example": "ok"
+                        },
+                        "page": {
+                          "type": "integer"
+                        },
+                        "total_pages": {
+                          "type": "integer"
+                        },
+                        "total_issues": {
+                          "type": "integer"
+                        },
+                        "issues": {
+                          "type": "array",
+                          "items": {
+                            "$ref": "#/components/schemas/SCAIssue"
+                          }
+                        }
+                      }
+                    },
+                    {
+                      "type": "object",
+                      "properties": {
+                        "status": {
+                          "type": "string",
+                          "example": "no_project_found"
+                        }
+                      }
+                    }
+                  ]
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/scan-upload": {
+      "post": {
+        "summary": "Upload Scan",
+        "operationId": "scanUpload",
+        "tags": ["Scanning"],
+        "parameters": [
+          {
+            "name": "run_id",
+            "in": "query",
+            "required": true,
+            "schema": {
+              "type": "string"
+            },
+            "description": "The ID of the run associated with the scan report"
+          },
+          {
+            "name": "engine",
+            "in": "query",
+            "required": true,
+            "schema": {
+              "type": "string"
+            },
+            "description": "The engine used for the scan"
+          },
+          {
+            "name": "project",
+            "in": "query",
+            "required": true,
+            "schema": {
+              "type": "string"
+            },
+            "description": "The name of the project"
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/octet-stream": {
+              "schema": {
+                "type": "string",
+                "format": "binary"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Scan report uploaded successfully",
             "content": {
               "application/json": {
                 "schema": {
                   "type": "object",
                   "properties": {
-                    "status": { "type": "string" },
-                    "issue": {
+                    "status": {
+                      "type": "string",
+                      "example": "ok"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Invalid request or content",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "status": {
+                      "type": "string",
+                      "example": "invalid content"
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/start-scan": {
+      "post": {
+        "summary": "Start New Scan",
+        "operationId": "startScan",
+        "tags": ["Scanning"],
+        "description": "Initiates a new blast scan with file upload. Currently only supports single file uploads.",
+        "requestBody": {
+          "required": true,
+          "content": {
+            "multipart/form-data": {
+              "schema": {
+                "type": "object",
+                "required": ["scan_type", "repo_url", "branch", "sha"],
+                "properties": {
+                  "scan_type": {
+                    "type": "string",
+                    "enum": ["blast"],
+                    "description": "Currently only blast is supported"
+                  },
+                  "repo_url": {
+                    "type": "string",
+                    "description": "The URL of the repository"
+                  },
+                  "branch": {
+                    "type": "string",
+                    "description": "The branch to be scanned"
+                  },
+                  "sha": {
+                    "type": "string",
+                    "description": "The commit SHA to be scanned"
+                  },
+                  "file_name": {
+                    "type": "string",
+                    "description": "Name of the file being uploaded"
+                  },
+                  "file_size": {
+                    "type": "integer",
+                    "description": "Size of the file in bytes"
+                  },
+                  "files": {
+                    "type": "string",
+                    "format": "binary",
+                    "description": "Single source code file to be scanned"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Scan initiated successfully",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "transfer_id": {
+                      "type": "string",
+                      "format": "uuid",
+                      "example": "c9b0a8c7-f9b4-4c10-9d58-cd4c7e1c9c52"
+                    },
+                    "status": {
+                      "type": "string",
+                      "example": "success"
+                    },
+                    "message": {
+                      "type": "string",
+                      "example": "Scan initiated successfully."
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Bad request",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "status": {
+                      "type": "string",
+                      "example": "error"
+                    },
+                    "message": {
+                      "type": "string",
+                      "example": "Blast Scan is not enabled for your account."
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/start-scan/{transfer_id}": {
+      "patch": {
+        "summary": "Continue Scan Upload",
+        "operationId": "continueScanUpload",
+        "tags": ["Scanning"],
+        "description": "Continue uploading chunks for an existing scan",
+        "parameters": [
+          {
+            "name": "transfer_id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "uuid"
+            },
+            "description": "The transfer ID from the initial scan request"
+          },
+          {
+            "name": "Upload-Offset",
+            "in": "header",
+            "required": true,
+            "schema": {
+              "type": "integer"
+            },
+            "description": "Current byte offset of the upload"
+          },
+          {
+            "name": "Upload-Length",
+            "in": "header",
+            "required": true,
+            "schema": {
+              "type": "integer"
+            },
+            "description": "Total size of the file in bytes"
+          },
+          {
+            "name": "Upload-Name",
+            "in": "header",
+            "required": true,
+            "schema": {
+              "type": "string"
+            },
+            "description": "Name of the file being uploaded"
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "multipart/form-data": {
+              "schema": {
+                "type": "object",
+                "required": ["chunk_data"],
+                "properties": {
+                  "chunk_data": {
+                    "type": "string",
+                    "format": "binary",
+                    "description": "The next chunk of data for the scan"
+                  },
+                  "project_name": {
+                    "type": "string"
+                  },
+                  "branch": {
+                    "type": "string"
+                  },
+                  "repo_url": {
+                    "type": "string"
+                  },
+                  "sha": {
+                    "type": "string"
+                  },
+                  "partial_scan": {
+                    "type": "boolean"
+                  },
+                  "files_to_scan": {
+                    "type": "string",
+                    "description": "Comma-separated list of files to scan"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Chunk uploaded successfully",
+            "headers": {
+              "Upload-Offset": {
+                "schema": {
+                  "type": "integer"
+                },
+                "description": "Current upload offset after this chunk"
+              }
+            },
+            "content": {
+              "application/json": {
+                "schema": {
+                  "oneOf": [
+                    {
                       "type": "object",
                       "properties": {
-                        "id": { "type": "string" },
-                        "urgency": { "type": "string" },
-                        "description": { "type": "string" },
-                        "classification": { "type": "string" },
-                        "file_path": { "type": "string" },
-                        "line_num": { "type": "integer" },
-                        "on_hold": { "type": "boolean" },
-                        "hold_reason": { "type": "string" },
-                        "explanation": { "type": "string" },
-                        "false_positive": {
-                          "type": "object",
-                          "properties": {
-                            "result": { "type": "string" },
-                            "reasoning": { "type": "string" }
-                          }
+                        "transfer_id": {
+                          "type": "string",
+                          "format": "uuid"
                         },
-                        "status": { "type": "string" }
+                        "status": {
+                          "type": "string",
+                          "example": "success"
+                        },
+                        "message": {
+                          "type": "string",
+                          "example": "Chunk uploaded successfully."
+                        }
                       }
                     },
-                    "fix": {
+                    {
+                      "type": "object",
+                      "description": "Returned when upload is complete",
+                      "properties": {
+                        "scan_id": {
+                          "type": "string",
+                          "format": "uuid",
+                          "example": "1a5afaa3-72ac-458f-a492-ac40ffc88e76"
+                        },
+                        "status": {
+                          "type": "string",
+                          "example": "success"
+                        },
+                        "message": {
+                          "type": "string",
+                          "example": "Chunk uploaded successfully."
+                        }
+                      }
+                    }
+                  ]
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Bad request",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "status": {
+                      "type": "string",
+                      "example": "error"
+                    },
+                    "message": {
+                      "type": "string",
+                      "example": "Invalid request: 'chunk_data' file not found."
+                    },
+                    "internal_detail": {
+                      "type": "string"
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      },
+      "head": {
+        "summary": "Check Upload Status",
+        "operationId": "checkUploadStatus",
+        "tags": ["Scanning"],
+        "description": "Check the current status of an upload",
+        "parameters": [
+          {
+            "name": "transfer_id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "uuid"
+            },
+            "description": "The transfer ID to check"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Upload status retrieved",
+            "headers": {
+              "Upload-Offset": {
+                "schema": {
+                  "type": "integer"
+                },
+                "description": "Current upload offset"
+              }
+            },
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "transfer_id": {
+                      "type": "string",
+                      "format": "uuid"
+                    },
+                    "status": {
+                      "type": "string",
+                      "example": "success"
+                    },
+                    "message": {
+                      "type": "string",
+                      "example": "Chunk received."
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Invalid transfer ID",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "status": {
+                      "type": "string",
+                      "example": "error"
+                    },
+                    "message": {
+                      "type": "string",
+                      "example": "Invalid transfer ID."
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/scans": {
+      "get": {
+        "summary": "Get Scans",
+        "operationId": "getScans",
+        "tags": ["Scanning"],
+        "description": "Retrieves a list of scans for the authenticated user's company",
+        "parameters": [
+          {
+            "name": "project",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "string"
+            },
+            "description": "Filter scans by project name"
+          },
+          {
+            "name": "page",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "integer",
+              "default": 1
+            },
+            "description": "The page number for pagination"
+          },
+          {
+            "name": "page_size",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "integer",
+              "default": 20,
+              "maximum": 50
+            },
+            "description": "The number of results per page"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Scans retrieved successfully",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "status": {
+                      "type": "string",
+                      "example": "ok"
+                    },
+                    "page": {
+                      "type": "integer"
+                    },
+                    "total_pages": {
+                      "type": "integer"
+                    },
+                    "scans": {
+                      "type": "array",
+                      "items": {
+                        "type": "object",
+                        "properties": {
+                          "id": {
+                            "type": "string",
+                            "format": "uuid"
+                          },
+                          "engine": {
+                            "type": "string",
+                            "example": "corgea"
+                          },
+                          "project": {
+                            "type": "string"
+                          },
+                          "created_at": {
+                            "type": "string",
+                            "format": "date-time"
+                          },
+                          "repo": {
+                            "type": "string"
+                          },
+                          "branch": {
+                            "type": "string"
+                          },
+                          "status": {
+                            "type": "string",
+                            "enum": ["completed", "in_progress", "failed"]
+                          },
+                          "pull_request_id": {
+                            "type": "integer",
+                            "nullable": true
+                          }
+                        }
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/scan/{scan_id}": {
+      "get": {
+        "summary": "Get Scan",
+        "operationId": "getScan",
+        "tags": ["Scanning"],
+        "description": "Retrieves details of a specific scan",
+        "parameters": [
+          {
+            "name": "scan_id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "uuid"
+            },
+            "description": "The ID of the scan"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Scan details retrieved successfully",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "status": {
+                      "type": "string",
+                      "example": "ok"
+                    },
+                    "id": {
+                      "type": "string",
+                      "format": "uuid"
+                    },
+                    "project": {
+                      "type": "string"
+                    },
+                    "repo": {
+                      "type": "string"
+                    },
+                    "branch": {
+                      "type": "string"
+                    },
+                    "scan_status": {
+                      "type": "string",
+                      "enum": ["completed", "in_progress", "failed"]
+                    },
+                    "engine": {
+                      "type": "string"
+                    },
+                    "created_at": {
+                      "type": "string",
+                      "format": "date-time"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Scan not found",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "status": {
+                      "type": "string",
+                      "example": "error"
+                    },
+                    "message": {
+                      "type": "string",
+                      "example": "Scan doesn't exist"
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/scan/{scan_id}/issues": {
+      "get": {
+        "summary": "Get Issues for Scan",
+        "operationId": "getScanIssues",
+        "tags": ["Issues"],
+        "description": "Retrieves a list of issues for a specific scan",
+        "parameters": [
+          {
+            "name": "scan_id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "uuid"
+            },
+            "description": "The ID of the scan"
+          },
+          {
+            "name": "page",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "integer",
+              "default": 1
+            },
+            "description": "The page number for pagination"
+          },
+          {
+            "name": "page_size",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "integer",
+              "default": 20,
+              "maximum": 50
+            },
+            "description": "The number of results per page"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Issues retrieved successfully",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "status": {
+                      "type": "string",
+                      "example": "ok"
+                    },
+                    "page": {
+                      "type": "integer"
+                    },
+                    "total_pages": {
+                      "type": "integer"
+                    },
+                    "total_issues": {
+                      "type": "integer"
+                    },
+                    "issues": {
+                      "type": "array",
+                      "items": {
+                        "$ref": "#/components/schemas/Issue"
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Scan not found",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "status": {
+                      "type": "string",
+                      "example": "error"
+                    },
+                    "message": {
+                      "type": "string",
+                      "example": "Scan not found"
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/scan/{scan_id}/issues/sca": {
+      "get": {
+        "summary": "Get SCA Issues for Scan",
+        "operationId": "getScanScaIssues",
+        "tags": ["Issues", "SCA"],
+        "description": "Retrieve SCA issues for a specific scan",
+        "parameters": [
+          {
+            "name": "scan_id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "uuid"
+            },
+            "description": "The ID of the scan"
+          },
+          {
+            "name": "page",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "integer",
+              "default": 1
+            },
+            "description": "The page number for pagination"
+          },
+          {
+            "name": "page_size",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "integer",
+              "default": 20,
+              "maximum": 50
+            },
+            "description": "The number of results per page"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "SCA issues retrieved successfully",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "status": {
+                      "type": "string",
+                      "example": "ok"
+                    },
+                    "page": {
+                      "type": "integer"
+                    },
+                    "total_pages": {
+                      "type": "integer"
+                    },
+                    "total_issues": {
+                      "type": "integer"
+                    },
+                    "issues": {
+                      "type": "array",
+                      "items": {
+                        "$ref": "#/components/schemas/SCAIssue"
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Scan not found",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "status": {
+                      "type": "string",
+                      "example": "error"
+                    },
+                    "message": {
+                      "type": "string",
+                      "example": "Scan not found"
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/scan/{scan_id}/report": {
+      "get": {
+        "summary": "Get Scan Report",
+        "operationId": "getScanReport",
+        "tags": ["Scanning", "Reports"],
+        "description": "Retrieve scan report in HTML or SARIF format",
+        "parameters": [
+          {
+            "name": "scan_id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "uuid"
+            },
+            "description": "The ID of the scan"
+          },
+          {
+            "name": "format",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "string",
+              "enum": ["sarif", "html"],
+              "default": "sarif"
+            },
+            "description": "Report format (html or sarif)"
+          },
+          {
+            "name": "view",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "string",
+              "default": "cwe"
+            },
+            "description": "View type for HTML reports"
+          },
+          {
+            "name": "urgency",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "string",
+              "enum": ["CR", "HI", "ME", "LO"],
+            },
+            "description": "Filter by urgency level"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Report retrieved successfully",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "description": "SARIF report when format=sarif",
+                  "type": "object"
+                }
+              },
+              "text/html": {
+                "schema": {
+                  "type": "string",
+                  "description": "HTML report when format=html"
+                }
+              }
+            },
+            "headers": {
+              "Content-Disposition": {
+                "description": "Filename for download when format=sarif",
+                "schema": {
+                  "type": "string"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Scan not found",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "status": {
+                      "type": "string",
+                      "example": "error"
+                    },
+                    "message": {
+                      "type": "string",
+                      "example": "Scan not found"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Report generation failed",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "status": {
+                      "type": "string",
+                      "example": "error"
+                    },
+                    "message": {
+                      "type": "string",
+                      "example": "SARIF export failed. Please try again later or contact support."
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/scan/{scan_id}/check_blocking_rules": {
+      "get": {
+        "summary": "Check Blocking Rules",
+        "operationId": "checkBlockingRules",
+        "tags": ["Scanning", "Policies"],
+        "description": "Check if scan issues violate any blocking rules",
+        "parameters": [
+          {
+            "name": "scan_id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "uuid"
+            },
+            "description": "The ID of the scan"
+          },
+          {
+            "name": "page",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "integer",
+              "default": 1
+            },
+            "description": "The page number for pagination"
+          },
+          {
+            "name": "page_size",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "integer",
+              "default": 20,
+              "maximum": 50
+            },
+            "description": "The number of results per page"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Blocking rules check completed",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "block": {
+                      "type": "boolean",
+                      "description": "Whether the scan is blocked by any rules"
+                    },
+                    "blocking_issues": {
+                      "type": "array",
+                      "items": {
+                        "type": "object",
+                        "properties": {
+                          "id": {
+                            "type": "string",
+                            "format": "uuid"
+                          },
+                          "triggered_by_rules": {
+                            "type": "array",
+                            "items": {
+                              "type": "string"
+                            }
+                          }
+                        }
+                      }
+                    },
+                    "stats": {
                       "type": "object",
                       "properties": {
-                        "id": { "type": "string" },
-                        "diff": { "type": "string" },
-                        "explanation": { "type": "string" }
+                        "total_issues": {
+                          "type": "integer"
+                        },
+                        "blocked_issues": {
+                          "type": "integer"
+                        }
+                      }
+                    },
+                    "page": {
+                      "type": "integer"
+                    },
+                    "total_pages": {
+                      "type": "integer"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Scan not found",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "error": {
+                      "type": "string",
+                      "example": "SAST scan not found"
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/blocking-rules": {
+      "get": {
+        "summary": "List Blocking Rules",
+        "operationId": "listBlockingRules",
+        "tags": ["Policies"],
+        "description": "Retrieve all blocking rules for the authenticated user's company",
+        "responses": {
+          "200": {
+            "description": "Blocking rules retrieved successfully",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "status": {
+                      "type": "string",
+                      "example": "ok"
+                    },
+                    "blocking_rules": {
+                      "type": "array",
+                      "items": {
+                        "$ref": "#/components/schemas/BlockingRule"
                       }
                     }
                   }
@@ -602,17 +1385,408 @@
             }
           },
           "401": {
-            "description": "Unauthorized",
+            "description": "Invalid or missing token",
             "content": {
               "application/json": {
                 "schema": {
                   "type": "object",
                   "properties": {
-                    "status": { "type": "string" }
+                    "error": {
+                      "type": "string",
+                      "example": "Missing or invalid authorization header"
+                    }
                   }
                 }
               }
             }
+          },
+          "500": {
+            "description": "Internal server error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "status": {
+                      "type": "string",
+                      "example": "error"
+                    },
+                    "message": {
+                      "type": "string",
+                      "example": "An error occurred while fetching blocking rules"
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/issue/{issue_id}": {
+      "get": {
+        "summary": "Get Issue",
+        "operationId": "getIssue",
+        "tags": ["Issues"],
+        "description": "Retrieves details of a specific issue",
+        "parameters": [
+          {
+            "name": "issue_id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "uuid"
+            },
+            "description": "The ID of the issue"
+          },
+          {
+            "name": "show_full_code",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "boolean",
+              "default": false
+            },
+            "description": "Whether to include the full code in the response"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Issue details retrieved successfully",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "status": {
+                      "type": "string",
+                      "example": "ok"
+                    },
+                    "issue": {
+                      "$ref": "#/components/schemas/IssueDetail"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Issue not found",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "status": {
+                      "type": "string",
+                      "example": "error"
+                    },
+                    "message": {
+                      "type": "string",
+                      "example": "Issue not found"
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  },
+  "components": {
+    "securitySchemes": {
+      "CorgeaToken": {
+        "type": "apiKey",
+        "in": "header",
+        "name": "CORGEA-TOKEN",
+        "description": "API key for authentication"
+      }
+    },
+    "schemas": {
+      "Issue": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string",
+            "format": "uuid"
+          },
+          "classification": {
+            "type": "object",
+            "properties": {
+              "id": {
+                "type": "string",
+                "example": "CWE-123"
+              },
+              "name": {
+                "type": "string",
+                "example": "Vulnerability Name"
+              },
+              "description": {
+                "type": "string"
+              }
+            }
+          },
+          "urgency": {
+            "type": "string",
+            "enum": ["critical", "high", "medium", "low"]
+          },
+          "created_at": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "status": {
+            "type": "string",
+            "enum": ["open", "in_progress", "fixed", "accepted_risk", "false_positive"]
+          },
+          "sla_status": {
+            "type": "string",
+            "enum": ["on_track", "due", "overdue"]
+          },
+          "location": {
+            "$ref": "#/components/schemas/IssueLocation"
+          },
+          "auto_triage": {
+            "$ref": "#/components/schemas/AutoTriage"
+          },
+          "auto_fix_suggestion": {
+            "$ref": "#/components/schemas/AutoFixSuggestion"
+          }
+        }
+      },
+      "IssueDetail": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string",
+            "format": "uuid"
+          },
+          "scan_id": {
+            "type": "string",
+            "format": "uuid"
+          },
+          "status": {
+            "type": "string",
+            "enum": ["open", "in_progress", "fixed", "accepted_risk", "false_positive"]
+          },
+          "urgency": {
+            "type": "string",
+            "enum": ["critical", "high", "medium", "low"]
+          },
+          "created_at": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "classification": {
+            "type": "object",
+            "properties": {
+              "id": {
+                "type": "string",
+                "example": "CWE-123"
+              },
+              "name": {
+                "type": "string",
+                "example": "Vulnerability Name"
+              },
+              "description": {
+                "type": "string"
+              }
+            }
+          },
+          "location": {
+            "$ref": "#/components/schemas/IssueLocation"
+          },
+          "details": {
+            "type": "object",
+            "properties": {
+              "explanation": {
+                "type": "string"
+              }
+            }
+          },
+          "auto_triage": {
+            "$ref": "#/components/schemas/AutoTriage"
+          },
+          "auto_fix_suggestion": {
+            "$ref": "#/components/schemas/AutoFixSuggestion"
+          }
+        }
+      },
+      "IssueLocation": {
+        "type": "object",
+        "properties": {
+          "file": {
+            "type": "object",
+            "properties": {
+              "name": {
+                "type": "string"
+              },
+              "language": {
+                "type": "string"
+              },
+              "path": {
+                "type": "string"
+              }
+            }
+          },
+          "project": {
+            "type": "object",
+            "properties": {
+              "name": {
+                "type": "string"
+              },
+              "branch": {
+                "type": "string"
+              },
+              "git_sha": {
+                "type": "string"
+              }
+            }
+          },
+          "line_number": {
+            "type": "integer"
+          }
+        }
+      },
+      "AutoTriage": {
+        "type": "object",
+        "properties": {
+          "false_positive_detection": {
+            "type": "object",
+            "properties": {
+              "status": {
+                "type": "string",
+                "enum": ["valid", "false_positive", "pending"]
+              },
+              "reasoning": {
+                "type": "string"
+              }
+            }
+          }
+        }
+      },
+      "AutoFixSuggestion": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string",
+            "format": "uuid"
+          },
+          "status": {
+            "type": "string",
+            "enum": ["fix_available", "fix_not_available", "pending"]
+          },
+          "patch": {
+            "type": "object",
+            "properties": {
+              "diff": {
+                "type": "string",
+                "description": "Unified diff format patch"
+              },
+              "explanation": {
+                "type": "string",
+                "description": "Explanation of how the fix addresses the vulnerability"
+              }
+            }
+          }
+        }
+      },
+      "SCAIssue": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string",
+            "format": "uuid"
+          },
+          "created_at": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "description": {
+            "type": "string"
+          },
+          "details": {
+            "type": "string"
+          },
+          "severity": {
+            "type": "string",
+            "enum": ["critical", "high", "medium", "low"]
+          },
+          "cve": {
+            "type": "string",
+            "description": "CVE identifier if available"
+          },
+          "package": {
+            "type": "object",
+            "properties": {
+              "name": {
+                "type": "string"
+              },
+              "version": {
+                "type": "string"
+              },
+              "ecosystem": {
+                "type": "string"
+              },
+              "fix_version": {
+                "type": "string",
+                "description": "Version that fixes the vulnerability"
+              }
+            }
+          },
+          "location": {
+            "type": "object",
+            "properties": {
+              "path": {
+                "type": "string",
+                "description": "Path to the file containing the vulnerable package"
+              }
+            }
+          }
+        }
+      },
+      "BlockingRule": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "integer"
+          },
+          "name": {
+            "type": "string"
+          },
+          "description": {
+            "type": "string"
+          },
+          "urgencies": {
+            "type": "array",
+            "items": {
+              "type": "string",
+              "enum": ["critical", "high", "medium", "low"]
+            }
+          },
+          "classifications": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          },
+          "projects": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          },
+          "active": {
+            "type": "boolean"
+          },
+          "created_at": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "updated_at": {
+            "type": "string",
+            "format": "date-time"
           }
         }
       }
