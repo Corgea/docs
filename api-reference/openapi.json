@@ -588,6 +588,73 @@
             "description": "Filter issues by repository URL"
           },
           {
+            "name": "urgency",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "string",
+              "enum": ["CR", "HI", "ME", "LO"]
+            },
+            "description": "Filter by urgency levels (comma-separated): CR, HI, ME, LO"
+          },
+          {
+            "name": "status",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "string",
+              "enum": ["fixed", "false_positive", "accepted_risk", "open", "fix_in_progress", "duplicate"]
+            },
+            "description": "Filter by status (comma-separated): fixed, false_positive, accepted_risk, open, fix_in_progress, duplicate"
+          },
+          {
+            "name": "language",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "string"
+            },
+            "description": "Filter by programming language"
+          },
+          {
+            "name": "file_path",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "string"
+            },
+            "description": "Filter by file path (case-insensitive contains)"
+          },
+          {
+            "name": "classification",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "string"
+            },
+            "description": "Filter by classification (case-insensitive contains)"
+          },
+          {
+            "name": "sla_status",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "string",
+              "enum": ["overdue", "escalated"]
+            },
+            "description": "Filter by SLA status (comma-separated): overdue, escalated"
+          },
+          {
+            "name": "sort_by",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "string",
+              "enum": ["created_at", "-created_at", "urgency", "-urgency", "status", "-status", "classification", "-classification"]
+            },
+            "description": "Sort results by field (prefix with - for descending order)"
+          },
+          {
             "name": "page",
             "in": "query",
             "required": false,
@@ -673,6 +740,73 @@
               "format": "uuid"
             },
             "description": "The ID of the scan"
+          },
+          {
+            "name": "urgency",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "string",
+              "enum": ["CR", "HI", "ME", "LO"]
+            },
+            "description": "Filter by urgency levels (comma-separated): CR, HI, ME, LO"
+          },
+          {
+            "name": "status",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "string",
+              "enum": ["fixed", "false_positive", "accepted_risk", "open", "fix_in_progress", "duplicate"]
+            },
+            "description": "Filter by status (comma-separated): fixed, false_positive, accepted_risk, open, fix_in_progress, duplicate"
+          },
+          {
+            "name": "language",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "string"
+            },
+            "description": "Filter by programming language"
+          },
+          {
+            "name": "file_path",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "string"
+            },
+            "description": "Filter by file path (case-insensitive contains)"
+          },
+          {
+            "name": "classification",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "string"
+            },
+            "description": "Filter by classification (case-insensitive contains)"
+          },
+          {
+            "name": "sla_status",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "string",
+              "enum": ["overdue", "escalated"]
+            },
+            "description": "Filter by SLA status (comma-separated): overdue, escalated"
+          },
+          {
+            "name": "sort_by",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "string",
+              "enum": ["created_at", "-created_at", "urgency", "-urgency", "status", "-status", "classification", "-classification"]
+            },
+            "description": "Sort results by field (prefix with - for descending order)"
           },
           {
             "name": "page",
@@ -848,6 +982,70 @@
             "description": "Filter SCA issues by repository URL"
           },
           {
+            "name": "severity",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "string"
+            },
+            "description": "Filter by severity levels (comma-separated): CRITICAL, HIGH, MEDIUM, LOW"
+          },
+          {
+            "name": "package",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "string"
+            },
+            "description": "Filter by package name (case-insensitive contains)"
+          },
+          {
+            "name": "ecosystem",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "string"
+            },
+            "description": "Filter by package ecosystem (case-insensitive exact match)"
+          },
+          {
+            "name": "cve",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "string"
+            },
+            "description": "Filter by CVE identifier (case-insensitive contains)"
+          },
+          {
+            "name": "path",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "string"
+            },
+            "description": "Filter by file path (case-insensitive contains)"
+          },
+          {
+            "name": "has_fix",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "string"
+            },
+            "description": "Filter by fix availability: true, false, 1, 0, yes, no"
+          },
+          {
+            "name": "sort_by",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "string",
+              "enum": ["created_at", "-created_at", "severity", "-severity", "package", "-package", "ecosystem", "-ecosystem"]
+            },
+            "description": "Sort results by field (prefix with - for descending order)"
+          },
+          {
             "name": "page",
             "in": "query",
             "required": false,
@@ -933,6 +1131,70 @@
               "format": "uuid"
             },
             "description": "The ID of the scan"
+          },
+          {
+            "name": "severity",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "string"
+            },
+            "description": "Filter by severity levels (comma-separated): CRITICAL, HIGH, MEDIUM, LOW"
+          },
+          {
+            "name": "package",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "string"
+            },
+            "description": "Filter by package name (case-insensitive contains)"
+          },
+          {
+            "name": "ecosystem",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "string"
+            },
+            "description": "Filter by package ecosystem (case-insensitive exact match)"
+          },
+          {
+            "name": "cve",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "string"
+            },
+            "description": "Filter by CVE identifier (case-insensitive contains)"
+          },
+          {
+            "name": "path",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "string"
+            },
+            "description": "Filter by file path (case-insensitive contains)"
+          },
+          {
+            "name": "has_fix",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "string"
+            },
+            "description": "Filter by fix availability: true, false, 1, 0, yes, no"
+          },
+          {
+            "name": "sort_by",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "string",
+              "enum": ["created_at", "-created_at", "severity", "-severity", "package", "-package", "ecosystem", "-ecosystem"]
+            },
+            "description": "Sort results by field (prefix with - for descending order)"
           },
           {
             "name": "page",
