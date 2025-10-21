@@ -1,60 +1,156 @@
 ---
 title: 'Authentication'
-description: 'Corgea API Endpoints'
+description: 'Corgea API Authentication and Token Verification'
 ---
 
+# Authentication
 
-# Authentication and Token Verification
+## Overview
 
-## Introduction
+The Corgea API uses API key authentication to secure access to all endpoints. Authentication is done via a custom header that must be included with every API request.
 
-Authentication is a crucial part of interacting with the Corgea CLI API. The API uses token-based authentication to ensure secure access to its endpoints. This section covers how to verify your token using the provided endpoint.
+## Authentication Method
 
-## Verify Token
+### API Key Header
 
-The Verify Token endpoint allows you to check the validity of your token. This is the first step in ensuring you have the necessary permissions to access other API endpoints.
+All API requests require authentication using the `CORGEA-TOKEN` header:
 
-### Endpoint
+- **Header Name**: `CORGEA-TOKEN`
+- **Type**: API Key
+- **Location**: Request Header
+- **Required**: Yes (for all endpoints)
 
-- **URL**: `https://corgea.app/api/cli/verify/{token}`
-- **Method**: `GET`
+### Getting Your API Token
 
-### Parameters
+You can obtain your API token from the Corgea web application:
 
-| Name  | In   | Type   | Required | Description           |
-|-------|------|--------|----------|-----------------------|
-| token | path | string | yes      | The token to be verified |
+1. Log in to your Corgea account at [https://www.corgea.app](https://www.corgea.app)
+2. Navigate to Settings → API Keys
+3. Generate a new API key or copy an existing one
+4. Store it securely - treat it like a password
 
-### Request Example
+<Warning>
+Never share your API token or commit it to version control. Use environment variables or secure secret management systems to store your tokens.
+</Warning>
 
-The `<RequestExample>` component works similar to CodeGroup, but displays the request content on the right sidebar. Thus, you can put multiple code blocks inside `<RequestExample>`.
+## Making Authenticated Requests
+
+Include your API token in the `CORGEA-TOKEN` header with every request:
 
 <RequestExample>
 
-```shell
-# cURL
-curl -X GET "https://corgea.app/api/cli/verify/your_token_here"
+```bash cURL
+curl -X GET "https://www.corgea.app/api/v1/verify" \
+  -H "CORGEA-TOKEN: your_api_token_here"
 ```
 
-```http
-# HTTP Request
-GET /cli/verify/your_token_here HTTP/1.1
-Host: corgea.app
+```python Python
+import requests
+
+headers = {
+    "CORGEA-TOKEN": "your_api_token_here"
+}
+
+response = requests.get(
+    "https://www.corgea.app/api/v1/verify",
+    headers=headers
+)
+```
+
+```javascript JavaScript
+const headers = {
+  'CORGEA-TOKEN': 'your_api_token_here'
+};
+
+fetch('https://www.corgea.app/api/v1/verify', {
+  method: 'GET',
+  headers: headers
+})
+  .then(response => response.json())
+  .then(data => console.log(data));
 ```
 
 </RequestExample>
 
+## Verify Token
+
+### Endpoint
+
+Verify the validity of your API token and optionally retrieve user information.
+
+- **URL**: `https://www.corgea.app/api/v1/verify`
+- **Method**: `GET`
+- **Authentication**: Required (CORGEA-TOKEN header)
+
+### Query Parameters
+
+| Name      | Type    | Required | Default | Description                                    |
+|-----------|---------|----------|---------|------------------------------------------------|
+| user_info | boolean | No       | false   | Whether to include user information in response |
+
+### Request Examples
+
+<RequestExample>
+
+```bash Basic Verification
+curl -X GET "https://www.corgea.app/api/v1/verify" \
+  -H "CORGEA-TOKEN: your_api_token_here"
+```
+
+```bash With User Info
+curl -X GET "https://www.corgea.app/api/v1/verify?user_info=true" \
+  -H "CORGEA-TOKEN: your_api_token_here"
+```
+
+```python Python
+import requests
+
+headers = {
+    "CORGEA-TOKEN": "your_api_token_here"
+}
+
+# Basic verification
+response = requests.get(
+    "https://www.corgea.app/api/v1/verify",
+    headers=headers
+)
+
+# With user info
+response = requests.get(
+    "https://www.corgea.app/api/v1/verify",
+    headers=headers,
+    params={"user_info": True}
+)
+```
+
+</RequestExample>
+
+### Response Examples
+
 <ResponseExample>
 
-```json
-# Success Response
+```json Basic Response
 {
   "status": "ok"
 }
 ```
 
-```json
-# Error Response
+```json With User Info
+{
+  "status": "ok",
+  "user": {
+    "id": 12345,
+    "email": "user@example.com",
+    "name": "John Doe",
+    "company": {
+      "id": 67890,
+      "name": "Acme Corporation"
+    }
+  }
+}
+```
+
+```json Invalid Token
 {
   "status": "error"
 }
@@ -64,30 +160,61 @@ Host: corgea.app
 
 ### Response Codes
 
-- `200 OK`: The token is valid.
-- `400 Bad Request`: The token is invalid.
+| Status Code | Description                           |
+|-------------|---------------------------------------|
+| 200         | Token is valid                        |
+| 401         | Invalid or missing authentication token |
 
-### Usage
+## Common Authentication Errors
 
-To use this endpoint, replace `your_token_here` with the actual token you wish to verify. This will return a JSON response indicating whether the token is valid or not.
+### Missing Token
 
-### Example Scenario
+If you don't include the `CORGEA-TOKEN` header, you'll receive a `401 Unauthorized` response:
 
-#### Step-by-Step Example
+```json
+{
+  "status": "error"
+}
+```
 
-1. **Prepare the request**:
-    - Ensure you have your token ready.
-    - Use the `curl` command or any HTTP client to send a GET request to the endpoint.
+### Invalid Token
 
-2. **Send the request**:
-    - Execute the request in your terminal or HTTP client.
+If your token is invalid or expired, you'll receive a `401 Unauthorized` response:
 
-3. **Check the response**:
-    - If the response status is `200 OK` and `status` is `ok`, your token is valid.
-    - If the response status is `400 Bad Request` and `status` is `error`, your token is invalid.
+```json
+{
+  "status": "error"
+}
+```
 
-### Notes
+## Best Practices
 
-- Always ensure your token is kept secure and not exposed in public repositories or logs.
-- Use this endpoint as the first step before making requests to other endpoints to confirm your token's validity.
+<CardGroup cols={2}>
+  <Card title="Secure Storage" icon="lock">
+    Store API tokens in environment variables or secure secret management systems, never in code.
+  </Card>
+  <Card title="Token Rotation" icon="rotate">
+    Regularly rotate your API tokens to maintain security.
+  </Card>
+  <Card title="Least Privilege" icon="shield-halved">
+    Create separate tokens for different applications or environments.
+  </Card>
+  <Card title="Monitor Usage" icon="chart-line">
+    Regularly review API token usage and revoke unused tokens.
+  </Card>
+</CardGroup>
+
+## Testing Your Token
+
+Use the verify endpoint to test your token before making other API calls:
+
+```bash
+curl -X GET "https://www.corgea.app/api/v1/verify?user_info=true" \
+  -H "CORGEA-TOKEN: your_api_token_here"
+```
+
+If successful, you'll see your user information, confirming that:
+- ✅ Your token is valid
+- ✅ Your token is properly formatted in the header
+- ✅ You can proceed with other API requests
 
