@@ -140,3 +140,101 @@
 [2025-10-17T18:17:34.649Z] Response Status: 200
 [2025-10-17T18:17:34.650Z] Response Headers: {"date":"Fri, 17 Oct 2025 18:17:34 GMT","server":"WSGIServer/0.2 CPython/3.12.11","content-type":"application/json","x-frame-options":"DENY","content-length":"30","vary":"Cookie","x-content-type-options":"nosniff","referrer-policy":"same-origin","cross-origin-opener-policy":"same-origin"}
 [2025-10-17T18:17:34.650Z] Response Data: {"status":"no_project_found"}
+[2025-10-21T03:17:26.551Z] Request: GET http://127.0.0.1:8030/api/v1/issues
+[2025-10-21T03:17:26.551Z] Request Headers: {"Accept":"application/json, text/plain, */*","CORGEA-TOKEN":"ae2605ff-2380-4e50-b7ce-489429d2d856"}
+[2025-10-21T03:17:26.552Z] Request Params: {"project":"docs","page":1,"page_size":50}
+[2025-10-21T03:17:26.552Z] Request Data: undefined
+[2025-10-21T03:17:26.571Z] Response Status: 200
+[2025-10-21T03:17:26.571Z] Response Headers: {"date":"Tue, 21 Oct 2025 03:17:26 GMT","server":"WSGIServer/0.2 CPython/3.12.12","content-type":"application/json","x-frame-options":"DENY","content-length":"30","vary":"Cookie","x-content-type-options":"nosniff","referrer-policy":"same-origin","cross-origin-opener-policy":"same-origin"}
+[2025-10-21T03:17:26.571Z] Response Data: {"status":"no_project_found"}
+[2025-10-21T03:17:26.572Z] Request: GET http://127.0.0.1:8030/api/v1/issues
+[2025-10-21T03:17:26.572Z] Request Headers: {"Accept":"application/json, text/plain, */*","CORGEA-TOKEN":"ae2605ff-2380-4e50-b7ce-489429d2d856"}
+[2025-10-21T03:17:26.572Z] Request Params: {"project":"docs","page":1,"page_size":50}
+[2025-10-21T03:17:26.572Z] Request Data: undefined
+[2025-10-21T03:17:26.610Z] Response Status: 200
+[2025-10-21T03:17:26.611Z] Response Headers: {"date":"Tue, 21 Oct 2025 03:17:26 GMT","server":"WSGIServer/0.2 CPython/3.12.12","content-type":"application/json","x-frame-options":"DENY","content-length":"30","vary":"Cookie","x-content-type-options":"nosniff","referrer-policy":"same-origin","cross-origin-opener-policy":"same-origin"}
+[2025-10-21T03:17:26.611Z] Response Data: {"status":"no_project_found"}
+[2025-10-21T03:27:29.681Z] Request: GET http://127.0.0.1:8030/api/v1/issues
+[2025-10-21T03:27:29.681Z] Request Headers: {"Accept":"application/json, text/plain, */*","CORGEA-TOKEN":"ae2605ff-2380-4e50-b7ce-489429d2d856"}
+[2025-10-21T03:27:29.681Z] Request Params: {"project":"docs","page":1,"page_size":50}
+[2025-10-21T03:27:29.681Z] Request Data: undefined
+[2025-10-21T03:27:29.696Z] Response Status: 200
+[2025-10-21T03:27:29.696Z] Response Headers: {"date":"Tue, 21 Oct 2025 03:27:29 GMT","server":"WSGIServer/0.2 CPython/3.12.12","content-type":"application/json","x-frame-options":"DENY","content-length":"30","vary":"Cookie","x-content-type-options":"nosniff","referrer-policy":"same-origin","cross-origin-opener-policy":"same-origin"}
+[2025-10-21T03:27:29.697Z] Response Data: {"status":"no_project_found"}
+[2025-10-21T03:27:29.697Z] Request: GET http://127.0.0.1:8030/api/v1/issues
+[2025-10-21T03:27:29.697Z] Request Headers: {"Accept":"application/json, text/plain, */*","CORGEA-TOKEN":"ae2605ff-2380-4e50-b7ce-489429d2d856"}
+[2025-10-21T03:27:29.697Z] Request Params: {"project":"docs","page":1,"page_size":50}
+[2025-10-21T03:27:29.697Z] Request Data: undefined
+[2025-10-21T03:27:29.706Z] Response Status: 200
+[2025-10-21T03:27:29.706Z] Response Headers: {"date":"Tue, 21 Oct 2025 03:27:29 GMT","server":"WSGIServer/0.2 CPython/3.12.12","content-type":"application/json","x-frame-options":"DENY","content-length":"30","vary":"Cookie","x-content-type-options":"nosniff","referrer-policy":"same-origin","cross-origin-opener-policy":"same-origin"}
+[2025-10-21T03:27:29.706Z] Response Data: {"status":"no_project_found"}
+[2025-10-21T03:37:56.514Z] Request: GET http://127.0.0.1:8030/api/v1/issues
+[2025-10-21T03:37:56.514Z] Request Headers: {"Accept":"application/json, text/plain, */*","CORGEA-TOKEN":"ae2605ff-2380-4e50-b7ce-489429d2d856"}
+[2025-10-21T03:37:56.514Z] Request Params: {"project":"docs","page":1,"page_size":50}
+[2025-10-21T03:37:56.514Z] Request Data: undefined
+[2025-10-21T03:37:56.565Z] Response Status: 200
+[2025-10-21T03:37:56.565Z] Response Headers: {"date":"Tue, 21 Oct 2025 03:37:56 GMT","server":"WSGIServer/0.2 CPython/3.12.12","content-type":"application/json","x-frame-options":"DENY","content-length":"30","vary":"Cookie","x-content-type-options":"nosniff","referrer-policy":"same-origin","cross-origin-opener-policy":"same-origin"}
+[2025-10-21T03:37:56.565Z] Response Data: {"status":"no_project_found"}
+[2025-10-21T03:37:56.565Z] Request: GET http://127.0.0.1:8030/api/v1/issues
+[2025-10-21T03:37:56.565Z] Request Headers: {"Accept":"application/json, text/plain, */*","CORGEA-TOKEN":"ae2605ff-2380-4e50-b7ce-489429d2d856"}
+[2025-10-21T03:37:56.565Z] Request Params: {"project":"docs","page":1,"page_size":50}
+[2025-10-21T03:37:56.565Z] Request Data: undefined
+[2025-10-21T03:37:56.582Z] Response Status: 200
+[2025-10-21T03:37:56.583Z] Response Headers: {"date":"Tue, 21 Oct 2025 03:37:56 GMT","server":"WSGIServer/0.2 CPython/3.12.12","content-type":"application/json","x-frame-options":"DENY","content-length":"30","vary":"Cookie","x-content-type-options":"nosniff","referrer-policy":"same-origin","cross-origin-opener-policy":"same-origin"}
+[2025-10-21T03:37:56.583Z] Response Data: {"status":"no_project_found"}
+[2025-10-21T03:48:08.293Z] Request: GET http://127.0.0.1:8030/api/v1/issues
+[2025-10-21T03:48:08.294Z] Request Headers: {"Accept":"application/json, text/plain, */*","CORGEA-TOKEN":"ae2605ff-2380-4e50-b7ce-489429d2d856"}
+[2025-10-21T03:48:08.294Z] Request Params: {"project":"docs","page":1,"page_size":50}
+[2025-10-21T03:48:08.294Z] Request Data: undefined
+[2025-10-21T03:48:08.325Z] Response Status: 200
+[2025-10-21T03:48:08.325Z] Response Headers: {"date":"Tue, 21 Oct 2025 03:48:08 GMT","server":"WSGIServer/0.2 CPython/3.12.12","content-type":"application/json","x-frame-options":"DENY","content-length":"30","vary":"Cookie","x-content-type-options":"nosniff","referrer-policy":"same-origin","cross-origin-opener-policy":"same-origin"}
+[2025-10-21T03:48:08.325Z] Response Data: {"status":"no_project_found"}
+[2025-10-21T03:48:08.326Z] Request: GET http://127.0.0.1:8030/api/v1/issues
+[2025-10-21T03:48:08.326Z] Request Headers: {"Accept":"application/json, text/plain, */*","CORGEA-TOKEN":"ae2605ff-2380-4e50-b7ce-489429d2d856"}
+[2025-10-21T03:48:08.326Z] Request Params: {"project":"docs","page":1,"page_size":50}
+[2025-10-21T03:48:08.326Z] Request Data: undefined
+[2025-10-21T03:48:08.339Z] Response Status: 200
+[2025-10-21T03:48:08.339Z] Response Headers: {"date":"Tue, 21 Oct 2025 03:48:08 GMT","server":"WSGIServer/0.2 CPython/3.12.12","content-type":"application/json","x-frame-options":"DENY","content-length":"30","vary":"Cookie","x-content-type-options":"nosniff","referrer-policy":"same-origin","cross-origin-opener-policy":"same-origin"}
+[2025-10-21T03:48:08.339Z] Response Data: {"status":"no_project_found"}
+[2025-10-21T03:58:20.108Z] Request: GET http://127.0.0.1:8030/api/v1/issues
+[2025-10-21T03:58:20.108Z] Request Headers: {"Accept":"application/json, text/plain, */*","CORGEA-TOKEN":"ae2605ff-2380-4e50-b7ce-489429d2d856"}
+[2025-10-21T03:58:20.108Z] Request Params: {"project":"docs","page":1,"page_size":50}
+[2025-10-21T03:58:20.108Z] Request Data: undefined
+[2025-10-21T03:58:20.122Z] Response Status: 200
+[2025-10-21T03:58:20.122Z] Response Headers: {"date":"Tue, 21 Oct 2025 03:58:20 GMT","server":"WSGIServer/0.2 CPython/3.12.12","content-type":"application/json","x-frame-options":"DENY","content-length":"30","vary":"Cookie","x-content-type-options":"nosniff","referrer-policy":"same-origin","cross-origin-opener-policy":"same-origin"}
+[2025-10-21T03:58:20.122Z] Response Data: {"status":"no_project_found"}
+[2025-10-21T03:58:20.122Z] Request: GET http://127.0.0.1:8030/api/v1/issues
+[2025-10-21T03:58:20.123Z] Request Headers: {"Accept":"application/json, text/plain, */*","CORGEA-TOKEN":"ae2605ff-2380-4e50-b7ce-489429d2d856"}
+[2025-10-21T03:58:20.123Z] Request Params: {"project":"docs","page":1,"page_size":50}
+[2025-10-21T03:58:20.123Z] Request Data: undefined
+[2025-10-21T03:58:20.135Z] Response Status: 200
+[2025-10-21T03:58:20.135Z] Response Headers: {"date":"Tue, 21 Oct 2025 03:58:20 GMT","server":"WSGIServer/0.2 CPython/3.12.12","content-type":"application/json","x-frame-options":"DENY","content-length":"30","vary":"Cookie","x-content-type-options":"nosniff","referrer-policy":"same-origin","cross-origin-opener-policy":"same-origin"}
+[2025-10-21T03:58:20.135Z] Response Data: {"status":"no_project_found"}
+[2025-10-21T04:09:04.773Z] Request: GET http://127.0.0.1:8030/api/v1/issues
+[2025-10-21T04:09:04.773Z] Request Headers: {"Accept":"application/json, text/plain, */*","CORGEA-TOKEN":"ae2605ff-2380-4e50-b7ce-489429d2d856"}
+[2025-10-21T04:09:04.773Z] Request Params: {"project":"docs","page":1,"page_size":50}
+[2025-10-21T04:09:04.773Z] Request Data: undefined
+[2025-10-21T04:09:04.807Z] Response Status: 200
+[2025-10-21T04:09:04.807Z] Response Headers: {"date":"Tue, 21 Oct 2025 04:09:04 GMT","server":"WSGIServer/0.2 CPython/3.12.12","content-type":"application/json","x-frame-options":"DENY","content-length":"30","vary":"Cookie","x-content-type-options":"nosniff","referrer-policy":"same-origin","cross-origin-opener-policy":"same-origin"}
+[2025-10-21T04:09:04.807Z] Response Data: {"status":"no_project_found"}
+[2025-10-21T04:09:04.807Z] Request: GET http://127.0.0.1:8030/api/v1/issues
+[2025-10-21T04:09:04.807Z] Request Headers: {"Accept":"application/json, text/plain, */*","CORGEA-TOKEN":"ae2605ff-2380-4e50-b7ce-489429d2d856"}
+[2025-10-21T04:09:04.807Z] Request Params: {"project":"docs","page":1,"page_size":50}
+[2025-10-21T04:09:04.808Z] Request Data: undefined
+[2025-10-21T04:09:04.821Z] Response Status: 200
+[2025-10-21T04:09:04.821Z] Response Headers: {"date":"Tue, 21 Oct 2025 04:09:04 GMT","server":"WSGIServer/0.2 CPython/3.12.12","content-type":"application/json","x-frame-options":"DENY","content-length":"30","vary":"Cookie","x-content-type-options":"nosniff","referrer-policy":"same-origin","cross-origin-opener-policy":"same-origin"}
+[2025-10-21T04:09:04.821Z] Response Data: {"status":"no_project_found"}
+[2025-10-21T04:21:43.797Z] Request: GET http://127.0.0.1:8030/api/v1/issues
+[2025-10-21T04:21:43.797Z] Request Headers: {"Accept":"application/json, text/plain, */*","CORGEA-TOKEN":"ae2605ff-2380-4e50-b7ce-489429d2d856"}
+[2025-10-21T04:21:43.797Z] Request Params: {"project":"docs","page":1,"page_size":50}
+[2025-10-21T04:21:43.797Z] Request Data: undefined
+[2025-10-21T04:21:43.826Z] Response Status: 200
+[2025-10-21T04:21:43.826Z] Response Headers: {"date":"Tue, 21 Oct 2025 04:21:43 GMT","server":"WSGIServer/0.2 CPython/3.12.12","content-type":"application/json","x-frame-options":"DENY","content-length":"30","vary":"Cookie","x-content-type-options":"nosniff","referrer-policy":"same-origin","cross-origin-opener-policy":"same-origin"}
+[2025-10-21T04:21:43.826Z] Response Data: {"status":"no_project_found"}
+[2025-10-21T04:21:43.826Z] Request: GET http://127.0.0.1:8030/api/v1/issues
+[2025-10-21T04:21:43.826Z] Request Headers: {"Accept":"application/json, text/plain, */*","CORGEA-TOKEN":"ae2605ff-2380-4e50-b7ce-489429d2d856"}
+[2025-10-21T04:21:43.826Z] Request Params: {"project":"docs","page":1,"page_size":50}
+[2025-10-21T04:21:43.826Z] Request Data: undefined
+[2025-10-21T04:21:43.838Z] Response Status: 200
+[2025-10-21T04:21:43.838Z] Response Headers: {"date":"Tue, 21 Oct 2025 04:21:43 GMT","server":"WSGIServer/0.2 CPython/3.12.12","content-type":"application/json","x-frame-options":"DENY","content-length":"30","vary":"Cookie","x-content-type-options":"nosniff","referrer-policy":"same-origin","cross-origin-opener-policy":"same-origin"}
+[2025-10-21T04:21:43.838Z] Response Data: {"status":"no_project_found"}
