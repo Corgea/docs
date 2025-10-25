@@ -694,6 +694,96 @@
               "maximum": 50
             },
             "description": "The number of results per page"
+          },
+          {
+            "name": "urgency",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "string"
+            },
+            "description": "Filter by urgency levels (comma-separated). Valid values: CR, HI, ME, LO",
+            "example": "CR,HI"
+          },
+          {
+            "name": "status",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "string"
+            },
+            "description": "Filter by status (comma-separated). Valid values: fixed, false_positive, accepted_risk, open, fix_in_progress, duplicate",
+            "example": "open,fix_in_progress"
+          },
+          {
+            "name": "confidence",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "string"
+            },
+            "description": "Filter by confidence levels (comma-separated). Valid values: HI, ME, LO",
+            "example": "HI,ME"
+          },
+          {
+            "name": "language",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "string"
+            },
+            "description": "Filter by programming language (case-insensitive)",
+            "example": "python"
+          },
+          {
+            "name": "file_path",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "string"
+            },
+            "description": "Filter by file path (partial match)",
+            "example": "src/auth"
+          },
+          {
+            "name": "classification",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "string"
+            },
+            "description": "Filter by classification/CWE (partial match)",
+            "example": "CWE-89"
+          },
+          {
+            "name": "sla_status",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "string"
+            },
+            "description": "Filter by SLA status (comma-separated). Valid values: overdue, escalated",
+            "example": "overdue"
+          },
+          {
+            "name": "sort_by",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "string",
+              "enum": [
+                "created_at",
+                "-created_at",
+                "urgency",
+                "-urgency",
+                "status",
+                "-status",
+                "classification",
+                "-classification"
+              ]
+            },
+            "description": "Sort results by field (prefix with '-' for descending order)",
+            "example": "-created_at"
           }
         ],
         "responses": {
@@ -867,6 +957,86 @@
               "maximum": 50
             },
             "description": "The number of results per page"
+          },
+          {
+            "name": "severity",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "string"
+            },
+            "description": "Filter by severity levels (comma-separated). Valid values: CRITICAL, HIGH, MEDIUM, LOW",
+            "example": "CRITICAL,HIGH"
+          },
+          {
+            "name": "package",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "string"
+            },
+            "description": "Filter by package name (partial match)",
+            "example": "lodash"
+          },
+          {
+            "name": "ecosystem",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "string"
+            },
+            "description": "Filter by package ecosystem (case-insensitive)",
+            "example": "npm"
+          },
+          {
+            "name": "cve",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "string"
+            },
+            "description": "Filter by CVE identifier (partial match)",
+            "example": "CVE-2021"
+          },
+          {
+            "name": "path",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "string"
+            },
+            "description": "Filter by file path (partial match)",
+            "example": "package.json"
+          },
+          {
+            "name": "has_fix",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "boolean"
+            },
+            "description": "Filter by whether a fix is available (true/false)",
+            "example": true
+          },
+          {
+            "name": "sort_by",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "string",
+              "enum": [
+                "created_at",
+                "-created_at",
+                "severity",
+                "-severity",
+                "package",
+                "-package",
+                "ecosystem",
+                "-ecosystem"
+              ]
+            },
+            "description": "Sort results by field (prefix with '-' for descending order)",
+            "example": "-severity"
           }
         ],
         "responses": {
@@ -954,6 +1124,86 @@
               "maximum": 50
             },
             "description": "The number of results per page"
+          },
+          {
+            "name": "severity",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "string"
+            },
+            "description": "Filter by severity levels (comma-separated). Valid values: CRITICAL, HIGH, MEDIUM, LOW",
+            "example": "CRITICAL,HIGH"
+          },
+          {
+            "name": "package",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "string"
+            },
+            "description": "Filter by package name (partial match)",
+            "example": "lodash"
+          },
+          {
+            "name": "ecosystem",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "string"
+            },
+            "description": "Filter by package ecosystem (case-insensitive)",
+            "example": "npm"
+          },
+          {
+            "name": "cve",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "string"
+            },
+            "description": "Filter by CVE identifier (partial match)",
+            "example": "CVE-2021"
+          },
+          {
+            "name": "path",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "string"
+            },
+            "description": "Filter by file path (partial match)",
+            "example": "package.json"
+          },
+          {
+            "name": "has_fix",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "boolean"
+            },
+            "description": "Filter by whether a fix is available (true/false)",
+            "example": true
+          },
+          {
+            "name": "sort_by",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "string",
+              "enum": [
+                "created_at",
+                "-created_at",
+                "severity",
+                "-severity",
+                "package",
+                "-package",
+                "ecosystem",
+                "-ecosystem"
+              ]
+            },
+            "description": "Sort results by field (prefix with '-' for descending order)",
+            "example": "-severity"
           }
         ],
         "responses": {
@@ -1414,17 +1664,17 @@
             "description": "Base64-encoded JSON string containing repository information (branch_name, integration_url, etc.)"
           }
         ],
-          "requestBody": {
-            "required": true,
-            "description": "The scan report content as UTF-8 text (typically SARIF or JSON format)",
-            "content": {
-              "text/plain": {
-                "schema": {
-                  "type": "string"
-                }
+        "requestBody": {
+          "required": true,
+          "description": "The scan report content as UTF-8 text (typically SARIF or JSON format)",
+          "content": {
+            "text/plain": {
+              "schema": {
+                "type": "string"
               }
             }
-          },
+          }
+        },
         "responses": {
           "200": {
             "description": "Scan report uploaded successfully",
@@ -1857,7 +2107,13 @@
           },
           "status": {
             "type": "string",
-            "enum": ["open", "in_progress", "fixed", "accepted_risk", "false_positive"]
+            "enum": [
+              "open",
+              "in_progress",
+              "fixed",
+              "accepted_risk",
+              "false_positive"
+            ]
           },
           "sla_status": {
             "type": "string",
@@ -1887,7 +2143,13 @@
           },
           "status": {
             "type": "string",
-            "enum": ["open", "in_progress", "fixed", "accepted_risk", "false_positive"]
+            "enum": [
+              "open",
+              "in_progress",
+              "fixed",
+              "accepted_risk",
+              "false_positive"
+            ]
           },
           "urgency": {
             "type": "string",
