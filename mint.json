@@ -12,7 +12,7 @@
     "dark": "#F56C26",
     "background": {
       "light": "#fffdfd",
-      
+      "dark": "#131313"
     },
     "anchors": {
       "from": "#F56C26",
@@ -60,7 +60,7 @@
         "introduction",
         "quickstart",
         {
-          "group": "Setup & Configuration", 
+          "group": "Setup & Configuration",
           "pages": ["how_it_works"]
         }
       ]
@@ -70,11 +70,23 @@
       "pages": [
         {
           "group": "Security Analysis",
-          "pages": ["blast", "sca", "pii", "vulnerability_support", "language_support" , "scanning"]
+          "pages": [
+            "blast",
+            "sca",
+            "pii",
+            "vulnerability_support",
+            "language_support",
+            "scanning"
+          ]
         },
         {
           "group": "Issue Management",
-          "pages": ["fixes", "false_positive", "issue_assignment", "issue_export"]
+          "pages": [
+            "fixes",
+            "false_positive",
+            "issue_assignment",
+            "issue_export"
+          ]
         },
         {
           "group": "Policy Management",
