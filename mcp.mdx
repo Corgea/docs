@@ -1,0 +1,447 @@
+---
+title: 'Model Context Protocol (MCP)'
+description: 'Connect AI assistants to Corgea using the Model Context Protocol'
+---
+
+# Model Context Protocol Integration
+
+Corgea supports the [Model Context Protocol (MCP)](https://modelcontextprotocol.io/), allowing AI assistants like Claude to directly interact with your security scans, issues, and policies. MCP enables AI models to understand your security context and provide more relevant assistance.
+
+## What is MCP?
+
+The Model Context Protocol is an open standard that enables AI models to securely connect to external data sources and tools. With Corgea's MCP integration, AI assistants can:
+
+- Query your security scan results
+- Retrieve vulnerability details
+- List and filter security issues
+- Access SCA (Software Composition Analysis) data
+- Check blocking rules and policies
+
+## Getting Started
+
+### Prerequisites
+
+- A Corgea API token (get it from your account settings)
+- An MCP-compatible client (e.g., Claude Desktop, Continue, or any MCP client)
+
+### Connection Details
+
+**MCP Server URL:**
+```
+https://www.corgea.app/mcp
+```
+
+Or for single-tenant deployments:
+```
+https://<your-instance>.corgea.app/mcp
+```
+
+**Authentication:**
+All MCP requests require authentication using your Corgea API token in the `CORGEA-TOKEN` header.
+
+## Available Tools
+
+Corgea's MCP server provides the following tools for AI assistants:
+
+### get_scan_info
+
+Get detailed information about a specific SAST scan.
+
+**Parameters:**
+- `scan_id` (string, required): The unique identifier of the scan
+
+**Returns:**
+Detailed scan information including status, findings count, scan date, and repository information.
+
+**Example:**
+```json
+{
+  "scan_id": "abc123",
+  "status": "completed",
+  "created_at": "2024-11-01T10:30:00Z",
+  "findings_count": 15,
+  "project": "my-project",
+  "repository": "https://github.com/myorg/myrepo"
+}
+```
+
+---
+
+### get_issue_info
+
+Get detailed information about a specific security issue.
+
+**Parameters:**
+- `issue_id` (string, required): The unique identifier of the issue
+
+**Returns:**
+Comprehensive issue details including vulnerability type, severity, location, fix recommendations, and remediation status.
+
+**Example:**
+```json
+{
+  "issue_id": "issue-456",
+  "title": "SQL Injection",
+  "severity": "high",
+  "file": "src/database.py",
+  "line": 42,
+  "description": "User input not properly sanitized",
+  "fix_available": true
+}
+```
+
+---
+
+### list_security_issues
+
+List security issues with optional filtering.
+
+**Parameters:**
+- `scan_id` (string, optional): Filter issues by scan ID
+- `project` (string, optional): Filter issues by project name
+- `repo` (string, optional): Filter issues by repository URL
+
+**Returns:**
+List of security issues matching the specified filters.
+
+**Example:**
+```json
+{
+  "status": "ok",
+  "count": 25,
+  "issues": [
+    {
+      "id": "issue-123",
+      "title": "Cross-Site Scripting (XSS)",
+      "severity": "medium",
+      "status": "open"
+    }
+  ]
+}
+```
+
+---
+
+### list_sca_security_issues
+
+List Software Composition Analysis (SCA) security issues with optional filtering.
+
+**Parameters:**
+- `scan_id` (string, optional): Filter issues by scan ID
+- `project` (string, optional): Filter issues by project name
+- `repo` (string, optional): Filter issues by repository URL
+
+**Returns:**
+List of SCA issues including vulnerable dependencies, CVEs, and version information.
+
+**Example:**
+```json
+{
+  "status": "ok",
+  "count": 12,
+  "sca_issues": [
+    {
+      "id": "sca-789",
+      "package": "lodash",
+      "current_version": "4.17.15",
+      "fixed_version": "4.17.21",
+      "cve": "CVE-2021-23337",
+      "severity": "high"
+    }
+  ]
+}
+```
+
+---
+
+### list_scans
+
+List all SAST scans with optional project filtering.
+
+**Parameters:**
+- `project` (string, optional): Filter scans by project name
+
+**Returns:**
+List of scans with basic information including scan ID, date, status, and findings count.
+
+**Example:**
+```json
+{
+  "status": "ok",
+  "count": 50,
+  "scans": [
+    {
+      "id": "scan-001",
+      "project": "web-app",
+      "created_at": "2024-11-01T09:00:00Z",
+      "status": "completed",
+      "findings": 8
+    }
+  ]
+}
+```
+
+---
+
+### get_blocking_rules
+
+Get all blocking rules configured for your organization.
+
+**Parameters:**
+None
+
+**Returns:**
+List of blocking rules that prevent deployments based on security policies.
+
+**Example:**
+```json
+{
+  "status": "ok",
+  "rules": [
+    {
+      "id": "rule-1",
+      "name": "Block Critical Vulnerabilities",
+      "condition": "severity >= critical",
+      "action": "block",
+      "enabled": true
+    }
+  ]
+}
+```
+
+## Setting Up MCP Clients
+
+### Claude Desktop
+
+Add Corgea to your Claude Desktop configuration:
+
+1. Open Claude Desktop settings
+2. Navigate to the "Developer" section
+3. Edit your MCP configuration file
+4. Add the Corgea MCP server:
+
+```json
+{
+  "mcpServers": {
+    "corgea": {
+      "url": "https://www.corgea.app/mcp",
+      "headers": {
+        "CORGEA-TOKEN": "your_api_token_here"
+      }
+    }
+  }
+}
+```
+
+### Cursor IDE
+
+Add Corgea to your Cursor MCP configuration:
+
+1. Open Cursor Settings (Cmd/Ctrl + Shift + J)
+2. Navigate to "Cursor Settings" → "Models" → "MCP"
+3. Or directly edit your MCP settings file at:
+   - **macOS/Linux**: `~/.cursor/mcp.json`
+   - **Windows**: `%APPDATA%\Cursor\User\mcp.json`
+
+4. Add the Corgea MCP server:
+
+```json
+{
+  "mcpServers": {
+    "corgea": {
+      "command": "npx",
+      "args": [
+        "-y",
+        "@modelcontextprotocol/server-fetch",
+        "https://www.corgea.app/mcp"
+      ],
+      "env": {
+        "CORGEA_TOKEN": "your_api_token_here"
+      }
+    }
+  }
+}
+```
+
+**Alternative Configuration (Direct HTTP):**
+
+If you're using a custom MCP client that supports direct HTTP connections:
+
+```json
+{
+  "mcpServers": {
+    "corgea": {
+      "url": "https://www.corgea.app/mcp",
+      "headers": {
+        "CORGEA-TOKEN": "your_api_token_here"
+      }
+    }
+  }
+}
+```
+
+### Continue IDE Extension
+
+Add Corgea to your Continue configuration:
+
+```json
+{
+  "contextProviders": [
+    {
+      "name": "corgea",
+      "params": {
+        "serverUrl": "https://www.corgea.app/mcp",
+        "headers": {
+          "CORGEA-TOKEN": "your_api_token_here"
+        }
+      }
+    }
+  ]
+}
+```
+
+## Use Cases
+
+### Security-Aware Code Review
+
+Connect your AI assistant to Corgea and ask questions like:
+- "What are the critical security issues in my last scan?"
+- "Show me all SQL injection vulnerabilities in the authentication module"
+- "Are there any high-severity SCA issues in my dependencies?"
+
+### Vulnerability Analysis
+
+Let AI help you understand and prioritize vulnerabilities:
+- "Explain the security issue in issue-456 and suggest how to fix it"
+- "Which vulnerabilities should I fix first based on severity and exploitability?"
+- "What are the blocking rules that would prevent this deployment?"
+
+### Automated Remediation Planning
+
+Use AI to plan security fixes:
+- "Create a remediation plan for all high-severity issues in scan-123"
+- "What dependencies need to be updated to fix SCA issues?"
+- "Generate a report of all open security issues grouped by file"
+
+## Best Practices
+
+<AccordionGroup>
+  <Accordion title="Secure Your API Token">
+    - Never commit your API token to version control
+    - Rotate tokens periodically
+    - Use environment variables or secure secret managers
+    - Revoke tokens immediately if compromised
+  </Accordion>
+
+  <Accordion title="Filter Effectively">
+    - Use project and repo filters to narrow results
+    - Start with specific scans when debugging
+    - Filter by severity when prioritizing work
+  </Accordion>
+
+  <Accordion title="Optimize Performance">
+    - Request only the data you need
+    - Use specific issue/scan IDs when possible
+    - Cache results when appropriate
+    - Respect rate limits
+  </Accordion>
+</AccordionGroup>
+
+## Authentication
+
+All MCP tool calls require a valid Corgea API token passed in the `CORGEA-TOKEN` header. 
+
+**Getting Your Token:**
+1. Log in to your Corgea account
+2. Navigate to Settings → API Keys
+3. Generate a new API token
+4. Copy the token and add it to your MCP client configuration
+
+<Warning>
+Keep your API token secure. Anyone with access to your token can query your security data through the MCP interface.
+</Warning>
+
+## Response Format
+
+All MCP tool responses follow the standard Corgea API response format:
+
+**Success Response:**
+```json
+{
+  "status": "ok",
+  "data": { }
+}
+```
+
+**Error Response:**
+```json
+{
+  "status": "error",
+  "message": "Description of the error",
+  "error": "Detailed error information"
+}
+```
+
+## Rate Limits
+
+MCP requests are subject to the same rate limits as standard API requests:
+- 100 requests per minute per token
+- 1000 requests per hour per token
+
+If you exceed rate limits, you'll receive a `429 Too Many Requests` response.
+
+## Troubleshooting
+
+### Connection Issues
+
+**Problem:** Cannot connect to MCP server
+
+**Solutions:**
+- Verify your API token is valid using the `/verify` endpoint
+- Check that the `CORGEA-TOKEN` header is correctly configured
+- Ensure your network allows HTTPS connections to corgea.app
+
+### Authentication Errors
+
+**Problem:** Receiving 401 Unauthorized responses
+
+**Solutions:**
+- Verify your API token hasn't expired
+- Check that the token is passed in the `CORGEA-TOKEN` header (not Authorization)
+- Ensure your token has the necessary permissions
+
+### Empty Results
+
+**Problem:** Queries return no data
+
+**Solutions:**
+- Verify data exists in your Corgea account
+- Check filter parameters (scan_id, project, repo) are correct
+- Ensure you're querying the correct environment (multi-tenant vs single-tenant)
+
+## Support
+
+<CardGroup cols={2}>
+  <Card title="API Documentation" icon="book" href="/api-reference/introduction">
+    Learn more about the Corgea API
+  </Card>
+  <Card title="Join Our Community" icon="slack" href="https://corgea-community.slack.com/join/shared_invite/zt-2cjmxat2f-Znvd06nP2gn9RYOSWrZI2A#">
+    Get help from the Corgea community
+  </Card>
+  <Card title="Authentication Guide" icon="key" href="/api-reference/authentication">
+    Learn about API authentication
+  </Card>
+  <Card title="MCP Specification" icon="link" href="https://modelcontextprotocol.io/">
+    Read the official MCP documentation
+  </Card>
+</CardGroup>
+
+## Next Steps
+
+1. **Get your API token** from your Corgea account settings
+2. **Configure your MCP client** with the Corgea server URL and token
+3. **Test the connection** by asking your AI assistant about your scans
+4. **Explore use cases** like security analysis and vulnerability remediation
+
+Start integrating Corgea's security intelligence into your AI-powered development workflow today!
+

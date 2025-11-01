@@ -121,7 +121,7 @@
     },
     {
       "group": "API Reference",
-      "pages": ["api-reference/introduction"]
+      "pages": ["api-reference/introduction", "mcp"]
     },
     {
       "group": "Releases & Roadmap",
