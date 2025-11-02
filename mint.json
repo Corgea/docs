@@ -117,11 +117,11 @@
     },
     {
       "group": "Tools & Utilities",
-      "pages": ["cli"]
+      "pages": ["cli", "mcp"]
     },
     {
       "group": "API Reference",
-      "pages": ["api-reference/introduction", "mcp"]
+      "pages": ["api-reference/introduction"]
     },
     {
       "group": "Releases & Roadmap",
