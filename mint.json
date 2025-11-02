@@ -117,7 +117,7 @@
     },
     {
       "group": "Tools & Utilities",
-      "pages": ["cli"]
+      "pages": ["cli", "mcp"]
     },
     {
       "group": "API Reference",
