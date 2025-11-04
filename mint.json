@@ -136,6 +136,12 @@
       "pages": ["sso"]
     }
   ],
+  "redirects": [
+    {
+      "source": "/install_cli",
+      "destination": "/cli"
+    }
+  ],
   "footerSocials": {
     "twitter": "https://x.com/CorgeaInc",
     "github": "https://github.com/Corgea",
