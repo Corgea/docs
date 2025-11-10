@@ -32,11 +32,6 @@
   },
   "anchors": [
     {
-      "name": "Roadmap",
-      "icon": "road",
-      "url": "https://docs.corgea.app/roadmap"
-    },
-    {
       "name": "Service Status",
       "icon": "check",
       "url": "https://status.corgea.app/"
@@ -124,8 +119,8 @@
       "pages": ["api-reference/introduction"]
     },
     {
-      "group": "Releases & Roadmap",
-      "pages": ["changelog", "roadmap"]
+      "group": "Releases",
+      "pages": ["changelog"]
     },
     {
       "group": "Trust & Compliance",

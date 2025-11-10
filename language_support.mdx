@@ -68,5 +68,56 @@ Here's a detailed breakdown of the languages and frameworks currently supported 
 
 5. **Continuous Learning**: Corgea's AI model is constantly updated to address new security threats and CWEs as they emerge.
 
+## Intelligent File Filtering
+
+To optimize scan performance and accuracy, Corgea automatically excludes files that are not relevant to security analysis:
+
+### Files We Skip
+
+**Non-Source Files**
+- Media files (images, videos, fonts)
+- Style files (CSS, SCSS, LESS)
+- Documentation and markdown files
+- Configuration archives and compressed files
+
+**Development and Testing**
+- Test files and test directories
+- Mock and fixture data
+- Code coverage reports
+
+**Generated and Processed Code**
+- Auto-generated code files
+- Minified or bundled code
+- Database migration files
+- Type definition files
+
+**Build Artifacts**
+- Compiled binaries and build outputs
+
+### Files Used for Context
+
+While not directly scanned for vulnerabilities, Corgea may reference certain files to provide better analysis context, including README files, configuration examples, and application settings files.
+
+## Custom Configuration
+
+You can further customize scanning behavior using a `corgea.yaml` configuration file in your repository root:
+
+```/dev/null/example.yaml#L1-3
+ignore_paths:
+  - "path/to/exclude/*"
+  - "legacy-code/*"
+```
+
+This allows you to exclude specific directories or file patterns based on your project's needs.
+
+## Why We Filter
+
+Our intelligent filtering approach:
+- **Improves accuracy** by focusing on actual application code
+- **Reduces noise** from test files and third-party code
+- **Optimizes performance** for faster scan results
+- **Prioritizes findings** in code you maintain
+
+
 ## Roadmap
-We're committed to expanding our language and framework support. Stay tuned for updates as we continue to broaden our support, ensuring Corgea remains at the forefront of code security across diverse development environments.
+- Rust support
