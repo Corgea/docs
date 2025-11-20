@@ -1,0 +1,260 @@
+---
+title: 'Content Access Management'
+description: 'Control project access for different teams and members.'
+---
+
+Content Access Management is Corgea's project-level access control system. It allows you to control who in your organization can view and interact with specific projects and their security data.
+
+By default, all users in your company can access all company projects. With Content Access Management enabled, you can restrict access so that users only see projects they've been explicitly granted access to.
+
+This feature is essential for organizations that need to:
+- Separate access between different teams or departments
+- Restrict sensitive projects to specific individuals
+- Comply with security policies that require access segregation
+- Manage contractor or external consultant access
+
+## How Does It Work?
+
+Content Access Management operates at two levels:
+
+### Company-Level Setting
+
+Your company has a **Project Access Control** toggle that determines the overall access model:
+
+- **Disabled (Default)**: Open access model - all users in your company can access all company projects
+- **Enabled**: Restricted access model - users can only access projects they've been explicitly granted access to
+
+### Project-Level Access
+
+When Project Access Control is enabled, users gain access to a project through one of three ways:
+
+<Tabs>
+
+  <Tab title="Team Members">
+    Users who belong to a team assigned to the project automatically receive member-level access. This provides the same permissions as direct members but is managed at the team level rather than per-project.
+
+    Learn more about teams in our [Teams Guide](teams).
+  </Tab>
+  <Tab title="Project Members">
+    Members can access project data but have limited administrative capabilities:
+    - View all security issues and vulnerabilities
+    - Access scan results and historical data
+    - Review and interact with fixes
+    - Participate in issue discussions
+    - Cannot modify project settings or delete the project
+  </Tab>
+  <Tab title="Project Owners">
+    Owners have full control over a project, including:
+    - Viewing all project security data (issues, scans, fixes)
+    - Configuring project settings
+    - Managing project integrations
+    - Adding/removing other users and teams
+    - Deleting the project
+  </Tab>
+</Tabs>
+
+### Special Cases
+
+<Note>**API Access**: Access control applies to both the web interface and API calls. Users can only access project data through the API if they have proper permissions.</Note>
+
+## How to Implement Content Access Management
+
+<Steps>
+  <Step title="Enable Project Access Control">
+      <Tip>**Required Permission**: Company administrator access</Tip>
+
+    1. Navigate to your **Company Settings**
+    2. Locate the **Project Access Control** setting
+    3. Enable the toggle for "Project Access Control"
+    4. Save your changes
+
+    <Warning>Once enabled, users will immediately lose access to projects where they haven't been explicitly granted access. Plan your rollout accordingly.</Warning>
+  </Step>
+
+  <Step title="Assign Access to Projects">
+      <Tip>**Required Permission**: `Change Project` permission or project owner role</Tip>
+
+    After enabling Project Access Control, you need to grant users access to projects:
+
+    1. Navigate to the **Content Access** page
+    2. You'll see a list of all your company's projects
+    3. For each project, you can:
+       - View current members and teams
+       - Add new users as owners or members
+       - Add teams to the project
+       - Remove existing access
+
+    <Tabs>
+      <Tab title="Adding Individual Users">
+        1. Click on the project you want to manage
+        2. Select **Add Member** or **Add Owner**
+        3. Choose the user from your company's user list
+        4. Select their role:
+           - **Owner**: Full project control
+           - **Member**: View and interact with security data
+        5. Confirm the addition
+      </Tab>
+      <Tab title="Adding Teams">
+        1. Click on the project you want to manage
+        2. Select **Add Team**
+        3. Choose the team from your company's teams list
+        4. Confirm the addition
+        5. All current and future members of that team will have member-level access
+
+        Learn how to create and manage teams in our [Teams Guide](teams).
+      </Tab>
+    </Tabs>
+  </Step>
+
+  <Step title="Verify Access">
+    After assigning access:
+
+    1. Review the Content Access page to ensure assignments are correct
+    2. Test with a user account to verify they can access appropriate projects
+    3. Check that users without access cannot see restricted projects
+  </Step>
+
+  <Step title="Ongoing Management">
+    As your organization evolves:
+
+    - **New Projects**: Assign owners and members when creating new projects
+    - **New Users**: Add them to relevant projects or teams
+    - **Role Changes**: Update access when people change roles
+    - **Departures**: Remove access when people leave teams or the company
+  </Step>
+</Steps>
+
+## Best Practices
+
+<AccordionGroup>
+  <Accordion title="Plan Before You Enable" icon="calendar">
+    Before turning on Project Access Control:
+    - Document which users should have access to which projects
+    - Consider creating teams first to simplify assignment
+    - Communicate the change to your organization
+    - Consider starting with a pilot group of projects
+  </Accordion>
+
+  <Accordion title="Use Teams for Scalability" icon="users">
+    For projects with multiple users, use teams instead of individual assignments:
+    - ✅ Add "Backend Team" to 10 projects (10 operations)
+    - ❌ Add 15 individual users to 10 projects (150 operations)
+
+    Teams also make ongoing management much easier.
+  </Accordion>
+
+  <Accordion title="Assign at Least One Owner Per Project" icon="user-shield">
+    Every project should have at least one owner who can:
+    - Manage project settings
+    - Add/remove other users
+    - Handle project-specific configuration
+
+    <Warning>Without an owner, projects become difficult to manage.</Warning>
+  </Accordion>
+
+  <Accordion title="Distinguish Owners from Members" icon="user-gear">
+    Use ownership strategically:
+    - **Owners**: Project leads, managers, senior engineers responsible for the project
+    - **Members**: Contributors, reviewers, stakeholders who need visibility
+
+    <Tip>Don't make everyone an owner—it reduces accountability and increases security risk.</Tip>
+  </Accordion>
+
+  <Accordion title="Regular Access Audits" icon="clipboard-check">
+    Schedule periodic reviews of project access:
+    - Quarterly or bi-annually, review who has access to each project
+    - Remove access for users who no longer need it
+    - Update access for users whose roles have changed
+    - Export access data for compliance purposes
+  </Accordion>
+
+  <Accordion title="Use the Search Function" icon="magnifying-glass">
+    The Content Access page includes search functionality:
+    - Quickly find specific projects
+    - Search for users to see which projects they can access
+    - Filter to identify projects with unusual access patterns
+  </Accordion>
+
+  <Accordion title="Export Access Data" icon="download">
+
+      <Tip>**Required Permission**: Content access view permission</Tip>
+
+    Export your access configuration for:
+    - Compliance audits
+    - Security reviews
+    - Documentation purposes
+    - Backup before making bulk changes
+
+    Use the **Export** button on the Content Access page to download a CSV of all project access assignments.
+  </Accordion>
+
+  <Accordion title="Consider Your Workflow" icon="diagram-project">
+    Match your access control to how your organization actually works:
+    - If teams are siloed (separate frontend/backend/mobile), use strict access control
+    - If teams are fluid and collaborative, you might prefer open access
+    - Use a hybrid approach: open access for most projects, restricted access for sensitive ones (though this requires keeping some projects in a separate company space)
+  </Accordion>
+
+  <Accordion title="Communicate Changes" icon="megaphone">
+    When modifying access:
+    - Inform affected users before removing their access
+    - Explain why access is being granted or revoked
+    - Document your access policies so users understand the rules
+  </Accordion>
+
+  <Accordion title="Start Conservative" icon="shield">
+    When in doubt:
+    - Grant member access instead of owner access
+    - Users can always request elevated permissions if needed
+    - It's easier to grant additional access than to revoke it
+  </Accordion>
+</AccordionGroup>
+
+
+## Frequently Asked Questions
+
+<AccordionGroup>
+  <Accordion title="What happens to existing users when I enable Project Access Control?">
+    They immediately lose access to all projects where they haven't been explicitly assigned as owners, members, or through a team. Plan accordingly and assign access before or immediately after enabling the feature.
+  </Accordion>
+
+  <Accordion title="Can I enable access control for some projects but not others?">
+    No. Project Access Control is a company-wide setting. It's either enabled for all projects or disabled for all projects within your company.
+  </Accordion>
+
+  <Accordion title="What's the difference between an owner and a member?">
+    Owners can configure project settings, manage access, and delete projects. Members can view and interact with security data but cannot modify project configuration or manage access.
+  </Accordion>
+
+  <Accordion title="If someone is both a direct member and part of a team assigned to a project, what happens?">
+    They have access through both paths. Removing them from the team doesn't affect their direct member access, and vice versa.
+  </Accordion>
+
+  <Accordion title="Can users see which projects exist even if they don't have access?">
+    No. When Project Access Control is enabled, users can only see projects they have access to. Projects they cannot access are completely hidden.
+  </Accordion>
+
+  <Accordion title="Do integrations respect access control?">
+    Yes. API calls and integrations respect the same access control rules as the web interface.
+  </Accordion>
+
+  <Accordion title="Can I temporarily disable access control to test something?">
+    Yes, you can toggle Project Access Control on and off. However, each time you disable and re-enable it, you'll need to verify access assignments are still appropriate.
+  </Accordion>
+
+  <Accordion title="Who can manage project access assignments?">
+    Project owners can manage access for their specific projects. Company administrators can manage access for all projects. Regular members cannot manage access.
+  </Accordion>
+
+  <Accordion title="Does this affect how issues are scanned or fixed?">
+    No. Access control only affects who can *view* projects and their data. It doesn't change how Corgea scans repositories or generates fixes.
+  </Accordion>
+</AccordionGroup>
+
+---
+
+**Related Documentation:**
+- [Teams Guide](teams) - Learn how to create and manage teams for efficient access control
+- [User Management](user_management) - Managing users in your organization
+
+**Need Help?** Contact Corgea support for assistance with setting up or managing Content Access Management for your organization.

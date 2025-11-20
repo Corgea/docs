@@ -64,7 +64,7 @@
       "group": "Core Features",
       "pages": [
         {
-          "group": "Security Analysis",
+          "group": "Security Scanning",
           "pages": [
             "blast",
             "sca",
@@ -89,7 +89,7 @@
         },
         {
           "group": "Users & Groups",
-          "pages": ["user_management", "permission_groups"]
+          "pages": ["user_management", "permission_groups", "teams", "content-access-management"]
         }
       ]
     },
