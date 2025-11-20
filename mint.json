@@ -112,7 +112,7 @@
     },
     {
       "group": "Tools & Utilities",
-      "pages": ["cli", "mcp"]
+      "pages": ["cli", "modelcontextprotocol"]
     },
     {
       "group": "API Reference",
