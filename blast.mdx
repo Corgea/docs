@@ -1,13 +1,13 @@
 ---
-title: 'Business Logic Application Security Testing'
+title: 'AI-native SAST'
 description: 'Comprehensive vulnerability coverage in Corgea'
 ---
 
 ## Overview
 
-BLAST (Business Logic Application Security Testing) is Corgea's next-generation code scanning solution, designed to detect and fix security vulnerabilities in application code, with a particular emphasis on business logic, authentication and code flaws. Unlike traditional Static Application Security Testing (SAST) tools, BLAST uses advanced AI-driven techniques to enhance detection accuracy, reduce false positives, and provide actionable insights for developers and security teams.
+AI-native SAST is Corgea's next-generation code scanning solution, designed to detect and fix security vulnerabilities in application code, with a particular emphasis on business logic, authentication and code flaws. Unlike traditional Static Application Security Testing (SAST) tools, AI-native SAST uses advanced AI-driven techniques to enhance detection accuracy, reduce false positives, and provide actionable insights for developers and security teams.
 
-By leveraging the power of Large Language Models (LLMs) combined with static analysis, BLAST delivers a deeper contextual understanding of code, allowing it to detect vulnerabilities that standard SAST tools might miss. This document provides a technical overview of how BLAST works, what it can detect, and how it integrates into development workflows.
+By leveraging the power of Large Language Models (LLMs) combined with static analysis, AI-native SAST delivers a deeper contextual understanding of code, allowing it to detect vulnerabilities that standard SAST tools might miss. This document provides a technical overview of how AI-native SAST works, what it can detect, and how it integrates into development workflows.
 
 ## Key Features
 
@@ -17,7 +17,7 @@ By leveraging the power of Large Language Models (LLMs) combined with static ana
     - Accurately detects vulnerabilities with contextual understanding
     - Identifies both business logic and traditional SAST vulnerabilities
   </Accordion>
-  
+
   <Accordion title="Developer Experience" icon="code">
     - Low false positive rate reduces noise in scanning results
     - Actionable insights with clear explanations
@@ -33,7 +33,7 @@ By leveraging the power of Large Language Models (LLMs) combined with static ana
 
 ## Vulnerability Classes Detected
 
-BLAST excels at detecting business logic vulnerabilities, which are often missed by traditional SAST tools. Below are some of the specific vulnerabilities detected by BLAST:
+AI-native SAST excels at detecting business logic vulnerabilities, which are often missed by traditional SAST tools. Below are some of the specific vulnerabilities detected by AI-native SAST:
 
 <AccordionGroup>
   <Accordion title="Business Logic and Code Flow" icon="map">
@@ -78,11 +78,11 @@ BLAST excels at detecting business logic vulnerabilities, which are often missed
   </Accordion>
 </AccordionGroup>
 
-In addition to business logic vulnerabilities, BLAST can also detect common security flaws found in regular SAST scanning.
+In addition to business logic vulnerabilities, AI-native SAST can also detect common security flaws found in regular SAST scanning.
 
 ## Secret Scanning Capabilities
 
-BLAST's secret scanner uses pattern matching, entropy analysis, and AI-powered contextual understanding to minimize false positives while ensuring comprehensive coverage.
+AI-native SAST's secret scanner uses pattern matching, entropy analysis, and AI-powered contextual understanding to minimize false positives while ensuring comprehensive coverage.
 
 ### Detected Secret Types
 - API keys and tokens (AWS, Google Cloud, Azure, etc.)
@@ -96,15 +96,15 @@ BLAST's secret scanner uses pattern matching, entropy analysis, and AI-powered c
 - Internal endpoints
 - Payment credentials
 
-<Tip>When secrets are detected, BLAST provides detailed information about the type, location, security impact, and secure storage alternatives.</Tip>
+<Tip>When secrets are detected, AI-native SAST provides detailed information about the type, location, security impact, and secure storage alternatives.</Tip>
 
-## Technology Behind BLAST
+## Technology Behind AI-native SAST
 
-BLAST is powered by Corgea's proprietary CodeIQ technology, combining AI with Abstract Syntax Trees (ASTs) for comprehensive analysis:
+AI-native SAST is powered by Corgea's proprietary CodeIQ technology, combining AI with Abstract Syntax Trees (ASTs) for comprehensive analysis:
 
 <Steps>
   <Step title="Project-Level Analysis">
-    BLAST parses the entire project to build a complete picture of code component interactions, ensuring no vulnerabilities are missed.
+    AI-native SAST parses the entire project to build a complete picture of code component interactions, ensuring no vulnerabilities are missed.
   </Step>
   <Step title="Contextual Intelligence">
     The AI engine understands code context, including middleware, configurations, and templates.
