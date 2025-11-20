@@ -3,282 +3,138 @@ title: 'Permission Groups'
 description: 'This document provides a comprehensive overview of all permissions available for assignment to permission groups in the Corgea platform. Permissions control what actions users can perform within the system.'
 ---
 
-## User Management Permissions
 
-<AccordionGroup>
-  <Accordion title="User Permissions" icon="user">
-    These permissions control user account management within the system.
 
-    ### Can add user
-    **Description:** Create new user accounts in the system.
-    
-    **Use Case:** Allows users to register new team members and set up their accounts.
+## What are Role-Based Permissions?
 
-    ### Can change user
-    **Description:** Modify existing user account information and settings.
-    
-    **Use Case:** Update user profiles, change email addresses, modify user roles, or update account details.
+Role-based permissions (also known as Role-Based Access Control or RBAC) is a security model that restricts system access based on a user's role within an organization. Instead of assigning permissions to individual users, permissions are assigned to roles, and users are then assigned to appropriate roles based on their job functions.
 
-    ### Can delete user
-    **Description:** Remove user accounts from the system.
-    
-    **Use Case:** Deactivate or permanently delete user accounts when team members leave or accounts are no longer needed.
+### Key Benefits
 
-    ### Can view user
-    **Description:** View user account information and profiles.
-    
-    **Use Case:** Access user details, view team member information, or check user status.
-  </Accordion>
+- **Simplified Management**: Assign permissions once to a role, then add users to that role rather than managing permissions for each individual user
+- **Consistency**: Ensures all users with the same role have identical access rights
+- **Scalability**: Easy to onboard new team members by assigning them to pre-configured roles
+- **Security**: Follows the principle of least privilege by granting only the permissions necessary for each role
+- **Audit & Compliance**: Simplifies access reviews and compliance reporting by organizing permissions around job functions
 
-  <Accordion title="Permission Group Management" icon="users">
-    These permissions control the management of permission groups themselves.
+### How It Works in Corgea
 
-    ### Can add Permission Group
-    **Description:** Create new permission groups with custom permission sets.
-    
-    **Use Case:** Set up role-based access control by creating groups like "Developers", "Security Team", or "Managers" with specific permissions.
+In Corgea, you create **Permission Groups** that correspond to different roles in your organization (e.g., Admin, Developer, Security Manager). Each Permission Group is assigned a specific set of permissions that define what actions users in that role can perform. Users are then added to one or more Permission Groups, inheriting all permissions from those groups.
 
-    ### Can change Permission Group
-    **Description:** Modify existing permission group settings and assigned permissions.
-    
-    **Use Case:** Update group permissions, change group names, or adjust access levels as organizational needs evolve.
+<Note>
+Permissions are **additive** - if a user belongs to multiple Permission Groups, they receive all permissions from all groups they are a member of.
+</Note>
 
-    ### Can view Permission Group
-    **Description:** View permission group configurations and assigned permissions.
-    
-    **Use Case:** Review current group settings, audit permissions, or understand access control structure.
+## Role-Based Permission Recommendations
 
-    ### Can delete Permission Group
-    **Description:** Remove permission groups from the system.
-    
-    **Use Case:** Clean up unused groups or remove deprecated role configurations.
-  </Accordion>
+Based on the permissions defined in the Corgea platform, here's a recommended permission matrix for different roles.
 
-  <Accordion title="Company Management" icon="building">
-    These permissions control company-level settings and information.
+### Role Descriptions
 
-    ### Can change company
-    **Description:** Modify company settings, configuration, and organizational details.
-    
-    **Use Case:** Update company information, change billing settings, modify organizational policies, or adjust company-wide configurations.
+<CardGroup cols={2}>
+  <Card title="Admin" icon="user-shield">
+    Full system access - can manage all aspects of the platform including company settings, users, permissions, and all security features.
+  </Card>
 
-    ### Can view company
-    **Description:** View company information and settings.
-    
-    **Use Case:** Access company details, review organizational information, or check company-wide settings and policies.
-  </Accordion>
-</AccordionGroup>
+  <Card title="Development Manager" icon="users-gear">
+    Can manage development teams, users, projects, and view all security issues. Can initiate scans and manage team assignments but cannot modify security policies.
+  </Card>
 
-## Security Analysis Permissions
+  <Card title="Developer" icon="code">
+    Read access to issues, scans, policies, and teams. Can initiate scans for their projects but has limited management capabilities. Focus on viewing and understanding security issues in their code.
+  </Card>
 
-<AccordionGroup>
-  <Accordion title="Issue Management" icon="shield">
-    These permissions control access to security issues and vulnerabilities.
+  <Card title="DevOps" icon="server">
+    Operational focus with full control over integrations, scheduled scans, agent settings, and PR automation rules. Can manage scans and view issues but cannot modify security policies or delete issues.
+  </Card>
 
-    ### Can add issue
-    **Description:** Create new security issues or manually report vulnerabilities.
-    
-    **Use Case:** Allow security team members to manually create issues for discovered vulnerabilities or security concerns.
+  <Card title="Security Manager" icon="shield-halved">
+    Comprehensive security management including all policy controls, SLAs, blocking rules, and user/team management. Cannot delete permission groups or modify company settings.
+  </Card>
 
-    ### Can delete issue
-    **Description:** Remove security issues from the system.
-    
-    **Use Case:** Clean up false positives, remove resolved issues, or manage issue lifecycle.
+  <Card title="Security Engineer" icon="bug-slash">
+    Hands-on security role with full control over security issues, policies, scans, and agent settings. Focus on day-to-day security operations but without user/team management responsibilities.
+  </Card>
+</CardGroup>
 
-    ### Can view issue
-    **Description:** View security issues, vulnerabilities, and their details.
-    
-    **Use Case:** Access issue reports, review vulnerability details, or monitor security status across projects.
+### Permission Groups Overview
 
-    ### Can modify project tags
-    **Description:** Add, remove, or modify tags associated with projects.
-    
-    **Use Case:** Organize projects with custom tags, categorize projects by team or technology, or improve project management and filtering.
-  </Accordion>
+The following are suggested Permission Groups to setup. Corgea comes with the Admin permission out of the box.
 
-  <Accordion title="SAST Scan Management" icon="bug">
-    These permissions control Static Application Security Testing (SAST) scan operations.
+| Permission | Admin (Default) | Security Manager | Security Engineer | Development Manager | Developer | DevOps |
+|------------|:-----:|:---------------:|:------:|:-------------------:|:---------:|:------:|
+| **User Management** | | | | | | |
+| Create User | ✓ | ✓ | ✗ | ✗ | ✗ | ✗ |
+| Edit User | ✓ | ✓ | ✗ | ✗ | ✗ | ✗ |
+| Delete User | ✓ | ✗ | ✗ | ✗ | ✗ | ✗ |
+| View User | ✓ | ✓ | ✓ | ✓ | ✓ | ✓ |
+| **Issue Management (SAST)** | | | | | | |
+| Create Issue | ✓ | ✗ | ✗ | ✗ | ✗ | ✗ |
+| View Issue | ✓ | ✓ | ✓ | ✓ | ✓ | ✓ |
+| Delete Issue | ✓ | ✓ | ✓ | ✗ | ✗ | ✗ |
+| **SCA Issue Management** | | | | | | |
+| Create SCA Issue | ✓ | ✗ | ✗ | ✗ | ✗ | ✗ |
+| View SCA Issue | ✓ | ✓ | ✓ | ✓ | ✓ | ✓ |
+| Edit SCA Issue | ✓ | ✓ | ✓ | ✗ | ✗ | ✗ |
+| Delete SCA Issue | ✓ | ✓ | ✓ | ✗ | ✗ | ✗ |
+| **SAST Scan Management** | | | | | | |
+| Create SAST Scan | ✓ | ✓ | ✓ | ✓ | ✓ | ✓ |
+| View SAST Scan | ✓ | ✓ | ✓ | ✓ | ✓ | ✓ |
+| Delete SAST Scan | ✓ | ✓ | ✓ | ✓ | ✗ | ✓ |
+| **Project Management** | | | | | | |
+| Modify Project Tags | ✓ | ✓ | ✗ | ✓ | ✗ | ✓ |
+| Edit Project | ✓ | ✓ | ✗ | ✓ | ✗ | ✓ |
+| Delete Project | ✓ | ✗ | ✗ | ✓ | ✗ | ✗ |
+| **API Token Management** | | | | | | |
+| View API Token | ✓ | ✓ | ✓ | ✓ | ✓ | ✓ |
+| Manage API Token | ✓ | ✓ | ✗ | ✗ | ✗ | ✓ |
+| **Policy Management** | | | | | | |
+| Create Policy | ✓ | ✓ | ✓ | ✗ | ✗ | ✗ |
+| Edit Policy | ✓ | ✓ | ✓ | ✗ | ✗ | ✗ |
+| View Policy | ✓ | ✓ | ✓ | ✓ | ✓ | ✓ |
+| Delete Policy | ✓ | ✓ | ✓ | ✗ | ✗ | ✗ |
+| **Issue SLA Management** | | | | | | |
+| Create Issue SLA | ✓ | ✓ | ✓ | ✗ | ✗ | ✗ |
+| Edit Issue SLA | ✓ | ✓ | ✓ | ✗ | ✗ | ✗ |
+| View Issue SLA | ✓ | ✓ | ✓ | ✓ | ✓ | ✓ |
+| Delete Issue SLA | ✓ | ✓ | ✓ | ✗ | ✗ | ✗ |
+| **Blocking Rule Management** | | | | | | |
+| Create Blocking Rule | ✓ | ✓ | ✓ | ✗ | ✗ | ✗ |
+| Edit Blocking Rule | ✓ | ✓ | ✓ | ✗ | ✗ | ✗ |
+| View Blocking Rule | ✓ | ✓ | ✓ | ✓ | ✓ | ✓ |
+| Delete Blocking Rule | ✓ | ✓ | ✓ | ✗ | ✗ | ✗ |
+| **PR Scan & Comment Rules** | | | | | | |
+| Create PR Scan & Comment Rule | ✓ | ✓ | ✓ | ✗ | ✗ | ✓ |
+| Edit PR Scan & Comment Rule | ✓ | ✓ | ✓ | ✗ | ✗ | ✓ |
+| View PR Scan & Comment Rule | ✓ | ✓ | ✓ | ✓ | ✓ | ✓ |
+| Delete PR Scan & Comment Rule | ✓ | ✓ | ✓ | ✗ | ✗ | ✓ |
+| **Scheduled Scan Management** | | | | | | |
+| Create Scheduled Scan | ✓ | ✓ | ✓ | ✗ | ✗ | ✓ |
+| Edit Scheduled Scan | ✓ | ✓ | ✓ | ✗ | ✗ | ✓ |
+| View Scheduled Scan | ✓ | ✓ | ✓ | ✗ | ✗ | ✓ |
+| Delete Scheduled Scan | ✓ | ✓ | ✓ | ✗ | ✗ | ✓ |
+| **Integration Management** | | | | | | |
+| View Integration | ✓ | ✓ | ✓ | ✓ | ✗ | ✓ |
+| Manage Integration | ✓ | ✓ | ✗ | ✗ | ✗ | ✓ |
+| **Permission Group Management** | | | | | | |
+| Create Permission Group | ✓ | ✓ | ✗ | ✗ | ✗ | ✗ |
+| Edit Permission Group | ✓ | ✓ | ✗ | ✗ | ✗ | ✗ |
+| View Permission Group | ✓ | ✓ | ✗ | ✓ | ✗ | ✗ |
+| Delete Permission Group | ✓ | ✗ | ✗ | ✗ | ✗ | ✗ |
+| **Company Management** | | | | | | |
+| View Company Settings | ✓ | ✓ | ✗ | ✓ | ✗ | ✓ |
+| Edit Company Settings | ✓ | ✗ | ✗ | ✗ | ✗ | ✗ |
+| **Corgea Agent Settings** | | | | | | |
+| View Agent Settings | ✓ | ✓ | ✓ | ✗ | ✗ | ✓ |
+| Edit Agent Settings | ✓ | ✓ | ✓ | ✗ | ✗ | ✓ |
+| **Team Management** | | | | | | |
+| View Team | ✓ | ✓ | ✓ | ✓ | ✓ | ✓ |
+| Create Team | ✓ | ✓ | ✗ | ✓ | ✗ | ✗ |
+| Edit Team | ✓ | ✓ | ✗ | ✓ | ✗ | ✗ |
+| Delete Team | ✓ | ✗ | ✗ | ✓ | ✗ | ✗ |
+| **Content Access Management** | | | | | | |
+| Manage Content Access | ✓ | ✓ | ✗ | ✓ | ✗ | ✗ |
 
-    ### Can add SAST Scan
-    **Description:** Initiate new SAST security scans on projects.
-    
-    **Use Case:** Start security scans, trigger manual scans, or schedule new security analysis runs.
-
-    ### Can view SAST Scan
-    **Description:** View SAST scan results, reports, and scan history.
-    
-    **Use Case:** Review scan results, analyze security findings, or monitor scan progress and outcomes.
-
-    ### Can delete SAST Scan
-    **Description:** Remove SAST scan records and results from the system.
-    
-    **Use Case:** Clean up old scan data, remove failed scans, or manage scan history storage.
-  </Accordion>
-
-  <Accordion title="SCA Issue Management" icon="box">
-    These permissions control Software Composition Analysis (SCA) issue management.
-
-    ### Can view sca issue
-    **Description:** View Software Composition Analysis issues and dependency vulnerabilities.
-    
-    **Use Case:** Review third-party library vulnerabilities, check dependency security status, or analyze open source component risks.
-
-    ### Can add sca issue
-    **Description:** Create new SCA issues or manually report dependency vulnerabilities.
-    
-    **Use Case:** Manually flag dependency issues, report newly discovered vulnerabilities in third-party components.
-
-    ### Can change sca issue
-    **Description:** Modify SCA issue details, status, or resolution information.
-    
-    **Use Case:** Update issue status, add resolution notes, or modify vulnerability assessment details.
-
-    ### Can delete sca issue
-    **Description:** Remove SCA issues from the system.
-    
-    **Use Case:** Clean up false positives, remove resolved dependency issues, or manage SCA issue lifecycle.
-  </Accordion>
-</AccordionGroup>
-
-## API and Integration Permissions
-
-<Accordion title="API Token Management" icon="key">
-  These permissions control API access and token management.
-
-  ### Can change token
-  **Description:** Modify API tokens, including regeneration, expiration, or permission changes.
-  
-  **Use Case:** Update token permissions, regenerate compromised tokens, or modify token expiration settings.
-
-  ### Can view token
-  **Description:** View API tokens and their associated permissions and usage.
-  
-  **Use Case:** Review token usage, audit API access, or check token permissions and status.
-</Accordion>
-
-## Policy Management Permissions
-
-<AccordionGroup>
-  <Accordion title="General Policy Management" icon="file">
-    These permissions control the core policy management functionality.
-
-    ### Can add Policy
-    **Description:** Create new security policies and compliance rules.
-    
-    **Use Case:** Define new security standards, create compliance policies, or establish organizational security guidelines.
-
-    ### Can change Policy
-    **Description:** Modify existing policies, rules, and compliance settings.
-    
-    **Use Case:** Update policy requirements, adjust compliance rules, or modify security standards as organizational needs change.
-
-    ### Can view Policy
-    **Description:** View policies, compliance rules, and security standards.
-    
-    **Use Case:** Review current policies, understand compliance requirements, or audit security standards.
-
-    ### Can delete Policy
-    **Description:** Remove policies and compliance rules from the system.
-    
-    **Use Case:** Clean up outdated policies, remove deprecated compliance rules, or manage policy lifecycle.
-  </Accordion>
-
-  <Accordion title="Issue SLA Management" icon="clock">
-    These permissions control Issue Service Level Agreement (SLA) settings.
-
-    ### Can add Issue SLA
-    **Description:** Create new issue SLA definitions and response time requirements.
-    
-    **Use Case:** Define response time requirements for different types of security issues, set up escalation procedures.
-
-    ### Can change Issue SLA
-    **Description:** Modify existing issue SLA settings and response time requirements.
-    
-    **Use Case:** Update SLA requirements, adjust response times, or modify escalation procedures.
-
-    ### Can view Issue SLA
-    **Description:** View issue SLA settings and response time requirements.
-    
-    **Use Case:** Review SLA requirements, check response time commitments, or audit SLA compliance.
-
-    ### Can delete Issue SLA
-    **Description:** Remove issue SLA definitions from the system.
-    
-    **Use Case:** Clean up outdated SLA requirements or remove deprecated response time standards.
-  </Accordion>
-
-  <Accordion title="Blocking Rule Management" icon="ban">
-    These permissions control blocking rules that prevent certain actions.
-
-    ### Can add blocking rule
-    **Description:** Create new blocking rules to prevent specific actions or deployments.
-    
-    **Use Case:** Set up rules to block deployments with critical vulnerabilities, prevent releases with compliance violations.
-
-    ### Can change blocking rule
-    **Description:** Modify existing blocking rules and their conditions.
-    
-    **Use Case:** Update blocking criteria, adjust rule conditions, or modify deployment restrictions.
-
-    ### Can view blocking rule
-    **Description:** View blocking rules and their current configurations.
-    
-    **Use Case:** Review current blocking rules, understand deployment restrictions, or audit rule effectiveness.
-
-    ### Can delete blocking rule
-    **Description:** Remove blocking rules from the system.
-    
-    **Use Case:** Clean up outdated rules, remove unnecessary restrictions, or manage rule lifecycle.
-  </Accordion>
-
-  <Accordion title="PR Scan Comment Rules" icon="message">
-    These permissions control automated comment rules for pull request scans.
-
-    ### Can add pr scan comment rule
-    **Description:** Create new rules for automated comments on pull request scans.
-    
-    **Use Case:** Set up automated feedback for developers, create custom comment templates for different scan results.
-
-    ### Can change pr scan comment rule
-    **Description:** Modify existing PR scan comment rules and templates.
-    
-    **Use Case:** Update comment templates, adjust feedback rules, or modify automated communication settings.
-
-    ### Can view pr scan comment rule
-    **Description:** View PR scan comment rules and their configurations.
-    
-    **Use Case:** Review current comment rules, understand automated feedback settings, or audit communication policies.
-
-    ### Can delete pr scan comment rule
-    **Description:** Remove PR scan comment rules from the system.
-    
-    **Use Case:** Clean up outdated comment rules, remove unnecessary automated feedback, or manage rule lifecycle.
-  </Accordion>
-
-  <Accordion title="Scheduled Scan Management" icon="calendar">
-    These permissions control scheduled security scan configurations.
-
-    ### Can add Scheduled Scan
-    **Description:** Create new scheduled security scans with custom timing and parameters.
-    
-    **Use Case:** Set up regular security scans, create automated scan schedules, or establish recurring security assessments.
-
-    ### Can change Scheduled Scan
-    **Description:** Modify existing scheduled scan settings, timing, or parameters.
-    
-    **Use Case:** Update scan frequency, adjust scan parameters, or modify scheduling configurations.
-
-    ### Can view Scheduled Scan
-    **Description:** View scheduled scan configurations and their current settings.
-    
-    **Use Case:** Review scan schedules, check upcoming scans, or audit automated scanning configurations.
-
-    ### Can delete Scheduled Scan
-    **Description:** Remove scheduled scans from the system.
-    
-    **Use Case:** Clean up outdated scan schedules, remove unnecessary automated scans, or manage scan lifecycle.
-  </Accordion>
-</AccordionGroup>
 
 ## Best Practices
 
@@ -299,17 +155,160 @@ description: 'This document provides a comprehensive overview of all permissions
       </Step>
     </Steps>
   </Tab>
-  
+
   <Tab title="Security Considerations">
     <Check>Regularly audit permission assignments to ensure they align with current organizational needs</Check>
     <Check>Remove unused permissions and clean up deprecated permission groups</Check>
     <Check>Use integration user permissions only for automated systems, not human users</Check>
     <Check>Implement regular reviews of high-privilege permissions like user management and policy changes</Check>
   </Tab>
-  
+
   <Tab title="Troubleshooting">
     <Tip>If a user cannot perform an expected action, check their permission group assignments and individual permissions</Tip>
     <Tip>Use the view permissions to audit what access a user or group currently has</Tip>
     <Tip>Remember that permissions are additive - users get all permissions from all groups they belong to</Tip>
   </Tab>
 </Tabs>
+
+## Permissions Reference
+
+Below is a complete reference of all available permissions in the Corgea platform with their descriptions and use cases.
+
+### User Management Permissions
+
+| Permission | Description | Use Case |
+|------------|-------------|----------|
+| **Can add user** | Create new user accounts in the system | Register new team members and set up their accounts |
+| **Can change user** | Modify existing user account information and settings | Update user profiles, change email addresses, modify user roles, or update account details |
+| **Can delete user** | Remove user accounts from the system | Deactivate or permanently delete user accounts when team members leave or accounts are no longer needed |
+| **Can view user** | View user account information and profiles | Access user details, view team member information, or check user status |
+
+### Issue Management Permissions (SAST)
+
+| Permission | Description | Use Case |
+|------------|-------------|----------|
+| **Can add issue** | Create new security issues or manually report vulnerabilities | Allow security team members to manually create issues for discovered vulnerabilities or security concerns |
+| **Can view issue** | View security issues, vulnerabilities, and their details | Access issue reports, review vulnerability details, or monitor security status across projects |
+| **Can delete issue** | Remove security issues from the system | Clean up false positives, remove resolved issues, or manage issue lifecycle |
+
+### SCA Issue Management Permissions
+
+| Permission | Description | Use Case |
+|------------|-------------|----------|
+| **Can add sca issue** | Create new SCA issues or manually report dependency vulnerabilities | Manually flag dependency issues, report newly discovered vulnerabilities in third-party components |
+| **Can view sca issue** | View Software Composition Analysis issues and dependency vulnerabilities | Review third-party library vulnerabilities, check dependency security status, or analyze open source component risks |
+| **Can change sca issue** | Modify SCA issue details, status, or resolution information | Update issue status, add resolution notes, or modify vulnerability assessment details |
+| **Can delete sca issue** | Remove SCA issues from the system | Clean up false positives, remove resolved dependency issues, or manage SCA issue lifecycle |
+
+### SAST Scan Management Permissions
+
+| Permission | Description | Use Case |
+|------------|-------------|----------|
+| **Can add SAST Scan** | Initiate new SAST security scans on projects | Start security scans, trigger manual scans, or schedule new security analysis runs |
+| **Can view SAST Scan** | View SAST scan results, reports, and scan history | Review scan results, analyze security findings, or monitor scan progress and outcomes |
+| **Can delete SAST Scan** | Remove SAST scan records and results from the system | Clean up old scan data, remove failed scans, or manage scan history storage |
+
+### Project Management Permissions
+
+| Permission | Description | Use Case |
+|------------|-------------|----------|
+| **Can modify project tags** | Add, remove, or modify tags associated with projects | Organize projects with custom tags, categorize projects by team or technology, or improve project management and filtering |
+| **Can edit project** | Modify project settings and configuration | Update project details, change project settings, or adjust project parameters |
+| **Can delete project** | Remove projects from the system | Clean up old projects, remove deprecated projects, or manage project lifecycle |
+
+### API Token Management Permissions
+
+| Permission | Description | Use Case |
+|------------|-------------|----------|
+| **Can view token** | View API tokens and their associated permissions and usage | Review token usage, audit API access, or check token permissions and status |
+| **Can change token** | Modify API tokens, including regeneration, expiration, or permission changes | Update token permissions, regenerate compromised tokens, or modify token expiration settings |
+
+### Policy Management Permissions
+
+| Permission | Description | Use Case |
+|------------|-------------|----------|
+| **Can add Policy** | Create new security policies and compliance rules | Define new security standards, create compliance policies, or establish organizational security guidelines |
+| **Can change Policy** | Modify existing policies, rules, and compliance settings | Update policy requirements, adjust compliance rules, or modify security standards as organizational needs change |
+| **Can view Policy** | View policies, compliance rules, and security standards | Review current policies, understand compliance requirements, or audit security standards |
+| **Can delete Policy** | Remove policies and compliance rules from the system | Clean up outdated policies, remove deprecated compliance rules, or manage policy lifecycle |
+
+### Issue SLA Management Permissions
+
+| Permission | Description | Use Case |
+|------------|-------------|----------|
+| **Can add Issue SLA** | Create new issue SLA definitions and response time requirements | Define response time requirements for different types of security issues, set up escalation procedures |
+| **Can change Issue SLA** | Modify existing issue SLA settings and response time requirements | Update SLA requirements, adjust response times, or modify escalation procedures |
+| **Can view Issue SLA** | View issue SLA settings and response time requirements | Review SLA requirements, check response time commitments, or audit SLA compliance |
+| **Can delete Issue SLA** | Remove issue SLA definitions from the system | Clean up outdated SLA requirements or remove deprecated response time standards |
+
+### Blocking Rule Management Permissions
+
+| Permission | Description | Use Case |
+|------------|-------------|----------|
+| **Can add blocking rule** | Create new blocking rules to prevent specific actions or deployments | Set up rules to block deployments with critical vulnerabilities, prevent releases with compliance violations |
+| **Can change blocking rule** | Modify existing blocking rules and their conditions | Update blocking criteria, adjust rule conditions, or modify deployment restrictions |
+| **Can view blocking rule** | View blocking rules and their current configurations | Review current blocking rules, understand deployment restrictions, or audit rule effectiveness |
+| **Can delete blocking rule** | Remove blocking rules from the system | Clean up outdated rules, remove unnecessary restrictions, or manage rule lifecycle |
+
+### PR Scan Comment Rule Permissions
+
+| Permission | Description | Use Case |
+|------------|-------------|----------|
+| **Can add pr scan comment rule** | Create new rules for automated comments on pull request scans | Set up automated feedback for developers, create custom comment templates for different scan results |
+| **Can change pr scan comment rule** | Modify existing PR scan comment rules and templates | Update comment templates, adjust feedback rules, or modify automated communication settings |
+| **Can view pr scan comment rule** | View PR scan comment rules and their configurations | Review current comment rules, understand automated feedback settings, or audit communication policies |
+| **Can delete pr scan comment rule** | Remove PR scan comment rules from the system | Clean up outdated comment rules, remove unnecessary automated feedback, or manage rule lifecycle |
+
+### Scheduled Scan Management Permissions
+
+| Permission | Description | Use Case |
+|------------|-------------|----------|
+| **Can add Scheduled Scan** | Create new scheduled security scans with custom timing and parameters | Set up regular security scans, create automated scan schedules, or establish recurring security assessments |
+| **Can change Scheduled Scan** | Modify existing scheduled scan settings, timing, or parameters | Update scan frequency, adjust scan parameters, or modify scheduling configurations |
+| **Can view Scheduled Scan** | View scheduled scan configurations and their current settings | Review scan schedules, check upcoming scans, or audit automated scanning configurations |
+| **Can delete Scheduled Scan** | Remove scheduled scans from the system | Clean up outdated scan schedules, remove unnecessary automated scans, or manage scan lifecycle |
+
+### Integration Management Permissions
+
+| Permission | Description | Use Case |
+|------------|-------------|----------|
+| **Can view integration** | View integration configurations and connection details | Review current integrations, check integration status, or audit external connections |
+| **Can manage integration** | Create, modify, and configure integrations with external systems | Set up new integrations, update integration settings, or manage external system connections |
+
+### Permission Group Management Permissions
+
+| Permission | Description | Use Case |
+|------------|-------------|----------|
+| **Can add Permission Group** | Create new permission groups with custom permission sets | Set up role-based access control by creating groups like "Developers", "Security Team", or "Managers" with specific permissions |
+| **Can change Permission Group** | Modify existing permission group settings and assigned permissions | Update group permissions, change group names, or adjust access levels as organizational needs evolve |
+| **Can view Permission Group** | View permission group configurations and assigned permissions | Review current group settings, audit permissions, or understand access control structure |
+| **Can delete Permission Group** | Remove permission groups from the system | Clean up unused groups or remove deprecated role configurations |
+
+### Company Management Permissions
+
+| Permission | Description | Use Case |
+|------------|-------------|----------|
+| **Can view company** | View company information and settings | Access company details, review organizational information, or check company-wide settings and policies |
+| **Can change company** | Modify company settings, configuration, and organizational details | Update company information, change billing settings, modify organizational policies, or adjust company-wide configurations |
+
+### Corgea Agent Settings Permissions
+
+| Permission | Description | Use Case |
+|------------|-------------|----------|
+| **Can view agent settings** | View Corgea Agent configuration and settings | Review agent configurations, check agent status, or audit agent settings |
+| **Can edit agent settings** | Modify Corgea Agent configuration and settings | Update agent parameters, change agent behavior, or adjust automation settings |
+
+### Team Management Permissions
+
+| Permission | Description | Use Case |
+|------------|-------------|----------|
+| **Can view team** | View team information, members, and assignments | Access team details, review team composition, or check team assignments |
+| **Can create team** | Create new teams within the organization | Set up new development teams, security teams, or organizational units |
+| **Can edit team** | Modify team information, members, and assignments | Update team details, add or remove team members, or adjust team configurations |
+| **Can delete team** | Remove teams from the system | Clean up disbanded teams, remove deprecated organizational units, or manage team lifecycle |
+
+### Content Access Management Permissions
+
+| Permission | Description | Use Case |
+|------------|-------------|----------|
+| **Can manage content access** | Control access to content and resources within the platform | Define who can access specific projects, repositories, or security data; manage content visibility and access controls |
