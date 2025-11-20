@@ -131,44 +131,8 @@ public class PatientRecord {
 }
 ```
 
-## Best Practices
-
-* **Data Minimization**: Only collect and store the minimum amount of personal data necessary
-* **Encryption at Rest**: Always encrypt sensitive data when stored in databases or files
-* **Environment Variables**: Use environment variables for configuration instead of hardcoding
-* **Tokenization**: Replace sensitive data with secure tokens in development and testing
-* **Regular Audits**: Schedule periodic scans to catch new sensitive data
-* **Access Controls**: Implement proper access controls for sensitive data
-* **Data Classification**: Tag and categorize data based on sensitivity levels
-* **Secure Development**: Train developers on secure coding practices for handling PII/PHI
-* **Compliance Monitoring**: Regularly review findings against regulatory requirements
-* **Incident Response**: Have a plan for handling data breaches or exposures
-
-## Troubleshooting
-
-### Common Issues
-
-
-**Issue**: Missing detection of organization-specific data patterns
-* **Solution**: Create custom detection patterns for your specific data formats
-* **Check**: Verify that custom patterns are properly configured and tested
-
-**Issue**: Scan performance is slow on large codebases
-* **Solution**: Use incremental scanning or exclude non-essential directories. The initial scan is typically the slowest, but performance should improve significantly afterward.
-* **Check**: Consider scanning only changed files in CI/CD pipelines
-
-**Issue**: High number of findings overwhelming the team
-* **Solution**: Start with critical and high-severity findings first
-* **Check**: Implement a phased approach to remediation based on risk levels
-
-**Issue**: Compliance mapping not accurate for your industry
-* **Solution**: Customize compliance framework mappings for your specific regulations
-* **Check**: Review and update mappings based on your organization's compliance requirements
-
 ## Additional Resources
 
 * **Privacy Regulations**: [GDPR](https://gdpr.eu/), [HIPAA](https://www.hhs.gov/hipaa/index.html), [CCPA](https://oag.ca.gov/privacy/ccpa), [PCI DSS](https://www.pcisecuritystandards.org/)
 * **Secure Coding Guidelines**: [OWASP Secure Coding Practices](https://owasp.org/www-project-secure-coding-practices-quick-reference-guide/)
 * **Data Protection**: [NIST Privacy Framework](https://www.nist.gov/privacy-framework)
-* **Compliance Tools**: Integration guides for popular compliance management platforms
-* **Training Resources**: Developer training materials for privacy-aware coding practices

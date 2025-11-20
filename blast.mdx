@@ -25,9 +25,9 @@ By leveraging the power of Large Language Models (LLMs) combined with static ana
   </Accordion>
 
   <Accordion title="Security Coverage" icon="shield-check">
-    - Comprehensive secret scanning across codebases
-    - Detection of hardcoded credentials and sensitive data
     - Business logic vulnerability detection
+    - Authentication and authorization flaws
+    - Comprehensive vulnerability detection across multiple categories
   </Accordion>
 </AccordionGroup>
 
@@ -36,6 +36,59 @@ By leveraging the power of Large Language Models (LLMs) combined with static ana
 AI-native SAST excels at detecting business logic vulnerabilities, which are often missed by traditional SAST tools. Below are some of the specific vulnerabilities detected by AI-native SAST:
 
 <AccordionGroup>
+  <Accordion title="Access Control" icon="shield-halved">
+    - **Broken Access Control (CWE-639)**: Missing authorization checks allowing unauthorized access
+    - **Insecure Direct Object References (CWE-639)**: Direct access to objects without proper authorization
+    - **Path Traversal (CWE-22)**: Directory traversal attacks accessing unauthorized files
+    - **Insecure Authorization (CWE-285)**: Weak access controls
+    - **Privilege Escalation (CWE-269)**: Improper privilege management
+    - **Missing Function Level Access Control (CWE-285)**: Unprotected administrative functions
+  </Accordion>
+
+  <Accordion title="Injection Vulnerabilities" icon="syringe">
+    - **SQL Injection (CWE-89)**: Unsanitized SQL queries allowing database manipulation
+    - **Command Injection (CWE-78)**: OS command injection vulnerabilities
+    - **Cross-Site Scripting (XSS) (CWE-79)**: Injection of malicious scripts into web pages
+    - **LDAP Injection (CWE-90)**: LDAP query manipulation
+    - **XML Injection (CWE-91)**: XML content manipulation
+    - **Code Injection (CWE-94)**: Dynamic code execution vulnerabilities
+    - **Expression Language Injection (CWE-917)**: Injection in expression languages
+    - **Template Injection (CWE-1336)**: Server-side template injection
+  </Accordion>
+
+  <Accordion title="Authentication and Authorization" icon="lock">
+    - **Insecure Authentication (CWE-287)**: Missing MFA or insecure token management
+    - **Broken Authentication (CWE-287)**: Weak authentication mechanisms
+    - **Improper Session Management (CWE-384)**: Session ID mismanagement
+    - **Credential Management (CWE-255)**: Improper credential storage or transmission
+    - **Weak Password Requirements (CWE-521)**: Insufficient password complexity enforcement
+  </Accordion>
+
+  <Accordion title="Cryptographic Failures" icon="key">
+    - **Insecure Data Storage (CWE-311)**: Weak encryption or plaintext storage
+    - **Weak Cryptography (CWE-327)**: Use of broken or risky cryptographic algorithms
+    - **Insufficient Entropy (CWE-330)**: Predictable random number generation
+    - **Hardcoded Secrets (CWE-798)**: Embedded credentials
+    - **Sensitive Data Exposure (CWE-200)**: Information leaks
+    - **Improper Certificate Validation (CWE-295)**: SSL/TLS validation failures
+  </Accordion>
+
+  <Accordion title="Data Handling and Validation" icon="database">
+    - **Unhygienic Data Handling (CWE-20)**: Poor input validation
+    - **Improper Output Encoding (CWE-116)**: Inadequate output sanitization
+    - **Mass Assignment (CWE-915)**: Binding of request parameters to internal objects
+    - **XML External Entity (XXE) (CWE-611)**: XML parser vulnerabilities
+    - **Deserialization of Untrusted Data (CWE-502)**: Insecure object deserialization
+  </Accordion>
+
+  <Accordion title="Security Misconfiguration" icon="gear">
+    - **Security Misconfiguration (CWE-16)**: Improper security settings
+    - **Default Configurations (CWE-1188)**: Use of insecure default settings
+    - **Missing Security Headers (CWE-693)**: Absence of protective HTTP headers
+    - **Verbose Error Messages (CWE-209)**: Information disclosure through errors
+    - **Directory Listing (CWE-548)**: Exposed directory contents
+  </Accordion>
+
   <Accordion title="Business Logic and Code Flow" icon="map">
     - **Business Logic Vulnerabilities (CWE-840)**: Flaws that allow users to manipulate or bypass critical processes
     - **Code Logic Vulnerabilities (CWE-633)**: Errors in conditions or loops leading to unexpected behavior
@@ -44,30 +97,25 @@ AI-native SAST excels at detecting business logic vulnerabilities, which are oft
     - **Timing Attacks (CWE-208)**: Time-based information leaks
   </Accordion>
 
-  <Accordion title="Authentication and Authorization" icon="lock">
-    - **Insecure Authentication (CWE-287)**: Missing MFA or insecure token management
-    - **Insecure Authorization (CWE-285)**: Weak access controls
-    - **Improper Session Management (CWE-384)**: Session ID mismanagement
+  <Accordion title="Server-Side Request Forgery" icon="server">
+    - **SSRF (CWE-918)**: Server-side request forgery allowing unauthorized internal requests
+    - **URL Redirection (CWE-601)**: Unvalidated redirects and forwards
+    - **DNS Rebinding (CWE-350)**: DNS-based SSRF attacks
   </Accordion>
 
-  <Accordion title="Data Handling and Storage" icon="database">
-    - **Unhygienic Data Handling (CWE-20)**: Poor input validation
-    - **Insecure Data Storage (CWE-311)**: Weak encryption or plaintext storage
-    - **Sensitive Data Exposure (CWE-200)**: Information leaks
-    - **Hardcoded Secrets (CWE-798)**: Embedded credentials
-  </Accordion>
-
-  <Accordion title="Error Management" icon="triangle-exclamation">
-    - **Improper Error Handling (CWE-209)**: Information leaks in error messages
+  <Accordion title="Logging and Monitoring Failures" icon="chart-line">
     - **Improper Logging (CWE-532)**: Sensitive data in logs
+    - **Insufficient Logging (CWE-778)**: Missing security event logging
+    - **Improper Error Handling (CWE-209)**: Information leaks in error messages
     - **Improper Exception Handling (CWE-248)**: Security risks from poor exception management
+    - **Missing Audit Trail (CWE-778)**: Inadequate activity tracking
   </Accordion>
 
   <Accordion title="Malicious Code Detection" icon="bug">
     - **Malicious Code (CWE-506)**: Unauthorized harmful actions
     - **Backdoors (CWE-288)**: Hidden access mechanisms
     - **Time Bombs (CWE-511)**: Triggered malicious actions
-    - **Obfuscation (CWE-116)**: Suspicious code complexity
+    - **Supply Chain Attacks (CWE-1357)**: Compromised dependencies or updates
   </Accordion>
 
   <Accordion title="Privacy & Resources" icon="eye-slash">
@@ -75,28 +123,62 @@ AI-native SAST excels at detecting business logic vulnerabilities, which are oft
     - **Unethical Data Collection (CWE-359)**: Improper data gathering
     - **Malicious Network Activity (CWE-293)**: Suspicious connections
     - **Crypto Mining (CWE-400)**: Unauthorized resource usage
+    - **Resource Exhaustion (CWE-400)**: Denial of service through resource consumption
   </Accordion>
 </AccordionGroup>
 
-In addition to business logic vulnerabilities, AI-native SAST can also detect common security flaws found in regular SAST scanning.
+In addition to business logic vulnerabilities, AI-native SAST can also detect common security flaws found in regular SAST scanning, covering approximately **900 Common Weakness Enumerations (CWEs)**.
 
-## Secret Scanning Capabilities
+<Card title="Secret Scanning" icon="key" href="/secret-scanning">
+  Corgea also provides comprehensive secret scanning capabilities to detect hardcoded credentials, API keys, and sensitive data. Learn more about secret detection and secure storage alternatives.
+</Card>
 
-AI-native SAST's secret scanner uses pattern matching, entropy analysis, and AI-powered contextual understanding to minimize false positives while ensuring comprehensive coverage.
+## Comprehensive Vulnerability Coverage
 
-### Detected Secret Types
-- API keys and tokens (AWS, Google Cloud, Azure, etc.)
-- Authentication credentials
-- Database connection strings
-- Private keys and certificates
-- OAuth tokens
-- Personal access tokens
-- Encryption keys
-- Environment variables
-- Internal endpoints
-- Payment credentials
+Corgea's AI-native SAST provides extensive vulnerability coverage that goes beyond industry standards like the OWASP Top 10 and the Top 25 CWEs. Our platform continuously expands its vulnerability database to stay ahead of emerging threats and address a wide range of security issues across different programming languages and frameworks.
 
-<Tip>When secrets are detected, AI-native SAST provides detailed information about the type, location, security impact, and secure storage alternatives.</Tip>
+### Depth and Breadth of Coverage
+
+Our vulnerability coverage spans multiple dimensions to ensure thorough analysis of your codebase:
+
+<AccordionGroup>
+  <Accordion title="Language-Specific Vulnerabilities" icon="code">
+    Corgea understands the nuances of different programming languages and their unique security challenges. Our AI models are trained to identify vulnerabilities specific to each supported language, from memory management issues in C/C++ to dynamic typing challenges in Python and Ruby.
+  </Accordion>
+
+  <Accordion title="Framework-Specific Vulnerabilities" icon="layer-group">
+    Popular frameworks introduce their own set of security concerns. Corgea's analysis accounts for the intricacies of frameworks like .NET, Django, Ruby on Rails, Gin, Express.js, and Spring, providing targeted vulnerability detection and remediation.
+  </Accordion>
+
+  <Accordion title="Cross-Language Vulnerabilities" icon="arrows-cross">
+    Beyond language-specific issues, our platform addresses vulnerabilities that can occur across multiple languages, such as:
+    - Insecure cryptographic practices
+    - Improper input validation
+    - Race conditions
+    - Authentication and authorization flaws
+  </Accordion>
+
+  <Accordion title="Emerging Threats" icon="shield-virus">
+    Our AI models are continuously updated to stay ahead of the curve, ensuring detection and remediation of new vulnerabilities as they emerge in the ever-evolving security landscape.
+  </Accordion>
+</AccordionGroup>
+
+### Why Comprehensive Coverage Matters
+
+<CardGroup cols={2}>
+  <Card title="Reduced Risk" icon="shield-check">
+    Minimize the risk of security breaches, data leaks, and other potential threats by addressing a wide range of vulnerabilities
+  </Card>
+  <Card title="Compliance" icon="file-certificate">
+    Meet industry-specific security requirements and regulatory standards, reducing the risk of non-compliance penalties
+  </Card>
+  <Card title="Efficiency" icon="gauge-high">
+    Streamline security review processes with AI-powered false positive detection and automated fixing capabilities
+  </Card>
+  <Card title="Continuous Improvement" icon="arrows-rotate">
+    Stay protected as the security landscape evolves with continuously expanding vulnerability database and threat intelligence
+  </Card>
+</CardGroup>
 
 ## Technology Behind AI-native SAST
 
@@ -131,25 +213,161 @@ Traditional static analysis techniques have significant limitations:
 - **IDE Integration**: Real-time feedback during development
 </Card>
 
-### Supported Languages and Frameworks
+## Supported Languages and Frameworks
 
-<Tabs>
-  <Tab title="Languages">
-    - C#
-    - Python
-    - Ruby
-    - Go
-    - JavaScript
-    - TypeScript
-    - Java
-  </Tab>
-  <Tab title="Frameworks">
-    - .NET
-    - Django
-    - Ruby on Rails
-    - Node.js
-    - Spring
-    - Flask
-    - And more...
-  </Tab>
-</Tabs>
+Corgea provides comprehensive support for scanning, false positive detection, and auto-fixing across multiple programming languages and their popular frameworks, covering approximately 900 Common Weakness Enumerations (CWEs).
+
+### Language Support
+
+<AccordionGroup>
+  <Accordion title="C#" icon="hashtag">
+    **Native Language Support**: Robust support for C# language constructs, including LINQ, async/await patterns, and generics.
+
+    **Frameworks**: .NET, ASP.NET Core, Blazor
+
+    Corgea excels in securing enterprise-level .NET applications, addressing vulnerabilities like improper authentication, insecure deserialization, and CSRF.
+  </Accordion>
+
+  <Accordion title="Python" icon="python">
+    **Native Language Support**: Analyzes Python-specific features such as decorators, context managers, and comprehensions.
+
+    **Frameworks**: Django, Flask, FastAPI
+
+    Focuses on both web applications and backend services, tackling issues such as SQL injections, XSS, and insecure direct object references.
+  </Accordion>
+
+  <Accordion title="Ruby" icon="gem">
+    **Native Language Support**: Understands Ruby's dynamic nature, including metaprogramming features and blocks.
+
+    **Frameworks**: Ruby on Rails, Sinatra
+
+    Specializes in identifying and fixing Ruby-specific vulnerabilities, including mass assignment issues, unprotected routes, and insecure file uploads.
+  </Accordion>
+
+  <Accordion title="Go" icon="golang">
+    **Native Language Support**: Analyzes Go-specific constructs like goroutines, channels, and interfaces.
+
+    **Frameworks**: Gin, Echo, Fiber
+
+    Targets Go-specific security concerns, such as race conditions, improper error handling, and insecure use of cryptographic functions.
+  </Accordion>
+
+  <Accordion title="JavaScript & TypeScript" icon="js">
+    **Native Language Support**: Supports both JavaScript and TypeScript, including features like async/await, closures, and TypeScript's type system.
+
+    **Frameworks**: Node.js, Express.js, Next.js, NestJS, Angular, React, Vue.js
+
+    Covers both client-side and server-side security, addressing issues like prototype pollution, insecure dependencies, and DOM-based XSS.
+  </Accordion>
+
+  <Accordion title="Java" icon="java">
+    **Native Language Support**: Analyzes Java-specific features such as generics, annotations, and lambda expressions.
+
+    **Frameworks**: Spring, Jakarta EE, Play Framework
+
+    Focuses on enterprise Java ecosystems, tackling vulnerabilities such as XML external entity (XXE) attacks, LDAP injection, and insecure object deserialization.
+  </Accordion>
+
+  <Accordion title="PHP" icon="php">
+    **Native Language Support**: Handles PHP's unique syntax and language constructs, including traits and attributes.
+
+    Addresses common web application vulnerabilities like remote code execution, file inclusion vulnerabilities, and SQL injection attacks.
+  </Accordion>
+
+  <Accordion title="Kotlin" icon="k">
+    **Native Language Support**: Analyzes Kotlin-specific features including null safety, coroutines, and extension functions.
+
+    Specializes in Android and server-side application security, addressing issues like improper data exposure and insecure communication.
+  </Accordion>
+
+  <Accordion title="Swift" icon="swift">
+    **Native Language Support**: Analyzes Swift-specific features including optionals, protocol extensions, generics, and value types.
+
+    Enhances security in iOS and macOS application development, addressing vulnerabilities like insecure data storage, improper SSL/TLS validation, and insecure inter-process communication.
+  </Accordion>
+
+  <Accordion title="C & C++" icon="c">
+    **Native Language Support**: Handles low-level programming constructs including pointers, memory management, and templates.
+
+    Focuses on memory-related vulnerabilities, buffer overflows, and system-level security issues common in C/C++ applications.
+
+    *Enabled for false positive detection and auto-fixing. Coming to scanning soon.*
+  </Accordion>
+</AccordionGroup>
+
+### Key Capabilities
+
+<CardGroup cols={2}>
+  <Card title="Comprehensive Scanning" icon="magnifying-glass">
+    Advanced algorithms scan your codebase to identify potential security vulnerabilities, covering a wide range of CWEs
+  </Card>
+  <Card title="False Positive Detection" icon="filter">
+    AI-powered system accurately distinguishes between genuine vulnerabilities and false positives
+  </Card>
+  <Card title="Automated Fixing" icon="wrench">
+    Provides actionable, context-aware fixes that can be applied automatically or reviewed before implementation
+  </Card>
+  <Card title="Framework-Specific Analysis" icon="puzzle-piece">
+    Understands the nuances of different frameworks within each language for targeted security insights
+  </Card>
+</CardGroup>
+
+## Intelligent File Filtering
+
+To optimize scan performance and accuracy, Corgea automatically excludes files that are not relevant to security analysis:
+
+### Files We Skip
+
+<AccordionGroup>
+  <Accordion title="Non-Source Files" icon="file-image">
+    - Media files (images, videos, fonts)
+    - Style files (CSS, SCSS, LESS)
+    - Documentation and markdown files
+    - Configuration archives and compressed files
+  </Accordion>
+
+  <Accordion title="Development and Testing" icon="flask">
+    - Test files and test directories
+    - Mock and fixture data
+    - Code coverage reports
+  </Accordion>
+
+  <Accordion title="Generated and Processed Code" icon="gears">
+    - Auto-generated code files
+    - Minified or bundled code
+    - Database migration files
+    - Type definition files
+  </Accordion>
+
+  <Accordion title="Build Artifacts" icon="box">
+    - Compiled binaries and build outputs
+  </Accordion>
+</AccordionGroup>
+
+### Files Used for Context
+
+While not directly scanned for vulnerabilities, Corgea may reference certain files to provide better analysis context, including README files, configuration examples, and application settings files.
+
+### Custom Configuration
+
+You can further customize scanning behavior using a `corgea.yaml` configuration file in your repository root:
+
+```docs/corgea.yaml#L1-3
+ignore_paths:
+  - "path/to/exclude/*"
+  - "legacy-code/*"
+```
+
+This allows you to exclude specific directories or file patterns based on your project's needs.
+
+### Why We Filter
+
+Our intelligent filtering approach:
+- **Improves accuracy** by focusing on actual application code
+- **Reduces noise** from test files and third-party code
+- **Optimizes performance** for faster scan results
+- **Prioritizes findings** in code you maintain
+
+<Note>
+**Coming Soon**: Rust language support
+</Note>
