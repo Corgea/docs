@@ -1,57 +1,683 @@
 ---
-title: 'Webhooks'
-description: 'Setting up Webhook Integrations in Corgea'
+title: 'Webhooks Documentation'
+description: 'Automate HTTP callbacks from Corgea to any external system'
 ---
 
-Corgea's webhook integration allows you to send data to any webhook URL, enabling seamless integration with various third-party services and applications. This feature provides a flexible way to extend Corgea's capabilities and automate workflows based on your specific needs.
+## What are Webhooks?
 
-## Prerequisites
+Webhooks are automated HTTP callbacks that allow Corgea to send real-time notifications to your external systems when specific events occur. Instead of continuously polling our API to check for updates, webhooks push event data directly to your specified endpoint the moment something happens.
 
-Before setting up the webhook integration, ensure you have:
+### Key Benefits
 
-- Administrative access to your Corgea account
-- A webhook URL from your target application/service
+- **Real-time notifications** - Receive instant updates when security issues are found, status changes occur, or scans complete
+- **Automation** - Trigger workflows in external tools like Slack, Zapier, or custom applications
+- **Efficiency** - No need to poll APIs - we push data to you when events happen
+- **Flexibility** - Subscribe only to the events you care about and filter by project or status
+- **Reliability** - Built-in retry logic and delivery tracking ensure your notifications get through
 
-## Setting up the Integration
+### Supported Event Types
+
+Corgea supports webhooks for the following events:
+
+**Issue Events:**
+- `issue.status_changed` - Triggered when an issue's status is updated (e.g., open → fixed)
+- `issue.assigned` - Triggered when an issue is assigned to a team member
+
+**Scan Events:**
+- `scan.started` - Triggered when a security scan begins
+- `scan.completed` - Triggered when a scan finishes successfully
+- `scan.failed` - Triggered when a scan encounters an error
+
+---
+
+## How Webhooks Work
+
+### The Webhook Lifecycle
 
 <Steps>
-  <Step title="Access Integrations Page">
-    Log in to your Corgea account and navigate to the "Integrations" page.
+  <Step title="Event Occurs">
+    Something happens in Corgea (e.g., a scan completes, an issue status changes)
   </Step>
-  <Step title="Connect Webhook">
-    Locate the "Webhook" integration under "Automation Integrations" and click the "Add +" button.
+  <Step title="Webhook Triggered">
+    The system identifies all webhooks subscribed to that event type
   </Step>
-  <Step title="Configure Integration">
-    In the integration setup form, enter the following details:
-    - **Name**: A friendly name for the integration (e.g., "My Custom Webhook")
-    - **Webhook URL**: The URL where Corgea will send data
+  <Step title="Filtering Applied">
+    Project and status filters determine if the webhook should fire
   </Step>
-  <Step title="Save Configuration">
-    Click "Save" to complete the webhook integration setup.
+  <Step title="Payload Built">
+    A standardized JSON payload is constructed with event details
+  </Step>
+  <Step title="HTTP POST Request">
+    The payload is sent to your webhook URL with security headers
+  </Step>
+  <Step title="Retry Logic">
+    If the request fails, automatic retries occur with exponential backoff
+  </Step>
+  <Step title="Delivery Logged">
+    All attempts are tracked in the delivery history for troubleshooting
   </Step>
 </Steps>
 
-## Example Use Cases
+### Payload Structure
 
-Here are some example use cases for integrating Corgea with webhooks:
+All webhook payloads follow a standardized structure:
 
-1. **Custom Notification Systems**: Send notifications to team communication tools when new vulnerabilities are discovered.
+```json webhook-payload.json
+{
+  "event_id": "550e8400-e29b-41d4-a716-446655440000",
+  "event_type": "scan.completed",
+  "timestamp": "2025-01-15T14:30:00.000Z",
+  "data": {
+    "company": "company-uuid",
+    "scan_id": "scan-uuid",
+    "project": {
+      "id": "project-uuid",
+      "name": "My Application"
+    },
+    "issues_found": 12,
+    ...
+  }
+}
+```
 
-2. **Incident Management**: Trigger incident creation in systems like PagerDuty or OpsGenie.
+### Security Features
 
-3. **CI/CD Integration**: Send scan results to your build/deployment system.
+<AccordionGroup>
+  <Accordion title="HMAC Signature Verification" icon="shield-check">
+    - When you provide a secret key, Corgea includes an `X-Corgea-Signature` header
+    - This header contains an HMAC-SHA256 hash of the payload
+    - Verify the signature to ensure the webhook came from Corgea
+  </Accordion>
 
-4. **Custom Workflows**: Build custom automations by connecting with internal systems.
+  <Accordion title="Custom Headers" icon="key">
+    - Include headers required by your endpoint (e.g., authentication tokens)
+    - Configure custom headers during webhook setup
+  </Accordion>
 
-5. **Data Visualization**: Send data to tools like Grafana or Kibana for custom dashboards.
+  <Accordion title="HTTPS Required" icon="lock">
+    - All webhook URLs must use HTTPS for secure transmission
+    - Non-HTTPS URLs will be rejected to protect sensitive data
+  </Accordion>
+</AccordionGroup>
 
-## Webhook Payload
+### Automatic Retry Logic
 
-When an event occurs, Corgea sends an HTTP POST request to your webhook URL containing relevant data about the event. The payload includes information such as:
+<Info>If webhook delivery fails, Corgea automatically retries with the following strategy:</Info>
 
-- Event type
-- Timestamp
-- User who triggered the event
-- Relevant event data (e.g., scan results, vulnerability details)
+- **Initial attempt** + **2 retries** = 3 total attempts
+- **Exponential backoff**: 2 seconds, 4 seconds between retries
+- **Timeout**: 10 seconds per request
+- **Auto-pause**: After 10 consecutive failures, the webhook is automatically paused
 
-By leveraging webhook integrations in Corgea, you can create powerful automated workflows and seamlessly connect with your existing tools and services.
+### Headers Sent with Each Webhook
+
+```text webhook-headers.txt
+Content-Type: application/json
+X-Corgea-Event: issue.status_changed
+X-Corgea-Delivery: <delivery-uuid>
+X-Corgea-Timestamp: <unix-timestamp>
+X-Corgea-Signature: <hmac-signature> (if secret configured)
+User-Agent: Corgea-Webhooks/1.0
+```
+
+---
+
+## Setting Up a Webhook
+
+<img src="/images/webhooks/webhooks_table.png" alt="Webhooks management interface showing list of configured webhooks" />
+
+### Prerequisites
+
+<Check>Admin or integration management permissions in your Corgea account</Check>
+<Check>A webhook endpoint URL that accepts POST requests</Check>
+<Check>HTTPS endpoint (required for security)</Check>
+
+### Step-by-Step Setup
+
+<Steps>
+  <Step title="Navigate to Integrations">
+    - Go to your Corgea dashboard
+    - Click on "Integrations" in the navigation menu
+    - Select "Webhooks" or "Create New Webhook"
+    <img src="/images/webhooks/webhooks_integrations.png" alt="Webhooks management interface showing list of configured webhooks" />
+
+  </Step>
+
+  <Step title="Configure Basic Settings">
+    <img src="/images/webhooks/create_webhook.png" alt="Create webhook form with configuration options" />
+
+    - **Name**: Give your webhook a descriptive name (e.g., "Slack Notifications", "Production Scan Alerts")
+    - **Webhook URL**: Enter your HTTPS endpoint URL
+    - **Type**: Select the integration type:
+      - `Slack` - For Slack webhook integrations
+      - `Zapier` - For Zapier zaps
+      - `Other` - For custom integrations
+  </Step>
+
+  <Step title="Subscribe to Events">
+    - Check the boxes for events you want to receive:
+      - Issue Status Changed
+      - Issue Assigned
+      - Scan Started
+      - Scan Completed
+      - Scan Failed
+    - You can select multiple events per webhook
+  </Step>
+
+  <Step title="Configure Filters (Optional)">
+    **Project Filter**
+    - Leave empty to receive events from all projects
+    - Select specific projects to only receive their events
+    - Useful for routing different projects to different endpoints
+
+    **Status Change Filter** (for `issue.status_changed` events)
+    - Leave empty to receive all status changes
+    - Select specific statuses (e.g., `fixed`, `false_positive`) to only receive those changes
+    - Reduces noise by filtering out irrelevant status updates
+  </Step>
+
+  <Step title="Add Security (Optional but Recommended)">
+    **Secret Key**
+    - Enter a random, secure string (minimum 32 characters recommended)
+    - Corgea will include an HMAC signature in the `X-Corgea-Signature` header
+    - Use this to verify webhook authenticity on your end
+
+    **Custom Headers**
+    - Add any headers your endpoint requires
+    - Common examples: `Authorization: Bearer <token>`, `X-API-Key: <key>`
+  </Step>
+
+  <Step title="Test Your Webhook">
+    - Click "Test Webhook" to send a sample payload
+    - Verify your endpoint receives and processes the test correctly
+    - Check the response status and any error messages
+  </Step>
+
+  <Step title="Save and Activate">
+    - Click "Create Webhook" or "Save"
+    - The webhook is now active and will start receiving events
+  </Step>
+</Steps>
+
+### Verifying Webhook Signatures
+
+<Note>If you configured a secret key, verify the signature in your endpoint to ensure authenticity.</Note>
+
+<Tabs>
+  <Tab title="Python">
+    ```python verify-signature.py
+    import hmac
+    import hashlib
+
+    def verify_webhook_signature(payload, signature, secret):
+        """Verify Corgea webhook signature"""
+        expected_signature = hmac.new(
+            secret.encode('utf-8'),
+            payload.encode('utf-8'),
+            hashlib.sha256
+        ).hexdigest()
+
+        return hmac.compare_digest(expected_signature, signature)
+
+    # In your webhook handler:
+    if not verify_webhook_signature(request.body, request.headers['X-Corgea-Signature'], SECRET_KEY):
+        return HttpResponse(status=403)  # Reject invalid signatures
+    ```
+  </Tab>
+  <Tab title="Node.js">
+    ```javascript verify-signature.js
+    const crypto = require('crypto');
+
+    function verifyWebhookSignature(payload, signature, secret) {
+      const expectedSignature = crypto
+        .createHmac('sha256', secret)
+        .update(payload)
+        .digest('hex');
+
+      return crypto.timingSafeEqual(
+        Buffer.from(expectedSignature),
+        Buffer.from(signature)
+      );
+    }
+    ```
+  </Tab>
+</Tabs>
+
+---
+
+## Use Cases
+
+### 1. Real-time Slack Notifications
+
+**Scenario**: Notify your security team in Slack when high-severity issues are found
+
+**Setup**:
+- Create a Slack incoming webhook URL in your Slack workspace
+- In Corgea, create a webhook with:
+  - Type: `Slack`
+  - URL: Your Slack webhook URL
+  - Events: `scan.completed`
+  - Project Filter: Critical production projects
+
+**Result**: Your #security channel gets instant notifications when scans complete
+
+---
+
+### 2. Automated Ticketing for Critical Issues
+
+**Scenario**: Automatically create tickets in Jira/Linear when critical issues are detected
+
+**Setup**:
+- Create a Zapier zap or custom endpoint that creates tickets
+- In Corgea, create a webhook with:
+  - Events: `scan.completed`, `issue.status_changed`
+  - Status Filter: Only `open` status (to avoid duplicate tickets)
+  - Project Filter: Production projects
+
+**Result**: High/critical issues automatically become tickets in your project management tool
+
+---
+
+### 3. Risk Acceptance Workflow Integration
+
+**Scenario**: Automatically document accepted risks in Jira or Linear when security issues are marked as "Accepted Risk"
+
+**Setup**:
+- Create an endpoint or Zapier integration that creates documentation tickets
+- In Corgea, create a webhook with:
+  - Events: `issue.status_changed`
+  - Status Filter: Only `accepted_risk` status
+  - Project Filter: All projects or specific high-compliance projects
+- Configure the integration to:
+  - Create a ticket documenting the risk acceptance
+  - Include issue details (classification, file path, urgency)
+  - Tag with "risk-acceptance" label
+  - Assign to security lead for review
+
+**Result**: Every accepted risk is automatically logged in your project management system with full context, creating an audit trail for compliance and risk management reviews
+
+---
+
+### 4. Custom Dashboard Integration
+
+**Scenario**: Display real-time security metrics on your internal dashboard
+
+**Setup**:
+- Build an endpoint that receives webhook data and updates your dashboard
+- In Corgea, create a webhook with:
+  - Events: All scan and issue events
+  - No filters (receive everything)
+
+**Result**: Your dashboard shows live security scan results and issue trends
+
+---
+
+### 5. Multi-team Routing
+
+**Scenario**: Route different project notifications to different teams
+
+**Setup**:
+- Create separate webhooks for each team:
+  - **Backend Team Webhook**: Project filter = backend projects, Slack channel #backend-security
+  - **Frontend Team Webhook**: Project filter = frontend projects, Slack channel #frontend-security
+  - **DevOps Team Webhook**: Project filter = infrastructure projects, Slack channel #devops-security
+
+**Result**: Each team only sees security issues relevant to their projects
+
+---
+
+### 6. Compliance Reporting
+
+**Scenario**: Automatically log all security findings to a compliance system
+
+**Setup**:
+- Create an endpoint that writes to your compliance database
+- In Corgea, create a webhook with:
+  - Events: `scan.completed`
+  - All projects
+  - Store webhook delivery history for audit trail
+
+**Result**: Complete audit trail of all security scans for compliance purposes
+
+---
+
+## Troubleshooting
+
+### Viewing Webhook Delivery History
+
+<Steps>
+  <Step title="Navigate to Webhook History">
+    Navigate to **Integrations** → **Webhooks**
+
+    <img src="/images/webhooks/webhook_history.png" alt="Webhook delivery history showing recent webhook attempts" />
+  </Step>
+  <Step title="Access Delivery Log">
+    Click on **History** or **Delivery Log**
+  </Step>
+  <Step title="Review Delivery Details">
+    <img src="/images/webhooks/webhook_history_details.png" alt="Detailed webhook delivery information including request and response" />
+
+    View all webhook delivery attempts with:
+    - Event type and timestamp
+    - HTTP status code
+    - Request/response details
+    - Error messages (if any)
+    - Retry attempts
+  </Step>
+</Steps>
+
+### Common Issues and Solutions
+
+<AccordionGroup>
+  <Accordion title="Webhook Not Receiving Events" icon="circle-xmark">
+    **Possible Causes:**
+    - Webhook is paused or inactive
+    - Event subscriptions not configured
+    - Project/status filters excluding events
+    - Endpoint not returning 2xx status codes
+
+    **Solutions:**
+    1. Check webhook status - ensure it's active (not paused)
+    2. Verify event subscriptions are selected
+    3. Review filters - temporarily remove filters to test
+    4. Check your endpoint logs for incoming requests
+    5. Test the webhook using the "Test Webhook" button
+  </Accordion>
+
+  <Accordion title="Webhook Automatically Paused" icon="pause">
+    **Cause:** 10 consecutive delivery failures
+
+    **Solutions:**
+    1. Check the delivery history for error details
+    2. Verify your endpoint URL is correct and accessible
+    3. Ensure your endpoint returns 2xx status codes
+    4. Check for firewall/security rules blocking Corgea's requests
+    5. Fix the underlying issue, then **manually re-activate** the webhook
+    6. Use "Test Webhook" to verify it's working before re-enabling
+  </Accordion>
+
+  <Accordion title="Receiving Too Many Webhook Calls" icon="volume-high">
+    **Solutions:**
+    1. **Use Status Filters**: For `issue.status_changed`, filter to only statuses you care about (e.g., only `fixed` and `false_positive`)
+    2. **Use Project Filters**: Only subscribe to specific critical projects
+    3. **Reduce Event Subscriptions**: Unsubscribe from events you don't need
+    4. **Implement Rate Limiting**: On your endpoint, implement rate limiting or queuing
+  </Accordion>
+
+  <Accordion title="Signature Verification Failing" icon="shield-xmark">
+    **Possible Causes:**
+    - Wrong secret key
+    - Incorrect signature verification logic
+    - Character encoding issues
+
+    **Solutions:**
+    1. Verify you're using the exact secret key from Corgea
+    2. Ensure you're using HMAC-SHA256 algorithm
+    3. Use the raw request body (not parsed JSON) for verification
+    4. Check for UTF-8 encoding on both sides
+    5. Use `hmac.compare_digest()` (Python) or `crypto.timingSafeEqual()` (Node.js) for timing-safe comparison
+
+    <Tip>Log both the received signature and your computed signature to compare</Tip>
+  </Accordion>
+
+  <Accordion title="Endpoint Timing Out" icon="clock">
+    **Cause:** Your endpoint takes longer than 10 seconds to respond
+
+    **Solutions:**
+    1. **Acknowledge Immediately**: Return 200 OK immediately, then process asynchronously
+    2. **Use a Queue**: Add webhook payloads to a queue for background processing
+    3. **Optimize Processing**: Speed up your webhook handler logic
+    4. **Increase Resources**: Scale up your endpoint infrastructure
+
+    **Best Practice Pattern:**
+    ```python webhook-handler.py
+    @app.route('/webhook', methods=['POST'])
+    def handle_webhook():
+        payload = request.json
+
+        # Immediately acknowledge receipt
+        queue.add(process_webhook, payload)
+
+        # Return quickly
+        return '', 200
+
+    def process_webhook(payload):
+        # Do time-consuming work here
+        ...
+    ```
+  </Accordion>
+
+  <Accordion title="Duplicate Events" icon="copy">
+    **Possible Causes:**
+    - Multiple webhooks subscribed to same event
+    - Retry logic triggering after delayed success
+
+    **Solutions:**
+    1. Check for duplicate webhook configurations
+    2. Use `event_id` field for idempotency - store processed event IDs and skip duplicates
+    3. Implement idempotency keys in your endpoint
+
+    **Idempotency Pattern:**
+    ```python idempotency.py
+    processed_events = set()  # Or use Redis/database
+
+    @app.route('/webhook', methods=['POST'])
+    def handle_webhook():
+        event_id = request.json['event_id']
+
+        if event_id in processed_events:
+            return '', 200  # Already processed
+
+        # Process event...
+        processed_events.add(event_id)
+        return '', 200
+    ```
+  </Accordion>
+
+  <Accordion title="Missing Data in Payload" icon="question">
+    **Solutions:**
+    1. Check the webhook delivery history for the full payload
+    2. Some fields may be `null` if data doesn't exist (e.g., unassigned issues)
+    3. Implement null checks in your handler code
+    4. Reference the event-specific payload structure in the delivery history
+  </Accordion>
+</AccordionGroup>
+
+### Getting Webhook Statistics
+
+View performance metrics for your webhooks:
+
+1. Navigate to **Integrations** → **Webhooks**
+2. View each webhook's statistics:
+   - **Total Deliveries**: Total number of webhook calls
+   - **Successful Deliveries**: Calls that returned 2xx
+   - **Failed Deliveries**: Calls that failed or timed out
+   - **Success Rate**: Percentage of successful deliveries
+   - **Consecutive Failures**: Current failure streak
+   - **Last Triggered**: When the webhook last fired
+
+---
+
+### Manual Retry
+
+If a webhook delivery failed, you can manually retry it:
+
+1. Go to **Integrations** → **Webhooks** → **History**
+2. Find the failed delivery
+3. Click **Retry**
+4. A new delivery attempt will be created and sent immediately
+
+---
+
+### Exporting Delivery History
+
+For compliance or debugging, export webhook delivery history:
+
+1. Navigate to **Integrations** → **Webhooks** → **History**
+2. Apply filters (date range, event type, status, webhook)
+3. Click **Export** to download CSV
+4. Use the export for:
+   - Compliance audits
+   - Performance analysis
+   - Debugging patterns
+   - Issue resolution tracking
+
+---
+
+### Testing Tips
+
+<Accordion title="Before Going Live">
+  1. Use [webhook.site](https://webhook.site) or [RequestBin](https://requestbin.com) to inspect payloads
+  2. Test with low-volume projects first
+  3. Monitor delivery success rate for the first few days
+  4. Set up alerting for webhook failures in your own system
+</Accordion>
+
+<Accordion title="Debug Checklist">
+  - Webhook URL is correct and accessible
+  - Endpoint returns 2xx status code within 10 seconds
+  - Firewall allows Corgea's requests
+  - Event subscriptions are selected
+  - Filters are configured correctly (or removed for testing)
+  - Signature verification works (if using secret)
+  - Webhook is active (not paused)
+</Accordion>
+
+---
+
+## Payload Examples
+
+<Tabs>
+  <Tab title="Issue Status Changed">
+    ```json issue-status-changed.json
+    {
+      "event_id": "a1b2c3d4-e5f6-7890-abcd-ef1234567890",
+      "event_type": "issue.status_changed",
+      "timestamp": "2025-01-15T14:30:00.000Z",
+      "data": {
+        "company": "comp-uuid-1234",
+        "issue_id": "issue-uuid-5678",
+        "classification": "SQL Injection",
+        "urgency": "HI",
+        "status": "fixed",
+        "previous_status": "open",
+        "file_path": "src/controllers/user.py",
+        "line_num": 45,
+        "project": {
+          "id": "proj-uuid-9012",
+          "name": "Production API"
+        },
+        "scan_id": "scan-uuid-3456",
+        "url": "https://app.corgea.com/issue/issue-uuid-5678/"
+      }
+    }
+    ```
+  </Tab>
+
+  <Tab title="Scan Completed">
+    ```json scan-completed.json
+    {
+      "event_id": "b2c3d4e5-f6a7-8901-bcde-f12345678901",
+      "event_type": "scan.completed",
+      "timestamp": "2025-01-15T15:45:00.000Z",
+      "data": {
+        "company": "comp-uuid-1234",
+        "scan_id": "scan-uuid-7890",
+        "run_id": "run-12345",
+        "project": {
+          "id": "proj-uuid-9012",
+          "name": "Production API"
+        },
+        "branch": "main",
+        "engine": "corgea-blast",
+        "scan_type": "full",
+        "issues_found": 8,
+        "processed_at": "2025-01-15T15:45:00.000Z",
+        "created_at": "2025-01-15T15:40:00.000Z"
+      }
+    }
+    ```
+  </Tab>
+
+  <Tab title="Issue Assigned">
+    ```json issue-assigned.json
+    {
+      "event_id": "c3d4e5f6-a7b8-9012-cdef-123456789012",
+      "event_type": "issue.assigned",
+      "timestamp": "2025-01-15T16:00:00.000Z",
+      "data": {
+        "company": "comp-uuid-1234",
+        "issue_id": "issue-uuid-5678",
+        "classification": "Cross-Site Scripting (XSS)",
+        "urgency": "ME",
+        "status": "open",
+        "assigned_to": {
+          "id": "user-uuid-1111",
+          "email": "jane.doe@company.com",
+          "name": "Jane Doe"
+        },
+        "previously_assigned_to": {
+          "id": "user-uuid-2222",
+          "email": "john.smith@company.com",
+          "name": "John Smith"
+        },
+        "project": {
+          "id": "proj-uuid-9012",
+          "name": "Production API"
+        },
+        "url": "https://app.corgea.com/issue/issue-uuid-5678/"
+      }
+    }
+    ```
+  </Tab>
+</Tabs>
+
+---
+
+## FAQ
+
+<AccordionGroup>
+  <Accordion title="Can I use the same webhook URL for multiple event types?">
+    Yes! Your endpoint will receive an `X-Corgea-Event` header and `event_type` field to identify the event.
+  </Accordion>
+
+  <Accordion title="How many webhooks can I create?">
+    There's no hard limit, but we recommend organizing by purpose (e.g., one per team or tool).
+  </Accordion>
+
+  <Accordion title="What happens if my endpoint is down?">
+    Corgea will retry 3 times with exponential backoff. After 10 consecutive failures, the webhook auto-pauses.
+  </Accordion>
+
+  <Accordion title="Can I test webhooks without triggering real events?">
+    Yes! Use the "Test Webhook" button to send a sample payload without waiting for real events.
+  </Accordion>
+
+  <Accordion title="Do webhooks support authentication?">
+    Yes! Use custom headers to include authentication tokens, or use HMAC signature verification.
+  </Accordion>
+
+  <Accordion title="Can I filter webhooks to specific branches?">
+    Not directly, but you can filter by project. You can also filter on the received payload in your endpoint.
+  </Accordion>
+
+  <Accordion title="Are webhook payloads encrypted?">
+    Payloads are sent over HTTPS (TLS), providing encryption in transit. Use HMAC signatures for verification.
+  </Accordion>
+
+  <Accordion title="How long are webhook delivery logs kept?">
+    Delivery logs are retained for compliance and debugging. Check with your plan for specific retention periods.
+  </Accordion>
+
+  <Accordion title="Can I retry a webhook manually?">
+    Yes! Go to the webhook delivery history and click "Retry" on any failed delivery.
+  </Accordion>
+
+  <Accordion title="What IP addresses does Corgea send webhooks from?">
+    Contact support for the current list of IP addresses to whitelist in your firewall.
+  </Accordion>
+</AccordionGroup>
+
+---
+
+**Questions or issues?** Contact [Corgea Support](mailto:support@corgea.com)
