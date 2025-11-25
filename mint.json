@@ -26,6 +26,12 @@
       "url": "mailto:help@corgea.com"
     }
   ],
+  "redirects": [
+    {
+      "source": "/install_cli",
+      "destination": "/cli"
+    }
+  ],
   "topbarCtaButton": {
     "name": "Go to Corgea",
     "url": "https://www.corgea.app"
