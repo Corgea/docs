@@ -9,6 +9,10 @@ description: 'Blocking rules help enforce security and quality standards by prev
 
 Blocking rules are powerful guardrails that allow you to define specific conditions under which pull requests should be blocked from being merged. This helps ensure that your codebase adheres to your organization's security and quality standards by preventing potentially risky or non-compliant code changes from being merged.
 
+You can create two types of blocking rules:
+- **Code Vulnerability Rules**: Block PRs based on code security issues found by SAST scanning
+- **Dependency Vulnerability Rules**: Block PRs based on vulnerable dependencies found by SCA scanning
+
 ### Who it's For
 
 Blocking rules are primarily designed for:
@@ -37,6 +41,31 @@ This feature is particularly useful for organizations with strict compliance req
     Toggle the status of blocking rules to temporarily enable or disable them as needed, without losing their configurations.
   </Accordion>
 </AccordionGroup>
+
+## Rule Types
+
+Blocking rules support two distinct types to provide comprehensive security coverage:
+
+<CardGroup cols={2}>
+  <Card title="Code Vulnerability" icon="code">
+    Blocks pull requests based on **code security issues** found by static application security testing (SAST). 
+    
+    Configure by:
+    - Selecting specific CWE (Common Weakness Enumeration) categories
+    - Setting urgency/severity levels
+    
+    Use this to prevent issues like SQL injection, XSS, insecure cryptography, and other code-level vulnerabilities.
+  </Card>
+  
+  <Card title="Dependency Vulnerability" icon="box">
+    Blocks pull requests based on **vulnerable dependencies** found by software composition analysis (SCA).
+    
+    Configure by:
+    - Setting urgency/severity levels (Critical, High, Medium, Low)
+    
+    Use this to prevent the introduction of packages with known security vulnerabilities, ensuring your supply chain remains secure.
+  </Card>
+</CardGroup>
 
 ## How it Works with GitHub
 
@@ -113,14 +142,21 @@ This feature is particularly useful for organizations with strict compliance req
   <Step title="Initiate Creation">
     Click the "Add Blocking Rule" button
   </Step>
-  <Step title="Basic Information">
-    Enter rule name and description
+  <Step title="Choose Rule Type">
+    Select the type of blocking rule:
+    - **Code Vulnerability**: Block pull requests based on code security issues (SAST findings)
+    - **Dependency Vulnerability**: Block pull requests based on vulnerable dependencies (SCA findings)
     <Frame>
       <img src="/images/blocking_rule_create.png" style={{ borderRadius: '0.5rem' }} />
     </Frame>
   </Step>
+  <Step title="Basic Information">
+    Enter rule name and description
+  </Step>
   <Step title="Configure Settings">
-    Select urgency levels (Critical, High, Medium, or Low) and/or target CWEs - at least one of these must be defined for the rule to be valid
+    For **Code Vulnerability** rules: Select urgency levels (Critical, High, Medium, or Low) and/or target CWEs - at least one of these must be defined for the rule to be valid
+    
+    For **Dependency Vulnerability** rules: Select urgency levels (Critical, High, Medium, or Low) to block pull requests with vulnerable dependencies matching those severity levels
   </Step>
   <Step title="Set Scope">
     Choose applicable projects (optional)
@@ -170,10 +206,19 @@ This feature is particularly useful for organizations with strict compliance req
 
 <AccordionGroup>
   <Accordion title="Blocking Insecure Cryptography" icon="lock">
+    **Rule Type:** Code Vulnerability
+    
     Create a rule targeting CWE-326 (Inadequate Encryption Strength) and CWE-327 (Use of a Broken or Risky Cryptographic Algorithm) with "Critical" urgency to prevent weak encryption usage.
   </Accordion>
   <Accordion title="Enforcing Code Quality" icon="code">
+    **Rule Type:** Code Vulnerability
+    
     Set up a rule for CWE-398 (Indicator of Poor Code Quality) and CWE-477 (Use of Obsolete Functions) with "Medium" urgency to maintain code standards.
+  </Accordion>
+  <Accordion title="Blocking Critical Dependency Vulnerabilities" icon="box">
+    **Rule Type:** Dependency Vulnerability
+    
+    Create a rule with "Critical" and "High" urgency levels selected to automatically block any pull request that introduces dependencies with critical or high-severity vulnerabilities. This ensures your supply chain remains secure and prevents known vulnerable packages from entering your codebase.
   </Accordion>
 </AccordionGroup>
 
@@ -181,10 +226,13 @@ This feature is particularly useful for organizations with strict compliance req
 
 <Card title="Implementation Tips" icon="lightbulb">
 - Start with essential rules and gradually expand
+- For **Dependency Vulnerability rules**, begin with Critical severity only, then add High as your team adjusts
+- For **Code Vulnerability rules**, focus on the most impactful CWEs first (e.g., injection flaws, authentication issues)
 - Regular review and updates
 - Clear documentation and team training
 - Encourage feedback and collaboration
 - Strategic use of urgency levels
+- Consider creating separate rules for different project types or teams
 </Card>
 
 ## Troubleshooting
