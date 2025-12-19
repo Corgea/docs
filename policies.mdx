@@ -63,11 +63,11 @@ A well-structured policy should include the following components:
 
 4. **Vulnerability Types (CWEs)**: Choose which types of security vulnerabilities this policy should handle, based on your risk profile.
 
-5. **Scope**: Select which projects to apply this policy to, allowing for environment-specific policies.
+5. **Projects**: Select which projects to apply this policy to, allowing for environment-specific policies.
 
-6. **Append Instruction**: When enabled, this option appends your policy instructions to Corgea's built-in policies rather than replacing them. This is useful when you want to add additional context or requirements to the default behavior without losing Corgea's pre-configured rules.
-   - **When to Enable**: Use this when you want to enhance the default policies with your specific business context, security controls, or environmental details.
-   - **When to Disable**: Disable this when you want your policy to completely override Corgea's default behavior for specific scenarios.
+6. **Instruction Type**: Choose how your policy instructions interact with Corgea's built-in policies:
+   - **Append to Corgea Default Policy**: Adds your policy instructions to Corgea's built-in policies, preserving both sets of rules. Use this when you want to enhance the default policies with your specific business context, security controls, or environmental details.
+   - **Replace Corgea Default Policy**: Your policy instructions completely override Corgea's default behavior. Use this when you want full control over how specific scenarios are handled.
 
 ## Policy Best Practices
 
@@ -288,12 +288,12 @@ policies:
 ## Advanced configuration for corgea.yaml
 Optionally, you can add these fields 
 
-- `append_instruction` : When set to `true`, this appends your policy instructions to Corgea's built-in policies rather than replacing them. This allows you to enhance default policies with your specific context while preserving Corgea's pre-configured rules. Defaults to `false`.
+- `instruction_type` : Determines how your policy instructions interact with Corgea's built-in policies. Can be set to `"append"` or `"overwrite"`. When set to `"append"`, your policy instructions are added to Corgea's built-in policies, preserving both sets of rules. When set to `"overwrite"` (default), your policy instructions completely replace Corgea's default behavior.
 
 ```
 policies:
   - type: "fix"
-    append_instruction: true
+    instruction_type: "append"
     description: >
       Additionally, ensure all fixes integrate with our custom SecureMiddleware framework
       and follow our internal security guidelines for key rotation.
