@@ -1,175 +1,76 @@
 ---
 title: 'Bitbucket'
-description: 'Setting up Corgea with Bitbucket'
+description: 'Comprehensive Guide to Configuring Bitbucket with Corgea'
 ---
 
-Corgea integrates seamlessly with Bitbucket to provide comprehensive vulnerability detection and remediation as part of your CI/CD pipeline. This guide walks you through setting up the integration to automatically scan your code, upload results to Corgea, and display findings directly in your pull requests.
-
-## Overview
-
-The integration follows this workflow:
-
-1. Developer pushes code or opens a PR in Bitbucket
-2. Bitbucket Pipeline runs build, tests, and security scans
-3. Security scanner (e.g., Fortify SAST, Snyk, etc.) performs analysis and generates findings
-4. Corgea CLI uploads and processes the security results
-5. Results are posted back to Bitbucket as Code Insights
-
-## Prerequisites
-
-Before setting up the integration, ensure you have:
-
-- Administrative access to your Bitbucket repository
-- A security scanning tool configured (e.g., Fortify SAST, Snyk, etc.)
-- A Corgea API token (available in your account settings)
-- Appropriate permissions to configure Bitbucket Pipelines
-
-## Integration Steps
+The Bitbucket integration with Corgea enables you to scan projects and create pull requests for code fixes directly from the Corgea platform.
 
 <Steps>
-  <Step title="Configure Repository Variables">
-    In your Bitbucket repository settings, add the following in the "Repository variables" section:
-
-    - `CORGEA_API_TOKEN`: Your Corgea API token
-
-    This variable will be securely used by the pipeline to authenticate with Corgea.
-
+  <Step title="Create a Dedicated User for Corgea (Optional)">
+    While not required, we recommend creating a dedicated Bitbucket user account for Corgea integration. This helps distinguish Corgea's automated actions from your personal account activity and provides better auditability.
+    <Frame>
+      <img src="/images/bitbucket_user.png" style={{ borderRadius: '0.5rem' }} alt="Create Bitbucket User" />
+    </Frame>
   </Step>
-
-  <Step title="Configure Bitbucket Pipelines (External Security Scan)">
-    Create or update your `bitbucket-pipelines.yml` file in the root of your repository. This example keeps a dedicated SAST engine (e.g., Fortify SAST) and then hands the results off to Corgea for triage and PR annotations.
-
-    ```yaml
-    image: python:3.11      # or any base image with your security tools + Python + jq
-
-    pipelines:
-      default:
-        - step:
-            name: Build-Test-Security-Corgea
-            caches:
-              - pip
-            script:
-              # ---------- Build & Test ----------
-              - apt-get update && apt-get install -y --no-install-recommends jq
-              # Your build and test commands here
-
-              # ---------- Security Scan ----------
-              # Example using Fortify SAST
-              - sourceanalyzer -b ${BITBUCKET_REPO} -clean
-              - sourceanalyzer -b ${BITBUCKET_REPO} javac -cp libs/*.jar $(git ls-files '*.java')
-              - sourceanalyzer -b ${BITBUCKET_REPO} -scan -f scan.fpr -disable-source-bundling true
-
-              # ---------- Corgea ----------
-              - pip install --quiet corgea-cli
-              - corgea login ${CORGEA_API_TOKEN}
-              - corgea upload scan.fpr --project ${BITBUCKET_REPO}
-
-              # Wait for triage to complete and capture the Scan ID
-              - SCAN_ID=$(corgea wait | jq -r '.id')
-
-              # ---------- Retrieve & iterate through issues ----------
-              - mkdir -p corgea_issues
-              # List ALL issues for this scan, in JSON
-              - corgea ls --issues --scan-id \"${SCAN_ID}\" --json > issues.json
-              # Extract each issue ID and loop
-              - |
-                for ISSUE_ID in $(jq -r '.results.[].id' issues.json); do
-                  echo "Fetching details for $ISSUE_ID"
-                  corgea inspect --issue "$ISSUE_ID" --json > "corgea_issues/${ISSUE_ID}.json"
-                done
-
-              # ---------- Code Insights ----------
-              # A helper that reads the *.json files and pushes annotations
-              - ./scripts/post-code-insights.sh corgea_issues
-    ```
-
+  <Step title="Generate an API Access Token">
+    Navigate to the <a href="https://id.atlassian.com/manage-profile/security/api-tokens" target="_blank">Atlassian API Tokens page</a> and click "Create API token with scopes" to begin.
+    <Frame>
+      <img src="/images/bitbucket_create_access_token.png" style={{ borderRadius: '0.5rem' }} alt="Create API Token" />
+    </Frame>
+    Provide a descriptive name for your token and set the expiration date to one year from today. This ensures the token remains valid for an extended period while maintaining security best practices.
+    <Frame>
+      <img src="/images/bitbucket_token_name.png" style={{ borderRadius: '0.5rem' }} alt="Token Name and Expiration" />
+    </Frame>
+    Select **Bitbucket** from the applications list to grant Bitbucket access to this token.
+    <Frame>
+      <img src="/images/bitbucket_app_selection.png" style={{ borderRadius: '0.5rem' }} alt="Select Bitbucket App" />
+    </Frame>
+    Configure the required scopes for Corgea integration. Enable the following scopes:
+    <div class="alert alert-info" role="alert">
+      <strong>Required Scopes:</strong>
+      <ul class="mb-0 mt-2">
+        <li><code>Repositories: "read:repository:bitbucket", "write:repository:bitbucket"</code></li>
+        <li><code>Pull requests: "read:pullrequest:bitbucket", "write:pullrequest:bitbucket"</code></li>
+        <li><code>Webhooks: "read:webhook:bitbucket", "write:webhook:bitbucket", "delete:webhook:bitbucket"</code></li>
+        <li><code>General Info: "read:me", "read:workspace:bitbucket"</code></li>
+      </ul>
+    </div>
+    <Frame>
+      <img src="/images/bitbucket_token_scopes.png" style={{ borderRadius: '0.5rem' }} alt="Token Scopes" />
+    </Frame>
+    Review your configuration and click "Create token" to generate the access token.
+    <Frame>
+      <img src="/images/bitbucket_create_token.png" style={{ borderRadius: '0.5rem' }} alt="Create Token" />
+    </Frame>
+    After the token is created, click the copy button to copy the token value. You'll need this token in the next step, and it won't be displayed again.
+    <Frame>
+      <img src="/images/bitbucket_copy_token.png" style={{ borderRadius: '0.5rem' }} alt="Copy Token" />
+    </Frame>
   </Step>
-
-  <Step title="Configure Bitbucket Pipelines (Corgea-only Scan)">
-    If you would rather skip a dedicated SAST tool and let Corgea handle scanning end-to-end, use the following pipeline. In this example, we use the lightning-fast [`uv`](https://docs.astral.sh/uv/) python package manager to install dependencies, runs unit tests and linting, then executes [`corgea scan`](/cli#scan-your-codebase) to analyse the repository. The remainder of the script checks for triage and pushes issue details back to Bitbucket Code Insights.
-
-    ```yaml
-    image: python:3.11      # or any base image with your security tools + Python + jq + make
-
-    pipelines:
-      default:
-        - step:
-            name: Build-Test-Corgea
-            caches:
-              - pip
-            script:
-              # ---------- Build & Test ----------
-              - apt-get update && apt-get install -y --no-install-recommends make jq
-              - pip install --quiet uv
-              - make install          # install dependencies via uv
-              - make lint             # static analysis via ruff
-              - make test             # run pytest suite
-              - source .venv/bin/activate     # activate the virtual environment
-
-              # ---------- Corgea Scan ----------
-              - uv add --group dev corgea-cli # install corgea-cli via uv
-              - corgea login ${CORGEA_API_TOKEN} # login to Corgea
-              - corgea scan # scan the repo
-              - SCAN_ID=$(corgea ls | grep -oE '^[0-9a-f-]{36}' | head -1) # get the scan id
-              - |
-                if [ -n "$SCAN_ID" ]; then
-                  echo "SCAN_ID found: $SCAN_ID"
-                else
-                  echo "No SCAN_ID found with 'corgea ls'"
-                  exit 1
-                fi
-
-              # ---------- Retrieve & iterate through issues ----------
-              - mkdir -p corgea_issues
-              # List ALL issues for this scan, in JSON
-              - corgea ls --issues --scan-id "${SCAN_ID}" --json > issues.json
-              # Extract each issue ID and loop
-              - |
-                for ISSUE_ID in $(jq -r '.results.[].id' issues.json); do
-                  echo "Fetching details for $ISSUE_ID"
-                  corgea inspect --issue "$ISSUE_ID" --json > "corgea_issues/${ISSUE_ID}.json"
-                  cat "corgea_issues/${ISSUE_ID}.json"
-                done
-
-              # ---------- Code Insights ----------
-              # A helper that reads the *.json files and pushes annotations
-              # - ./scripts/post-code-insights.sh corgea_issues
-    ```
-
+  <Step title="Configure Bitbucket Integration in Corgea">
+    Access your Corgea dashboard at `corgea.app` or `{your-instance}.corgea.app` and navigate to the Integrations page using the sidebar or integrations link.
+    <Frame>
+      <img src="/images/bitbucket_integration_page.png" style={{ borderRadius: '0.5rem' }} alt="Corgea Integrations Page" />
+    </Frame>
+    In the "Code Repository Integrations" section, locate Bitbucket and click the plus (+) icon to create a new integration.
+    <Frame>
+      <img src="/images/bitbucket_new_integration.png" style={{ borderRadius: '0.5rem' }} alt="New Integration" />
+    </Frame>
+    Complete the integration form with the following information:
+    - **Workspace slug**: Your Bitbucket workspace identifier
+    - **Email address**: The email associated with the Bitbucket account used to generate the API token
+    - **Access token**: The API token you copied in the previous step
+    - **Integration name** (optional): A custom name to identify this integration if you manage multiple Bitbucket workspaces
+    <Frame>
+      <img src="/images/bitbucket_create_modal.png" style={{ borderRadius: '0.5rem' }} alt="Create Integration Modal" />
+    </Frame>
+    Corgea validates your credentials automatically. If any information is incorrect, you'll receive an error message with details about what needs to be corrected.
+    <Frame>
+      <img src="/images/bitbucket_modal_validation.png" style={{ borderRadius: '0.5rem' }} alt="Validation" />
+    </Frame>
+    Upon successful validation, you'll see a confirmation message indicating that the integration is complete. Webhooks are automatically configured during this process, so no manual webhook setup is required. You can view the integration details, including webhook status, from the integrations page.
+    <Frame>
+      <img src="/images/bitbucket_success_message.png" style={{ borderRadius: '0.5rem' }} alt="Success Message" />
+    </Frame>
   </Step>
-
 </Steps>
-
-## How It Works
-
-1. **Trigger**: When a developer pushes code or opens a PR, Bitbucket Pipelines automatically runs the configured pipeline.
-
-2. **Security Scan**: The pipeline runs your chosen security scanner to analyze your code and generate results containing potential vulnerabilities.
-
-3. **Corgea Processing**: The Corgea CLI uploads the results to Corgea's cloud platform, which:
-
-   - Parses the security findings
-   - Deduplicates findings
-   - Uses AI to triage issues (BLAST)
-   - Optionally generates Git-diff fixes
-
-4. **Results Integration**: The pipeline fetches the processed results from Corgea and posts them to Bitbucket Code Insights, making them visible directly in the PR.
-
-5. **Developer Feedback**: Developers see security issues as inline comments in their code, with severity indicators and detailed explanations.
-
-## Viewing Results
-
-After the pipeline completes, you can view the security findings in several ways:
-
-1. **Pull Request View**: Security annotations appear directly in the PR diff view
-2. **Code Insights Tab**: A summary report is available in the PR's Code Insights tab
-3. **Corgea Dashboard**: Comprehensive analysis and fix suggestions are available in your Corgea dashboard
-
-## Troubleshooting
-
-If you encounter issues with the integration, check the following:
-
-- Ensure all repository variables are correctly set
-- Verify that your security scan is completing successfully
-- Check the Bitbucket Pipeline logs for any error messages
-- Confirm that your Corgea API token has not expired
