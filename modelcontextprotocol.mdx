@@ -250,8 +250,10 @@ Add Corgea to your Cursor MCP configuration:
       "command": "npx",
       "args": [
         "-y",
-        "@modelcontextprotocol/server-fetch",
-        "https://www.corgea.app/mcp"
+        "mcp-remote",
+        "https://www.corgea.app/mcp",
+        "--header",
+        "CORGEA-TOKEN: ${CORGEA_TOKEN}"
       ],
       "env": {
         "CORGEA_TOKEN": "your_api_token_here"
