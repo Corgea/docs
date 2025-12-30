@@ -184,6 +184,31 @@ Enterprise Application:
 - **Medium**: Should be addressed in regular maintenance cycles
 - **Low**: Minor issues that can be addressed when convenient
 
+## Container & Image Scanning
+
+Container scanning identifies security vulnerabilities in Docker images used in your project. This includes vulnerabilities in base operating system packages, system libraries, and any software installed within the container image layers. By scanning container images, you can identify security risks before deploying containerized applications to production.
+
+Corgea automatically discovers container images in your project by scanning for Dockerfiles and docker-compose configuration files. The scanner extracts all image references (such as `FROM python:3.11-slim` in Dockerfiles or `image: postgres:15` in docker-compose files) and analyzes them for known vulnerabilities.
+
+**Supported Registries**:
+- Docker Hub, GitHub Container Registry (GHCR), Google Container Registry (GCR), Quay.io, Microsoft Container Registry (MCR), Amazon ECR Public, GitLab Container Registry
+
+<Info>Container scanning is automatically enabled when Docker files are detected in your project. No configuration needed.</Info>
+
+**Limitations**:
+- Only public registry images are scanned
+- Maximum image size: 200MB
+- Private registry images are skipped
+
+### Container Security Best Practices
+
+<Tip>Use specific image tags (e.g., `python:3.11.5-slim`) instead of `latest` for consistent scan results.</Tip>
+
+* **Use Specific Tags**: Avoid `latest` tags; pin exact versions for reproducible scans
+* **Prefer Minimal Base Images**: Use slim, alpine, or distroless variants to reduce attack surface
+* **Regular Updates**: Keep base images updated to receive security patches
+* **Multi-Stage Builds**: Minimize final image size and included packages
+
 ## Best Practices
 
 <Tip>Enable automatic scanning to catch new vulnerabilities as they are disclosed in real-time.</Tip>
