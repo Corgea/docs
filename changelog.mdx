@@ -2,6 +2,37 @@
 title: "Changelog"
 description: "Product updates and announcements"
 ---
+<Update label="2026.01.06" description="v1.55.4">
+    **New Features:**
+    - Added Quick View for viewing security issues with improved navigation
+    - Introduced Dependency Vulnerability Details page for comprehensive vulnerability analysis
+    - Added markdown support for enhanced documentation and formatting
+    - New filter to display only scans with identified issues
+    - Enhanced policy configuration with support for [append instructions](policies#policy-structure)
+    - Improved scanner timing metadata for better performance tracking
+
+  **UI & Experience:**
+    - Enhanced vulnerability search with loading indicators for better user feedback
+    - Fixed sticky navigation and centered navigation buttons for improved layout
+    - Reorganized scan display with better prioritization of top issues
+    - Added date information to scan history expansion view
+    - Improved navigation layout and responsiveness
+
+  **Team & Access Management:**
+    - Super users are now properly excluded from team assignment lists
+    - Enhanced webhook functionality to include user comments from issue history
+
+  **Pull Request Improvements:**
+    - Deactivated PR rules can now be reactivated as needed
+    - SCA (Software Composition Analysis) issues on PRs are now properly sorted
+
+  **Reliability & Stability:**
+    - Improved error messaging for SAML authentication issues
+    - Enhanced handling when fix summaries are unavailable
+    - Quality scanner enhancements for more reliable results
+    - General bug fixes and performance improvements
+</Update>
+
 <Update label="2025.12.17" description="v1.55.3">
     **New Features:**
     - Added advanced vulnerability search capability to help you find and filter security issues more efficiently.
