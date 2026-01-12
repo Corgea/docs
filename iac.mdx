@@ -1,0 +1,206 @@
+---
+title: 'Infrastructure as Code (IaC) Scanning'
+description: "IaC Scanning automatically detects security misconfigurations and exposed secrets in your infrastructure code before deployment. It analyzes configuration files for Kubernetes, Terraform, Docker, CloudFormation, and other IaC tools to identify security risks, compliance violations, and best practice deviations."
+---
+
+## Overview
+
+* **What it Does**: IaC Scanning analyzes your infrastructure configuration files to identify security misconfigurations, policy violations, and hardcoded secrets before they reach production. It scans various IaC formats including Kubernetes manifests, Terraform files, Dockerfiles, CloudFormation templates, and more, providing detailed findings with severity ratings and remediation guidance.
+
+* **Who it's For**: This feature is designed for DevOps engineers, cloud architects, security teams, and platform engineers who manage infrastructure as code. It's essential for teams adopting cloud-native practices, implementing GitOps workflows, or maintaining compliance requirements in their infrastructure deployments.
+
+## Key Features and Benefits
+
+* **Comprehensive IaC Coverage**: Scans infrastructure code across multiple platforms and formats including Kubernetes, Docker, Terraform, CloudFormation, Azure ARM Templates, and Helm charts
+
+* **Dual Detection Capabilities**:
+  - **Misconfiguration Detection**: Identifies insecure configurations, missing security controls, excessive permissions, and compliance violations
+  - **Secret Detection**: Finds hardcoded credentials, API keys, tokens, and sensitive data embedded in infrastructure code
+
+* **Rich Finding Intelligence**: Provides detailed information including:
+  - Configuration issue descriptions and security impact
+  - Severity ratings (Critical, High, Medium, Low)
+  - Affected resources and file locations
+  - Remediation guidance and best practice recommendations
+
+* **Smart Detection**: Automatically identifies IaC files in your repository and applies appropriate security checks based on file type
+
+## Supported Infrastructure Types
+
+<AccordionGroup>
+  <Accordion title="Kubernetes">
+    **File Patterns**: `*.yml`, `*.yaml`, `*.json`
+    
+    Detects issues like:
+    - Privileged containers and insecure capabilities
+    - Missing resource limits and security contexts
+    - Exposed secrets in manifests
+    - Network policy misconfigurations
+  </Accordion>
+
+  <Accordion title="Docker">
+    **File Patterns**: `Dockerfile`, `Containerfile`
+    
+    Detects issues like:
+    - Running as root user
+    - Missing health checks
+    - Exposed secrets in build arguments
+    - Insecure base images
+  </Accordion>
+
+  <Accordion title="Terraform">
+    **File Patterns**: `*.tf`, `*.tf.json`, `*.tfvars`, `tfplan`, `*.tfplan`
+    
+    Detects issues like:
+    - Publicly accessible cloud resources
+    - Unencrypted storage and databases
+    - Overly permissive IAM policies
+    - Missing logging and monitoring
+  </Accordion>
+
+  <Accordion title="CloudFormation">
+    **File Patterns**: `*.yml`, `*.yaml`, `*.json`
+    
+    Detects issues like:
+    - Open security groups
+    - Unencrypted S3 buckets
+    - Missing CloudTrail logging
+    - Insecure AWS resource configurations
+  </Accordion>
+
+  <Accordion title="Azure ARM Templates">
+    **File Patterns**: `*.json`
+    
+    Detects issues like:
+    - Public blob containers
+    - Disabled encryption
+    - Weak network security rules
+    - Missing diagnostic settings
+  </Accordion>
+
+  <Accordion title="Helm Charts">
+    **File Patterns**: `*.yaml`, `*.tpl`, `*.tar.gz`
+    
+    Detects issues in Helm templates similar to Kubernetes manifest checks
+  </Accordion>
+</AccordionGroup>
+
+## Setup Instructions
+
+<Note>IaC scanning is not enabled by default. Contact support to enable this feature for your company account.</Note>
+
+<Info>Project must contain at least one supported IaC file to enable infrastructure scanning.</Info>
+
+### Configuration Steps
+
+<Steps>
+  <Step title="Verify IaC Files">
+    Ensure your project contains supported infrastructure files in any of the formats listed above
+  </Step>
+  <Step title="Configure Scan Scope">
+    Choose whether to include IaC scanning in full or partial scans
+  </Step>
+  <Step title="Set Up Notifications">
+    Configure alerts for critical misconfigurations and exposed secrets
+  </Step>
+</Steps>
+
+## Usage Guide
+
+### Key Workflows
+
+1. **Automatic Discovery**: The system automatically identifies IaC files in your repository
+2. **Configuration Analysis**: Applies security checks and compliance rules based on file type
+3. **Misconfiguration Detection**: Identifies security issues, policy violations, and best practice deviations
+4. **Secret Detection**: Scans for hardcoded credentials and sensitive information
+5. **Issue Creation**: Creates trackable security issues for each finding
+6. **Reporting**: Generates comprehensive reports with prioritized remediation guidance
+
+### Common Misconfiguration Examples
+
+<CodeGroup>
+
+```yaml Kubernetes - Insecure Container
+# ❌ Insecure
+apiVersion: v1
+kind: Pod
+spec:
+  containers:
+  - name: app
+    image: myapp:latest
+    securityContext:
+      privileged: true  # High severity issue
+```
+
+```dockerfile Docker - Running as Root
+# ❌ Insecure
+FROM ubuntu:latest
+RUN apt-get update && apt-get install -y myapp
+CMD ["myapp"]  # Running as root
+```
+
+```hcl Terraform - Public S3 Bucket
+# ❌ Insecure
+resource "aws_s3_bucket" "data" {
+  bucket = "my-data-bucket"
+  acl    = "public-read"  # Critical severity issue
+}
+```
+
+</CodeGroup>
+
+### Severity Breakdown
+
+<Warning>**Critical**: Immediate action required, exposes sensitive data or allows unauthorized access</Warning>
+
+- **High**: Should be addressed before deployment, significant security risk
+- **Medium**: Should be addressed in regular maintenance, moderate security impact  
+- **Low**: Best practice improvements, minimal immediate risk
+
+## Best Practices
+
+<Tip>Integrate IaC scanning into your CI/CD pipeline to catch issues before deployment.</Tip>
+
+* **Shift Left Security**: Scan infrastructure code during development, not just before deployment
+* **Policy as Code**: Define and enforce organization-specific security policies
+* **Version Control**: Store all infrastructure code in version control for audit trails
+* **Least Privilege**: Configure minimal necessary permissions for all resources
+* **Encryption**: Enable encryption at rest and in transit for all sensitive resources
+* **Regular Reviews**: Periodically review and update IaC security policies
+* **Secret Management**: Use secret management tools (Vault, AWS Secrets Manager) instead of hardcoding
+* **Compliance Alignment**: Map findings to relevant compliance frameworks (CIS, SOC2, etc.)
+
+## Troubleshooting
+
+<AccordionGroup>
+  <Accordion title="No issues found but IaC files are present">
+    **Solution**: Verify that IaC files are in supported formats and contain valid configuration syntax
+    
+    **Check**: Ensure files are not corrupted or contain parsing errors
+  </Accordion>
+
+  <Accordion title="Too many low-severity findings">
+    **Solution**: Focus on Critical and High severity issues first, then address lower severity items
+    
+    **Check**: Consider adjusting severity thresholds based on your organization's risk tolerance
+  </Accordion>
+
+  <Accordion title="False positive misconfigurations">
+    **Solution**: Review the specific configuration context - some findings may not apply to your use case
+    
+    **Check**: Use suppression comments or policy exceptions for intentional configurations
+  </Accordion>
+
+  <Accordion title="Scan not detecting all IaC files">
+    **Solution**: Check that file extensions match supported patterns
+    
+    **Check**: Verify files are not in ignored directories (.gitignore)
+  </Accordion>
+</AccordionGroup>
+
+## Related Features
+
+- [Secret Scanning](secret-scanning) - Dedicated secret detection across all file types
+- [Dependency Scanning (SCA)](sca) - Vulnerability scanning for third-party dependencies
+- [AI-native SAST (BLAST)](blast) - Application security testing for source code
+
