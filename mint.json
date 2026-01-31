@@ -127,7 +127,7 @@
     },
     {
       "group": "Trust & Compliance",
-      "pages": ["security", "legal"]
+      "pages": ["security", "vulnerability-disclosure", "legal"]
     },
     {
       "group": "Authentication",
