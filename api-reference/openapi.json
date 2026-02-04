@@ -588,6 +588,15 @@
             "description": "Filter issues by repository URL"
           },
           {
+            "name": "branch",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "string"
+            },
+            "description": "Filter issues by branch name"
+          },
+          {
             "name": "page",
             "in": "query",
             "required": false,
@@ -936,6 +945,15 @@
               "type": "string"
             },
             "description": "Filter SCA issues by repository URL"
+          },
+          {
+            "name": "branch",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "string"
+            },
+            "description": "Filter SCA issues by branch name"
           },
           {
             "name": "page",
