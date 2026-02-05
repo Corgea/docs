@@ -73,7 +73,8 @@
             "sca",
             "pii",
             "iac",
-            "upload-report"
+            "upload-report",
+            "fingerprint"
           ]
         },
         {

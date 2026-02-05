@@ -1,0 +1,234 @@
+---
+title: "Issue Fingerprinting"
+description: "Learn how Corgea uniquely identifies and tracks security vulnerabilities across scans"
+---
+
+## What is Fingerprinting?
+
+Fingerprinting is Corgea's intelligent method of uniquely identifying security vulnerabilities in your codebase. Think of it as a "DNA" for each security issue—a unique identifier that allows Corgea to recognize the same vulnerability across different scans, even if the code changes slightly over time.
+
+<Info>
+Fingerprinting works automatically in the background. You don't need to configure or maintain it—it's designed to "just work" from the moment you start scanning your code.
+</Info>
+
+## How Does It Work?
+
+When Corgea scans your code and identifies a security issue, it creates a fingerprint based on key characteristics of that issue, including:
+
+- **Location**: The file path and line number where the issue occurs
+- **Context**: The specific line of code and its surrounding structure
+- **Classification**: The type of security vulnerability (e.g., SQL Injection, XSS, etc.)
+
+These elements are combined to create a unique, consistent identifier that persists across multiple scans of your codebase.
+
+### AST-Based Intelligence
+
+Corgea uses **Abstract Syntax Tree (AST)** analysis to make fingerprinting more intelligent and resilient to code changes.
+
+<Accordion title="What's an Abstract Syntax Tree (AST)?">
+An Abstract Syntax Tree is a structural representation of your code that understands the meaning and relationships between different code elements—not just the text itself.
+
+Traditional fingerprinting methods that only look at exact text or line numbers can break easily when you:
+- Add or remove blank lines or comments
+- Reformat your code (change indentation, spacing, etc.)
+- Refactor variable names or function signatures
+</Accordion>
+
+**Why AST matters for you:**
+
+By incorporating AST information into fingerprints, Corgea can:
+- **Recognize the same vulnerability** even when superficial code changes occur
+- **Focus on semantic meaning** rather than just text matching
+- **Maintain tracking** through code reorganization and refactoring
+- **Reduce false positives** when similar-looking but different issues appear
+
+<Tip>
+AST-based fingerprinting means you get more stable, reliable tracking of security issues throughout your development lifecycle—even as your code evolves.
+</Tip>
+
+## Where Is Fingerprinting Used?
+
+<Tabs>
+  <Tab title="Issue Tracking">
+    When you run multiple scans over time, Corgea uses fingerprints to recognize when an issue has:
+    - **Persisted** from previous scans
+    - **Been fixed** and is no longer detected
+    - **Reappeared** after being resolved
+  </Tab>
+  <Tab title="Deduplication">
+    Fingerprints prevent duplicate issue reporting. If the same vulnerability appears in multiple scans or branches, Corgea recognizes them as the same issue and avoids cluttering your dashboard with duplicates.
+  </Tab>
+  <Tab title="Issue History">
+    Every issue's fingerprint is linked to a history that tracks:
+    - When the issue was first detected
+    - Status changes over time
+    - Who was assigned to fix it
+    - Resolution actions taken
+    
+    This gives you a complete audit trail for compliance and security tracking.
+  </Tab>
+  <Tab title="Reporting">
+    Your Corgea dashboards and reports use fingerprints to show:
+    - **Unique vulnerability counts** (not inflated by duplicates)
+    - **Trend analysis** over time
+    - **Project-level security metrics**
+    - **Category-based issue distribution**
+  </Tab>
+</Tabs>
+
+## When and Why Fingerprints Change
+
+While Corgea's fingerprinting is designed to be stable through minor code changes, there are legitimate scenarios where a fingerprint will change. Understanding these helps you interpret your scan results correctly.
+
+<Warning>
+Understanding when fingerprints change is important for accurate issue tracking and security management.
+</Warning>
+
+### Situations That Will Generate a New Fingerprint
+
+<AccordionGroup>
+  <Accordion title="File Moves or Renames" icon="folder-arrow-up">
+    **What happens:** If you move a file to a different directory or rename it, the vulnerability will get a new fingerprint.
+
+    **Example:** Moving `src/utils/database.py` to `src/core/db.py` creates a new fingerprint even if the vulnerable code is identical.
+
+    **Why:** The file path is a core component of the fingerprint. This is intentional—it helps track where vulnerabilities exist in your project structure.
+
+    **What you'll see:** The old issue may appear as "fixed" and a new issue will be detected in the new location.
+
+    <Tip>
+    If you're doing large-scale file reorganization, coordinate with your security team so they understand the context.
+    </Tip>
+  </Accordion>
+
+  <Accordion title="Significant Code Refactoring" icon="code">
+    **What happens:** Major refactoring that changes the structure or context of the vulnerable code will generate a new fingerprint.
+
+    **Example:** Converting a vulnerable inline SQL query into a database helper function with the same vulnerability would change the AST structure significantly.
+
+    **Why:** While AST-based fingerprinting handles minor refactoring, substantial structural changes indicate the code context has meaningfully changed.
+
+    **What you'll see:** The original issue closes and a new one appears, even though the underlying vulnerability pattern remains.
+
+    <Tip>
+    When doing major refactoring, treat these as opportunities to fix the vulnerability rather than just moving it.
+    </Tip>
+  </Accordion>
+
+  <Accordion title="Line Number Shifts Beyond Threshold" icon="arrow-down-1-9">
+    **What happens:** Large insertions or deletions that significantly shift where the vulnerable code sits may change the fingerprint.
+
+    **Example:** Adding 200 lines of new code above a vulnerability might shift its context enough to change the fingerprint.
+
+    **Why:** While fingerprinting is resilient to small line number changes, dramatic shifts suggest the code's context within the file has changed.
+
+    **What you'll see:** The issue might appear to resolve and reappear at a different line number.
+
+    <Note>
+    This is rare due to AST intelligence, but if it happens, verify the issue is truly the same before marking it as a duplicate.
+    </Note>
+  </Accordion>
+
+  <Accordion title="Changes to Vulnerability Classification" icon="tag">
+    **What happens:** If Corgea's analysis determines that an issue should be reclassified (e.g., from "Potential SQL Injection" to "Confirmed SQL Injection"), it gets a new fingerprint.
+
+    **Example:** Additional context in later scans might elevate or change how a vulnerability is classified.
+
+    **Why:** The classification is part of what makes an issue unique. Different classifications may require different remediation approaches.
+
+    **What you'll see:** One issue closes and another with a different severity or type appears at the same location.
+
+    <Tip>
+    Pay attention to classification changes—they often indicate important new information about the security risk.
+    </Tip>
+  </Accordion>
+
+  <Accordion title="Changes to the Vulnerable Code Itself" icon="pen-to-square">
+    **What happens:** Modifying the actual vulnerable line of code (even without fixing it) may change the fingerprint.
+
+    **Example:** 
+    Changing this:
+    ```python
+    query = "SELECT * FROM users WHERE id=" + user_id
+    ```
+    
+    To this:
+    ```python
+    query = "SELECT id, name FROM users WHERE id=" + user_id
+    ```
+    
+    Maintains the SQL injection vulnerability but changes the fingerprint.
+
+    **Why:** The specific code context is part of the fingerprint. This is actually helpful—it shows that someone touched the code, and it's an opportunity to fix it properly.
+
+    **What you'll see:** The old issue appears resolved, and a new, similar issue appears.
+
+    <Tip>
+    When modifying vulnerable code, take the opportunity to fix the security issue properly rather than just changing it superficially.
+    </Tip>
+  </Accordion>
+</AccordionGroup>
+
+### Situations That Won't Change the Fingerprint
+
+<Check>
+The following changes typically **won't** affect the fingerprint:
+</Check>
+
+- Adding or removing comments
+- Changing whitespace or indentation
+- Renaming local variables (in most cases)
+- Adding code before or after the vulnerable line (within reason)
+- Reformatting according to style guides
+- Adding logging or debugging statements nearby
+
+### How to Handle Fingerprint Changes
+
+<Steps>
+  <Step title="Check the Issue History">
+    Corgea tracks all historical events by fingerprint, so you can see the timeline of the original issue.
+  </Step>
+  <Step title="Review the Code Changes">
+    Use your version control system to understand what changed between scans.
+  </Step>
+  <Step title="Update Tracking">
+    If you're tracking issues in external systems (JIRA, etc.), you may need to update references.
+  </Step>
+  <Step title="Consider It an Opportunity">
+    A changed fingerprint often means someone modified the vulnerable code—this is a perfect time to ensure the fix is complete and proper.
+  </Step>
+  <Step title="Contact Support">
+    If you believe a fingerprint changed incorrectly or unexpectedly, our team can help investigate.
+  </Step>
+</Steps>
+
+<Accordion title="Why This Design?">
+You might wonder: "Why not keep the same fingerprint no matter what?" Here's why Corgea's approach is beneficial:
+
+- **Accuracy**: When code context genuinely changes, a new fingerprint ensures you're tracking the current reality of your codebase.
+- **Visibility**: Fingerprint changes highlight that code was modified, which is valuable information for security teams.
+- **Flexibility**: It prevents "stale" issue tracking where an issue is marked as fixed but the vulnerability persists in a slightly different form.
+- **Compliance**: Audit trails are more accurate when they reflect actual code changes, not just continued existence.
+</Accordion>
+
+## Key Benefits
+
+<Tabs>
+  <Tab title="For Security Teams">
+    Get an accurate understanding of your security posture without false inflation from duplicate detections. Understand when code changes affect tracked vulnerabilities.
+  </Tab>
+  <Tab title="For Development Teams">
+    Avoid confusion about which issues need attention and which have already been addressed. Continue refactoring and improving code without losing track of security issues.
+  </Tab>
+  <Tab title="For Management">
+    Receive reliable metrics for tracking security improvement over time and demonstrating compliance efforts. Understand the true impact of code changes on security posture.
+  </Tab>
+</Tabs>
+
+## Questions?
+
+If you have questions about how fingerprinting affects your specific use case, notice unexpected fingerprint changes, or want to understand more about how issues are tracked in your environment, please reach out to your Corgea support team.
+
+<Card title="Need Help?" icon="headset" href="mailto:help@corgea.com">
+  Contact our support team for assistance with fingerprinting or any other questions.
+</Card>
