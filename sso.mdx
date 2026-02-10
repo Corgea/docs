@@ -36,8 +36,31 @@ To access the SSO by SAML feature, you must provide either a SAML metadata link 
 
 Note: Replace `https://www.corgea.app` with `https://your_instance.corgea.app` if you are on private deployment.
 
-2. For the "Attribute Statement (optional)" section, use the following mappings:
+2. For the "Attribute Statement" section, use the following mappings:
 
+**Required field:**
+- email (user.profile.email)
+
+**Optional fields:**
+- firstName (user.profile.firstName)
+- lastName (user.profile.lastName)
+
+  <Card>
+    <img src="/images/okta_sso_groups_attributes.png" style={{ borderRadius: '0.5rem' }} alt="Okta Config" />
+  </Card>
+
+**Optional: Group Export Configuration**
+
+To export user groups into Corgea, configure the groups attribute as:
+```
+user.getGroups({'group.type': {'BUILT_IN','OKTA_GROUP','APP_GROUP'}}).[profile.name]
+```
+
+This exports the group profile name for each group. For additional group permission mapping, contact the Corgea team.
+
+**Legacy Configuration Format**
+
+If you're using the legacy configuration format, the mapping looks like this:
 - **Name** -> **Value**
   - email -> user.email
   - firstName -> user.firstName
@@ -46,15 +69,14 @@ Note: Replace `https://www.corgea.app` with `https://your_instance.corgea.app` i
   <Card>
     <img src="/images/sso_okta_config.png" style={{ borderRadius: '0.5rem' }} alt="Okta Config" />
   </Card>
-  
-Ensure to update permission setting for the user, if needed. 
+
+After completing the SSO configuration, ensure users are assigned to the SAML application in your SSO provider and have the appropriate role permissions set in Corgea. 
 
   <Card>
     <img src="/images/sso_okta_assign_app.png" style={{ borderRadius: '0.5rem' }} alt="Okta Config" />
   </Card>
 
 Upon completing the setup, a new SAML metadata link will be provided.
-
 
 
 ### Integrating SAML with Corgea
