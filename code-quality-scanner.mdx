@@ -1,0 +1,295 @@
+---
+title: 'Code Quality'
+description: 'AI-powered code review tool for maintainability, readability, and performance'
+---
+
+The **Corgea Code Quality Scanner** is an AI-powered code review tool that identifies maintainability, readability, performance, and correctness issues in your codebase. Unlike [our security vulnerability scanners](/blast) that focus on security threats, the Code Quality Scanner acts as an expert software engineer reviewing your code to help maintain high standards and prevent technical debt.
+
+## What It Does
+
+The Code Quality Scanner analyzes your source code files to identify concrete issues that impact your codebase's long-term health. Think of it as having an experienced senior engineer reviewing every file, catching issues that might slip through manual code reviews while focusing on practical, actionable improvements.
+
+### Key Capabilities
+
+- **Automated Code Review**: Performs thorough analysis of your code, checking for common quality issues that affect maintainability
+- **Language-Aware Analysis**: Understands the context and conventions of different programming languages
+- **Framework Detection**: Recognizes common frameworks and applies framework-specific best practices
+- **Severity Classification**: Prioritizes issues based on their impact (High, Medium, Low)
+- **CWE Mapping**: Maps issues to Common Weakness Enumeration (CWE) standards for standardized categorization
+
+---
+
+## What It Can Find
+
+The Code Quality Scanner identifies a comprehensive range of code quality issues. All findings are mapped to <Tooltip tip="Common Weakness Enumeration - a standardized list of software and hardware weakness types">CWE standards</Tooltip> for consistent categorization.
+
+<AccordionGroup>
+  <Accordion title="Grammar & Clarity Issues" icon="spell-check">
+    - **Typos and spelling errors** in code comments, variable names, and strings (CWE-1078)
+    - **Inaccurate or misleading comments** that contradict actual code behavior or may be outdated (CWE-1116)
+    
+    ```javascript example.js
+    // Bad: Misleading comment
+    // Calculate the sum of two numbers
+    function multiply(a, b) {
+      return a * b;  // Actually multiplying, not adding
+    }
+    ```
+  </Accordion>
+
+  <Accordion title="Code Cleanliness" icon="broom">
+    - **Empty code blocks** that serve no purpose (CWE-1071)
+    - **Unused variables, imports, and dead code** that clutter the codebase (CWE-563, CWE-1041)
+    - **Empty exception blocks** that silently swallow errors (CWE-1069, CWE-390)
+    - **Unreachable code** that can never execute (CWE-561)
+    
+    ```python example.py
+    # Bad: Empty exception block silently swallows errors
+    try:
+        risky_operation()
+    except Exception:
+        pass  # Error is hidden!
+    ```
+  </Accordion>
+
+  <Accordion title="Code Duplication & Reusability" icon="copy">
+    - **Duplicate code** that should be refactored into shared functions (CWE-1041)
+    - **Duplicate keys or literals** in objects and magic numbers that should be constants (CWE-1078)
+    - **Non-<Tooltip tip="Don't Repeat Yourself - a principle aimed at reducing repetition in code">DRY</Tooltip> code** - repeated logic that increases maintenance burden
+  </Accordion>
+
+  <Accordion title="Performance Issues" icon="gauge-high">
+    - **String concatenation in loops** that degrades performance (CWE-1046)
+    - **Inefficient operations** and unnecessary resource consumption (CWE-1050)
+    - **Performance bottlenecks** in frequently-executed code paths
+    
+    ```java Example.java
+    // Bad: String concatenation in loop
+    String result = "";
+    for (int i = 0; i < 1000; i++) {
+        result += data[i];  // Creates new string object each iteration
+    }
+    ```
+  </Accordion>
+
+  <Accordion title="Design & Architecture" icon="diagram-project">
+    - **Functions with too many parameters** (>5 parameters) indicating poor design (CWE-1064)
+    - **Overly complex function signatures** that are difficult to use correctly
+    - **Circular dependencies** between modules (CWE-1047)
+    - **Violations of <Tooltip tip="Single Responsibility, Open/Closed, Liskov Substitution, Interface Segregation, Dependency Inversion">SOLID principles</Tooltip>**
+  </Accordion>
+
+  <Accordion title="Code Complexity & Readability" icon="code">
+    - **Complex one-liners** that should be broken down for clarity (CWE-1120)
+    - **Deeply nested logic** with excessive branching that's hard to understand
+    - **Overly generic helper functions** that obscure intent
+    - **Violations of <Tooltip tip="Keep It Simple, Stupid - a design principle that favors simplicity">KISS principle</Tooltip>**
+  </Accordion>
+
+  <Accordion title="Naming & Conventions" icon="tag">
+    - **Inconsistent naming conventions** that make code harder to follow (CWE-1099)
+    - **Generic, non-descriptive variable names** like 'obj', 'x', 'data'
+    - **Mixed naming styles** (e.g., camelCase and snake_case in the same codebase)
+  </Accordion>
+
+  <Accordion title="Logic & Correctness" icon="bug">
+    - **Logic errors** that cause incorrect behavior (CWE-670)
+    - **Incorrect data processing** that produces wrong results
+    - **Code that won't work as intended** due to implementation mistakes
+  </Accordion>
+
+  <Accordion title="Incomplete Work" icon="list-check">
+    - **TODO comments** and placeholder code (CWE-1071)
+    - **Half-finished features** that may cause issues
+    - **Incomplete implementations** that need attention
+  </Accordion>
+</AccordionGroup>
+
+---
+
+## How It Works
+
+### 1. File Analysis
+The scanner processes each file in your codebase individually, analyzing the complete source code with full context of the file's structure, language, and detected frameworks.
+
+### 2. AI-Powered Review
+Using advanced language models specifically trained for code review, the scanner examines your code against established software engineering principles and best practices. The AI understands:
+- Language-specific idioms and conventions
+- Framework patterns and best practices
+- Code complexity and maintainability metrics
+- Industry-standard software design principles
+
+### 3. Issue Identification
+When a potential issue is found, the scanner:
+- Pinpoints the exact lines of code involved
+- Classifies the issue type using CWE standards
+- Assigns an appropriate severity level
+- Generates a clear explanation of the problem and its impact
+
+### 4. High-Confidence Detection
+The scanner only reports issues it's at least 90% confident about. This high threshold ensures that findings are actionable and accurate, not speculative.
+
+<Tip>The 90% confidence threshold significantly reduces noise and false positives, so you can trust that reported issues are worth addressing.</Tip>
+
+---
+
+## False Positive Suppression
+
+The Code Quality Scanner includes sophisticated [false positive suppression](/false_positive) mechanisms to ensure you receive only meaningful, actionable findings:
+
+### Built-In Filters
+
+<Check>**Security Issue Exclusion**: The scanner explicitly excludes security vulnerabilities (SQL injection, XSS, authentication issues, etc.) as these are handled by Corgea's [dedicated security scanners](/blast). This prevents overlap and confusion between code quality and security findings.</Check>
+
+<Check>**Style Preference Filtering**: Minor style preferences such as brace placement, indentation, and whitespace are not reported. The scanner focuses on substantive quality issues, not formatting preferences.</Check>
+
+<Check>**Confidence Threshold**: Only issues where the AI is highly confident (>90%) are reported, reducing speculative or uncertain findings.</Check>
+
+### Contextual Understanding
+
+The scanner understands code context to avoid false positives:
+- Recognizes when "empty" blocks are intentional (e.g., placeholder implementations)
+- Understands framework-specific patterns that might otherwise look problematic
+- Considers language idioms that are acceptable in specific programming languages
+
+---
+
+## Automated Remediation
+
+When code quality issues are identified, Corgea provides [automated remediation capabilities](/fixes) to help you fix problems quickly and consistently:
+
+### What Gets Remediated
+
+The automated remediation system can fix many common code quality issues, including:
+
+<Tabs>
+  <Tab title="Quick Wins">
+    - Removing unused variables and imports
+    - Converting magic numbers to named constants
+    - Fixing typos in variable names and comments
+  </Tab>
+  <Tab title="Structural Improvements">
+    - Consolidating duplicate code into shared functions
+    - Simplifying overly complex expressions
+    - Breaking down complex one-liners
+  </Tab>
+  <Tab title="Best Practices">
+    - Improving variable and function names
+    - Adding proper error handling
+    - Implementing framework-specific patterns
+  </Tab>
+</Tabs>
+
+### How Remediation Works
+
+1. **Issue Context**: The system analyzes the full context around each issue, understanding not just the problematic code but its role in the broader codebase
+2. **Safe Fixes**: Automated fixes are designed to be safe and maintain existing functionality
+3. **Code Style Preservation**: Fixes respect your existing code style and conventions
+4. **Review Before Apply**: You maintain full control over which fixes to apply
+
+---
+
+## Separate from Vulnerability Scanning
+
+<Warning>
+The Code Quality Scanner is completely separate from Corgea's [security vulnerability scanning](/blast) capabilities.
+</Warning>
+
+### Key Differences
+
+| Code Quality Scanner | [Vulnerability Scanner](/blast) |
+|---------------------|----------------------|
+| Focuses on maintainability, readability, and correctness | Focuses on security threats and exploitable weaknesses |
+| Identifies technical debt and design issues | Identifies SQL injection, XSS, authentication flaws, etc. |
+| Helps improve long-term code health | Helps protect against security breaches |
+| Uses CWEs related to code quality | Uses CWEs related to security |
+
+### Why Both Matter
+
+- **Security** keeps your application safe from attackers
+- **Code Quality** keeps your codebase maintainable, performant, and reliable
+
+Both are essential for a healthy software project, but they address different concerns. A codebase can be secure but unmaintainable, or well-structured but vulnerable. Corgea provides both to give you complete visibility into your code's health.
+
+---
+
+## Severity Levels Explained
+
+<Tabs>
+  <Tab title="High Severity" icon="circle-exclamation">
+    Issues that **will cause crashes, severe performance problems, or critical bugs**:
+    - Empty catch blocks that hide errors
+    - Infinite loops
+    - Logic that always fails
+    - Critical performance bottlenecks
+
+    <Warning>**Action**: Fix immediately</Warning>
+  </Tab>
+  
+  <Tab title="Medium Severity" icon="triangle-exclamation">
+    Issues that **impact maintainability or performance**:
+    - Code duplication
+    - Unused code cluttering the codebase
+    - String concatenation in loops
+    - Confusing logic that slows development
+
+    <Info>**Action**: Address in your next refactoring cycle</Info>
+  </Tab>
+  
+  <Tab title="Low Severity" icon="circle-info">
+    **Minor issues that reduce code quality**:
+    - Inconsistent naming
+    - Unnecessary complexity
+    - Minor readability improvements
+
+    <Tip>**Action**: Fix when convenient or during related work</Tip>
+  </Tab>
+</Tabs>
+
+---
+
+## Getting Started
+
+The Code Quality Scanner integrates seamlessly into your development workflow:
+
+<Steps>
+  <Step title="Connect Your Repository">
+    Link your code repository to Corgea using [GitHub](/github), [GitLab](/gitlab), [Azure DevOps](/azure_devops), or [Bitbucket](/bitbucket)
+  </Step>
+  <Step title="Automatic Scanning">
+    The scanner analyzes your files automatically
+  </Step>
+  <Step title="Review Findings">
+    Browse identified issues with clear explanations and severity levels in the [project dashboard](/project)
+  </Step>
+  <Step title="Apply Fixes">
+    Use [automated remediation](/fixes) or fix issues manually
+  </Step>
+  <Step title="Track Progress">
+    Monitor improvements in code quality over time
+  </Step>
+</Steps>
+
+---
+
+## Related Documentation
+
+<CardGroup cols={2}>
+  <Card title="AI-native SAST" icon="shield-halved" href="/blast">
+    Learn about Corgea's security vulnerability scanning capabilities
+  </Card>
+  <Card title="Automated Fixes" icon="wand-magic-sparkles" href="/fixes">
+    Explore how automated remediation works across all scan types
+  </Card>
+  <Card title="False Positive Management" icon="filter" href="/false_positive">
+    Manage and suppress false positives effectively
+  </Card>
+  <Card title="Issue Management" icon="list-check" href="/project">
+    Track and manage all issues across your projects
+  </Card>
+</CardGroup>
+
+---
+## Support
+
+For assistance, contact us at support@corgea.com
