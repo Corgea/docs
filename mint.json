@@ -65,6 +65,7 @@
     {
       "group": "Core Features",
       "pages": [
+        "agent",
         {
           "group": "Security Scanning",
           "pages": [
