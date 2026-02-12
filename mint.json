@@ -65,6 +65,8 @@
     {
       "group": "Core Features",
       "pages": [
+        "agent",
+        "code-quality-scanner",
         {
           "group": "Security Scanning",
           "pages": [

@@ -1,0 +1,406 @@
+---
+title: "Corgea Agent"
+description: "AI-powered assistant for managing security vulnerabilities in your codebase"
+---
+
+## Overview
+
+Corgea Agent is an AI-powered assistant that helps you manage security vulnerabilities in your codebase. It provides two main interaction modes:
+
+1. **Web Chat Interface** - An interactive chat for exploring security issues, scans, and vulnerability data
+2. **Pull Request Comments** - Automated responses to commands in PR comments across GitHub, GitLab, Azure DevOps, and Bitbucket
+
+---
+
+## Getting Started
+
+### Prerequisites
+
+Before enabling Corgea Agent, ensure you have:
+
+- Active Corgea account with appropriate plan access
+- At least one integration configured (GitHub, GitLab, Azure DevOps, or Bitbucket)
+- Webhook events properly configured for your repository
+
+### Initial Setup
+
+<Steps>
+  <Step title="Enable Corgea Agent">
+    Navigate to **Settings > Agent Settings** in your Corgea dashboard and toggle the "Enable Corgea Agent" switch to activate the agent. Once enabled, the agent will begin monitoring PR comments and be available for chat.
+    
+    <img src="/images/agent/agent_setting.png" alt="Agent Settings in Corgea Dashboard" />
+  </Step>
+  
+  <Step title="Verify Permissions">
+    Ensure your Corgea integration has necessary permissions to:
+    - Read pull request comments
+    - Post comments on pull requests
+    - Access repository content
+    
+    Check your integration settings to confirm webhooks are active.
+  </Step>
+  
+  <Step title="Test the Connection">
+    - Create a test PR with a security issue
+    - Comment `hello` on any vulnerability in the PR to verify the agent responds
+    - Access the web chat interface to ask a question about your scans
+  </Step>
+</Steps>
+
+---
+
+## Web Chat Interface
+
+### Accessing the Chat
+
+Navigate to the **Chat** section in your Corgea dashboard to access the interactive AI assistant.
+
+<img src="/images/agent/web_agent_view.png" alt="Corgea Agent Web Chat Interface" />
+
+### What You Can Do
+
+The Corgea Agent has deep knowledge of your security posture and can help you:
+
+<CardGroup cols={3}>
+  <Card title="Explore Security Issues" icon="bug">
+    Get detailed information about specific vulnerabilities, understand severity levels, and review fix suggestions
+  </Card>
+  <Card title="Analyze Scans" icon="magnifying-glass-chart">
+    Review scan results and summaries, compare scans over time, and understand scan coverage
+  </Card>
+  <Card title="Query Vulnerability Data" icon="database">
+    List issues by severity, project, or type, and review blocking rules and policy violations
+  </Card>
+</CardGroup>
+
+### Example Queries
+
+```plaintext Example Chat Queries
+"Show me all critical issues in my latest scan"
+"What are the details for issue abc-123?"
+"List all SQL injection vulnerabilities in project XYZ"
+"Explain the security implications of CVE-2024-12345"
+"What blocking rules are currently active?"
+```
+
+<img src="/images/agent/web_agent_view_chat_session.png" alt="Example Chat Session with Corgea Agent" />
+
+<Tip>
+  Be specific in your queries for better results. Reference issue IDs, scan IDs, or project names directly for more accurate responses.
+</Tip>
+
+---
+
+## Pull Request Interactions
+
+### How It Works
+
+When Corgea detects security issues in a pull request, the agent automatically:
+
+1. Posts comments highlighting the vulnerabilities
+2. Monitors the PR for developer responses
+3. Interprets developer intent from comments
+4. Takes automated actions based on commands
+
+<img src="/images/agent/agent_in_github.png" alt="Corgea Agent in GitHub Pull Request" />
+
+### Triggering the Agent
+
+The agent responds to comments that:
+
+- Explicitly mention `@Corgea`
+- Reply directly to Corgea's issue comment
+- Contain recognizable action commands
+- Are directed at addressing security findings
+
+<Note>
+  You don't need to use `@Corgea` as the agent will respond to comments to it's own.
+</Note>
+
+### Supported Actions
+
+<AccordionGroup>
+  <Accordion title="Mark as False Positive" icon="circle-xmark">
+    Indicate that a reported issue is not actually a vulnerability.
+
+    **Example Comments:**
+    ```plaintext
+    @Corgea false positive
+    This is not a real issue, it's a false positive
+    @Corgea this is safe code
+    ```
+
+    **What Happens:**
+    - Issue is marked as "False Positive"
+    - Issue is removed from blocking status
+    - Feedback is recorded for analysis
+  </Accordion>
+
+  <Accordion title="Mark as Accepted Risk" icon="triangle-exclamation">
+    Acknowledge a real vulnerability but accept the risk without immediate remediation.
+
+    **Example Comments:**
+    ```plaintext
+    @Corgea accept risk
+    We accept this risk for now
+    @Corgea low priority, won't fix
+    This is acceptable for our use case
+    ```
+
+    **What Happens:**
+    - Issue status changes to "Accepted Risk"
+    - Issue no longer blocks PR
+    - Risk acceptance is logged
+  </Accordion>
+
+  <Accordion title="Mark as Fixed" icon="check">
+    Confirm that a vulnerability has been resolved.
+
+    **Example Comments:**
+    ```plaintext
+    @Corgea fixed
+    Already fixed this in the latest commit
+    @Corgea this is resolved
+    ```
+
+    **What Happens:**
+    - Issue status changes to "Fixed"
+    - Issue no longer appears in active findings
+    - Fix confirmation is recorded
+  </Accordion>
+
+  <Accordion title="Mark as Duplicate" icon="copy">
+    Flag an issue as a duplicate of an existing finding.
+
+    **Example Comments:**
+    ```plaintext
+    @Corgea duplicate
+    This is a duplicate of issue XYZ
+    Same as #456
+    ```
+
+    **What Happens:**
+    - Issue is marked as duplicate
+    - Linked to original issue (if specified)
+    - Removed from active count
+  </Accordion>
+
+  <Accordion title="Mark as In Progress" icon="spinner">
+    Indicate that work is underway to fix the issue.
+
+    **Example Comments:**
+    ```plaintext
+    @Corgea fix in progress
+    Working on this now
+    We're fixing this in the next commit
+    ```
+
+    **What Happens:**
+    - Issue status changes to "Fix In Progress"
+    - Tracked as actively being addressed
+    - Team can monitor progress
+  </Accordion>
+
+  <Accordion title="Request More Information" icon="circle-question">
+    Ask Corgea for additional details about a vulnerability.
+
+    **Example Comments:**
+    ```plaintext
+    @Corgea explain this issue
+    What's the security impact here?
+    Can you provide more context?
+    ```
+
+    **What Happens:**
+    - Agent provides detailed explanation
+    - Includes vulnerability context and remediation guidance
+    - May suggest related resources
+  </Accordion>
+</AccordionGroup>
+
+### Comment Interaction Examples
+
+<Tabs>
+  <Tab title="False Positive">
+    **Scenario:** Developer disagrees with finding
+
+    ```plaintext PR Comment
+    This input is already sanitized in the middleware layer, false positive
+    ```
+
+    **Agent Response:**
+    ```plaintext
+    ✅ Marked as False Positive
+    This issue has been marked as a false positive based on your feedback. 
+    The issue will no longer block this PR.
+    ```
+  </Tab>
+  
+  <Tab title="Accepted Risk">
+    **Scenario:** Accepting risk for legacy code
+
+    ```plaintext PR Comment
+    This is legacy code we're deprecating next quarter. Accept the risk
+    ```
+
+    **Agent Response:**
+    ```plaintext
+    ⚠️ Marked as Accepted Risk
+    This issue has been acknowledged as an accepted risk. 
+    It will no longer block this PR, but will remain in your security dashboard for tracking.
+    ```
+  </Tab>
+  
+  <Tab title="Request Context">
+    **Scenario:** Developer needs clarification
+
+    ```plaintext PR Comment
+    Can you explain why this is considered an SQL injection vulnerability?
+    ```
+
+    **Agent Response:**
+    ```plaintext
+    [Detailed explanation of the SQL injection risk, 
+    code examples, and suggested remediation approaches]
+    ```
+  </Tab>
+</Tabs>
+
+### Feedback History
+
+View all PR comment interactions in the **Feedback History** section:
+
+- See all actions taken via PR comments
+- Filter by action type, user, or date range
+- Review AI confidence scores for interpretations
+- Monitor team engagement with security findings
+
+<img src="/images/agent/feedback_history.png" alt="Feedback History Dashboard" />
+
+**Available Filters:**
+- Action Type (False Positive, Accepted Risk, Fixed, etc.)
+- GitHub/GitLab/Azure DevOps user
+- Date range
+
+---
+
+## Supported Platforms
+
+Corgea Agent works seamlessly across multiple development platforms:
+
+<Tabs>
+  <Tab title="GitHub">
+    - Pull request comments
+    - Issue comments
+    - Review threads
+    
+    <Note>Requires: GitHub App installation with appropriate permissions</Note>
+  </Tab>
+  
+  <Tab title="GitLab">
+    - Merge request comments
+    - Note threads
+    
+    <Note>Requires: GitLab integration with webhook configuration</Note>
+  </Tab>
+  
+  <Tab title="Azure DevOps">    
+    <Note>Requires: Support is coming soon</Note>
+  </Tab>
+  
+  <Tab title="Bitbucket">
+    - Pull request comments
+    - Inline discussions
+    
+    <Note>Requires: Bitbucket integration with webhook configuration</Note>
+  </Tab>
+</Tabs>
+
+---
+
+## Troubleshooting
+
+<AccordionGroup>
+  <Accordion title="Agent Not Responding to PR Comments" icon="message-xmark">
+    **Check:**
+    - Is the agent enabled in Settings > Agent Settings?
+    - Are webhooks properly configured for your repository?
+    - Did you mention `@Corgea` or reply to an agent comment?
+    - Is your integration active and properly authenticated?
+
+    **Solution:**
+    - Verify webhook delivery in your platform's webhook settings
+    - Check integration status in Corgea dashboard
+    - Re-authenticate if needed
+  </Accordion>
+
+  <Accordion title="Action Not Applied to Issue" icon="ban">
+    **Check:**
+    - Does your comment clearly state the intended action?
+    - Are you commenting on the correct issue?
+    - Do you have permissions to modify issues?
+
+    **Solution:**
+    - Use explicit commands like "@Corgea false positive"
+    - Check the Feedback History to see how your comment was interpreted
+    - Verify AI confidence score - low confidence may prevent action execution
+  </Accordion>
+
+  <Accordion title="Chat Not Loading or Responding" icon="browser">
+    **Check:**
+    - Browser console for JavaScript errors
+    - Network connectivity
+    - Account permissions
+
+    **Solution:**
+    - Refresh the page
+    - Clear browser cache
+    - Contact support if issue persists
+  </Accordion>
+
+  <Accordion title="Low Confidence Interpretations" icon="gauge-low">
+    If the agent frequently misinterprets your comments:
+
+    **Best Practices:**
+    - Use clear action words: "false positive", "fixed", "accept risk"
+    - Provide context when needed
+    - Avoid ambiguous language
+  </Accordion>
+</AccordionGroup>
+
+---
+
+## Best Practices
+
+<Tabs>
+  <Tab title="PR Comments">
+    <Check>**One Action Per Comment**: Keep comments focused on a single action</Check>
+    <Check>**Provide Context**: Add reasoning to help the team understand your decision</Check>
+    <Check>**Review Feedback History**: Periodically check how your commands are interpreted</Check>
+  </Tab>
+  
+  <Tab title="Web Chat">
+    <Check>**Use Specific Identifiers**: Reference issue IDs, scan IDs, or project names</Check>
+    <Check>**Ask Follow-Up Questions**: Drill deeper into topics with contextual queries</Check>
+    <Check>**Leverage Search**: Filter results by severity, type, or status</Check>
+    <Check>**Save Important Queries**: Keep track of useful queries for recurring analysis</Check>
+  </Tab>
+</Tabs>
+
+---
+
+## Privacy & Security
+
+<Warning>
+  All chat interactions are scoped to your company's data. The agent only accesses information your user account has permission to view.
+</Warning>
+
+- PR comment actions are logged and auditable in Feedback History
+- Agent responses never expose sensitive credentials or internal implementation details
+- Data is processed in compliance with Corgea's security standards
+
+---
+
+## Support
+
+Need help with Corgea Agent? Contact us at support@corgea.com
