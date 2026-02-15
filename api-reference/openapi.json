@@ -562,6 +562,107 @@
         }
       }
     },
+    "/issues/groups": {
+      "get": {
+        "summary": "List Security Issues Groups",
+        "operationId": "listSecurityIssuesGroups",
+        "tags": ["Issues"],
+        "description": "Retrieve security issues grouped by CWE classification",
+        "parameters": [
+          {
+            "name": "project",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "string"
+            },
+            "description": "Filter issues by project name"
+          },
+          {
+            "name": "repo",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "string"
+            },
+            "description": "Filter issues by repository URL"
+          },
+          {
+            "name": "branch",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "string"
+            },
+            "description": "Filter issues by branch name"
+          },
+          {
+            "name": "breakdown",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "boolean",
+              "default": false
+            },
+            "description": "Include breakdown by urgency and status"
+          },
+          {
+            "name": "page",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "integer",
+              "default": 1
+            },
+            "description": "The page number for pagination"
+          },
+          {
+            "name": "page_size",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "integer",
+              "default": 20,
+              "maximum": 100
+            },
+            "description": "The number of results per page"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Issue groups retrieved successfully",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "status": {
+                      "type": "string",
+                      "example": "ok"
+                    },
+                    "page": {
+                      "type": "integer"
+                    },
+                    "total_pages": {
+                      "type": "integer"
+                    },
+                    "total_groups": {
+                      "type": "integer"
+                    },
+                    "groups": {
+                      "type": "array",
+                      "items": {
+                        "$ref": "#/components/schemas/IssueGroup"
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
     "/issues": {
       "get": {
         "summary": "List All Issues",
@@ -659,6 +760,110 @@
                       }
                     }
                   ]
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/scan/{scan_id}/issues/groups": {
+      "get": {
+        "summary": "Get Security Issue Groups for Scan",
+        "operationId": "getScanSecurityIssuesGroups",
+        "tags": ["Issues"],
+        "description": "Retrieve security issues grouped by CWE classification for a specific scan",
+        "parameters": [
+          {
+            "name": "scan_id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "uuid"
+            },
+            "description": "The ID of the scan"
+          },
+          {
+            "name": "breakdown",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "boolean",
+              "default": false
+            },
+            "description": "Include breakdown by urgency and status"
+          },
+          {
+            "name": "page",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "integer",
+              "default": 1
+            },
+            "description": "The page number for pagination"
+          },
+          {
+            "name": "page_size",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "integer",
+              "default": 20,
+              "maximum": 100
+            },
+            "description": "The number of results per page"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Issue groups retrieved successfully",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "status": {
+                      "type": "string",
+                      "example": "ok"
+                    },
+                    "page": {
+                      "type": "integer"
+                    },
+                    "total_pages": {
+                      "type": "integer"
+                    },
+                    "total_groups": {
+                      "type": "integer"
+                    },
+                    "groups": {
+                      "type": "array",
+                      "items": {
+                        "$ref": "#/components/schemas/IssueGroup"
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Scan not found",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "status": {
+                      "type": "string",
+                      "example": "error"
+                    },
+                    "message": {
+                      "type": "string",
+                      "example": "Scan not found"
+                    }
+                  }
                 }
               }
             }
@@ -820,6 +1025,211 @@
                       "type": "array",
                       "items": {
                         "$ref": "#/components/schemas/Issue"
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Scan not found",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "status": {
+                      "type": "string",
+                      "example": "error"
+                    },
+                    "message": {
+                      "type": "string",
+                      "example": "Scan not found"
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/issues/code-quality/groups": {
+      "get": {
+        "summary": "List Code Quality Issues Groups",
+        "operationId": "listQualityIssuesGroups",
+        "tags": ["Issues", "Code Quality"],
+        "description": "Retrieve code quality issues grouped by CWE classification",
+        "parameters": [
+          {
+            "name": "project",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "string"
+            },
+            "description": "Filter issues by project name"
+          },
+          {
+            "name": "repo",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "string"
+            },
+            "description": "Filter issues by repository URL"
+          },
+          {
+            "name": "branch",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "string"
+            },
+            "description": "Filter issues by branch name"
+          },
+          {
+            "name": "breakdown",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "boolean",
+              "default": false
+            },
+            "description": "Include breakdown by urgency and status"
+          },
+          {
+            "name": "page",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "integer",
+              "default": 1
+            },
+            "description": "The page number for pagination"
+          },
+          {
+            "name": "page_size",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "integer",
+              "default": 20,
+              "maximum": 100
+            },
+            "description": "The number of results per page"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Issue groups retrieved successfully",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "status": {
+                      "type": "string",
+                      "example": "ok"
+                    },
+                    "page": {
+                      "type": "integer"
+                    },
+                    "total_pages": {
+                      "type": "integer"
+                    },
+                    "total_groups": {
+                      "type": "integer"
+                    },
+                    "groups": {
+                      "type": "array",
+                      "items": {
+                        "$ref": "#/components/schemas/IssueGroup"
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/scan/{scan_id}/issues/quality/groups": {
+      "get": {
+        "summary": "Get Code Quality Issue Groups for Scan",
+        "operationId": "getScanQualityIssuesGroups",
+        "tags": ["Issues", "Code Quality"],
+        "description": "Retrieve code quality issues grouped by CWE classification for a specific scan",
+        "parameters": [
+          {
+            "name": "scan_id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "uuid"
+            },
+            "description": "The ID of the scan"
+          },
+          {
+            "name": "breakdown",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "boolean",
+              "default": false
+            },
+            "description": "Include breakdown by urgency and status"
+          },
+          {
+            "name": "page",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "integer",
+              "default": 1
+            },
+            "description": "The page number for pagination"
+          },
+          {
+            "name": "page_size",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "integer",
+              "default": 20,
+              "maximum": 100
+            },
+            "description": "The number of results per page"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Issue groups retrieved successfully",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "status": {
+                      "type": "string",
+                      "example": "ok"
+                    },
+                    "page": {
+                      "type": "integer"
+                    },
+                    "total_pages": {
+                      "type": "integer"
+                    },
+                    "total_groups": {
+                      "type": "integer"
+                    },
+                    "groups": {
+                      "type": "array",
+                      "items": {
+                        "$ref": "#/components/schemas/IssueGroup"
                       }
                     }
                   }
@@ -2512,6 +2922,93 @@
             "format": "date-time"
           }
         }
+      },
+      "IssueGroup": {
+        "type": "object",
+        "properties": {
+          "cwe": {
+            "type": "object",
+            "properties": {
+              "id": {
+                "type": "string",
+                "example": "CWE-22",
+                "description": "CWE identifier"
+              },
+              "name": {
+                "type": "string",
+                "example": "Improper Limitation of a Pathname to a Restricted Directory ('Path Traversal')",
+                "description": "CWE name"
+              },
+              "description": {
+                "type": "string",
+                "example": "The product uses external input to construct a pathname that is intended to identify a file or directory that is located underneath a restricted parent directory, but the product does not properly neutralize special elements within the pathname that can cause the pathname to resolve to a location that is outside of the restricted directory.",
+                "description": "CWE description"
+              }
+            }
+          },
+          "issue_count": {
+            "type": "integer",
+            "example": 10005,
+            "description": "Total number of issues in this CWE group"
+          },
+          "breakdown": {
+            "type": "object",
+            "description": "Optional breakdown by urgency and status (only included when breakdown=true)",
+            "properties": {
+              "by_urgency": {
+                "type": "object",
+                "properties": {
+                  "CR": {
+                    "type": "integer",
+                    "description": "Count of critical urgency issues"
+                  },
+                  "HI": {
+                    "type": "integer",
+                    "description": "Count of high urgency issues"
+                  },
+                  "ME": {
+                    "type": "integer",
+                    "description": "Count of medium urgency issues"
+                  },
+                  "LO": {
+                    "type": "integer",
+                    "description": "Count of low urgency issues"
+                  }
+                }
+              },
+              "by_status": {
+                "type": "object",
+                "properties": {
+                  "open": {
+                    "type": "integer",
+                    "description": "Count of open issues"
+                  },
+                  "in_progress": {
+                    "type": "integer",
+                    "description": "Count of issues in progress"
+                  },
+                  "fixed": {
+                    "type": "integer",
+                    "description": "Count of fixed issues"
+                  },
+                  "accepted_risk": {
+                    "type": "integer",
+                    "description": "Count of issues marked as accepted risk"
+                  },
+                  "false_positive": {
+                    "type": "integer",
+                    "description": "Count of issues marked as false positive"
+                  },
+                  "duplicate": {
+                    "type": "integer",
+                    "description": "Count of duplicate issues"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "required": ["cwe", "issue_count"]
       }
     }
   }
