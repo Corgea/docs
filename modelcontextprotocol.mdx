@@ -120,6 +120,55 @@ List of security issues matching the specified filters.
 
 ---
 
+### list_security_issue_groups
+
+List security issues grouped by CWE, with optional filtering and breakdowns.
+
+**Parameters:**
+- `scan_id` (string, optional): Filter groups by scan ID
+- `project` (string, optional): Filter by project name
+- `repo` (string, optional): Filter by repository URL
+- `filters` (object, optional): Additional filters, including `urgency`, `status`, `confidence`, `language`, `file_path`, `classification`, `cwe`, `sla_status`, `project`, `branch`, `repo`
+- `include_breakdown` (boolean, optional): Include counts by urgency and status in each group
+- `page` (number, optional): Page number (default: 1)
+- `page_size` (number, optional): Items per page (default: 20, max: 100)
+
+**Returns:**
+Grouped CWE results with counts and optional breakdowns.
+
+**Example:**
+```json
+{
+  "status": "ok",
+  "total_groups": 2,
+  "groups": [
+    {
+      "cwe": {
+        "id": "CWE-89",
+        "name": "SQL Injection",
+        "description": "Improper Neutralization of Special Elements used in an SQL Command"
+      },
+      "issue_count": 4,
+      "breakdown": {
+        "by_urgency": {
+          "critical": 1,
+          "high": 2,
+          "medium": 1,
+          "low": 0
+        },
+        "by_status": {
+          "open": 3,
+          "ignored": 0,
+          "fixed": 1
+        }
+      }
+    }
+  ]
+}
+```
+
+---
+
 ### list_sca_security_issues
 
 List Software Composition Analysis (SCA) security issues with optional filtering.
