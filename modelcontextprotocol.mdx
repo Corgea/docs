@@ -120,6 +120,43 @@ List of security issues matching the specified filters.
 
 ---
 
+### list_security_issue_groups
+
+List grouped security issues by CWE with optional filtering.
+
+**Parameters:**
+- `scan_id` (string, optional): Filter groups by scan ID
+- `project` (string, optional): Filter groups by project name
+- `repo` (string, optional): Filter groups by repository URL
+- `filters` (object, optional): Additional filters, including `urgency`, `status`, `confidence`, `language`, `file_path`, `classification`, `cwe`, `sla_status`, `project`, `branch`, and `repo`
+- `include_breakdown` (boolean, optional): Include urgency and status counts in each group
+- `page` (integer, optional): Page number (default: 1)
+- `page_size` (integer, optional): Number of items per page (default: 20, max: 100)
+
+**Returns:**
+Grouped issues with counts per CWE and optional breakdowns.
+
+**Example:**
+```json
+{
+  "status": "ok",
+  "count": 3,
+  "groups": [
+    {
+      "cwe": "CWE-79",
+      "title": "Improper Neutralization of Input During Web Page Generation",
+      "count": 12,
+      "breakdown": {
+        "urgency": { "high": 5, "medium": 7 },
+        "status": { "open": 10, "in_progress": 2 }
+      }
+    }
+  ]
+}
+```
+
+---
+
 ### list_sca_security_issues
 
 List Software Composition Analysis (SCA) security issues with optional filtering.
