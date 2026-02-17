@@ -120,6 +120,54 @@ List of security issues matching the specified filters.
 
 ---
 
+### list_security_issue_groups
+
+List grouped security issues by CWE, with optional filters and pagination.
+
+**Parameters:**
+- `scan_id` (string, optional): Filter groups by scan ID
+- `project` (string, optional): Filter groups by project name
+- `repo` (string, optional): Filter groups by repository URL
+- `filters` (object, optional): Additional filters
+- `filters.urgency` (string, optional)
+- `filters.status` (string, optional)
+- `filters.confidence` (string, optional)
+- `filters.language` (string, optional)
+- `filters.file_path` (string, optional)
+- `filters.classification` (string, optional)
+- `filters.cwe` (string, optional)
+- `filters.sla_status` (string, optional)
+- `filters.project` (string, optional)
+- `filters.branch` (string, optional)
+- `filters.repo` (string, optional)
+- `include_breakdown` (boolean, optional): Include urgency and status counts in each group
+- `page` (integer, optional): Page number
+- `page_size` (integer, optional): Items per page (max 100)
+
+**Returns:**
+Grouped security issues with counts per CWE, optionally including urgency and status breakdowns.
+
+**Example:**
+```json
+{
+  "status": "ok",
+  "count": 3,
+  "groups": [
+    {
+      "cwe": "CWE-79",
+      "title": "Cross-site Scripting",
+      "count": 5,
+      "breakdown": {
+        "urgency": { "high": 2, "medium": 3 },
+        "status": { "open": 4, "in_progress": 1 }
+      }
+    }
+  ]
+}
+```
+
+---
+
 ### list_sca_security_issues
 
 List Software Composition Analysis (SCA) security issues with optional filtering.
