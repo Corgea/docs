@@ -21,7 +21,9 @@
       "get": {
         "summary": "Verify Token (Deprecated)",
         "operationId": "verifyTokenDeprecated",
-        "tags": ["Authentication"],
+        "tags": [
+          "Authentication"
+        ],
         "security": [],
         "deprecated": true,
         "parameters": [
@@ -75,7 +77,9 @@
       "get": {
         "summary": "Verify Token",
         "operationId": "verifyToken",
-        "tags": ["Authentication"],
+        "tags": [
+          "Authentication"
+        ],
         "description": "Verify the API token and optionally return user information",
         "parameters": [
           {
@@ -155,7 +159,9 @@
       "get": {
         "summary": "Get Scans",
         "operationId": "getScans",
-        "tags": ["Scans"],
+        "tags": [
+          "Scans"
+        ],
         "description": "Retrieves a list of scans for the authenticated user's company",
         "parameters": [
           {
@@ -235,7 +241,11 @@
                           },
                           "status": {
                             "type": "string",
-                            "enum": ["completed", "in_progress", "failed"]
+                            "enum": [
+                              "completed",
+                              "in_progress",
+                              "failed"
+                            ]
                           },
                           "pull_request_id": {
                             "type": "integer",
@@ -256,7 +266,9 @@
       "get": {
         "summary": "Get Scan",
         "operationId": "getScan",
-        "tags": ["Scans"],
+        "tags": [
+          "Scans"
+        ],
         "description": "Retrieves details of a specific scan",
         "parameters": [
           {
@@ -297,7 +309,11 @@
                     },
                     "scan_status": {
                       "type": "string",
-                      "enum": ["completed", "in_progress", "failed"]
+                      "enum": [
+                        "completed",
+                        "in_progress",
+                        "failed"
+                      ]
                     },
                     "engine": {
                       "type": "string"
@@ -338,7 +354,10 @@
       "get": {
         "summary": "Get Scan Report",
         "operationId": "getScanReport",
-        "tags": ["Scans", "Reports"],
+        "tags": [
+          "Scans",
+          "Reports"
+        ],
         "description": "Retrieve scan report in HTML or SARIF format",
         "parameters": [
           {
@@ -357,7 +376,10 @@
             "required": false,
             "schema": {
               "type": "string",
-              "enum": ["sarif", "html"],
+              "enum": [
+                "sarif",
+                "html"
+              ],
               "default": "sarif"
             },
             "description": "Report format (html or sarif)"
@@ -378,7 +400,12 @@
             "required": false,
             "schema": {
               "type": "string",
-              "enum": ["CR", "HI", "ME", "LO"]
+              "enum": [
+                "CR",
+                "HI",
+                "ME",
+                "LO"
+              ]
             },
             "description": "Filter by urgency level"
           }
@@ -456,7 +483,10 @@
       "get": {
         "summary": "Check Blocking Rules",
         "operationId": "checkBlockingRules",
-        "tags": ["Scans", "Policies"],
+        "tags": [
+          "Scans",
+          "Policies"
+        ],
         "description": "Check if scan issues violate any blocking rules",
         "parameters": [
           {
@@ -566,7 +596,9 @@
       "get": {
         "summary": "List All Issues",
         "operationId": "listIssues",
-        "tags": ["Issues"],
+        "tags": [
+          "Issues"
+        ],
         "description": "Retrieve a list of all security issues for the authenticated user's company",
         "parameters": [
           {
@@ -670,7 +702,9 @@
       "get": {
         "summary": "Get Issues for Scan",
         "operationId": "getScanIssues",
-        "tags": ["Issues"],
+        "tags": [
+          "Issues"
+        ],
         "description": "Retrieves a list of issues for a specific scan",
         "parameters": [
           {
@@ -723,16 +757,6 @@
             },
             "description": "Filter by status (comma-separated). Valid values: fixed, false_positive, accepted_risk, open, fix_in_progress, duplicate",
             "example": "open,fix_in_progress"
-          },
-          {
-            "name": "confidence",
-            "in": "query",
-            "required": false,
-            "schema": {
-              "type": "string"
-            },
-            "description": "Filter by confidence levels (comma-separated). Valid values: HI, ME, LO",
-            "example": "HI,ME"
           },
           {
             "name": "language",
@@ -854,7 +878,9 @@
       "get": {
         "summary": "Get Issue",
         "operationId": "getIssue",
-        "tags": ["Issues"],
+        "tags": [
+          "Issues"
+        ],
         "description": "Retrieves details of a specific issue",
         "parameters": [
           {
@@ -925,7 +951,10 @@
       "get": {
         "summary": "Get SCA Issues",
         "operationId": "listScaIssues",
-        "tags": ["Issues", "SCA"],
+        "tags": [
+          "Issues",
+          "SCA"
+        ],
         "description": "Retrieve a list of Software Composition Analysis (SCA) issues",
         "parameters": [
           {
@@ -1109,7 +1138,10 @@
       "get": {
         "summary": "Get SCA Issues for Scan",
         "operationId": "getScanScaIssues",
-        "tags": ["Issues", "SCA"],
+        "tags": [
+          "Issues",
+          "SCA"
+        ],
         "description": "Retrieve SCA issues for a specific scan",
         "parameters": [
           {
@@ -1283,7 +1315,9 @@
       "post": {
         "summary": "Start New Scan",
         "operationId": "startScan",
-        "tags": ["Starting Corgea Scan"],
+        "tags": [
+          "Starting Corgea Scan"
+        ],
         "description": "Initiates a new BLAST scan with file upload. Accepts one or more files for scanning.",
         "requestBody": {
           "required": true,
@@ -1291,11 +1325,16 @@
             "multipart/form-data": {
               "schema": {
                 "type": "object",
-                "required": ["scan_type", "files"],
+                "required": [
+                  "scan_type",
+                  "files"
+                ],
                 "properties": {
                   "scan_type": {
                     "type": "string",
-                    "enum": ["blast"],
+                    "enum": [
+                      "blast"
+                    ],
                     "default": "blast",
                     "description": "Currently only blast scan is supported"
                   },
@@ -1343,7 +1382,9 @@
                     },
                     "status": {
                       "type": "string",
-                      "enum": ["OK"],
+                      "enum": [
+                        "OK"
+                      ],
                       "example": "OK"
                     }
                   }
@@ -1408,7 +1449,9 @@
       "patch": {
         "summary": "Continue Scan Upload",
         "operationId": "continueScanUpload",
-        "tags": ["Starting Corgea Scan"],
+        "tags": [
+          "Starting Corgea Scan"
+        ],
         "description": "Continue uploading chunks for an existing scan",
         "parameters": [
           {
@@ -1455,7 +1498,9 @@
             "multipart/form-data": {
               "schema": {
                 "type": "object",
-                "required": ["chunk_data"],
+                "required": [
+                  "chunk_data"
+                ],
                 "properties": {
                   "chunk_data": {
                     "type": "string",
@@ -1570,7 +1615,9 @@
       "head": {
         "summary": "Check Upload Status",
         "operationId": "checkUploadStatus",
-        "tags": ["Starting Corgea Scan"],
+        "tags": [
+          "Starting Corgea Scan"
+        ],
         "description": "Check the current status of an upload",
         "parameters": [
           {
@@ -1602,7 +1649,10 @@
                   "properties": {
                     "status": {
                       "type": "string",
-                      "enum": ["success", "error"],
+                      "enum": [
+                        "success",
+                        "error"
+                      ],
                       "example": "success"
                     },
                     "message": {
@@ -1641,7 +1691,9 @@
       "post": {
         "summary": "Upload Scan",
         "operationId": "scanUpload",
-        "tags": ["Uploading 3rd Party Scan"],
+        "tags": [
+          "Uploading 3rd Party Scan"
+        ],
         "description": "Upload a completed scan report from CLI tools. This endpoint receives pre-generated scan results from Semgrep, Snyk, Checkmarx, CodeQL, and Fortify and integrates them into the system.",
         "parameters": [
           {
@@ -1659,7 +1711,13 @@
             "required": true,
             "schema": {
               "type": "string",
-              "enum": ["checkmarx", "codeql", "fortify", "semgrep", "snyk"]
+              "enum": [
+                "checkmarx",
+                "codeql",
+                "fortify",
+                "semgrep",
+                "snyk"
+              ]
             },
             "description": "The engine used for the scan"
           },
@@ -1733,7 +1791,9 @@
       "post": {
         "summary": "Upload Git Config",
         "operationId": "gitConfigUpload",
-        "tags": ["Uploading 3rd Party Scan"],
+        "tags": [
+          "Uploading 3rd Party Scan"
+        ],
         "description": "Upload Git configuration data for a specific scan run to help with repository URL parsing and analysis.",
         "parameters": [
           {
@@ -1767,11 +1827,15 @@
                   "properties": {
                     "status": {
                       "type": "string",
-                      "enum": ["ok"],
+                      "enum": [
+                        "ok"
+                      ],
                       "example": "ok"
                     }
                   },
-                  "required": ["status"]
+                  "required": [
+                    "status"
+                  ]
                 }
               }
             }
@@ -1813,7 +1877,9 @@
       "post": {
         "summary": "Upload Source Code File",
         "operationId": "codeUpload",
-        "tags": ["Uploading 3rd Party Scan"],
+        "tags": [
+          "Uploading 3rd Party Scan"
+        ],
         "description": "Upload individual source code files for a specific scan run. This is used to upload the actual source files that will be analyzed.",
         "parameters": [
           {
@@ -1841,7 +1907,9 @@
             "multipart/form-data": {
               "schema": {
                 "type": "object",
-                "required": ["file"],
+                "required": [
+                  "file"
+                ],
                 "properties": {
                   "file": {
                     "type": "string",
@@ -1863,11 +1931,15 @@
                   "properties": {
                     "status": {
                       "type": "string",
-                      "enum": ["ok"],
+                      "enum": [
+                        "ok"
+                      ],
                       "example": "ok"
                     }
                   },
-                  "required": ["status"]
+                  "required": [
+                    "status"
+                  ]
                 }
               }
             }
@@ -1921,7 +1993,9 @@
       "post": {
         "summary": "Upload CI/CD Data",
         "operationId": "ciDataUpload",
-        "tags": ["Uploading 3rd Party Scan"],
+        "tags": [
+          "Uploading 3rd Party Scan"
+        ],
         "description": "Upload CI/CD pipeline metadata and context information for a specific scan run.",
         "parameters": [
           {
@@ -1965,11 +2039,15 @@
                   "properties": {
                     "status": {
                       "type": "string",
-                      "enum": ["ok"],
+                      "enum": [
+                        "ok"
+                      ],
                       "example": "ok"
                     }
                   },
-                  "required": ["status"]
+                  "required": [
+                    "status"
+                  ]
                 }
               }
             }
@@ -2017,7 +2095,9 @@
       "get": {
         "summary": "List Projects",
         "operationId": "listProjects",
-        "tags": ["Projects"],
+        "tags": [
+          "Projects"
+        ],
         "description": "Retrieve a list of projects for the authenticated user's company",
         "parameters": [
           {
@@ -2116,7 +2196,9 @@
       "get": {
         "summary": "List Blocking Rules",
         "operationId": "listBlockingRules",
-        "tags": ["Policies"],
+        "tags": [
+          "Policies"
+        ],
         "description": "Retrieve all blocking rules for the authenticated user's company",
         "responses": {
           "200": {
@@ -2216,7 +2298,12 @@
           },
           "urgency": {
             "type": "string",
-            "enum": ["critical", "high", "medium", "low"]
+            "enum": [
+              "critical",
+              "high",
+              "medium",
+              "low"
+            ]
           },
           "created_at": {
             "type": "string",
@@ -2234,7 +2321,11 @@
           },
           "sla_status": {
             "type": "string",
-            "enum": ["on_track", "due", "overdue"]
+            "enum": [
+              "on_track",
+              "due",
+              "overdue"
+            ]
           },
           "location": {
             "$ref": "#/components/schemas/IssueLocation"
@@ -2270,7 +2361,12 @@
           },
           "urgency": {
             "type": "string",
-            "enum": ["critical", "high", "medium", "low"]
+            "enum": [
+              "critical",
+              "high",
+              "medium",
+              "low"
+            ]
           },
           "created_at": {
             "type": "string",
@@ -2355,7 +2451,11 @@
             "properties": {
               "status": {
                 "type": "string",
-                "enum": ["valid", "false_positive", "pending"]
+                "enum": [
+                  "valid",
+                  "false_positive",
+                  "pending"
+                ]
               },
               "reasoning": {
                 "type": "string"
@@ -2373,7 +2473,11 @@
           },
           "status": {
             "type": "string",
-            "enum": ["fix_available", "fix_not_available", "pending"]
+            "enum": [
+              "fix_available",
+              "fix_not_available",
+              "pending"
+            ]
           },
           "patch": {
             "type": "object",
@@ -2409,7 +2513,12 @@
           },
           "severity": {
             "type": "string",
-            "enum": ["critical", "high", "medium", "low"]
+            "enum": [
+              "critical",
+              "high",
+              "medium",
+              "low"
+            ]
           },
           "cve": {
             "type": "string",
@@ -2460,7 +2569,12 @@
             "type": "array",
             "items": {
               "type": "string",
-              "enum": ["critical", "high", "medium", "low"]
+              "enum": [
+                "critical",
+                "high",
+                "medium",
+                "low"
+              ]
             }
           },
           "classifications": {
