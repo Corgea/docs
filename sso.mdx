@@ -251,8 +251,8 @@ This feature is ideal for organizations that need to manage user identities acro
 
 ## SSO SCIM Provider Configuration
 
-To enable SCIM functionality, you need to configure the SCIM application in your SSO provider with the following settings:
-- Ensure SCIM is enabled.
+To enable SCIM functionality, configure the SCIM application in your SSO provider with the following settings:
+- Confirm SCIM is enabled for your SAML configuration (enabled by default).
 - Set up the Application SCIM Integration with:
   - SCIM connector base URL: https://www.corgea.app/scim/v2/
   - Unique user identifier field: email
@@ -261,6 +261,11 @@ To enable SCIM functionality, you need to configure the SCIM application in your
     - Push Profile Updates
   - Authentication Mode: HTTP Header
 
-Please contact the Corgea support team to obtain the necessary API token.
+You can copy the SCIM API token from the SSO configuration screen:
+- Go to **Settings → Integrations → SAML SSO**.
+- Open the SAML configuration you want to use.
+- In the **API Token for SCIM** field, click **Copy**.
+
+If you do not see the token, confirm SCIM is enabled and you have permission to manage integrations.
 
 By enabling SCIM, organizations can significantly enhance their identity management processes, leading to improved operational efficiency and security.
