@@ -36,6 +36,9 @@ Corgea scans each pull request for potential vulnerabilities and suggests action
     <Frame>
       <img src="/images/github-scan.png" style={{ borderRadius: '0.5rem' }} />
     </Frame>
+<Note>
+If a CI scan cannot start within a short timeout window, Corgea automatically cancels it and the GitHub check run is marked as **Skipped**. Push a new commit or re-run the check to trigger a fresh scan.
+</Note>
 
 ## Issuing PRs from Corgea
       You can now issue a PR that fixes an issue from any issue page in Corgea.
@@ -92,4 +95,3 @@ Used to associate your GitHub account with your Corgea account for authenticatio
     This is on the roadmap for development.
   </Accordion>
 </AccordionGroup>
-

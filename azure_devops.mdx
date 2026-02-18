@@ -4,6 +4,9 @@ description: 'Comprehensive Guide to Configuring Azure DevOps with Corgea'
 ---
 
 The integration of Azure DevOps with Corgea empowers users to seamlessly scan projects and initiate pull requests for code fixes directly from the Corgea platform.
+<Note>
+If a CI scan cannot start within a short timeout window, Corgea automatically cancels it and the Azure DevOps check status is set to **Not applicable**. Re-run the pipeline or push a new commit to trigger a fresh scan.
+</Note>
 
 <Steps>
   <Step title="Generate an Azure DevOps Personal Access Token">

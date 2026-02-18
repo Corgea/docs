@@ -4,6 +4,9 @@ description: 'Comprehensive Guide to Configuring Bitbucket with Corgea'
 ---
 
 The Bitbucket integration with Corgea enables you to scan projects and create pull requests for code fixes directly from the Corgea platform.
+<Note>
+If a CI scan cannot start within a short timeout window, Corgea automatically cancels it and the Bitbucket check is marked as **Stopped**. Re-run the pipeline or push a new commit to trigger a fresh scan.
+</Note>
 
 <Steps>
   <Step title="Create a Dedicated User for Corgea (Optional)">
