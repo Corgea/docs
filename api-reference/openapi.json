@@ -162,7 +162,7 @@
         "tags": [
           "Authentication"
         ],
-        "description": "Retrieve successful login attempts for users.",
+        "description": "Retrieve successful login attempts for users",
         "parameters": [
           {
             "name": "page",
@@ -298,7 +298,7 @@
         "tags": [
           "Authentication"
         ],
-        "description": "Retrieve failed login attempts for users.",
+        "description": "Retrieve failed login attempts for users",
         "parameters": [
           {
             "name": "page",
@@ -434,7 +434,7 @@
         "tags": [
           "Authentication"
         ],
-        "description": "Retrieve successful login attempts for a specific user.",
+        "description": "Retrieve successful login attempts for a specific user",
         "parameters": [
           {
             "name": "user_id",
@@ -570,7 +570,7 @@
         "tags": [
           "Authentication"
         ],
-        "description": "Retrieve failed login attempts for a specific user.",
+        "description": "Retrieve failed login attempts for a specific user",
         "parameters": [
           {
             "name": "user_id",
