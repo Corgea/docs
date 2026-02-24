@@ -28,6 +28,10 @@ Corgea supports webhooks for the following events:
 - `scan.completed` - Triggered when a scan finishes successfully
 - `scan.failed` - Triggered when a scan encounters an error
 
+**User Auth Events:**
+- `user.login` - Triggered when a user successfully logs in
+- `user.login_failed` - Triggered when a user login attempt fails
+
 ---
 
 ## How Webhooks Work
@@ -161,6 +165,8 @@ User-Agent: Corgea-Webhooks/1.0
       - Scan Started
       - Scan Completed
       - Scan Failed
+      - User Login
+      - User Login Failed
     - You can select multiple events per webhook
   </Step>
 
@@ -228,6 +234,15 @@ User-Agent: Corgea-Webhooks/1.0
         ```
         
         Common for REST APIs that use JWT or OAuth tokens.
+      </Accordion>
+
+      <Accordion title="Splunk HEC" icon="bolt">
+        **Header:**
+        ```text
+        Authorization: Splunk <your-hec-token>
+        ```
+
+        Use this when sending webhook events to a Splunk HTTP Event Collector (HEC) endpoint.
       </Accordion>
 
       <Accordion title="Custom API with API Key" icon="lock">
@@ -712,6 +727,42 @@ For compliance or debugging, export webhook delivery history:
           "name": "Production API"
         },
         "url": "https://app.corgea.com/issue/issue-uuid-5678/"
+      }
+    }
+    ```
+  </Tab>
+
+  <Tab title="User Login">
+    ```json user-login.json
+    {
+      "event_id": "d4e5f6a7-b8c9-0123-def0-123456789012",
+      "event_type": "user.login",
+      "timestamp": "2025-01-15T16:10:00.000Z",
+      "data": {
+        "company": "comp-uuid-1234",
+        "user_id": 123,
+        "username": "jane.doe",
+        "email": "jane.doe@company.com",
+        "first_name": "Jane",
+        "last_name": "Doe",
+        "user_agent": "Mozilla/5.0",
+        "path": "/login/"
+      }
+    }
+    ```
+  </Tab>
+
+  <Tab title="User Login Failed">
+    ```json user-login-failed.json
+    {
+      "event_id": "e5f6a7b8-c9d0-1234-ef01-234567890123",
+      "event_type": "user.login_failed",
+      "timestamp": "2025-01-15T16:12:00.000Z",
+      "data": {
+        "company": "comp-uuid-1234",
+        "username": "jane.doe",
+        "user_agent": "Mozilla/5.0",
+        "path": "/login/"
       }
     }
     ```
