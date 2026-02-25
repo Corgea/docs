@@ -86,7 +86,8 @@
             "false_positive",
             "issue_assignment",
             "issue_export",
-            "project"
+            "project",
+            "reporting"
           ]
         },
         {
