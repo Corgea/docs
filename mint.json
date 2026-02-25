@@ -86,8 +86,7 @@
             "false_positive",
             "issue_assignment",
             "issue_export",
-            "project",
-            "reporting"
+            "project"
           ]
         },
         {
@@ -97,7 +96,8 @@
         {
           "group": "Users & Groups",
           "pages": ["user_management", "permission_groups", "teams", "content-access-management"]
-        }
+        },
+          "reporting"
       ]
     },
     {
