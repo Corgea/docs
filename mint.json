@@ -96,7 +96,8 @@
         {
           "group": "Users & Groups",
           "pages": ["user_management", "permission_groups", "teams", "content-access-management"]
-        }
+        },
+          "reporting"
       ]
     },
     {
