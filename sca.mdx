@@ -39,6 +39,7 @@ description: "Dependency Scanning, also known as Software Composition Analysis (
   - Detailed vulnerability descriptions and references
   - Publication dates and external links
 * **Smart Scanning Logic**: Automatically detects when dependency files are present and optimizes scanning performance
+* **AI-native SCA Reachability (when enabled)**: For direct dependencies, Corgea can analyze whether vulnerable code paths are actually reachable in your codebase and show usage context to help you prioritize fixes
 
 ## Setup Instructions
 
@@ -126,6 +127,21 @@ description: "Dependency Scanning, also known as Software Composition Analysis (
 3. **Vulnerability Processing**: Processes scan results and enriches with additional security intelligence
 4. **Issue Creation**: Creates trackable security issues for each vulnerability found
 5. **Reporting**: Generates comprehensive vulnerability reports with actionable remediation guidance
+
+### Reachability & Usage Analysis (AI-native SCA)
+
+When AI-native SCA is enabled, Corgea adds reachability and usage signals for **direct dependencies** to help you focus on issues that are truly exploitable in your codebase.
+
+**Reachability statuses**:
+- **Reachable**: A vulnerable code path is reachable from your application code
+- **Unreachable**: The dependency is used, but no vulnerable call path is reachable
+- **Unused**: The dependency is declared but not referenced in your codebase
+- **Analyzing**: Reachability analysis is queued or in progress
+
+**Where to find it**:
+- In scan results, use the **Reachability** filter to narrow findings by status
+- Use **Dependency depth** to filter **Direct** vs **Transitive** dependencies
+- In an SCA issue, the Reachability tab summarizes usage and, when available, shows per-file usage context
 
 ### Supported Ecosystems
 
