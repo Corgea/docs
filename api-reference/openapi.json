@@ -802,6 +802,22 @@
                 }
               }
             }
+          },
+          "403": {
+            "description": "Permission denied",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "error": {
+                      "type": "string",
+                      "example": "Permission denied"
+                    }
+                  }
+                }
+              }
+            }
           }
         }
       }
@@ -885,6 +901,22 @@
                     "message": {
                       "type": "string",
                       "example": "Scan doesn't exist"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "403": {
+            "description": "Permission denied",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "error": {
+                      "type": "string",
+                      "example": "Permission denied"
                     }
                   }
                 }
@@ -1019,6 +1051,22 @@
                 }
               }
             }
+          },
+          "403": {
+            "description": "Permission denied",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "error": {
+                      "type": "string",
+                      "example": "Permission denied"
+                    }
+                  }
+                }
+              }
+            }
           }
         }
       }
@@ -1132,6 +1180,22 @@
                 }
               }
             }
+          },
+          "403": {
+            "description": "Permission denied",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "error": {
+                      "type": "string",
+                      "example": "Permission denied"
+                    }
+                  }
+                }
+              }
+            }
           }
         }
       }
@@ -1235,6 +1299,22 @@
                       }
                     }
                   ]
+                }
+              }
+            }
+          },
+          "403": {
+            "description": "Permission denied",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "error": {
+                      "type": "string",
+                      "example": "Permission denied"
+                    }
+                  }
                 }
               }
             }
@@ -1409,6 +1489,22 @@
                     "message": {
                       "type": "string",
                       "example": "Scan not found"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "403": {
+            "description": "Permission denied",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "error": {
+                      "type": "string",
+                      "example": "Permission denied"
                     }
                   }
                 }
@@ -1674,6 +1770,22 @@
                 }
               }
             }
+          },
+          "403": {
+            "description": "Permission denied",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "error": {
+                      "type": "string",
+                      "example": "Permission denied"
+                    }
+                  }
+                }
+              }
+            }
           }
         }
       }
@@ -1851,6 +1963,22 @@
                 }
               }
             }
+          },
+          "403": {
+            "description": "Permission denied",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "error": {
+                      "type": "string",
+                      "example": "Permission denied"
+                    }
+                  }
+                }
+              }
+            }
           }
         }
       }
@@ -1980,6 +2108,22 @@
                     "value": {
                       "status": "error",
                       "message": "File validation error: Invalid file type or size"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "403": {
+            "description": "Permission denied",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "error": {
+                      "type": "string",
+                      "example": "Permission denied"
                     }
                   }
                 }
@@ -2148,6 +2292,22 @@
                     },
                     "internal_detail": {
                       "type": "string"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "403": {
+            "description": "Permission denied",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "error": {
+                      "type": "string",
+                      "example": "Permission denied"
                     }
                   }
                 }
