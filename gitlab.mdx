@@ -137,6 +137,7 @@ Once the GitLab integration is set up, Corgea will automatically scan your code 
 1. When a merge request is created or updated in your GitLab repository, Corgea receives a webhook notification from GitLab.
 2. Corgea retrieves the code changes from the merge request and performs a comprehensive security scan.
 3. If any vulnerabilities are detected, Corgea will post a comment on the merge request with details about the identified issues and suggested fixes.
+   Comments are only placed on lines that are part of the merge request diff. For multi-line issues, Corgea anchors the comment to the first changed line within the affected code range.
 4. You can review the comments and apply the suggested fixes to remediate the vulnerabilities before merging the code.
 
 ## Benefits of the GitLab Integration
