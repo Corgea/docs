@@ -9,7 +9,7 @@ Corgea CLI is a powerful developer tool that helps you find and fix security vul
 
 ## Features
 
-- **Multiple Scanner Support**: Scan with BLAST (our AI-powered scanner), Semgrep, or Snyk.
+- **Multiple Scanner Support**: Scan with BLAST (our AI-powered scanner), and upload reports from Semgrep, Snyk, Checkmarx, CodeQL, Fortify, and Coverity.
 - **Issue Management**: List, inspect, and manage security findings.
 - **Fix Integration**: View and apply AI-generated fixes for vulnerabilities right from your terminal.
 - **Flexible Output**: Support for both human-readable and JSON output formats for easier CI integrations.
@@ -134,7 +134,7 @@ corgea login
 
 #### Upload a Scan Report
 
-Upload a scan report to Corgea via STDIN or a file:
+Upload a scan report to Corgea via STDIN or a file (JSON, SARIF, FPR, or Coverity XML):
 
 ```bash
 corgea upload path/to/report.json

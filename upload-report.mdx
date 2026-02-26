@@ -8,7 +8,7 @@ Users have a choice between two options: the Corgea Dropsite and the Corgea CLI.
 <Info>
   **Prerequisite** You registered in Corgea
 
-  **SAST Scanner** You have a SAST scanner like Checkmarx, CodeQL, Semgrep, Fortify, or Snyk. Corgea currently supports these scanners, with Veracode and Sonarqube support on the roadmap.
+  **SAST Scanner** You have a SAST scanner like Checkmarx, CodeQL, Semgrep, Fortify, Coverity, or Snyk. Corgea currently supports these scanners, with Veracode and Sonarqube support on the roadmap.
 </Info>
 
 ## Corgea Dropsite
@@ -62,7 +62,7 @@ After adding your project, you can proceed to the next step to upload a report f
 <Steps>
   <Step title="Upload the report">
     Select the report file (typically a JSON file) from your local machine, and drop it into the upload box.
-    <Info>Corgea supports Checkmarx (JSON), CodeQL (JSON), Snyk (SARIF), Semgrep (JSON) and Fortify (FPR) scans.</Info>
+    <Info>Corgea supports Checkmarx (JSON), CodeQL (JSON), Snyk (SARIF), Semgrep (JSON), Fortify (FPR), and Coverity (XML) scans.</Info>
   </Step>
   <Step title="Processing">
     Once the report is uploaded successfully, Corgea will process your project and report.
@@ -120,6 +120,10 @@ You can install the Corgea CLI using pip:
 
     ```bash Fortify
     corgea upload <scan report in FPR>
+    ```
+
+    ```bash Coverity
+    corgea upload <scan report in XML>
     ```
     </CodeGroup>
   </Step>
