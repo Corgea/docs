@@ -171,6 +171,41 @@ By default, the scan command scans the entire project. However, if you only want
 ```bash
 corgea scan --only-uncommitted
 ```
+You can also target specific files or subsets of your project (BLAST scans only) with the `--target` option. This accepts comma-separated values and supports file paths, directory paths, glob patterns, git selectors, or stdin.
+
+Examples:
+
+```bash
+corgea scan --target src/,pyproject.toml
+```
+
+```bash
+corgea scan --target "src/**/*.py"
+```
+
+```bash
+corgea scan --target git:diff=origin/main...HEAD
+```
+
+```bash
+corgea scan --target git:staged,git:modified,git:untracked
+```
+
+```bash
+corgea scan --target -
+```
+
+```bash
+git ls-files -z | corgea scan --target -0
+```
+
+Note: `--only-uncommitted` and `--target` cannot be used together.
+
+To control the project name shown in Corgea, use `--project-name`. If omitted, the CLI defaults to the git repository name when available, and falls back to the current directory name.
+
+```bash
+corgea scan --project-name my-service
+```
 The regular BLAST scan includes multiple scans:
 - Blast Base AI Scan
 - PolicyIQ Scan
