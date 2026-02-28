@@ -33,6 +33,7 @@ Great! You've now connected Corgea with GitHub. The GitHub app will now scan eve
 
 ## Scanning PRs
 Corgea scans each pull request for potential vulnerabilities and suggests actionable fixes.
+PR comments are only placed on lines that are part of the PR diff. For multi-line issues, Corgea anchors the comment to the first changed line within the affected code range.
     <Frame>
       <img src="/images/github-scan.png" style={{ borderRadius: '0.5rem' }} />
     </Frame>
