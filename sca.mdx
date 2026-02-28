@@ -133,11 +133,13 @@ description: "Dependency Scanning, also known as Software Composition Analysis (
 
 Use filters on the Dependencies view to narrow SCA results:
 - **Search**: Find issues by CVE, package name, or summary
-- **Severity**: Focus on Critical, High, Medium, or Low findings
+- **Criticality**: Focus on Critical, High, Medium, or Low findings
 - **Ecosystem**: Limit results to a specific package ecosystem
 - **Project**: Filter to a specific project by name (shows only projects you can access)
 - **License**: Filter by dependency license
 - **Fix Available**: Show only issues with a known fix
+
+When sharing filtered Dependencies views or exporting filtered SCA CSV results, Corgea uses the `criticality` query parameter. Legacy links that use `urgency` are still supported.
 
 ### Supported Ecosystems
 
