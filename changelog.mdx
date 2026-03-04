@@ -3,6 +3,26 @@ title: "Changelog"
 description: "Product updates and announcements"
 ---
 
+<Update label="2026.03.04" description="v1.60.4">
+  **New Features:**
+  - Added project tag management through the Projects API, plus `repo_url` filtering/support in project responses for easier project automation workflows. — [Learn more](/project)
+  - Added CVSS scores to SCA issues API responses to help prioritize dependency vulnerabilities more accurately. — [Learn more](/sca)
+
+  **UI & Experience:**
+  - Fixed the JIRA ticket modal trigger on issue details pages for a more reliable ticket creation flow.
+  - Improved navigation bar behavior and responsiveness across layouts.
+
+  **Security & Permissions:**
+  - Hardened user group APIs to prevent vertical privilege escalation and improve access safety. — [Learn more](/permission_groups)
+
+  **Reliability & Stability:**
+  - Scan upload API now returns a clear `400` error when required fields are missing, improving API feedback for failed uploads. — [Learn more](/upload-report)
+  - Improved scan operations with manual scan triggering support for timeout recovery scenarios.
+  - Fixed vulnerability aging report errors to ensure the page loads reliably.
+  - Included missing database migrations and resolved migration conflicts for smoother upgrades.
+  - Improved test execution throughput and coverage reporting to support release stability.
+</Update>
+
 <Update label="2026.03.02" description="v1.60.3">
   **New Features:**
   - Added SBOM (Software Bill of Materials) generation and dependencies view for better visibility into your project components.
