@@ -94,9 +94,13 @@ curl https://www.corgea.app/api/v1/verify/your_token_here
 ### Authorization Flow
 
 For applications that need to authenticate users:
-1. Redirect users to Corgea's authorization page
+1. Redirect users to Corgea's authorization page with a callback URL (for example: `/authorize/?callback=http%3A%2F%2Flocalhost%3A49215%2Fauth%2Fcallback`)
 2. Users authorize your application and receive an authorization code
 3. Exchange the code for an API token using `/authorize?code=your_code`
+
+Callback URLs must use an approved host. Loopback callbacks (`localhost`, `127.0.0.1`, `::1`) are supported for local CLI flows, and Corgea IDE callbacks support approved custom schemes such as `cursor://Corgea.corgea/callback` and `vscode://Corgea.corgea/callback`.
+
+If the callback is missing or invalid, the authorization endpoint returns `400 Bad Request`.
 
 <Note>
 Some endpoints (like `/verify/{token}` and `/authorize`) don't require authentication. Check individual endpoint documentation for specific requirements.
