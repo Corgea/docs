@@ -25,6 +25,14 @@ Before using the Corgea CLI, ensure you have:
 
 ## Installation Guide
 
+### Install with npm
+
+```bash
+npm install -g @corgea/cli
+```
+
+The npm package bundles native binaries for supported platforms and selects the correct binary for your OS and architecture at runtime.
+
 ### Install with PIP
 
 To install the Corgea CLI tool, you can use Python's package installer, pip. Open your terminal and run the following command:
@@ -171,6 +179,7 @@ By default, the scan command scans the entire project. However, if you only want
 ```bash
 corgea scan --only-uncommitted
 ```
+
 You can also target specific files or subsets of your project (BLAST scans only) with the `--target` option. This accepts comma-separated values and supports file paths, directory paths, glob patterns, git selectors, or stdin.
 
 Examples:
@@ -206,6 +215,7 @@ To control the project name shown in Corgea, use `--project-name`. If omitted, t
 ```bash
 corgea scan --project-name my-service
 ```
+
 The regular BLAST scan includes multiple scans:
 - Blast Base AI Scan
 - PolicyIQ Scan
