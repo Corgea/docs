@@ -5,12 +5,12 @@ description: "Product updates and announcements"
 
 <Update label="2026.03.04" description="v1.60.5">
   **Security & Permissions:**
-  - Strengthened authorize callback validation to block open redirect attempts during authentication flows. — [Learn more](/cli)
+  - Improved authentication flow to prevent unauthorized redirects. — [Learn more](/cli)
 
   **Reliability & Stability:**
-  - Fixed an SCA triage edge case so triage updates can still be saved when an optional report payload is not provided. — [Learn more](/sca)
-  - Added additional SAML group sync test coverage to improve stability and reduce regression risk in group mapping behavior.
-  - Updated Django from `6.0.2` to `6.0.3` as part of routine maintenance.
+  - Fixed an edge case where SCA triage updates could fail to save in certain scenarios. — [Learn more](/sca)
+  - Improved reliability of SAML group sync and group mapping behavior.
+  - Routine dependency updates.
 </Update>
 
 <Update label="2026.03.04" description="v1.60.4">
