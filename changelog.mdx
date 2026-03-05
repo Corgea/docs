@@ -3,6 +3,21 @@ title: "Changelog"
 description: "Product updates and announcements"
 ---
 
+<Update label="2026.03.05" description="v1.60.6">
+  **New Features:**
+  - Added customizable webhook request body templates with safe placeholder support, giving you more control over webhook payload formats. — [Learn more](/webhooks)
+
+  **UI & Experience:**
+  - Reachability details are now shown only for direct dependencies, reducing noise when reviewing transitive SCA findings. — [Learn more](/sca)
+
+  **Security & Permissions:**
+  - Improved SAML onboarding and group sync behavior, including fixes for SAML config registration, first-login redirects, and consistent team naming from incoming SAML groups.
+
+  **Reliability & Stability:**
+  - Improved GitLab integration resilience by handling transient connection resets more reliably. — [Learn more](/gitlab)
+  - Reduced unnecessary integration error logging for cleaner operational visibility.
+</Update>
+
 <Update label="2026.03.04" description="v1.60.5">
   **Security & Permissions:**
   - Improved authentication flow to prevent unauthorized redirects. — [Learn more](/cli)
