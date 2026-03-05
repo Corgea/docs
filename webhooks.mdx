@@ -49,7 +49,7 @@ Corgea supports webhooks for the following events:
     Project and status filters determine if the webhook should fire
   </Step>
   <Step title="Payload Built">
-    A standardized JSON payload is constructed with event details
+    By default, a standardized JSON payload is constructed with event details (or your custom body template is used, if configured)
   </Step>
   <Step title="HTTP POST Request">
     The payload is sent to your webhook URL with security headers
@@ -64,7 +64,7 @@ Corgea supports webhooks for the following events:
 
 ### Payload Structure
 
-All webhook payloads follow a standardized structure:
+By default, webhook payloads follow a standardized structure:
 
 ```json webhook-payload.json
 {
@@ -83,6 +83,8 @@ All webhook payloads follow a standardized structure:
   }
 }
 ```
+
+If you configure **Custom Body** during webhook setup, Corgea sends your rendered JSON object instead of the default payload structure.
 
 ### Security Features
 
@@ -286,6 +288,17 @@ User-Agent: Corgea-Webhooks/1.0
     <Warning>
       **Important:** While Corgea will send any custom headers you configure, not all webhook destinations validate them. Services like Slack, Teams, and Zapier rely on secret URLs rather than header validation. Only add custom headers if your destination service actually requires or validates them (like Jira, custom APIs, etc.).
     </Warning>
+
+    **Custom Body**
+    - Optionally provide a JSON object template for the webhook request body
+    - Leave blank to use Corgea's default payload structure
+    - Supported placeholders:
+      - `{{payload}}` (full default payload object)
+      - `{{time}}` (Unix seconds)
+      - `{{timestamp}}` (ISO 8601 timestamp)
+      - `{{event_type}}`
+      - `{{event_id}}`
+    - If the rendered template is invalid JSON, delivery fails and the error appears in webhook history
   </Step>
 
   <Step title="Test Your Webhook">
