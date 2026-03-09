@@ -2824,6 +2824,16 @@
             "example": "production,backend"
           },
           {
+            "name": "repo_url",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "string"
+            },
+            "description": "Filter projects by repository URL (case-insensitive partial match)",
+            "example": "github.com/corgea/backend-api"
+          },
+          {
             "name": "page",
             "in": "query",
             "required": false,
@@ -2887,6 +2897,238 @@
                       "items": {
                         "$ref": "#/components/schemas/Project"
                       }
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Invalid or missing token",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "error": {
+                      "type": "string",
+                      "example": "API key is missing"
+                    }
+                  }
+                },
+                "examples": {
+                  "missing_token": {
+                    "summary": "API key header is missing",
+                    "value": {
+                      "error": "API key is missing"
+                    }
+                  },
+                  "invalid_token": {
+                    "summary": "API key is invalid",
+                    "value": {
+                      "error": "Invalid API key"
+                    }
+                  }
+                }
+              }
+            }
+          }
+          }
+        }
+    },
+    "/projects/{project_id}/tags": {
+      "patch": {
+        "summary": "Update Project Tags",
+        "operationId": "updateProjectTags",
+        "tags": [
+          "Projects"
+        ],
+        "description": "Add, remove, or replace tags for a project. Incoming tags are trimmed, lowercased, empty values are ignored, and duplicate values are removed before the update is applied.",
+        "parameters": [
+          {
+            "name": "project_id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "integer"
+            },
+            "description": "The ID of the project to update"
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "required": [
+                  "operation",
+                  "tags"
+                ],
+                "properties": {
+                  "operation": {
+                    "type": "string",
+                    "enum": [
+                      "add",
+                      "remove",
+                      "replace"
+                    ],
+                    "description": "How to apply the provided tags to the current project tag list"
+                  },
+                  "tags": {
+                    "type": "array",
+                    "items": {
+                      "type": "string"
+                    },
+                    "description": "Tags to add, remove, or replace after normalization"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Project tags updated successfully",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "status": {
+                      "type": "string",
+                      "example": "ok"
+                    },
+                    "project": {
+                      "type": "object",
+                      "properties": {
+                        "id": {
+                          "type": "integer"
+                        },
+                        "name": {
+                          "type": "string"
+                        },
+                        "repo_url": {
+                          "type": "string",
+                          "nullable": true,
+                          "description": "The repository URL associated with the project, when available"
+                        },
+                        "tags": {
+                          "type": "array",
+                          "items": {
+                            "type": "string"
+                          },
+                          "description": "Normalized project tags after the update"
+                        }
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Bad request - validation errors",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "error": {
+                      "type": "string",
+                      "example": "tags must be a list"
+                    }
+                  }
+                },
+                "examples": {
+                  "invalid_json": {
+                    "summary": "Request body is not valid JSON",
+                    "value": {
+                      "error": "Invalid JSON body"
+                    }
+                  },
+                  "invalid_operation": {
+                    "summary": "Operation is not supported",
+                    "value": {
+                      "error": "operation must be one of: add, remove, replace"
+                    }
+                  },
+                  "tags_not_list": {
+                    "summary": "Tags field is not an array",
+                    "value": {
+                      "error": "tags must be a list"
+                    }
+                  },
+                  "tag_not_string": {
+                    "summary": "One or more tags are not strings",
+                    "value": {
+                      "error": "all tags must be strings"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Invalid or missing token",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "error": {
+                      "type": "string",
+                      "example": "API key is missing"
+                    }
+                  }
+                },
+                "examples": {
+                  "missing_token": {
+                    "summary": "API key header is missing",
+                    "value": {
+                      "error": "API key is missing"
+                    }
+                  },
+                  "invalid_token": {
+                    "summary": "API key is invalid",
+                    "value": {
+                      "error": "Invalid API key"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "403": {
+            "description": "Permission denied",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "error": {
+                      "type": "string",
+                      "example": "Permission denied"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Project is hidden by Project Access Control",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "status": {
+                      "type": "string",
+                      "example": "error"
+                    },
+                    "message": {
+                      "type": "string",
+                      "example": "Project doesn't exist"
                     }
                   }
                 }
@@ -3317,6 +3559,11 @@
           },
           "description": {
             "type": "string"
+          },
+          "repo_url": {
+            "type": "string",
+            "nullable": true,
+            "description": "The repository URL associated with the project, when available"
           },
           "tags": {
             "type": "array",
