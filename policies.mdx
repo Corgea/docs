@@ -65,7 +65,9 @@ A well-structured policy should include the following components:
 
 5. **Projects**: Select which projects to apply this policy to, allowing for environment-specific policies.
 
-6. **Instruction Type**: Choose how your policy instructions interact with Corgea's built-in policies:
+6. **Guidance Notes (Optional)**: Add static guidance for developers, such as internal remediation notes, links to internal standards, or implementation tips. This guidance is shown when viewing issues that were affected by the policy.
+
+7. **Instruction Type**: Choose how your policy instructions interact with Corgea's built-in policies:
    - **Append to Corgea Default Policy**: Adds your policy instructions to Corgea's built-in policies, preserving both sets of rules. Use this when you want to enhance the default policies with your specific business context, security controls, or environmental details.
    - **Replace Corgea Default Policy**: Your policy instructions completely override Corgea's default behavior. Use this when you want full control over how specific scenarios are handled.
 
@@ -256,8 +258,8 @@ These configurations help identify vulnerabilities by considering the context of
       <img src="/images/policy_iq_corgea_yaml_scan.png" style={{ borderRadius: '0.5rem' }} />
     </Frame>
   </Step>
-  <Step title="click on `Related issue'">
-    Click on `Related Issue` column to see issues triggered from this policy.
+  <Step title="Click on `Associated Issues`">
+    Click on the `Associated Issues` column to see issues triggered from this policy.
     <Frame>
       <img src="/images/policy_iq_corgea_yaml_issues.png" style={{ borderRadius: '0.5rem' }} />
     </Frame>
@@ -289,11 +291,14 @@ policies:
 Optionally, you can add these fields 
 
 - `instruction_type` : Determines how your policy instructions interact with Corgea's built-in policies. Can be set to `"append"` or `"overwrite"`. When set to `"append"`, your policy instructions are added to Corgea's built-in policies, preserving both sets of rules. When set to `"overwrite"` (default), your policy instructions completely replace Corgea's default behavior.
+- `guidance_text` : Optional static guidance shown to developers when viewing issues associated with the policy. Use this for team-specific instructions, internal links, or remediation context.
 
 ```
 policies:
   - type: "fix"
     instruction_type: "append"
+    guidance_text: >
+      Use our secure logging utility and do not log raw request payloads.
     description: >
       Additionally, ensure all fixes integrate with our custom SecureMiddleware framework
       and follow our internal security guidelines for key rotation.
