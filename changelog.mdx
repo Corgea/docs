@@ -3,6 +3,23 @@ title: "Changelog"
 description: "Product updates and announcements"
 ---
 
+<Update label="2026.03.10" description="v1.60.7">
+  **New Features:**
+  - Added policy guidance notes, so teams can attach internal instructions that appear directly in related issue details.
+  - Added prework-driven policy generation controls, including optional review behavior before generated policies are activated.
+
+  **UI & Experience:**
+  - Improved scan page filtering with reorganized controls and cleaner interactions.
+  - User search now works globally across all pages instead of only filtering the currently visible page.
+
+  **Reliability & Stability:**
+  - Improved webhook receiver reliability and delivery handling for more consistent event processing. — [Learn more](/webhooks)
+  - Added safer issue/query limits for heavy search, export, blocking-rule, and scan comparison flows to reduce out-of-memory failures.
+  - Improved GitHub integration resilience with custom retry behavior for transient API failures.
+  - Updated policy API versioning behavior so newly updated policies are versioned cleanly while older active versions are archived.
+  - Improved handling when duplicate projects are detected during project lookup to reduce incorrect matching issues.
+</Update>
+
 <Update label="2026.03.05" description="v1.60.6">
   **New Features:**
   - Added customizable webhook request body templates with safe placeholder support, giving you more control over webhook payload formats. — [Learn more](/webhooks)
