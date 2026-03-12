@@ -219,6 +219,24 @@ Upon completing the setup, a new SAML metadata link will be provided.
 - **No SAML Configuration Found**: If the configuration is missing, ensure that the correct referer URL or email domain is being utilized.
 - **Permission Update**: If a user cannot access the SAML application, verify that their permissions are correctly configured and updated.
 
+## Domain Ownership Conflicts
+
+If you see a message that another workspace has already verified ownership of your domain, Corgea is preventing two different workspaces from claiming the same company domain at the same time.
+
+This most commonly happens when:
+
+- your team already has an existing Corgea workspace tied to the same email domain
+- another admin in your organization enabled domain-based user join first
+- SSO or domain-based workspace join was configured in a different workspace before the current one
+
+We enforce this because a verified company domain is used to route users into the correct workspace and to protect against users being automatically sent to the wrong place.
+
+### What to do next
+
+1. Confirm whether your organization already has an existing Corgea workspace for this domain.
+2. If the existing workspace is the correct one, continue managing users and SSO there instead of creating a second workspace for the same domain.
+3. If the domain needs to move to a different workspace, contact Corgea support (support@corgea.com) so we can help verify the correct ownership and update the configuration safely.
+
 ## Additional Resources
 
 - [SAML Protocol Overview](https://en.wikipedia.org/wiki/SAML_2.0)
