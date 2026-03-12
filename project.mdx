@@ -61,7 +61,7 @@ CWEs let you align Corgea’s findings with your project’s threat model. Think
     In the project settings sidebar, open the **CWE filters** tab.
   </Step>
   <Step title="Pick the CWEs you want to ignore">
-    Browse the list grouped by category (e.g., Injection, Authentication) or search for a specific CWE identifier. Toggle off entries that should no longer surface in new scan results.
+    Add a CWE ID and optionally include a **Glob Pattern** to scope the ignore rule to specific files or folders (for example, `**/tests/**`). Leave the glob pattern empty to apply the rule across all files in the project.
     <Card>
       <img src="/images/cwe_filters.png" style={{ borderRadius: '0.5rem' }} alt="CWE Filters Configuration" />
     </Card>
