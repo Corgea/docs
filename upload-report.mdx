@@ -106,6 +106,10 @@ You can install the Corgea CLI using pip:
     corgea scan snyk
     ```
 
+    ```bash Custom project name
+    corgea upload report.json --project-name my-service
+    ```
+
     ```bash Checkmarx
     # Create a scan with a JSON output for example:
     cx scan create --project-name juice-shop -s . --branch master --scan-types sast --report-format json --output-name report
