@@ -3,6 +3,25 @@ title: "Changelog"
 description: "Product updates and announcements"
 ---
 
+<Update label="2026.03.13" description="v1.60.8">
+  **New Features:**
+  - Added company domain join controls so organizations can allow users with matching business email domains to join automatically. — [Learn more](/sso)
+  - Added CWE ignore glob pattern support, so teams can scope ignore rules to specific file paths instead of applying them globally. — [Learn more](/policies)
+
+  **UI & Experience:**
+  - Improved scan filtering with clearer labels, better layout fit, and added scanner options.
+  - Improved issue details and scan details behavior, including clearer file path display and better filter isolation across tabs.
+
+  **Security & Permissions:**
+  - Added dedicated reporting access control, so reporting pages are now gated by a specific reporting permission.
+
+  **Reliability & Stability:**
+  - Improved webhook delivery and redelivery reliability to reduce duplicate or missed webhook events. — [Learn more](/webhooks)
+  - Fixed SCIM user provisioning idempotency to prevent duplicate-key failures when the same user payload is sent more than once. — [Learn more](/sso)
+  - Improved prework scan eligibility handling and related company-setting defaults for more predictable scan behavior.
+  - Improved stale CI scan cancellation reporting for better operational visibility.
+</Update>
+
 <Update label="2026.03.10" description="v1.60.7">
   **New Features:**
   - Added policy guidance notes, so teams can attach internal instructions that appear directly in related issue details.
