@@ -1237,6 +1237,16 @@
             "description": "Filter issues by branch name"
           },
           {
+            "name": "show_false_positives",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "boolean",
+              "default": false
+            },
+            "description": "Include issues marked as false positives (manual or AI). By default false positives are excluded."
+          },
+          {
             "name": "page",
             "in": "query",
             "required": false,
@@ -1381,6 +1391,17 @@
             },
             "description": "Filter by status (comma-separated). Valid values: fixed, false_positive, accepted_risk, open, fix_in_progress, duplicate",
             "example": "open,fix_in_progress"
+          },
+          {
+            "name": "show_false_positives",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "boolean",
+              "default": false
+            },
+            "description": "Include issues marked as false positives (manual or AI). By default false positives are excluded.",
+            "example": true
           },
           {
             "name": "language",
