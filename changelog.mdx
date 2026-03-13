@@ -3,6 +3,27 @@ title: "Changelog"
 description: "Product updates and announcements"
 ---
 
+<Update label="2026.03.13" description="v1.60.8">
+  **New Features:**
+  - Added domain-based workspace join controls in SSO settings, so eligible users can automatically join the right workspace by email domain. — [Learn more](/sso)
+  - Added glob-pattern support for CWE ignore rules, so teams can scope ignore behavior to specific paths instead of entire projects.
+  - Added optional `show_false_positives=true` support in Issues APIs to include false-positive findings when needed for reporting and automation.
+
+  **UI & Experience:**
+  - Improved scan details usability with clearer filter behavior across tabs and more consistent IaC filter visibility.
+  - Improved issue details file path display for better readability across screen sizes, with faster copy actions.
+  - Updated scan list filters with a cleaner layout, clearer labels, and scanner coverage for Coverity.
+
+  **Security & Permissions:**
+  - Added a dedicated `View Reporting` permission so reporting access can be controlled independently of general scan permissions.
+
+  **Reliability & Stability:**
+  - Fixed SCIM user provisioning idempotency to prevent duplicate-key failures during repeated user sync attempts. — [Learn more](/sso#sso-scim-provider-configuration)
+  - Improved scan webhook delivery behavior to reduce duplicate completion events and make redelivery attempts more reliable. — [Learn more](/webhooks)
+  - Improved prework scan triggering logic so prework runs under the correct branch and integration conditions. — [Learn more](/policies)
+  - Improved stale-scan cancellation reporting and company-setting default handling to reduce operational edge-case failures.
+</Update>
+
 <Update label="2026.03.10" description="v1.60.7">
   **New Features:**
   - Added policy guidance notes, so teams can attach internal instructions that appear directly in related issue details.
