@@ -718,6 +718,28 @@
             "description": "Filter scans by project name"
           },
           {
+            "name": "triggered_by",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "string"
+            },
+            "description": "Filter scans by the user who triggered them. Use an email address or \"current_user\"."
+          },
+          {
+            "name": "scan_type",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "string",
+              "enum": [
+                "full",
+                "partial"
+              ]
+            },
+            "description": "Filter scans by type. Use \"full\" for full scans or \"partial\" for scans limited to selected files."
+          },
+          {
             "name": "page",
             "in": "query",
             "required": false,
@@ -1235,6 +1257,28 @@
               "type": "string"
             },
             "description": "Filter issues by branch name"
+          },
+          {
+            "name": "triggered_by",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "string"
+            },
+            "description": "Filter issues to the latest scan triggered by a specific user. Use an email address or \"current_user\"."
+          },
+          {
+            "name": "scan_type",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "string",
+              "enum": [
+                "full",
+                "partial"
+              ]
+            },
+            "description": "Filter issues to the latest scan by scan type. Use \"full\" or \"partial\"."
           },
           {
             "name": "show_false_positives",
