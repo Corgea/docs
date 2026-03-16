@@ -3302,6 +3302,13 @@
           },
           "auto_fix_suggestion": {
             "$ref": "#/components/schemas/AutoFixSuggestion"
+          },
+          "scanner_metadata": {
+            "type": "object",
+            "description": "Scanner-provided metadata attached to the issue.",
+            "additionalProperties": {
+              "type": "string"
+            }
           }
         }
       },
