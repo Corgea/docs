@@ -3,6 +3,20 @@ title: "Changelog"
 description: "Product updates and announcements"
 ---
 
+<Update label="2026.03.17" description="v1.61.0">
+  **New Features:**
+  - Added scanner metadata to issue API responses, including normalized custom scanner fields, so teams can preserve third-party scanner context during triage. — [Learn more](/api-reference/introduction)
+  - Added scan-scope filtering for issues APIs by scan type and triggering user, so issue listings reflect the latest matching scan instead of defaulting to unrelated scan runs. — [Learn more](/api-reference/introduction)
+  - Added support to reconstruct source ZIPs for third-party scanner workflows, improving recovery and reprocessing for uploaded scans. — [Learn more](/upload-report)
+
+  **UI & Experience:**
+  - Improved scan policy issue links and counts so false-positive and fix policies open directly to the associated filtered issue views for the selected scan. — [Learn more](/policies)
+
+  **Reliability & Stability:**
+  - Improved scan pipeline throughput by allowing prework and scan processing to run in parallel, reducing queue delays.
+  - Fixed content access exports so project access CSVs include complete user/team coverage and explicit entries for projects with no assigned access.
+</Update>
+
 <Update label="2026.03.13" description="v1.60.8">
   **New Features:**
   - Added company domain join controls so organizations can allow users with matching business email domains to join automatically. — [Learn more](/sso)
