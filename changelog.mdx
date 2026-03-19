@@ -3,6 +3,14 @@ title: "Changelog"
 description: "Product updates and announcements"
 ---
 
+<Update label="2026.03.19" description="v1.61.2">
+  **New Features:**
+  - Added JIRA ticket creation directly from SCA issue details, including quick access to created ticket links for faster dependency-vulnerability triage. — [Learn more](/jira)
+
+  **Reliability & Stability:**
+  - General bug fixes and performance improvements.
+</Update>
+
 <Update label="2026.03.19" description="v1.61.1">
   **New Features:**
   - Added project-level filtering in Content Access so teams can quickly narrow access reviews to a specific project.
@@ -13,12 +21,9 @@ description: "Product updates and announcements"
   - Improved the scan comparison experience with custom scan labels, richer false-positive visibility, and new filters for reachability and hold-reason changes.
 
   **Reliability & Stability:**
-  - Improved large-repository scan handling and source ZIP streaming to reduce missed scans and improve stability for larger code archives. — [Learn more](/upload-report)
   - Improved pull request diff handling so legitimate findings are less likely to be skipped in automated commenting, including better Bitbucket diff coverage.
   - Fixed add-issue flow failures when pull request file metadata is unavailable.
   - Improved policy API error handling and validation, including better project-based policy retrieval behavior and clearer invalid-input responses. — [Learn more](/policies)
-  - Ordered unprocessed scans by creation time for more predictable scan processing behavior.
-  - Added a backward-compatible stream option for internal scan code ZIP retrieval.
 </Update>
 
 <Update label="2026.03.17" description="v1.61.0">
