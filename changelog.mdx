@@ -3,6 +3,24 @@ title: "Changelog"
 description: "Product updates and announcements"
 ---
 
+<Update label="2026.03.19" description="v1.61.1">
+  **New Features:**
+  - Added project-level filtering in Content Access so teams can quickly narrow access reviews to a specific project.
+  - Added scan trigger-source tracking for CLI and IDE initiated scans, improving visibility into how scans are launched and which client tools are being used. — [Learn more](/cli)
+  - Added Checkmarx `Path Id` visibility in issue details to improve triage context for scanner-specific findings.
+
+  **UI & Experience:**
+  - Improved the scan comparison experience with custom scan labels, richer false-positive visibility, and new filters for reachability and hold-reason changes.
+
+  **Reliability & Stability:**
+  - Improved large-repository scan handling and source ZIP streaming to reduce missed scans and improve stability for larger code archives. — [Learn more](/upload-report)
+  - Improved pull request diff handling so legitimate findings are less likely to be skipped in automated commenting, including better Bitbucket diff coverage.
+  - Fixed add-issue flow failures when pull request file metadata is unavailable.
+  - Improved policy API error handling and validation, including better project-based policy retrieval behavior and clearer invalid-input responses. — [Learn more](/policies)
+  - Ordered unprocessed scans by creation time for more predictable scan processing behavior.
+  - Added a backward-compatible stream option for internal scan code ZIP retrieval.
+</Update>
+
 <Update label="2026.03.17" description="v1.61.0">
   **New Features:**
   - Added scanner metadata to issue API responses, including normalized custom scanner fields, so teams can preserve third-party scanner context during triage. — [Learn more](/api-reference/introduction)
