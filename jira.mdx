@@ -3,7 +3,7 @@ title: JIRA
 description: "Setting up the JIRA Integration in Corgea"
 ---
 
-Corgea's JIRA integration allows you to automatically create JIRA tickets for security issues found in your codebase. This integration streamlines the process of tracking and managing security vulnerabilities within your existing JIRA workflow.
+Corgea's JIRA integration allows you to automatically create JIRA tickets for security issues found in your codebase and dependencies. This integration streamlines the process of tracking and managing security vulnerabilities within your existing JIRA workflow.
 
 ## Prerequisites
 
@@ -41,7 +41,7 @@ Before setting up the JIRA integration, ensure that you have the following:
 
 <Steps>
   <Step title="Navigate to Issues">
-    Navigate to the "Issues" page in Corgea and select an issue for which you want to create a JIRA ticket.
+    Navigate to either a code issue or dependency issue in Corgea and open the issue details page.
   </Step>
   <Step title="Access Issue Details">
     On the issue details page, select the ticket icon button (tooltip: "Create Ticket").
@@ -64,9 +64,11 @@ Before setting up the JIRA integration, ensure that you have the following:
 
 By default, Corgea populates the JIRA ticket with the following information:
 
-- **Summary**: The issue classification and file path (e.g., "CWE-022: Improper Limitation of a Pathname to a Restricted Directory ('Path Traversal') in /app/routes.py").
+- **Summary**:
+  - Code issues: issue classification and file location
+  - Dependency issues: CVE, affected package, and affected version
 - **Description**:
-  - Vulnerability details (location, category, severity)
+  - Vulnerability details (location/package, category, severity)
   - Issue explanation
   - Proposed fix (if available)
   - Link to the issue details page in Corgea
