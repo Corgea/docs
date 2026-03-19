@@ -3,6 +3,18 @@ title: "Changelog"
 description: "Product updates and announcements"
 ---
 
+<Update label="2026.03.19" description="v1.61.2">
+  **New Features:**
+  - Added JIRA ticket creation directly from SCA issue details, including quick access to created ticket links for faster dependency-vulnerability triage. — [Learn more](/jira)
+
+  **Reliability & Stability:**
+  - Restored backward compatibility for scan code ZIP retrieval so existing API consumers continue to work while streaming ZIP delivery remains supported. — [Learn more](/upload-report)
+  - Added scheduled cleanup for abandoned temporary upload files to reduce failures caused by stale upload artifacts. — [Learn more](/upload-report)
+  - Added scan pickup timestamps to improve scan duration accuracy and processing visibility.
+  - Improved backward compatibility for profile usage fields to make upgrades from older versions smoother.
+  - Improved logging behavior and plan-limit handling so integrations return clearer non-failure outcomes when usage limits are reached.
+</Update>
+
 <Update label="2026.03.19" description="v1.61.1">
   **New Features:**
   - Added project-level filtering in Content Access so teams can quickly narrow access reviews to a specific project.
