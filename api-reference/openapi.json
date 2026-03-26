@@ -14,6 +14,9 @@
   "security": [
     {
       "CorgeaToken": []
+    },
+    {
+      "BearerAuth": []
     }
   ],
   "paths": {
@@ -3237,6 +3240,12 @@
         "in": "header",
         "name": "CORGEA-TOKEN",
         "description": "API key for authentication"
+      },
+      "BearerAuth": {
+        "type": "http",
+        "scheme": "bearer",
+        "bearerFormat": "JWT",
+        "description": "OAuth2 access token (JWT) in the Authorization header"
       }
     },
     "schemas": {
