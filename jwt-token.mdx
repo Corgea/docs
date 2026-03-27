@@ -1,0 +1,124 @@
+---
+title: 'JWT Auth'
+description: 'Authenticate API requests using JWT Bearer tokens issued by your identity provider (Entra ID, Okta, etc.) for system-to-system integrations.'
+---
+
+## Overview
+
+JWT Token authentication lets you call the Corgea API using Bearer tokens issued directly by your identity provider (IdP) — such as Microsoft Entra ID or Okta — instead of a user-specific Corgea API token.
+
+This is the recommended approach for **system-to-system integrations** (CI/CD pipelines, automated scanners, internal tooling) where you want:
+
+- Tokens tied to a service principal or app registration rather than a specific user account
+- Token lifetime and scope controlled by your IdP
+- Centralized revocation through your IdP without touching Corgea
+
+A Corgea API token is always tied to an individual user. If that user leaves or their account is deactivated, any automation using their token breaks. JWT Auth decouples authentication from user accounts entirely.
+
+## How It Works
+
+1. Your system requests an access token from your IdP using client credentials (client ID + secret).
+2. The IdP returns a signed JWT containing claims such as `iss` (issuer) and `aud` (audience).
+3. Your system passes the token as a `Bearer` token in the `Authorization` header when calling the Corgea API.
+4. Corgea validates the token signature against the IdP's public keys and checks that the `iss`, `aud`, and `appid`/`cid` claims match your registered configuration.
+
+## Setting Up JWT Auth in Corgea
+
+Navigate to **Settings → Integrations** and click **+ Add** in the **JWT Auth** section.
+
+<Card>
+  <img src="/images/jwt_token/corgae_jwt_token_form.png" style={{ borderRadius: '0.5rem' }} alt="Add JWT Auth Configuration form in Corgea" />
+</Card>
+
+Fill in the following fields:
+
+| Field | Description |
+|---|---|
+| **Name** | A descriptive label for this configuration (e.g., `Entra CICD Pipeline`). |
+| **Issuer** | The token issuer URL — must match the `iss` claim in the access token. |
+| **Audience** | Must match the `aud` claim in the access token. |
+| **Allowed Application IDs** | One client ID per line — the application that is allowed to use this configuration. |
+
+<Info>
+  Use [jwt.io](https://jwt.io) to decode an access token from your IdP and verify the exact values of `iss`, `aud`, and `appid`/`cid` before filling in this form.
+</Info>
+
+**Provider-specific values:**
+
+- **Entra ID issuer**: `https://sts.windows.net/{your-tenant-id}/`
+- **Entra ID audience**: your app's Application ID URI (e.g., `api://{client_id}`) — set via **Expose an API** in Entra
+- **Okta issuer**: `https://{domain}.okta.com/oauth2/default`
+- **Okta audience**: `api://default` (or the custom authorization server audience)
+
+## Microsoft Entra ID Setup
+
+<Steps>
+  <Step title="Register an application in Entra">
+    In the [Azure portal](https://portal.azure.com), go to **Microsoft Entra ID → App registrations → New registration**. Give the app a descriptive name (e.g., `corgea-cicd`) and register it.
+  </Step>
+  <Step title="Expose an API and set the Application ID URI">
+    Go to **Expose an API** in your app registration. Set or confirm the **Application ID URI** — this becomes the `aud` claim in tokens issued for this app.
+
+    <Card>
+      <img src="/images/jwt_token/entra_expose_an_api.png" style={{ borderRadius: '0.5rem' }} alt="Expose an API in Microsoft Entra" />
+    </Card>
+
+    Copy the Application ID URI (e.g., `api://5d63c8f0-c9a8-4195-90ee-a9e27e4510b8`) — you will enter this as the **Audience** in Corgea.
+  </Step>
+  <Step title="Create a client secret">
+    Go to **Certificates & secrets → New client secret**. Add a description and set an expiry, then click **Add**.
+
+    <Card>
+      <img src="/images/jwt_token/entra_client_secret.png" style={{ borderRadius: '0.5rem' }} alt="Add a client secret in Microsoft Entra" />
+    </Card>
+
+    Copy the secret **Value** immediately — it is only shown once. Store it securely (e.g., in your CI/CD secrets store).
+  </Step>
+  <Step title="Request an access token">
+    Your system requests a token from Entra using the client credentials flow:
+
+    ```bash
+    curl -X POST \
+      https://login.microsoftonline.com/{tenant-id}/oauth2/v2.0/token \
+      -d "grant_type=client_credentials" \
+      -d "client_id={client-id}" \
+      -d "client_secret={client-secret}" \
+      -d "scope=api://{client-id}/.default"
+    ```
+
+    The response contains an `access_token`. Pass this as a Bearer token when calling Corgea:
+
+    ```bash
+    curl -H "Authorization: Bearer {access_token}" https://www.corgea.app/api/...
+    ```
+
+    <Note>
+      Replace `https://www.corgea.app` with `https://your_instance.corgea.app` if you are on a private deployment.
+    </Note>
+  </Step>
+  <Step title="Register the configuration in Corgea">
+    In Corgea's **Add JWT Auth Configuration** form, enter:
+
+    - **Issuer**: `https://sts.windows.net/{your-tenant-id}/`
+    - **Audience**: the Application ID URI from Step 2 (e.g., `api://5d63c8f0-...`)
+    - **Allowed Application IDs**: the **Application (client) ID** from your app registration
+
+    Click **Add** to save.
+  </Step>
+</Steps>
+
+## Verifying Your Token
+
+Use [jwt.io](https://jwt.io) to decode an access token before configuring Corgea. Paste your token in the debugger and inspect the **Decoded Payload** to confirm the `iss`, `aud`, and `appid` values.
+
+<Card>
+  <img src="/images/jwt_token/jwt_io.png" style={{ borderRadius: '0.5rem' }} alt="Decoding a JWT token at jwt.io to verify iss and aud claims" />
+</Card>
+
+The highlighted `aud` and `iss` fields are exactly what Corgea checks when validating incoming requests.
+
+## Troubleshooting
+
+- **401 Unauthorized**: Decode your token at jwt.io and confirm `iss`, `aud`, and `appid` exactly match the values in your Corgea JWT Auth configuration.
+- **Token rejected after rotation**: If you rotated your client secret, ensure the new secret is updated in your CI/CD environment. The Corgea configuration itself does not need to change since it validates token claims, not the secret.
+- **Multiple environments**: Create a separate JWT Auth configuration in Corgea for each application or environment (e.g., staging vs. production) using distinct app registrations with different client IDs.
