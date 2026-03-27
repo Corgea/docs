@@ -3,6 +3,23 @@ title: "Changelog"
 description: "Product updates and announcements"
 ---
 
+<Update label="2026.03.27" description="v1.61.3">
+  **New Features:**
+  - Added policy-generation prework runs from the Policies page, so teams can trigger targeted policy generation directly from the UI. — [Learn more](/policies)
+
+  **Security & Permissions:**
+  - Added OAuth2 JWT bearer authentication with service-principal permission mapping for API access, enabling secure machine-to-machine workflows without user-bound API keys. — [Learn more](/jwt-token)
+
+  **UI & Experience:**
+  - Improved Service Principal setup guidance for Entra and Okta token configuration, including clearer issuer/audience/application ID instructions. — [Learn more](/jwt-token)
+  - Improved prework-only scan presentation with clearer scan naming and prework-focused status messaging in scan views.
+
+  **Reliability & Stability:**
+  - Improved full-scan performance for integration-backed repositories, reducing end-to-end scan time in supported cases.
+  - Improved scan metadata handling by accepting broader metadata keys and storing canary metadata separately for cleaner scan telemetry.
+  - Improved integration resilience with tighter timeout handling and streamed ZIP downloads across Git and ticketing workflows.
+</Update>
+
 <Update label="2026.03.19" description="v1.61.2">
   **New Features:**
   - Added JIRA ticket creation directly from SCA issue details, including quick access to created ticket links for faster dependency-vulnerability triage. — [Learn more](/jira)
