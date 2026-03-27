@@ -135,7 +135,7 @@
     },
     {
       "group": "Authentication",
-      "pages": ["sso"]
+      "pages": ["sso", "jwt-token"]
     }
   ],
   "footerSocials": {
