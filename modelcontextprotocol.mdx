@@ -351,6 +351,20 @@ Use AI to plan security fixes:
 
 All MCP tool calls require a valid Corgea API token passed in the `CORGEA-TOKEN` header.
 
+For machine-to-machine setups, you can also use a configured service principal JWT in the `Authorization` header:
+
+```http
+Authorization: Bearer <access_token>
+```
+
+When configuring a service principal for Entra ID or Okta, make sure token claims match your Corgea configuration:
+- `iss` must match the configured issuer (Entra commonly uses `https://sts.windows.net/{your-tenant-id}/`)
+- `aud` must match the configured audience
+- Allowed application IDs should match `appid` (Entra) or `cid` (Okta)
+- For Entra client credentials, request tokens with `api://<client_id>/.default` scope after exposing an API scope
+
+Tip: Decode your JWT at [jwt.io](https://jwt.io/) to validate claim values before saving the configuration.
+
 **Getting Your Token:**
 1. Log in to your Corgea account
 2. Navigate to Settings → API Keys
