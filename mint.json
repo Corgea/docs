@@ -76,6 +76,7 @@
             "pii",
             "iac",
             "upload-report",
+            "scheduled-scans",
             "fingerprint"
           ]
         },
