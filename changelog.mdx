@@ -3,6 +3,21 @@ title: "Changelog"
 description: "Product updates and announcements"
 ---
 
+<Update label="2026.04.01" description="v1.61.5">
+  **New Features:**
+  - Enabled incremental scans by default for all organizations, so new and existing workspaces get faster follow-up scan coverage automatically.
+  - Expanded Policy Playground workflows so teams can open supported policies directly in Playground, edit and version them in-place, and scope policies with file glob patterns. — [Learn more](/policies)
+
+  **UI & Experience:**
+  - Improved login behavior so already authenticated users are redirected directly to the Projects page.
+  - Improved profile administration with company auto-complete on profile edits, including clearer company ID selection behavior.
+
+  **Reliability & Stability:**
+  - Improved CLI upload compatibility for repositories without configured integrations, reducing avoidable upload/prework flow failures.
+  - Improved policy editing stability with clearer no-change handling during Playground-based policy updates.
+  - General bug fixes and performance improvements.
+</Update>
+
 <Update label="2026.03.30" description="v1.61.4">
   **Reliability & Stability:**
   - Improved prework scan handling so standard scan selection consistently excludes prework-only and policy-playground scans, reducing incorrect scan context in scan views. — [Learn more](/policies)
