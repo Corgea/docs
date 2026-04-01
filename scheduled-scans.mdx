@@ -1,0 +1,135 @@
+---
+title: 'Scheduled Scans'
+description: 'Automatically run security scans on a recurring schedule'
+---
+
+<Info>
+  **Prerequisite** You have a connected repository (GitHub, GitLab, Azure DevOps, or Bitbucket) and Scheduled Scans enabled on your plan. See [Corgea pricing](https://corgea.com/pricing/) to enable this feature.
+</Info>
+
+Scheduled Scans let you automatically trigger security scans across your projects on a recurring cadence — without manual intervention. You can scope scans to specific projects or by tag, choose which scan types to run, and control the frequency from daily to yearly.
+
+## Viewing Scheduled Scans
+
+Navigate to the **Scheduled Scans** page from the Policy Management section. This lists all configured schedules for your organization, along with their status, frequency, scope, and last/next run times.
+
+<Frame>
+  <img src="/images/scheduled_scans/schedule_job_list.png" style={{ borderRadius: '0.5rem' }} />
+</Frame>
+
+Each row shows:
+- **Name** — a label for the schedule
+- **Scope** — how many projects or tags are targeted
+- **Scan Types** — which scanners will run (e.g., BLAST, Secrets, PII)
+- **Frequency** — how often the scan runs
+- **Next Run** — when the scan is next scheduled to execute
+- **Status** — whether the schedule is active or paused
+
+From the list you can **edit**, **pause/resume**, **run immediately**, or **delete** any schedule.
+
+## Creating a Scheduled Scan
+
+Click **New Schedule** to open the schedule creation form.
+
+<Frame>
+  <img src="/images/scheduled_scans/schedule_job_form.png" style={{ borderRadius: '0.5rem' }} />
+</Frame>
+
+<Steps>
+  <Step title="Name the schedule">
+    Give your schedule a descriptive name. If left blank, Corgea will auto-generate one based on the scope and frequency.
+  </Step>
+
+  <Step title="Select the scope">
+    Choose how to target projects:
+    - **Projects** — pick one or more specific repositories from your connected integrations
+    - **Tags** — target all projects that share one or more labels (useful for scanning a service tier, team, or environment)
+
+    <Tip>
+      Using tags makes it easy to automatically include new projects in a schedule as your organization grows — no need to update the schedule manually.
+    </Tip>
+  </Step>
+
+  <Step title="Choose scan types">
+    Select which scanners to run. Multiple scan types can be combined in a single schedule.
+
+    | Scan Type | What it detects |
+    |-----------|----------------|
+    | **BLAST** | Security vulnerabilities in application code |
+    | **Policy** | Violations of your custom PolicyIQ rules |
+    | **PII** | Personally identifiable information exposure |
+    | **Dependencies** | Vulnerable third-party packages (SCA) |
+    | **Secrets** | Hardcoded credentials and API keys |
+    | **Malicious** | Malicious code patterns |
+  </Step>
+
+  <Step title="Set the frequency">
+    Select how often the scan should run:
+
+    | Frequency | Description |
+    |-----------|-------------|
+    | **Weekly** | Runs on a specific day of the week |
+    | **Monthly** | Runs on a specific day of the month (or the last day) |
+    | **Quarterly** | Runs on a specific day each quarter (January, April, July, October) |
+    | **2×/Year** | Runs twice a year on two months you specify |
+    | **Yearly** | Runs once a year on a specific month and day |
+  </Step>
+
+  <Step title="Save and activate">
+    Click **Save**. The schedule is immediately set to **active** and Corgea will calculate the next run time based on your chosen frequency.
+  </Step>
+</Steps>
+
+## Running a Scan Immediately
+
+You can trigger any schedule to run right away by clicking **Run Now** on the schedule list. Corgea enforces a 24-hour cooldown per schedule — if a scan already ran within the last 24 hours, the run will be skipped.
+
+## Managing Schedules
+
+### Pausing and Resuming
+
+Toggle a schedule between **active** and **paused** from the list view. Paused schedules will not run automatically until reactivated.
+
+### Editing
+
+Click **Edit** on any schedule to modify its name, scope, scan types, or frequency. Changes take effect on the next scheduled run.
+
+### Deleting
+
+Click **Delete** to permanently remove a schedule. This does not affect scans that have already been executed.
+
+## How Scans Are Executed
+
+When a scheduled scan runs, Corgea:
+
+1. Resolves the target projects (directly selected, or matched via tags)
+2. Downloads the latest code from the configured branch (defaults to the project's default branch)
+3. Runs the selected scan types against the code
+4. Creates a scan record linked to the schedule run
+
+You can view results from scheduled scans the same way as any other scan — through the [Fixes](fixes) and project dashboards. Each scheduled scan result is labeled with the schedule name for easy identification.
+
+## Troubleshooting
+
+<AccordionGroup>
+  <Accordion title="Scheduled Scans is not visible">
+    Scheduled Scans requires a compatible plan and must be enabled for your organization. Contact your Corgea account team to enable it.
+  </Accordion>
+
+  <Accordion title="No projects found for schedule">
+    If a schedule has scope type **Projects** but no projects are selected, or scope type **Tags** but no projects match the configured tags, the scan will be skipped. Edit the schedule to verify the scope configuration.
+  </Accordion>
+
+  <Accordion title="Scan failed for a project">
+    The schedule list will show an error message if one or more project scans failed. Common causes:
+    - The repository is not accessible (check your integration credentials)
+    - The configured branch does not exist
+    - The project has no connected integration
+
+    Check the schedule's error message for specifics, then verify the project's integration under the project settings.
+  </Accordion>
+
+  <Accordion title="Run Now was skipped">
+    Corgea enforces a 24-hour cooldown per schedule to prevent duplicate runs. If a scan already ran within the last 24 hours, **Run Now** will be blocked. Wait until the cooldown expires or check the last run timestamp on the schedule list.
+  </Accordion>
+</AccordionGroup>
