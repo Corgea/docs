@@ -77,7 +77,8 @@ Fill in the following fields:
   <Step title="Request an access token">
     Your system requests a token from Entra using the client credentials flow:
 
-    ```bash
+    <CodeGroup>
+    ```bash macOS / Linux
     curl -X POST \
       https://login.microsoftonline.com/{tenant-id}/oauth2/v2.0/token \
       -d "grant_type=client_credentials" \
@@ -86,11 +87,30 @@ Fill in the following fields:
       -d "scope=api://{client-id}/.default"
     ```
 
+    ```powershell Windows
+    Invoke-RestMethod -Method Post `
+      -Uri "https://login.microsoftonline.com/{tenant-id}/oauth2/v2.0/token" `
+      -Body @{
+        grant_type    = "client_credentials"
+        client_id     = "{client-id}"
+        client_secret = "{client-secret}"
+        scope         = "api://{client-id}/.default"
+      }
+    ```
+    </CodeGroup>
+
     The response contains an `access_token`. Pass this as a Bearer token when calling Corgea:
 
-    ```bash
+    <CodeGroup>
+    ```bash macOS / Linux
     curl -H "Authorization: Bearer {access_token}" https://www.corgea.app/api/...
     ```
+
+    ```powershell Windows
+    Invoke-RestMethod -Uri "https://www.corgea.app/api/..." `
+      -Headers @{ Authorization = "Bearer {access_token}" }
+    ```
+    </CodeGroup>
 
     <Note>
       Replace `https://www.corgea.app` with `https://your_instance.corgea.app` if you are on a private deployment.
