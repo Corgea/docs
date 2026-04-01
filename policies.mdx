@@ -65,11 +65,22 @@ A well-structured policy should include the following components:
 
 5. **Projects**: Select which projects to apply this policy to, allowing for environment-specific policies.
 
-6. **Guidance Notes (Optional)**: Add static guidance for developers, such as internal remediation notes, links to internal standards, or implementation tips. This guidance is shown when viewing issues that were affected by the policy.
+6. **File Pattern (Glob)**: Optionally limit a policy to matching files (for example, `src/**/*.py`). Leave empty to apply to all files.
 
-7. **Instruction Type**: Choose how your policy instructions interact with Corgea's built-in policies:
+7. **Guidance Notes (Optional)**: Add static guidance for developers, such as internal remediation notes, links to internal standards, or implementation tips. This guidance is shown when viewing issues that were affected by the policy.
+
+8. **Instruction Type**: Choose how your policy instructions interact with Corgea's built-in policies:
    - **Append to Corgea Default Policy**: Adds your policy instructions to Corgea's built-in policies, preserving both sets of rules. Use this when you want to enhance the default policies with your specific business context, security controls, or environmental details.
    - **Replace Corgea Default Policy**: Your policy instructions completely override Corgea's default behavior. Use this when you want full control over how specific scenarios are handled.
+
+## Policy Playground
+
+You can now use Policy Playground for both creating and updating policies.
+
+- Open an existing **BLAST** or **False Positive** policy directly in Policy Playground from the Policies table.
+- Editing and saving in Policy Playground updates the policy by creating a new version.
+- **Instruction Type** in the editor is shown as two clearly explained options: **Replace Corgea Default Policy** or **Append to Corgea Default Policy**.
+- Leave **Projects**, **File Pattern (Glob)**, or **CWEs** empty when you want that policy to apply globally.
 
 ## Policy Best Practices
 
