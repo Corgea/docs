@@ -77,7 +77,8 @@ Fill in the following fields:
   <Step title="Request an access token">
     Your system requests a token from Entra using the client credentials flow:
 
-    ```bash
+    <CodeGroup>
+    ```bash macOS / Linux
     curl -X POST \
       https://login.microsoftonline.com/{tenant-id}/oauth2/v2.0/token \
       -d "grant_type=client_credentials" \
@@ -86,11 +87,30 @@ Fill in the following fields:
       -d "scope=api://{client-id}/.default"
     ```
 
+    ```powershell Windows
+    Invoke-RestMethod -Method Post `
+      -Uri "https://login.microsoftonline.com/{tenant-id}/oauth2/v2.0/token" `
+      -Body @{
+        grant_type    = "client_credentials"
+        client_id     = "{client-id}"
+        client_secret = "{client-secret}"
+        scope         = "api://{client-id}/.default"
+      }
+    ```
+    </CodeGroup>
+
     The response contains an `access_token`. Pass this as a Bearer token when calling Corgea:
 
-    ```bash
+    <CodeGroup>
+    ```bash macOS / Linux
     curl -H "Authorization: Bearer {access_token}" https://www.corgea.app/api/...
     ```
+
+    ```powershell Windows
+    Invoke-RestMethod -Uri "https://www.corgea.app/api/..." `
+      -Headers @{ Authorization = "Bearer {access_token}" }
+    ```
+    </CodeGroup>
 
     <Note>
       Replace `https://www.corgea.app` with `https://your_instance.corgea.app` if you are on a private deployment.
@@ -107,6 +127,38 @@ Fill in the following fields:
   </Step>
 </Steps>
 
+## Testing with Postman
+
+If you prefer a GUI over curl, you can test the token request and API call directly in Postman.
+
+**Import a curl command**
+
+Postman can convert any of the curl commands above into a request. Click **Import** in the top-left, paste the curl command, and Postman will populate the method, URL, headers, and body automatically.
+
+<Card>
+  <img src="/images/jwt_token/postman_import_curl.png" style={{ borderRadius: '0.5rem' }} alt="Importing a curl command into Postman" />
+</Card>
+
+**Request an access token**
+
+Fill in your `tenant-id`, `client_id`, `client_secret`, and `scope` in the body fields, then send the request. Copy the `access_token` value from the response.
+
+<Card>
+  <img src="/images/jwt_token/postman_request_access.png" style={{ borderRadius: '0.5rem' }} alt="Requesting an access token in Postman using client credentials" />
+</Card>
+
+**Call the Corgea API with the token**
+
+Create a new request to the Corgea endpoint. Under the **Authorization** tab, set the type to **Bearer Token** and paste the `access_token`.
+
+<Card>
+  <img src="/images/jwt_token/postman_call_api_with_token.png" style={{ borderRadius: '0.5rem' }} alt="Calling the Corgea API with a Bearer token in Postman" />
+</Card>
+
+<Note>
+  If your company restricts outbound network access, you may need to configure a proxy. In Postman, go to **Settings → Proxy** and add your corporate proxy. For curl, set the `HTTPS_PROXY` environment variable or pass `--proxy https://your-proxy:port`.
+</Note>
+
 ## Verifying Your Token
 
 Use [jwt.io](https://jwt.io) to decode an access token before configuring Corgea. Paste your token in the debugger and inspect the **Decoded Payload** to confirm the `iss`, `aud`, and `appid` values.
@@ -122,3 +174,49 @@ The highlighted `aud` and `iss` fields are exactly what Corgea checks when valid
 - **401 Unauthorized**: Decode your token at jwt.io and confirm `iss`, `aud`, and `appid` exactly match the values in your Corgea JWT Auth configuration.
 - **Token rejected after rotation**: If you rotated your client secret, ensure the new secret is updated in your CI/CD environment. The Corgea configuration itself does not need to change since it validates token claims, not the secret.
 - **Multiple environments**: Create a separate JWT Auth configuration in Corgea for each application or environment (e.g., staging vs. production) using distinct app registrations with different client IDs.
+
+### Network connectivity issues
+
+If the token request or API call fails with a connection error, use these commands to investigate whether a firewall or proxy is blocking the traffic.
+
+<CodeGroup>
+```bash macOS / Linux
+# Check DNS resolution
+nslookup login.microsoftonline.com
+nslookup www.corgea.app
+
+# Check TCP connectivity on port 443
+nc -zv login.microsoftonline.com 443
+nc -zv www.corgea.app 443
+
+# Trace the network path
+traceroute login.microsoftonline.com
+
+# Test with verbose curl output (shows TLS handshake and redirect chain)
+curl -v https://login.microsoftonline.com
+
+# Test through a proxy if required
+curl -v --proxy https://your-proxy:port https://login.microsoftonline.com
+```
+
+```powershell Windows
+# Check DNS resolution
+Resolve-DnsName login.microsoftonline.com
+Resolve-DnsName www.corgea.app
+
+# Check TCP connectivity on port 443
+Test-NetConnection -ComputerName login.microsoftonline.com -Port 443
+Test-NetConnection -ComputerName www.corgea.app -Port 443
+
+# Trace the network path
+tracert login.microsoftonline.com
+
+# Test with verbose curl output
+curl.exe -v https://login.microsoftonline.com
+
+# Test through a proxy if required
+curl.exe -v --proxy https://your-proxy:port https://login.microsoftonline.com
+```
+</CodeGroup>
+
+If the TCP connection test fails or traceroute stops at an internal hop, contact your network or security team to allow outbound HTTPS (port 443) to `login.microsoftonline.com` and `www.corgea.app`.
