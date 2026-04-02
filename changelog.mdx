@@ -3,6 +3,14 @@ title: "Changelog"
 description: "Product updates and announcements"
 ---
 
+<Update label="2026.04.02" description="v1.61.6">
+  **UI & Experience:**
+  - Improved SAML setup with a more guided configuration form, including ready-to-copy IdP URLs and one-click metadata fetch/populate support for core SAML fields.
+
+  **Reliability & Stability:**
+  - Improved SAML sign-in compatibility by falling back to NameID when email attributes are not provided by the identity provider, reducing failed login scenarios for affected SSO configurations.
+</Update>
+
 <Update label="2026.04.01" description="v1.61.5">
   **New Features:**
   - Enabled incremental scans by default for all organizations, so new and existing workspaces get faster follow-up scan coverage automatically.
