@@ -115,7 +115,8 @@
         {
           "group": "Automation Management",
           "pages": ["jira", "slack", "zapier", "webhooks"]
-        }
+        },
+        "agentic_integrations"
       ]
     },
     {
