@@ -218,6 +218,7 @@ Upon completing the setup, a new SAML metadata link will be provided.
 - **Missing Referer Header**: If you receive a "Missing Referer header" error, check that the HTTP_ORIGIN is correctly configured in the request headers.
 - **No SAML Configuration Found**: If the configuration is missing, ensure that the correct referer URL or email domain is being utilized.
 - **Permission Update**: If a user cannot access the SAML application, verify that their permissions are correctly configured and updated.
+- **ADFS Typed Attribute Validation Error (Self-Hosted)**: If SAML login fails due to an invalid document format error from typed attribute values, enable `PATCH_PYSAML2_QNAME=1` in your deployment environment and restart the service. Use this setting only for affected tenants and coordinate with Corgea support before enabling it.
 
 ## Domain Ownership Conflicts
 
