@@ -3,6 +3,25 @@ title: "Changelog"
 description: "Product updates and announcements"
 ---
 
+<Update label="2026.04.08" description="v1.61.7">
+  **New Features:**
+  - Added filtering on the Policies page so teams can narrow large policy lists faster by relevant criteria. — [Learn more](/policies)
+  - Added scan-type scoping for scan responses, so API consumers can request only the scan categories they need.
+
+  **UI & Experience:**
+  - Added policy-page access enforcement based on content access controls, so users only see policy data for projects they can access. — [Learn more](/policies)
+  - Added policy and scan-settings permission gating so users without `change_project` access no longer see or can open restricted project-setting controls. — [Learn more](/project)
+  - Fixed code-quality CSV/SARIF export behavior and improved filter dropdown spacing for a cleaner export and filtering workflow. — [Learn more](/issue_export)
+
+  **Reliability & Stability:**
+  - Improved SBOM handling by shifting parsing to background workers, reducing request-path load during scan processing.
+  - Improved CI SCA reporting to focus on packages changed in the pull request, reducing dependency-noise in automated results.
+  - Fixed scan attribution so automation-triggered runs are consistently labeled as automation.
+  - Improved scheduled-scan timing so runs respect each schedule's local timezone. — [Learn more](/scheduled-scans)
+  - Improved GitHub webhook ingestion to handle unsupported Unicode payload edge cases more safely.
+  - Improved SSO compatibility for strict XML-validation provider configurations.
+</Update>
+
 <Update label="2026.04.02" description="v1.61.6">
   **UI & Experience:**
   - Improved SAML setup with a more guided configuration form, including ready-to-copy IdP URLs and one-click metadata fetch/populate support for core SAML fields.
