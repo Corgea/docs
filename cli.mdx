@@ -357,6 +357,23 @@ For more options and commands, use:
 corgea --help
 ```
 
+### Debug Mode
+
+To enable debug logs, set `CORGEA_DEBUG=1` before running a command.
+
+<CodeGroup>
+```bash MacOS/Unix
+CORGEA_DEBUG=1 corgea scan
+```
+
+```bash Windows (PowerShell)
+$env:CORGEA_DEBUG="1"
+corgea scan
+```
+</CodeGroup>
+
+When debug mode is enabled, failed upload requests now include the HTTP status and response body in debug output, which helps with troubleshooting.
+
 ## Release Notes
 
 For full release notes, please visit our [GitHub releases page](https://github.com/corgea/cli/releases).
