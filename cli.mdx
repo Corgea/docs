@@ -360,3 +360,21 @@ corgea --help
 ## Release Notes
 
 For full release notes, please visit our [GitHub releases page](https://github.com/corgea/cli/releases).
+
+## Troubleshooting Network Requests
+
+If you need to troubleshoot API communication, set `CORGEA_DEBUG=1` before running a CLI command. This enables verbose request/response logging, including headers and cookies.
+
+<CodeGroup>
+```bash MacOS/Unix
+export CORGEA_DEBUG=1
+corgea scan
+```
+
+```bash Windows
+$env:CORGEA_DEBUG="1"
+corgea scan
+```
+</CodeGroup>
+
+Cookies are handled automatically by the CLI during a command run. Because debug logs can include sensitive values, disable `CORGEA_DEBUG` after troubleshooting.
