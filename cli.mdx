@@ -158,6 +158,8 @@ To control the project name shown in Corgea for uploaded reports, use `--project
 corgea upload path/to/report.json --project-name my-service
 ```
 
+For large reports, the CLI uploads data in chunks. During chunked uploads, the CLI now verifies server upload progress and exits with a non-zero status if the server reports an unexpected offset or if the upload completes without returning a scan ID.
+
 #### Scan Your Codebase
 
 To scan your current directory using the default BLAST scanner:
