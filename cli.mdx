@@ -25,7 +25,7 @@ Corgea CLI is a powerful developer tool that helps you find and fix security vul
 Before using the Corgea CLI, ensure you have:
 
 - **Corgea account**: An active Corgea account.
-- **API Token**: A valid API token from your Corgea dashboard.
+- **Token for authentication**: A valid Corgea API token or JWT access token.
 
 ## Installation Guide
 
@@ -95,24 +95,24 @@ corgea login --scope your-company
 ```
 
 
-#### Login with API Key (recommended for CI/CD pipelines)
+#### Login with token (API token or JWT)
 
-For automated pipelines and CI/CD environments, use API key authentication which provides a more reliable, non-interactive authentication method:
+For automated pipelines and CI/CD environments, use token authentication for a reliable, non-interactive login flow. You can pass either a Corgea API token or a JWT access token:
 
 ```bash
-corgea login YOUR_API_TOKEN
+corgea login YOUR_TOKEN
 ```
 
-You can also set the API token in an environment variable:
+You can also set the token in an environment variable:
 
 <CodeGroup>
 ```bash MacOS/Unix
-export CORGEA_API_TOKEN="your-api-token-here"
+export CORGEA_TOKEN="your-token-here"
 corgea login
 ```
 
 ```bash Windows
-$env:CORGEA_API_TOKEN="your-api-token-here"
+$env:CORGEA_TOKEN="your-token-here"
 corgea login
 ```
 </CodeGroup>
@@ -122,7 +122,7 @@ corgea login
 Customers using a single-tenant instance need to configure the CLI to point to their specific instance using the `--url` option:
 
 ```bash
-corgea login --url https://<<Your Instance>>.corgea.app YOUR_API_TOKEN
+corgea login --url https://<<Your Instance>>.corgea.app YOUR_TOKEN
 ```
 
 You can also set the URL in an environment variable and the CLI will automatically detect it:
@@ -130,13 +130,13 @@ You can also set the URL in an environment variable and the CLI will automatical
 <CodeGroup>
 ```bash MacOS/Unix
 export CORGEA_URL="https://<<Your Instance>>.corgea.app"
-export CORGEA_API_TOKEN="your-api-token-here"
+export CORGEA_TOKEN="your-token-here"
 corgea login
 ```
 
 ```bash Windows
 $env:CORGEA_URL="https://<<Your Instance>>.corgea.app"
-$env:CORGEA_API_TOKEN="your-api-token-here"
+$env:CORGEA_TOKEN="your-token-here"
 corgea login
 ```
 </CodeGroup>
