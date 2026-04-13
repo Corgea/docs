@@ -22,6 +22,28 @@ A Corgea API token is always tied to an individual user. If that user leaves or 
 3. Your system passes the token as a `Bearer` token in the `Authorization` header when calling the Corgea API.
 4. Corgea validates the token signature against the IdP's public keys and checks that the `iss`, `aud`, and `appid`/`cid` claims match your registered configuration.
 
+## Using JWT with Corgea CLI
+
+You can use a JWT access token directly with the CLI login flow:
+
+```bash
+corgea login YOUR_JWT_TOKEN
+```
+
+Or set it via environment variable:
+
+<CodeGroup>
+```bash macOS / Linux
+export CORGEA_TOKEN="your-jwt-access-token"
+corgea login
+```
+
+```powershell Windows
+$env:CORGEA_TOKEN="your-jwt-access-token"
+corgea login
+```
+</CodeGroup>
+
 ## Setting Up JWT Auth in Corgea
 
 Navigate to **Settings → Integrations** and click **+ Add** in the **JWT Auth** section.
