@@ -3,6 +3,33 @@ title: "Changelog"
 description: "Product updates and announcements"
 ---
 
+<Update label="2026.04.15" description="v1.62.1">
+  **New Features:**
+  - Added team-based scheduled scan targeting, so you can schedule scans for all projects assigned to selected teams.
+  - Added an internal API to reuse prior false-positive decisions by fingerprint, improving consistency for repeated findings across scans.
+  - Added support for Corgea-managed read-only policies, including clearer handling for immutable default policy workflows.
+
+  **Security & Permissions:**
+  - Fixed service-principal JWT authentication for Blocking Rules API requests. — [Learn more](/jwt-token)
+  - Improved Entra JWT issuer handling by normalizing missing trailing slashes in issuer configuration, reducing token-validation setup errors. — [Learn more](/jwt-token)
+  - Fixed a SAML provider compatibility issue that caused sign-in failures for affected SSO configurations.
+
+  **UI & Experience:**
+  - Fixed issue details metadata presentation by removing incorrect query-name fallback values.
+  - Fixed issue details rendering regressions so explanation and fix content display reliably.
+  - Fixed First Detected timestamps so issue views and issue APIs now reflect the true first detection time.
+
+  **Reliability & Stability:**
+  - Improved pull request scan behavior by superseding older pending scans when many commits arrive quickly, so the latest commit scan is prioritized.
+  - Fixed scheduled-scan execution reliability by correcting cron command path handling and ensuring next-run calculation updates after schedule changes.
+</Update>
+
+
+<Update label="2026.04.09" description="v1.62.0">
+  **Security & Permissions:**
+  - Expanded domain-level registration restrictions to cover additional domains and their visually similar homograph variants as part of ongoing abuse prevention controls.
+</Update>
+
 <Update label="2026.04.09" description="v1.61.9">
   **UI & Experience:**
   - Fixed scheduled scan list day-of-week display so weekly schedules now show the correct weekday. — [Learn more](/scheduled-scans)
