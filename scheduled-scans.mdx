@@ -7,7 +7,7 @@ description: 'Automatically run security scans on a recurring schedule'
   **Prerequisite** You have a connected repository (GitHub, GitLab, Azure DevOps, or Bitbucket) and Scheduled Scans enabled on your plan. See [Corgea pricing](https://corgea.com/pricing/) to enable this feature.
 </Info>
 
-Scheduled Scans let you automatically trigger security scans across your projects on a recurring cadence — without manual intervention. You can scope scans to specific projects or by tag, choose which scan types to run, and control the frequency from daily to yearly.
+Scheduled Scans let you automatically trigger security scans across your projects on a recurring cadence — without manual intervention. You can scope scans to specific projects, tags, or teams, choose which scan types to run, and control the frequency from daily to yearly.
 
 ## Viewing Scheduled Scans
 
@@ -19,7 +19,7 @@ Navigate to the **Scheduled Scans** page from the Policy Management section. Thi
 
 Each row shows:
 - **Name** — a label for the schedule
-- **Scope** — how many projects or tags are targeted
+- **Scope** — how many projects, tags, or teams are targeted
 - **Scan Types** — which scanners will run (e.g., BLAST, Secrets, PII)
 - **Frequency** — how often the scan runs
 - **Next Run** — when the scan is next scheduled to execute
@@ -44,6 +44,7 @@ Click **New Schedule** to open the schedule creation form.
     Choose how to target projects:
     - **Projects** — pick one or more specific repositories from your connected integrations
     - **Tags** — target all projects that share one or more labels (useful for scanning a service tier, team, or environment)
+    - **Teams** — target projects that are assigned to one or more selected teams
 
     <Tip>
       Using tags makes it easy to automatically include new projects in a schedule as your organization grows — no need to update the schedule manually.
@@ -102,7 +103,7 @@ Click **Delete** to permanently remove a schedule. This does not affect scans th
 
 When a scheduled scan runs, Corgea:
 
-1. Resolves the target projects (directly selected, or matched via tags)
+1. Resolves the target projects (directly selected, or matched via tags or teams)
 2. Downloads the latest code from the configured branch (defaults to the project's default branch)
 3. Runs the selected scan types against the code
 4. Creates a scan record linked to the schedule run
@@ -117,7 +118,7 @@ You can view results from scheduled scans the same way as any other scan — thr
   </Accordion>
 
   <Accordion title="No projects found for schedule">
-    If a schedule has scope type **Projects** but no projects are selected, or scope type **Tags** but no projects match the configured tags, the scan will be skipped. Edit the schedule to verify the scope configuration.
+    If a schedule has scope type **Projects** but no projects are selected, scope type **Tags** but no projects match the configured tags, or scope type **Teams** but no projects are assigned to the selected teams, the scan will be skipped. Edit the schedule to verify the scope configuration.
   </Accordion>
 
   <Accordion title="Scan failed for a project">
