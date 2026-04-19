@@ -139,6 +139,14 @@ Use filters on the Dependencies view to narrow SCA results:
 - **License**: Filter by dependency license
 - **Fix Available**: Show only issues with a known fix
 
+### Dependency Relationship Indicators
+
+In scan results, package groups include badges that show where vulnerable dependencies appear:
+- **Direct**: The vulnerable package is a direct dependency in your manifest.
+- **Transitive**: The vulnerable package is pulled in through another dependency.
+
+On the SCA issue details page, a **Sub-dependencies** badge is shown when the selected package has nested dependencies.
+
 ### Supported Ecosystems
 
 <Accordion title="View All 25+ Supported Ecosystems">
